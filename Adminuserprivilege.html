@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Log Page</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/adminuserlist.css">
+</head>
+
+<body>
+    <header>
+        <h2>
+            <label for="">
+                <span class="las la-bars"></span>
+            </label>
+            Userlist
+        </h2><br>
+        <div class="search-wrapper">
+            <span class="las la-search"></span>
+            <input type="search" placeholder="Search here">
+        </div>
+        <div class="user-wrapper">
+            <img src="icon.jpg" width= "30px" height="30px" alt="">
+            <div> 
+                <h4>name</h4>
+                <small>Admin</small>
+            </div>
+        </div>
+    </header>
+
+
+   <div class="sidebar">
+        <div class="sidebar-brand">
+            <h1><span class="lab la-accusoft"></span> SOARS</h1>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="Adminhome.html" ><span class="las la-igloo"></span>
+                    <span>Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="Adminaccount.html"><span class="las la-user-circle"></span>
+                    <span>My Account</span></a>
+                </li>
+                <li>
+                    <a href="Adminaudit.html" ><span class="las la-clipboard-list"></span>
+                    <span>Audit log</span></a>
+                </li>
+                <li>
+                    <a href="Adminuserlist.html"><span class="las la-users"></span>
+                    <span>Userlist</span></a>
+                </li>
+                <li>
+                    <a href="Adminorglist.html"><span class="las la-users"></span>
+                    <span>Organization list</span></a>
+                </li>
+                <li>
+                    <a href="Adminuserprivilege.html"class="active"><span class="las la-users"></span>
+                    <span>User Privillege </span></a>
+                </li>
+                <li>
+                    <a href=""><span class="las la-users"></span>
+                    <span>Log out</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <main>
+        <div class="container mt-4">
+            <h2>User List</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>johndoe@example.com</td>
+                        <td>User</td> <td>
+                            <button class="btn btn-info">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>janesmith@example.com</td>
+                        <td>Admin</td>
+                        <td>
+                            <button class="btn btn-info">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Add more user rows here -->
+                </tbody>
+            </table>
+        </div>
+    
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </main>
+    </body>
+    </html>
+            
+   
+
