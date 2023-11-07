@@ -170,6 +170,8 @@ return [
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
 
+    Yajra\DataTables\DataTablesServiceProvider::class,
+
     /*
     |--------------------------------------------------------------------------
     | Class Aliases
