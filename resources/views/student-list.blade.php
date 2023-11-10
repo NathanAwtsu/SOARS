@@ -48,6 +48,7 @@
         <h5 class="modal-title fs-5" id="studentModalLabel">Student Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <!--Form-->
       <div class="modal-body">
       <form action="javascript:void(0)" id="studentForm" name="studentForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="id" id="id">
@@ -131,11 +132,11 @@
     </div>
 
     <div class="col-sm-offset-2 col-sm-10"><br/>
-    <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
+        <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
     </div>
 </form>
 
-      </div>
+</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
@@ -151,7 +152,7 @@
             }
         });
 
-        $('#student-crud').DataTable({
+        $('#student-list').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{ url('student-list') }}",
@@ -172,14 +173,58 @@
         });
 
     });
+
+    function editF(id){
+        $.ajax({
+            type: "POST",
+            url: "{{ url('edit') }}",
+            data: {student_id: id},
+            dataType: 'json',
+            success: function(res){
+                console.log(res);
+                $('#student-Modal').html("Edit Information");
+                $('#studentModal').modal('show');
+                $('#student_id').val(res.student_id);
+                $('#last_name').val(res.last_name);
+                $('#middle_initial').val(res.middle_initial);
+                $('#first_name').val(res.first_name);
+                $('#email').val(res.email);
+                $('#course_id').val(res.course_id);
+                $('#member_status').val(res.member_status);
+                $('#roles').val(res.roles);
+                $('#phone_number').val(res.phone_number);
+
+
+            }
+        });
+    }
+
+    function deleteF(id){
+        if (confirm("Delete Student Record?") == true){
+            var id = id;
+
+            $.ajax({
+                type: "POST",
+                url: "{{ url('delete') }}",
+                data: { student_id:id },
+                dataType: 'json',
+                success: function(res){
+                    var oTable = $("#student-list").dataTable();
+                    oTable.fnDraw(false);
+                }
+            });
+        }
+    }
     
 
     function add(){
         $('#studentForm').trigger("reset");
-        $('#student-Modal').html("Add Employee");
+        $('#student-Modal').html("Add Student");
         $('#studentModal').modal('show');
         $('#id').val('');
     }
+
+
 
 $('#studentForm').submit(function(s){
     s.preventDefault();
@@ -194,10 +239,12 @@ $('#studentForm').submit(function(s){
         success: (data) => {
             console.log(data);
             $('#studentModal').modal('hide');
+            var oTable=  $('#student-list').dataTable();
+            oTable.fnDraw(false);
             $('#btn-save').html('Submit');
             $('#btn-save').attr("disabled", false);
         },
-        error: function(data){
+        error: function(data){ 
             console.log(data);
         }
     });

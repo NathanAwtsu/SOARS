@@ -40,7 +40,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('studlist') }}">
-                                Student List
+                                Students List
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('courselist') }}">
+                                Courses List
                             </a>
                         </li>
                         <li class="nav-item">

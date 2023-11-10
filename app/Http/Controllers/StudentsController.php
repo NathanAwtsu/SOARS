@@ -24,7 +24,7 @@ class StudentsController extends Controller
 
     public function store(Request $request)
     {
-        $studentId = $request->id;
+        $studentId = $request->student_id;
   
         $student   =   Students::updateOrCreate(
                     [
@@ -40,9 +40,25 @@ class StudentsController extends Controller
                         'member_status' => $request->member_status,
                         'user_roles' => $request->user_roles,
                         'username' => $request->username,
-                        'phone_number' => $request->phone_number    
+                        'phone_number' => $request->phone_number,    
                     ]);    
                           
         return Response()->json($student);
+    }
+
+    public function edit(Request $request)
+    {
+        $where = array('student_id' => $request->student_id);
+        $student = Students::where($where)->first();
+
+         return Response()->json($student);
+    }
+
+    public function delete(Request $request)
+    {
+        $student= Students::where('student_id',$request->student_id)->delete();
+
+        return Response()->json($student);
+
     }
 }
