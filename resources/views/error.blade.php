@@ -35,7 +35,11 @@
                     
                 </div>
 
-    
+                <div class="form-group">
+                    @isset($_GET['credential'])
+                        <h3 style="text-align: center; color: orangered">Your email or your password must be incorrect</h3>
+                    @endisset
+                </div>
                 <div>
                 <button type="submit" id="loginButton">{{ __('Login')}}</button>
                 @if (Route::has('password.request'))
@@ -49,14 +53,6 @@
         </div>
     </div>
 </center>
-<!---<script>
-    document.getElementById('loginButton').addEventListener('click', function() {
-        redirectToOsaDashboard();
-    });
 
-    function redirectToOsaDashboard() {
-        window.location.href = 'OSAdashboard.html';
-    }
-</script>--->
 @endsection
 
