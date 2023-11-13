@@ -69,7 +69,7 @@ class LoginController extends Controller
             }
 
         }else{
-            return redirect('/login')->with('error', 'BAWAL');
+            return redirect('/authentication_error')->with('error', 'BAWAL');
         }
     }
 }

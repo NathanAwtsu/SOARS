@@ -1,3 +1,24 @@
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'SOARS') }}</title>
+
+    <!-- Fonts -->
+    
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/OSAgeneral.css')}}">
+    
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+</head>
+<body>
+
 
 <!-- Sidebar portion -->
 <div class="container-fluid">
@@ -91,34 +112,3 @@
     </div>
 </div>
 
-<main>
-    <div class="card-table">
-
-        
-        <div class="card">
-            
-           <a href=""><h2>Messages</h2></a>
-            <p style="font-size: 30px;">20</p>
-        </div>
-        <div class="card">
-            
-            <a href=""><h2>Activities</h2></a>
-            <p style="font-size: 30px;">25</p>
-        </div>
-        <div class="card">
-            
-            <a href=""><h2>Organization Activation</h2></a>
-            <p style="font-size: 30px;">100</p>
-        </div>
-        <div class="card">
-            
-            <a href="OSAreports.html"><h2>Reports</h2></a>
-            <p style="font-size: 30px;">70</p>
-        </div>
-       
-    </div>
-    
-</main>
-<script src="/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
-</body>
-</html>

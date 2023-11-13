@@ -16,7 +16,7 @@ use App\Http\Controllers\StudentsController;
 |
 */
 
-Route::get('/', function () {return view('welcome');});
+Route::get('/', function () {return view('soars');});
 
 Auth::routes();
 
@@ -32,8 +32,13 @@ Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentController::class, 'delete']);
 
+//Routes for OSA
 Route::get('/osaemp', function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
+
+//End of Routes for OSA
 
 Route::get('/studentleader', function(){return view('studentleader');})->name('studentleader')->middleware('studentleader');
 
 Route::get('/member', function(){return view('member');})->name('member')->middleware('member');
+
+Route::get('/authentication_error'. function (){return view('authentication_error');});
