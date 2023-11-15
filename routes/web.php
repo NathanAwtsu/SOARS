@@ -17,9 +17,11 @@ use App\Http\Controllers\StudentsController;
 */
 
 Route::get('/', function () {return view('soars');});
+Route::get('/soars', function () {return view('soars');});
 
 Auth::routes();
 
+//Static RSO Pages
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/admin', function(){return view('admin');})->name('admin')->middleware('admin');
@@ -34,6 +36,7 @@ Route::post('delete', [StudentController::class, 'delete']);
 
 //Routes for OSA
 Route::get('/osaemp', function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
+Route::get('/osaemp/dashboard', function (){return view('OSA/dashboard');});
 
 //End of Routes for OSA
 
@@ -41,4 +44,8 @@ Route::get('/studentleader', function(){return view('studentleader');})->name('s
 
 Route::get('/member', function(){return view('member');})->name('member')->middleware('member');
 
+//Login Timeout
+Route::get('/soars-timeout?timeout=true');
+
+//Credential Errors
 Route::get('error', function(){return view('error');});

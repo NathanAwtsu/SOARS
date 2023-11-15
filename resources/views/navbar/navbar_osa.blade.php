@@ -20,15 +20,15 @@
 <body>
 
 <!--Hamburger Menu-->
-<nav id="sidebar" class="navbar bg-body-tertiary" >
-    <div class="container-fluid">
+<nav class="navbar bg-body-tertiary" style="background-color: #064b96 !important;" >
+    <div class="container-fluid" >
         <!--Toggler-->
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         
         <div class="d-flex align-items-center">
             <span class="navbar-toggler-icon"></span>
             <img src="/photos/OSA LOGO.png" alt="" style="max-width: 50px; margin-right: 6px; margin-left: 20px">
-            <h1 style="margin-top:10px">SOARS</h1><br> 
+            <h1 style="margin-top:10px; color:white;">SOARS</h1><br> 
         </div>
       </button>
       
@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="OSAdashboard.html" style="color:white;">
+                    <a class="nav-link" href="{{url('/osaemp/dashboard')}}" style="color:white;">
                         Dashboard
                     </a>
                 </li>

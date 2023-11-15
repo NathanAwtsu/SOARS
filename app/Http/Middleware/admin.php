@@ -17,7 +17,7 @@ class admin
     public function handle(Request $request, Closure $next): Response
     {
         if(!Auth::check()){
-            return redirect('/login');
+            return redirect('/soars?timeout=true');
         }
             //admin
         $user=Auth::user();
