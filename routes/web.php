@@ -50,7 +50,6 @@ Route::get('/studentleader', function(){return view('studentleader');})->name('s
 
 Route::get('/member', function(){return view('member');})->name('member')->middleware('member');
 
-Route::get('/authentication_error', function (){return view('authentication_error');});
 //Login Timeout
 Route::get('/soars-timeout?timeout=true');
 

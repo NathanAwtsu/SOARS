@@ -69,7 +69,7 @@ class LoginController extends Controller
             }
 
         }else{
-            return redirect('/error?credential=404')->with('error', 'Try again.');
+            return redirect('/error?credential=404')->with('error', 'BAWAL');
         }
     }
 }
