@@ -35,6 +35,12 @@
                     
                 </div>
 
+                <div class="form-group">
+                    @isset($_GET['timeout'])
+                        <h3 style="text-align: center; color: orangered">You've been automatically Logged out.</h3>
+                    @endisset
+                </div>
+
     
                 <div>
                 <button type="submit" id="loginButton">{{ __('Login')}}</button>
@@ -49,14 +55,6 @@
         </div>
     </div>
 </center>
-<!---<script>
-    document.getElementById('loginButton').addEventListener('click', function() {
-        redirectToOsaDashboard();
-    });
 
-    function redirectToOsaDashboard() {
-        window.location.href = 'OSAdashboard.html';
-    }
-</script>--->
 @endsection
 
