@@ -51,7 +51,7 @@
             <ul class="nav flex-column">
                 
                 <li class="nav-item">
-                    <a class="nav-link active" href="OSAprofile.html" style="color:white;">
+                    <a class="nav-link active" href="{{url('/osaemp/user')}}" style="color:white;">
                         {{Auth::user()->username}}
                     </a>
                 </li>
@@ -61,7 +61,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="OSAreports.html" style="color:white;">
+                    <a class="nav-link" href="" style="color:white;">
                         Reports
                     </a>
                 </li>
@@ -81,7 +81,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="OSAuserlist.html" style="color:white;">
+                    <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white;">
                         User List
                     </a>
                 </li>

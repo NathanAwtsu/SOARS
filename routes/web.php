@@ -24,11 +24,14 @@ Auth::routes();
 //Static RSO Pages
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//CourseController
 Route::get('/admin', function(){return view('admin');})->name('admin')->middleware('admin');
 Route::get('/course-list', [CoursesController::class, 'courselist'])->name('courselist');
 Route::post('stores', [CoursesController::class, 'stores']);
 Route::post('edits', [CoursesController::class, 'edit']);
 Route::post('deletes', [CoursesController::class, 'delete']);
+
+//StudentController
 Route::get('/student-list', [StudentsController::class, 'studlist'])->name('studlist');
 Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
@@ -37,6 +40,8 @@ Route::post('delete', [StudentController::class, 'delete']);
 //Routes for OSA
 Route::get('/osaemp', function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
 Route::get('/osaemp/dashboard', function (){return view('OSA/dashboard');});
+Route::get('/osaemp/user', function (){return view('OSA/user');});
+Route::get('/osaemp/userlist', function (){return view('OSA/userlist');});
 
 //End of Routes for OSA
 
