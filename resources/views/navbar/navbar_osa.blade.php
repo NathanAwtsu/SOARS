@@ -19,96 +19,93 @@
 </head>
 <body>
 
-
-<!-- Sidebar portion -->
-<div class="container-fluid">
-    <div class="row">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
-                <div class="container">
-                    <a class="navbar-brand" style="margin-left:200px"><h2>Dashboard</h2></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <form class="form-inline">
-                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-primary" type="submit">Search</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+<!--Hamburger Menu-->
+<nav id="sidebar" class="navbar bg-body-tertiary" >
+    <div class="container-fluid">
+        <!--Toggler-->
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        
+        <div class="d-flex align-items-center">
+            <span class="navbar-toggler-icon"></span>
+            <img src="/photos/OSA LOGO.png" alt="" style="max-width: 50px; margin-right: 6px; margin-left: 20px">
+            <h1 style="margin-top:10px">SOARS</h1><br> 
+        </div>
+      </button>
+      
+      <!--Content-->
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color:#064b96;">
+        <div class="offcanvas-header">
+            <div class="sidebar-brand">
+                <div class="d-flex align-items-center">
+                    <img src="/photos/OSA LOGO.png" alt="" style="max-width: 50px; margin-right: 6px;">
+                    <h1 style="color:white;">SOARS</h1><br> 
                 </div>
-            </nav>
-        </header>
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
-            <div class="position-sticky">
-                <ul class="nav flex-column">
-                    <div class="sidebar-brand">
-                        <div class="d-flex align-items-center">
-                            <img src="/photos/OSA LOGO.png" alt="" style="max-width: 50px; margin-right: 6px;">
-                            <h1>SOARS</h1><br> 
-                        </div>
-                        <div class="admin" style="padding-left: 70px; padding-bottom: 0px;">
-                            <h4>OSA</h4>
-                        </div>
-                    </div>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="OSAprofile.html">
-                            {{Auth::user()->username}}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="OSAdashboard.html">
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="OSAreports.html">
-                            Reports
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
-                            Organization Activation
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="OSAapproval.html">
-                            Approval Request
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="OSAaudit.html">
-                            Audit Log
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="OSAuserlist.html">
-                            User List
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="OSAorglist.html">
-                            Organization List
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
+                <div class="admin" style="padding-left: 70px; padding-bottom: 0px;">
+                    <h4 style="color:white;">OSA</h4>
+                </div>
             </div>
-        </nav>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav flex-column">
+                
+                <li class="nav-item">
+                    <a class="nav-link active" href="OSAprofile.html" style="color:white;">
+                        {{Auth::user()->username}}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="OSAdashboard.html" style="color:white;">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="OSAreports.html" style="color:white;">
+                        Reports
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="" style="color:white;">
+                        Organization Activation
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="OSAapproval.html" style="color:white;">
+                        Approval Request
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="OSAaudit.html" style="color:white;">
+                        Audit Log
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="OSAuserlist.html" style="color:white;">
+                        User List
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="OSAorglist.html" style="color:white;">
+                        Organization List
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}" 
+                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();" style="color:white;">
+                        {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" style="color:white;">
+                        @csrf
+                    </form>
+                </li>
+            </ul>
+          
+        </div>
+        <!--End of Toggler-->
+      </div>
     </div>
-</div>
+  </nav>
 
+
+@yield('content')
