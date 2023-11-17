@@ -22,10 +22,14 @@ Route::get('/soars', function () {return view('soars');});
 Auth::routes();
 
 //Static RSO Pages
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 //CourseController
 Route::get('/admin', function(){return view('admin');})->name('admin')->middleware('admin');
+//Admin
+Route::middleware(['admin'])->group(function () {
+    
+Route::get('/admin', function(){return view('Admin.admin');})->name('admin');
 Route::get('/course-list', [CoursesController::class, 'courselist'])->name('courselist');
 Route::post('stores', [CoursesController::class, 'stores']);
 Route::post('edits', [CoursesController::class, 'edit']);
@@ -36,6 +40,9 @@ Route::get('/student-list', [StudentsController::class, 'studlist'])->name('stud
 Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentController::class, 'delete']);
+});
+Route::get('/audit-log', function () {return view('Admin.audit_log');})->name('audit_log');
+//End of Admin
 
 //Routes for OSA
 Route::get('/osaemp', function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');

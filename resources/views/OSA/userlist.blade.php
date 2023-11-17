@@ -1,4 +1,4 @@
-@extends('OSA.userlist')
+@extends('navbar.navbar_osa')
 
 @section('content')
 

@@ -110,4 +110,3 @@
 
 
 @yield('content')
-
