@@ -75,14 +75,10 @@
                         Approval Request
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="OSAaudit.html" style="color:white;">
-                        Audit Log
-                    </a>
-                </li>
+            
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white;">
-                        User List
+                        Student List
                     </a>
                 </li>
                 <li class="nav-item">

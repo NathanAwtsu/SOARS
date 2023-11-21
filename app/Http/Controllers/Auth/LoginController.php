@@ -65,7 +65,7 @@ class LoginController extends Controller
                     break;
                 default:
                     Auth::logout();
-                    return redirect('/login')->with('error', 'Something went wrong. Try again.');
+                    return redirect('/soars')->with('error', 'Something went wrong. Try again.');
             }
 
         }else{
