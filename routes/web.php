@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\OrganizationController;
 
 
 /*
@@ -18,7 +19,6 @@ use App\Http\Controllers\StudentsController;
 
 Route::get('/', function () {return view('soars');});
 Route::get('/soars', function () {return view('soars');});
-
 Auth::routes();
 
 //Static RSO Pages
@@ -44,11 +44,16 @@ Route::post('delete', [StudentController::class, 'delete']);
 Route::get('/audit-log', function () {return view('Admin.audit_log');})->name('audit_log');
 //End of Admin
 
+//OrganizationController
+
+Route::get('/osaemp/organizations-list', [OrganizationController::class, 'orglist'])->name('orglist');
+
 //Routes for OSA
 Route::get('/osaemp', function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
 Route::get('/osaemp/dashboard', function (){return view('OSA/dashboard');});
 Route::get('/osaemp/user', function (){return view('OSA/user');});
 Route::get('/osaemp/userlist', function (){return view('OSA/userlist');});
+
 
 //End of Routes for OSA
 
