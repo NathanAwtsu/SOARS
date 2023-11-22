@@ -1,7 +1,5 @@
-
 @extends('navbar.navbar_osa')
 @section('content')
-
 
 <main>
     <div class="card-table">
@@ -31,4 +29,9 @@
     </div>
     
 </main>
+
+
+
+
+@extends('layouts.footer')
 @endsection

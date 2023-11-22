@@ -19,6 +19,7 @@ use App\Http\Controllers\OrganizationController;
 
 Route::get('/', function () {return view('soars');});
 Route::get('/soars', function () {return view('soars');});
+Route::get('/soar/session_expired', function () {return view('session_expired');});
 Auth::routes();
 
 //Static RSO Pages
