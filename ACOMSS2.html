@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(ACOMSS)</title>
+    <!-- Add the Bootstrap CSS CDN link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-oq1m2W5/Hh7I8nuFf2SStq47nzIT4i5t+u1uFLEx4hoFJhBs7qqWgHA+iaNT8j3HOFFOsRHYjIbSdM2Qzne1PyQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="Studentgeneral.css">
+    <style>
+        .custom-navbar {
+            overflow-x: hidden;
+        }
+    </style>
+    
+</head>
+<body>
+    <main>
+    <!-- Sidebar portion  -->
+    <div class="container-fluid">
+        <div class="row">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
+                    <div class="container">
+                        <a class="navbar-brand" href="#"><h2>Adamson Computer Science Students Society (ACOMSS)</h2></a> 
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <form class="form-inline">
+                                        
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <div class="sidebar-brand">
+                            <div class="d-flex align-items-center">
+                                <img src="OSA LOGO.png" alt="" style="max-width: 50px; margin-right: 6px;">
+                                <h1>SOARS</h1><br> 
+                            </div>
+                            <div class="admin" style="padding-left: 70px;">
+                               
+                            </div>
+                        </div>
+                       
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="goBack()">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-arrow-left mr-1"></i>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;Go back
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                       
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+
+   <main>
+    <div class="container mt-4">
+        <div class="btn-group mb-4" role="group" aria-label="Basic example">
+            <button type="button" style="margin-left: 230px;" class="btn btn-primary" onclick="showMissionVision()">Mission and Vision</button>
+            <button type="button" class="btn btn-primary" onclick="showListOfOfficers()">List of Officers</button>
+            <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
+            <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
+            <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>
+            
+        </div> <br>
+
+       
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="container mt-4">
+                <!-- ... other content ... -->
+                
+                <div id="missionVisionContent" class="card mt-1" style="height: 500px;">
+                    <div class="card-body">
+                        <form action="update_mission_vision.php" method="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="imageUpload">Edit Image:</label><br>
+                                    <input type="file" id="imageUpload" name="imageUpload" accept=".jpg, .jpeg, .png">
+                                    <img id="previewImage" src="<?php echo $imagePath; ?>" alt="Vision and Mission Image" class="img-fluid mb-3">
+                                </div>
+                                <div class="col-md-8">
+                                    <h4 class="card-title">Vision and Mission</h4>
+                
+                                    <!-- Editable Vision -->
+                                    <label for="editableVision">Edit Vision:</label><br>
+                                    <textarea id="editableVision" name="editableVision" rows="4" cols="50"><?php echo $visionContent; ?></textarea><br><br>
+                
+                                    <!-- Editable Mission -->
+                                    <label for="editableMission">Edit Mission:</label><br>
+                                    <textarea id="editableMission" name="editableMission" rows="4" cols="50"><?php echo $missionContent; ?></textarea><br><br>
+                
+                                    <!-- Submit Button -->
+                                    <input type="submit" value="Save Changes">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+        
+               <!-- ... rest of the content ... -->
+               <div id="listOfOfficersContent" class="card mt-4" style="height: 800px ;">
+                <div class="card-body">
+                    <h4 class="card-title">List of Officers</h4><br>
+            
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="officer-card">
+                                <img src="icon.jpg" alt="Jerome Alvez" class="img-fluid" width="100">
+                                <p class="officer-name">Mr. Jerome T. Alvez</p>
+                                <p class="officer-position">Adviser </p>
+                                <p class="Contact">sampleemail.@adu.edu.ph </p>
+                            </div>
+                        </div>
+            
+                        <div class="col-md-4">
+                            <div class="officer-card">
+                                <img src="icon.jpg" alt="Jane Smith" class="img-fluid" width="100">
+                                <p class="officer-name">Jane Smith</p>
+                                <p class="officer-position">AUSG Representative </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="officer-card">
+                                <img src="icon.jpg" alt="Jane Smith" class="img-fluid" width="100">
+                                <p class="officer-name">Jane Smith</p>
+                                <p class="officer-position">President </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="officer-card">
+                                <img src="icon.jpg" alt="Jane Smith" class="img-fluid" width="100">
+                                <p class="officer-name">Jane Smith</p>
+                                <p class="officer-position">Vice President for Internal Affairs </p>
+                            </div>
+                        </div>
+            
+                        <div class="col-md-4">
+                            <div class="officer-card">
+                                <img src="icon.jpg" alt="Jane Smith" class="img-fluid" width="100">
+                                <p class="officer-name">Jane Smith</p>
+                                <p class="officer-position">Vice President for External Affairs</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="officer-card">
+                                <img src="icon.jpg" alt="Jane Smith" class="img-fluid" width="100">
+                                <p class="officer-name">Jane Smith</p>
+                                <p class="officer-position">Secretary </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="officer-card">
+                                <img src="icon.jpg" alt="Jane Smith" class="img-fluid" width="100">
+                                <p class="officer-name">Jane Smith</p>
+                                <p class="officer-position">Treasurer</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="officer-card">
+                                <img src="icon.jpg" alt="Jane Smith" class="img-fluid" width="100">
+                                <p class="officer-name">Jane Smith</p>
+                                <p class="officer-position">Auditor</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="officer-card">
+                                <img src="icon.jpg" alt="Jane Smith" class="img-fluid" width="100">
+                                <p class="officer-name">Jane Smith</p>
+                                <p class="officer-position">PRO</p>
+                            </div>
+                        </div>
+                        <!-- Add more columns as needed -->
+                    </div>
+                </div>
+            </div>
+            
+            <div id="ContactUs" class="card mt-4">
+                <div class="card-body">
+                    <form action="update_contact_info.php" method="post">
+                        <h4 class="card-title">Contact Us</h4>
+                        
+                        <!-- Editable Email -->
+                        <label for="editableEmail">Edit Email:</label><br>
+                        <input type="text" id="editableEmail" name="editableEmail" value="acomss@adamson.edu.ph"><br><br>
+            
+                        <!-- Editable Facebook Link -->
+                        <label for="editableFBLink">Edit Facebook Link:</label><br>
+                        <input type="text" id="editableFBLink" name="editableFBLink" value="https://www.facebook.com/ACOMSSofficia/"><br><br>
+            
+                        <!-- Submit Button -->
+                        <input type="submit" value="Save Changes">
+                    </form>
+                </div>
+            </div>
+            
+            <div id="Events" class="card mt-4" style="height: auto;">
+                <div class="card-body">
+                    <h2 class="mb-4">What is your favorite programming language?</h2>
+                    <form action="" method="post">
+                        <!-- Poll options -->
+                        <div class="mb-2">
+                            <input type="radio" id="option1" name="language" value="option1">
+                            <label for="option1">JavaScript</label>
+                        </div>
+            
+                        <div class="mb-2">
+                            <input type="radio" id="option2" name="language" value="option2">
+                            <label for="option2">Python</label>
+                        </div>
+            
+                        <div class="mb-2">
+                            <input type="radio" id="option3" name="language" value="option3">
+                            <label for="option3">Java</label>
+                        </div>
+            
+                        <div class="mb-2">
+                            <input type="radio" id="option4" name="language" value="option4">
+                            <label for="option4">C++</label>
+                        </div>
+            
+                        <!-- Upload button for polls -->
+                        <label for="pollUpload">Upload Poll:</label>
+                        <input type="file" id="pollUpload" name="pollUpload" accept=".csv, .xls, .xlsx">
+            
+                        <!-- Submit button for the form -->
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </form>
+            
+                    <br>
+            
+                    <H2>Images</H2>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <img src="icon.jpg" alt="Image 1" class="img-fluid mb-3">
+                        </div>
+                        <div class="col-md-4">
+                            <img src="icon.jpg" alt="Image 2" class="img-fluid mb-3">
+                        </div>
+                        <div class="col-md-4">
+                            <img src="icon.jpg" alt="Image 3" class="img-fluid mb-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div id="MoreInfo" class="card mt-1" style="height: auto;">
+                <div class="card-body">
+                    <form action="update_more_info.php" method="post">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <!-- Editable Details for Constitutional Bylaws -->
+                                <h5 class="mb-3">Constitutional Bylaws</h5>
+                                <label for="editableConstitutionalBylaws">Edit Content:</label><br>
+                                <textarea id="editableConstitutionalBylaws" name="editableConstitutionalBylaws" rows="4" cols="50">
+                                    Your content for constitutional bylaws goes here. Provide information about the rules and regulations that govern your organization.
+                                </textarea><br><br>
+            
+                                <!-- Editable Details for Letter of Intent -->
+                                <h5 class="mt-4 mb-3">Letter of Intent</h5>
+                                <label for="editableLetterOfIntent">Edit Content:</label><br>
+                                <textarea id="editableLetterOfIntent" name="editableLetterOfIntent" rows="4" cols="50">
+                                    Include details about the letter of intent, its purpose, and any specific requirements or guidelines for submitting a letter of intent.
+                                </textarea><br><br>
+            
+                                <!-- Editable Details for Adviser Endorsement -->
+                                <h5 class="mt-4 mb-3">Adviser Endorsement</h5>
+                                <label for="editableAdviserEndorsement">Edit Content:</label><br>
+                                <textarea id="editableAdviserEndorsement" name="editableAdviserEndorsement" rows="4" cols="50">
+                                    Provide information about the process of obtaining adviser endorsement, its importance, and any criteria that advisers need to meet.
+                                </textarea><br><br>
+            
+                                <!-- Submit Button -->
+                                <input type="submit" value="Save Changes">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            
+            
+    </main>
+        
+        
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function showMissionVision() {
+            document.getElementById('missionVisionContent').style.display = 'block';
+            document.getElementById('listOfOfficersContent').style.display = 'none';
+            document.getElementById('ContactUs').style.display = 'none';
+            document.getElementById('Events').style.display = 'none';
+            document.getElementById('MoreInfo').style.display = 'none';
+        }
+
+        function showListOfOfficers() {
+            document.getElementById('missionVisionContent').style.display = 'none';
+            document.getElementById('listOfOfficersContent').style.display = 'block';
+            document.getElementById('ContactUs').style.display = 'none';
+            document.getElementById('Events').style.display = 'none';
+            document.getElementById('MoreInfo').style.display = 'none';
+        }
+        function showContactUs() {
+            document.getElementById('missionVisionContent').style.display = 'none';
+            document.getElementById('listOfOfficersContent').style.display = 'none';
+            document.getElementById('ContactUs').style.display = 'block';
+            document.getElementById('Events').style.display = 'none';
+            document.getElementById('MoreInfo').style.display = 'none';
+        }
+        function showEvents() {
+            document.getElementById('missionVisionContent').style.display = 'none';
+            document.getElementById('listOfOfficersContent').style.display = 'none';
+            document.getElementById('ContactUs').style.display = 'none';
+            document.getElementById('Events').style.display = 'block';
+            document.getElementById('MoreInfo').style.display = 'none';
+        }
+        function showMoreInfo() {
+            document.getElementById('missionVisionContent').style.display = 'none';
+            document.getElementById('listOfOfficersContent').style.display = 'none';
+            document.getElementById('ContactUs').style.display = 'none';
+            document.getElementById('Events').style.display = 'none';
+            document.getElementById('MoreInfo').style.display = 'block';
+        }
+
+    </script>
+
+             
+
+        
+        
+    
+    
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <!-- Add Bootstrap JavaScript (optional) -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+
+</body>
+</html>
+
