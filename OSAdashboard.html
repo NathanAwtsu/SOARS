@@ -19,22 +19,30 @@
                     <div class="container">
                         <a class="navbar-brand" href="#"><h2>Dashboard</h2></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
+                        
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
                                     <form class="form-inline">
-                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                        <input class="form-control form-control-sm" type="search" placeholder="Search" aria-label="Search">
                                         <button class="btn btn-primary" type="submit">Search</button>
                                     </form>
+                                    
                                 </li>
+                                <!-- Add the button here -->
+                                
                             </ul>
                         </div>
                     </div>
                 </nav>
             </header>
+     
+    
+          
+            
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
                 <div class="position-sticky">
                     <ul class="nav flex-column">
@@ -75,7 +83,7 @@
                             <a class="nav-link" href="OSAorgacti.html">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-solid fa-clipboard-check fa-lg"></i>
-                                    <span class="ml-2">Organization Activation</span>
+                                    <span class="ml-2">Create an Event</span>
                                 </div>
                             </a>
                         </li>
@@ -125,27 +133,43 @@
         </div>
     </div>
 
-    <main>
-        <div class="card-table">
-            <a href="messages.html" class="card" style="height: 150px;">
-                <h2>Messages</h2>
-                <p style="font-size: 30px;">20</p>
-            </a>
-            <a href="activities.html" class="card" style="height: 150px;">
-                <h2>Activities</h2>
-                <p style="font-size: 30px;">25</p>
-            </a>
-            <a href="organization-activation.html" class="card" style="height: 150px;">
-                <h2>Organization Activation</h2>
-                <p style="font-size: 30px;">100</p>
-            </a>
-            <a href="OSAreports.html" class="card" style="height: 150px;">
-                <h2>Members</h2>
-                <p style="font-size: 30px;">70</p>
-            </a>
+    <main style="padding-left: 250px; overflow-x: hidden;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <a href="OSAmessages.html" class="card" style="height: 130px; background-color: #e57373; text-decoration: none;">
+                        <h2 style="color: white;">Messages <i class="fa-regular fa-message"></i></h2>
+                        <p style="font-size: 20px; color: white;">20</p>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <a href="OSAreports.html" class="card" style="height: 130px; background-color: #81c784; text-decoration: none;">
+                        <h2 style="color: white;">Activities <i class="fa-solid fa-chart-line"></i></h2>
+                        <p style="font-size: 20px; color: white;">25</p>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <a href="organization-activation.html" class="card" style="height: 130px; background-color: #64b5f6; text-decoration: none;">
+                        <h2 style="color: white;">Organization Activation <i class="fa-solid fa-sitemap"></i></h2>
+                        <p style="font-size: 20px; color: white;">100</p>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <a href="OSAuserlist.html" class="card" style="height: 130px; background-color: #ffb74d; text-decoration: none;">
+                        <h2 style="color: white;">Members <i class="fa-solid fa-users fa-lg"></i></h2>
+                        <p style="font-size: 20px; color: white;">70</p>
+                    </a>
+                </div>
+            </div>
         </div>
-        
     </main>
+    
+    
+    
+    
+    
+    
+    
     
 
     
