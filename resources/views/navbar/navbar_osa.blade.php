@@ -11,6 +11,7 @@
 
     <!-- Fonts -->
     <link href="{{url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')}}" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/OSAgeneral.css')}}">
     
@@ -44,7 +45,7 @@
         </header>
 <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar" >
     <div class="position-sticky">
-        <ul class="nav flex-column" style="margin-left: 10px;">
+        <ul class="nav flex-column" >
             <div class="sidebar-brand">
                 <div class="d-flex align-items-center">
                     <img src="/photos/OSA LOGO.png" alt="" style="max-width: 50px; margin-right: 6px;">
@@ -56,26 +57,31 @@
             </div>
             <li class="nav-item">
                 <a class="nav-link active" href="{{url('/osaemp/user')}}" style="color:white;">
+                    <i class="fa-regular fa-circle-user fa-lg"></i>
                     {{Auth::user()->username}}
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{url('/osaemp/dashboard')}}" style="color:white;">
+                    <i class="fa-regular fa-clipboard fa-lg"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="" style="color:white;">
+                    <i class="fa-solid fa-clipboard-list fa-lg"></i>
                     Reports
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="" style="color:white;">
+                    <i class="fa-solid fa-clipboard-check fa-lg"></i>
                     Organizations
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="OSAapproval.html" style="color:white;">
+                    <i class="fa-solid fa-clipboard-list fa-lg"></i>
                     Approval Request
                 </a>
             </li>
@@ -87,13 +93,15 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="OSAorglist.html" style="color:white;">
+                    <i class="fa-solid fa-users fa-lg"></i>
                     Organization List
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}" 
                     onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();" style="color:white;">
+                    document.getElementById('logout-form').submit();" style="color:white;">
+                    <i class="fa-solid fa-right-from-bracket fa-lg"></i>
                     {{ __('Logout') }}
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" style="color:white;">

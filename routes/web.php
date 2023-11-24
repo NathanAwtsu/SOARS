@@ -46,7 +46,6 @@ Route::get('/audit-log', function () {return view('Admin.audit_log');})->name('a
 //End of Admin
 
 //OrganizationController
-
 Route::get('/osaemp/organizations-list', [OrganizationController::class, 'orglist'])->name('orglist');
 
 //Routes for OSA
