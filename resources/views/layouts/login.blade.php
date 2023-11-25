@@ -18,7 +18,6 @@
     @stack('jquery')
 
     <!-- Scripts -->
-    
 </head>
 <body>
 <div class="contents">
