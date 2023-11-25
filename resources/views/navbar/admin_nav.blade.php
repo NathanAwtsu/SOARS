@@ -25,70 +25,102 @@
     <!-- Fonts -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/admingeneral.css')}}">
+    <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')}}" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    
     @stack('styles')
     @stack('jquery')
 
     <!-- Scripts -->
-    
+    @vite(['resources/sass/app.scss'])    
 </head>
 <body>
     <!--Hamburger Menu-->
-    <nav id="sidebar" class="navbar bg-body-tertiary" >
-        <div class="container-fluid" style="height: 100%;">
-            <!--Toggler-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                <div class="d-flex align-items-center">
-                    <span class="navbar-toggler-icon"></span>
-                        <h3 style="margin-top:10px">SOARS</h3><br> 
-                </div>
-            </button>
-            <!--Content-->
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color:#064b96;">
-                <div class="offcanvas-header d-flex justify-content-between align-items-center">
-                    <div class="sidebar-brand">
-                        <div class="d-flex align-items-center">
-                            <h1 style="color:white;">SOARS</h1> 
+    <div class="container-fluid">
+        <div class="row">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
+                    <div class="container">
+                        <a class="navbar-brand" href="#"><h2>Dashboard</h2></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <form class="form-inline">
+                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-primary" type="submit">Search</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="color:white;"></button>
-                </div>
-                <div class="offcanvas-body">
+                </nav>
+            </header>
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="position-sticky">
                     <ul class="nav flex-column">
+                        <div class="sidebar-brand">
+                            <div class="d-flex align-items-center">
+                                <img src="photos/OSA LOGO.png" alt="" style="max-width: 50px; margin-right: 6px;">
+                                <h1>SOARS</h1><br> 
+                            </div>
+                            <div class="admin" style="padding-left: 70px; padding-bottom: 0px;">
+                                <h4>Admin</h4>
+                            </div>
+                        </div>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('admin') }}" style="color:white;">
-                                {{Auth::user()->username}}
+                            <a class="nav-link" href="{{route('admin')}}">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-regular fa-circle-user fa-lg"></i>
+                                    <span class="ml-2">{{Auth::user()->username}}</span>
+                                </div>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin') }}" >
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-regular fa-clipboard fa-lg"></i>
+                                    <span class="ml-2">Dashboard</span>
+                                </div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin') }}" style="color:white;">
-                                Dashboard
+                            <a class="nav-link">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-regular fa-paste fa-lg"></i>
+                                    <span class="ml-2">Audit log</span>
+                                </div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/audit_log" style="color:white;">
-                                Audit Logs
+                            <a class="nav-link" href="{{route('studlist')}}">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-regular fa-address-book fa-lg"></i>
+                                    <span class="ml-2">Students List</span>
+                                </div>
                             </a>
                         </li>
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('studlist') }}" style="color:white;">
-                                Students List
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('courselist') }}" style="color:white;">
-                                Courses List
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/rso_list" style="color:white;">
-                                Organization List
+                            <a class="nav-link" href="/rso_list">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-solid fa-users fa-lg"></i>
+                                    <span class="ml-2">Org List</span>
+                                </div>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}" 
-                                onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();" style="color:white;">
-                                {{ __('Logout') }}
+                                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();" style="color:white;">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-solid fa-right-from-bracket fa-lg"></i>
+                                    <span class="ml-2">{{ __('Logout')}}</span>
+                                </div>
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -96,10 +128,10 @@
                         </li>
                     </ul>
                 </div>
-                <!--End of Toggler-->
-            </div>
+            </nav>
         </div>
-    </nav>
+    </div>
+
             <main class="col-md-12 col-lg-12 px-md-4" style="height: 100%;">
             @yield('content')
             </main>
