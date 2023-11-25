@@ -111,9 +111,9 @@
     </div>
 
     <div class="form-group">
-        <label for="roles" class="col-sm-2 control-label">Roles</label>
+        <label for="user_roles" class="col-sm-2 control-label">Roles</label>
         <div class="col-sm-12">
-            <input type="text" class="form-control" id="roles" name="roles" placeholder="Enter Roles" required>
+            <input type="text" class="form-control" id="user_roles" name="user_roles" placeholder="Enter Roles" required>
         </div>
     </div>
 
@@ -127,7 +127,7 @@
     <div class="form-group">
         <label for="phone_number" class="col-sm-2 control-label">Phone Number</label>
         <div class="col-sm-12">
-            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Enter Phone Number">
+            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Enter Phone Number" maxlength="11">
         </div>
     </div>
 
@@ -164,7 +164,7 @@
                 {data: 'email', name: 'email'},
                 {data: 'course_id', name: 'course_id'},
                 {data: 'member_status', name: 'member_status'},
-                {data: 'roles', name: 'roles'},
+                {data: 'user_roles', name: 'user_roles'},
                 {data: 'username', name: 'username'},
                 {data: 'phone_number', name: 'phone_number'},
                 {data: 'action', name: 'action', orderable: false},
@@ -191,10 +191,9 @@
                 $('#email').val(res.email);
                 $('#course_id').val(res.course_id);
                 $('#member_status').val(res.member_status);
-                $('#roles').val(res.roles);
+                $('#user_roles').val(res.user_roles);
+                $('#username').val(res.username);
                 $('#phone_number').val(res.phone_number);
-
-
             }
         });
     }

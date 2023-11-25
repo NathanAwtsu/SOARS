@@ -80,7 +80,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="/rso_list" style="color:white;">
                                 Organization List
                             </a>
                         </li>

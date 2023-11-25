@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\StudentOrganizationController;
 
 
 /*
@@ -35,9 +36,12 @@ Route::post('deletes', [CoursesController::class, 'delete']);
 Route::get('/student-list', [StudentsController::class, 'studlist'])->name('studlist');
 Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
-Route::post('delete', [StudentController::class, 'delete']);
+Route::post('delete', [StudentsController::class, 'delete']);
 });
-Route::get('/audit-log', function () {return view('Admin.audit_log');})->name('audit_log');
+Route::get('/audit_log', function () {return view('Admin.audit_log');})->name('audit_log');
+Route::get('/rso_list', function () {return view('student_orgs.rso_list');})->name('rso_list');
+Route::get('/rso_detail', function () { $content = request()->query('content'); return view('student_orgs.rso_detail', compact('content'));})->name('rso_detail');
+Route::post('/upload_logo', [StudentOrganizationController::class, 'uploadLogo'])->name('upload_logo');
 //End of Admin
 
 //Routes for OSA
