@@ -56,6 +56,7 @@
     height: 95px;
     background-color: #fff;
     
+    
 }
 .navbar .navbar-nav {
     flex-direction: row; /* Set flex direction to horizontal */
@@ -63,9 +64,11 @@
 }
 .navbar .form-inline {
     display: flex;
-    justify-content: right;
-    margin-left: 600px;
+    justify-content: center;
+    padding-left: 350px;
+  
 }
+
 
 body {
     position: relative;
