@@ -18,6 +18,7 @@
     @stack('jquery')
 
     <!-- Scripts -->
+    @vite(['resources/sass/app.scss'])
 </head>
 <body>
 <div class="contents">
