@@ -29,7 +29,7 @@
     @stack('jquery')
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    
 </head>
 <body>
     <!--Hamburger Menu-->
