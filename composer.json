@@ -11,12 +11,12 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
-        "munafio/chatify": "^1.6",
+        "munafio/chatify": "*",
         "yajra/laravel-datatables-oracle": "10.3.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
-        "laravel/breeze": "^1.26",
+        "laravel/breeze": "*",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
