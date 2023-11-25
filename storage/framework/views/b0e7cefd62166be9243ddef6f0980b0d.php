@@ -1,16 +1,13 @@
-@extends('navbar.navbar_osa')
-@section('content')
+<?php $__env->startSection('content'); ?>
+
+
 
 <main style="padding-left: 250px; overflow-x: hidden;">
     <div class="container">
         <div class="row">
             <div class="col-md-3 mb-3">
-                <a href="OSAmessages.html" class="card" style="height: 130px; background-color: #e57373; text-decoration: none;">
-                    <h2 style="color: white;">
-                        <i class="fa-regular fa-message"></i> 
-                        Messages
-                        
-                    </h2>
+                <a href="<?php echo e(url('/chatify')); ?>" class="card" style="height: 130px; background-color: #e57373; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-regular fa-message"></i> Messages 20</h2>
                     
                 </a>
             </div>
@@ -39,7 +36,7 @@
 
 
 
+<?php $__env->stopSection(); ?>
 
-
-@extends('layouts.footer')
-@endsection
+<?php echo $__env->make('layouts.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('navbar.navbar_osa', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\SOARS Github\SOARS\resources\views/osaemp.blade.php ENDPATH**/ ?>
