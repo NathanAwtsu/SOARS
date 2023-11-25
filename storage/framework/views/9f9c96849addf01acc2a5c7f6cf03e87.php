@@ -45,6 +45,7 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
                 <div class="container">
                     <a class="navbar-brand" >
+
                         <?php if(Route::is('osaemp')): ?>
                             <h2>Home</h2>
                         <?php elseif(Route::is('osadashboard')): ?>

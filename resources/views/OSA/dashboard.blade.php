@@ -5,11 +5,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 mb-3">
-                <a href="OSAmessages.html" class="card" style="height: 130px; background-color: #e57373; text-decoration: none;">
+                <a href="{{url('/chatify')}}" class="card" style="height: 130px; background-color: #e57373; text-decoration: none;">
                     <h2 style="color: white;">
                         <i class="fa-regular fa-message"></i> 
                         Messages
-                        
+                        <div class="pending-notification">
+                            {{$unseenCounter}}
+                        </div>                        
                     </h2>
                     
                 </a>
