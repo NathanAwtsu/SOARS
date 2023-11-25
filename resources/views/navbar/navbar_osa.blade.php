@@ -14,6 +14,25 @@
     <link rel="stylesheet" href="{{url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')}}" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/OSAgeneral.css')}}">
+
+    @if (Route::is('osaorganization_new'))
+    <style> form {
+        text-align: left; /* Align text in the form to the left */
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    form textarea,
+    form input {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+    }</style>
+        
+    @endif
     
     <!-- Scripts -->
 </head>
@@ -25,7 +44,20 @@
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
                 <div class="container">
-                    <a class="navbar-brand" ><h2>Dashboard</h2></a>
+                    <a class="navbar-brand" >
+                        @if (Route::is('osadashboard'))
+                            <h2>Dashboard</h2>
+                        @elseif (Route::is('osauser'))
+                            <h2>{{Auth::user()->username}}</h2>
+                        @elseif (Route::is('osauserlist'))
+                            <h2>User List</h2>
+                        @elseif (Route::is('osaorganizationlist'))
+                            <h2>Oganization List</h2>
+                        @elseif (Route::is('osaorganization_new'))
+                            <h2>New Organization</h2>
+                        @endif
+
+                    </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -74,7 +106,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="" style="color:white;">
+                <a class="nav-link" href="{{url('/osaemp/organization_list')}}" style="color:white;">
                     <i class="fa-solid fa-clipboard-check fa-lg"></i>
                     Organizations
                 </a>
@@ -87,7 +119,8 @@
             </li>
         
             <li class="nav-item">
-                <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white;">
+                <a class="nav-link" href="" style="color:white;">
+                <i class="fa-solid fa-user"></i>
                     Student List
                 </a>
             </li>

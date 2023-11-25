@@ -1,34 +1,38 @@
 @extends('navbar.navbar_osa')
 @section('content')
 
-<main>
-    <div class="card-table">
-
-        
-        <div class="card">
-            
-           <a href=""><h2>Messages</h2></a>
-            <p style="font-size: 30px;">20</p>
+<main style="padding-left: 250px; overflow-x: hidden;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <a href="OSAmessages.html" class="card" style="height: 130px; background-color: #e57373; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-regular fa-message"></i> Messages 20</h2>
+                    
+                </a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a href="OSAreports.html" class="card" style="height: 130px; background-color: #81c784; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-solid fa-chart-line"></i> Activities 25</h2>
+                    
+                </a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a href="organization-activation.html" class="card" style="height: 130px; background-color: #64b5f6; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-solid fa-sitemap"></i> Organization Activation</h2>
+                    <p style="font-size: 20px; color: white;">100</p>
+                </a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a href="OSAuserlist.html" class="card" style="height: 130px; background-color: #ffb74d; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members 70</h2>
+                    
+                </a>
+            </div>
         </div>
-        <div class="card">
-            
-            <a href=""><h2>Activities</h2></a>
-            <p style="font-size: 30px;">25</p>
-        </div>
-        <div class="card">
-            
-            <a href=""><h2>Organization Activation</h2></a>
-            <p style="font-size: 30px;">100</p>
-        </div>
-        <div class="card">
-            
-            <a href="OSAreports.html"><h2>Reports</h2></a>
-            <p style="font-size: 30px;">70</p>
-        </div>
-       
     </div>
-    
 </main>
+
+
 
 
 

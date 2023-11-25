@@ -4,8 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\ProfileController;
 
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,9 +59,11 @@ Route::get('/osaemp/organizations-list', [OrganizationController::class, 'orglis
 
 //Routes for OSA
 Route::get('/osaemp', function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
-Route::get('/osaemp/dashboard', function (){return view('OSA/dashboard');});
-Route::get('/osaemp/user', function (){return view('OSA/user');});
-Route::get('/osaemp/userlist', function (){return view('OSA/userlist');});
+Route::get('/osaemp/dashboard', function (){return view('OSA/dashboard');})->name('osadashboard');
+Route::get('/osaemp/user', function (){return view('OSA/user');})->name('osauser');
+Route::get('/osaemp/userlist', function (){return view('OSA/userlist');})->name('osauserlist');
+Route::get('/osaemp/organization_list', function(){return view('OSA/organization_list');})->name('osaorganizationlist');
+Route::get('/osaemp/organization_list/new_organization', function(){return view('OSA/organization_new');})->name('osaorganization_new');
 
 
 //End of Routes for OSA

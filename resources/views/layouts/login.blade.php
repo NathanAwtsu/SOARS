@@ -12,13 +12,13 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/OSAlogin.css')}}">
+    <link rel="stylesheet" href="{{asset('css/adminlogin.css')}}">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     @stack('styles')
     @stack('jquery')
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    
 </head>
 <body>
 <div class="contents">
