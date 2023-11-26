@@ -51,7 +51,7 @@
                         <?php elseif(Route::is('osadashboard')): ?>
                             <h2>Dashboard</h2>
                         <?php elseif(Route::is('osauser')): ?>
-                            <h2><?php echo e(Auth::user()->username); ?></h2>
+                            <h2><?php echo e(Auth::user()->name); ?></h2>
                         <?php elseif(Route::is('osauserlist')): ?>
                             <h2>User List</h2>
                         <?php elseif(Route::is('osaorganizationlist')): ?>
@@ -93,7 +93,7 @@
             <li class="nav-item">
                 <a class="nav-link active" href="<?php echo e(url('/osaemp/user')); ?>" style="color:white;">
                     <i class="fa-regular fa-circle-user fa-lg"></i>
-                    <?php echo e(Auth::user()->username); ?>
+                    <?php echo e(Auth::user()->name); ?>
 
                 </a>
             </li>

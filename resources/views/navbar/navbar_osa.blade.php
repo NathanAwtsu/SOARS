@@ -51,7 +51,7 @@
                         @elseif (Route::is('osadashboard'))
                             <h2>Dashboard</h2>
                         @elseif (Route::is('osauser'))
-                            <h2>{{Auth::user()->username}}</h2>
+                            <h2>{{Auth::user()->name}}</h2>
                         @elseif (Route::is('osauserlist'))
                             <h2>User List</h2>
                         @elseif (Route::is('osaorganizationlist'))
@@ -93,7 +93,7 @@
             <li class="nav-item">
                 <a class="nav-link active" href="{{url('/osaemp/user')}}" style="color:white;">
                     <i class="fa-regular fa-circle-user fa-lg"></i>
-                    {{Auth::user()->username}}
+                    {{Auth::user()->name}}
                 </a>
             </li>
             <li class="nav-item">
