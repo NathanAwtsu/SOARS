@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="OSAgeneral.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
     
@@ -17,7 +20,7 @@
             <header>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
                     <div class="container">
-                        <a class="navbar-brand" href="#"><h2>Approval Request</h2></a>
+                        <a class="navbar-brand" href="#"><h2>Event Manager</h2></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -71,19 +74,12 @@
                             </div>
                         </a>
                     </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="OSAorgacti.html">
-                                <div class="d-flex align-items-center" style="margin-left: -10px;">
-                                    <i class="fa-solid fa-clipboard-check fa-lg"></i>
-                                    <span class="ml-2">Organization Activation</span>
-                                </div>
-                            </a>
-                        </li>
+                       
                         <li class="nav-item">
                             <a class="nav-link" href="OSAapproval.html">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-solid fa-clipboard-list fa-lg"></i>
-                                    <span class="ml-2">Approval Request</span>
+                                    <span class="ml-2">Event Manager</span>
                                 </div>
                             </a>
                         </li>
@@ -126,10 +122,15 @@
     </div>
 
     <main >
-            <div class="container-tbl-up">
-            
-            
-            <table class="table"> <br>
+        <div class="container" style="padding-top: 10px;">
+            <div class="container-event text-center">
+                <h2>Create an event</h2>
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal">Create an Event</button>
+            </div>
+        </div>
+        
+        <div class="container-tbl-up">
+                <table class="table"> <br>
                
                 <thead>
                     <tr>
@@ -152,8 +153,10 @@
                         <td>8:00 AM</td>
                         
                         <td>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#approveModal">Approve</button>
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#rejectModal">Reject</button>
+                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
+
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
+
                           </td>
                     </tr>
                     <tr>
@@ -165,10 +168,43 @@
                         <td>8:00 AM</td>
                         
                         <td>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#approveModal">Approve</button>
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#rejectModal">Reject</button>
+                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
+
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
+
                           </td>
                     </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>john Loyd</td>
+                        <td>Out Reach Program</td>
+                        <td>12/22/23</td>
+                        <td>Sv Hall</td>
+                        <td>8:00 AM</td>
+                        
+                        <td>
+                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
+
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
+
+                          </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>john Loyd</td>
+                        <td>Out Reach Program</td>
+                        <td>12/22/23</td>
+                        <td>Sv Hall</td>
+                        <td>8:00 AM</td>
+                        
+                        <td>
+                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
+
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
+
+                          </td>
+                    </tr>
+                    
                     
     </main>
     
@@ -186,8 +222,9 @@
                     Are you sure you want to approve this event?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary">Confirm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    
                 </div>
             </div>
         </div>
@@ -207,17 +244,125 @@
                     Are you sure you want to reject this event?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-danger">Confirm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    
                 </div>
             </div>
         </div>
     </div>
 
-    
+    <!-- Create Event Modal -->
 
-    <!-- Add Bootstrap JavaScript and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- Create Event Modal -->
+<div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="createEventModalLabel">Create an Event</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form style="max-width: 400px; margin: auto;">
+                    <!-- Event details input fields -->
+                    <div class="form-group row mb-2">
+                        <label for="eventName" class="col-sm-4 col-form-label text-left">Event Name:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="eventName" name="eventName" required>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="eventDate" class="col-sm-4 col-form-label text-left">Event Date:</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" id="eventDate" name="eventDate" required>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="eventTime" class="col-sm-4 col-form-label text-left">Event Time:</label>
+                        <div class="col-sm-8">
+                            <input type="time" class="form-control" id="eventTime" name="eventTime" required>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="eventLocation" class="col-sm-4 col-form-label text-left">Event Location:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="eventLocation" name="eventLocation" required>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="eventDescription" class="col-sm-4 col-form-label text-left">Event Description:</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="eventDescription" name="eventDescription" rows="4" required></textarea><br>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="eventLink" class="col-sm-4 col-form-label text-left">Event Link:</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="eventLink" name="eventDescription" rows="4"></textarea><br>
+                        </div>
+                    </div>
+                    <!-- ... (other event details input fields) ... -->
+                    <button type="button" class="btn btn-primary btn-block" onclick="showEmailModal()">Next</button>
+                    <button type="button" class="btn btn-danger btn-block" data-bs-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Send Email Modal -->
+<div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Send Email To</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Email recipients checkboxes -->
+                <label><input type="checkbox" id="checkbox1"> RSO</label><br>
+                <label><input type="checkbox" id="checkbox2"> Student Leaders</label><br>
+                <label><input type="checkbox" id="checkbox3"> Members</label><br>
+                <label><input type="checkbox" id="checkbox4"> Send to all</label><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="createEvent()">Create</button>
+                <button type="button" class="btn btn-secondary" onclick="closePopup()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Bootstrap JavaScript and Popper.js -->
+
+
+
+
+<script>
+    function showEmailModal() {
+        // Hide the create event modal
+        $('#createEventModal').modal('hide');
+        // Show the send email modal
+        $('#sendEmailModal').modal('show');
+    }
+
+    function closePopup() {
+        // Hide the send email modal
+        $('#sendEmailModal').modal('hide');
+    }
+
+    function createEvent() {
+        // Add your logic to handle the creation of the event and sending emails
+        // You can access checkbox values using document.getElementById('checkbox1').checked
+        // Close the popup after handling the event creation
+        closePopup();
+    }
+</script>
+
+
+
+
+
 </body>
 </html>
