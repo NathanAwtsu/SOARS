@@ -66,6 +66,7 @@ Route::get('/osaemp/dashboard', function (){return view('OSA/dashboard');})->nam
 Route::get('/osaemp/user', function (){return view('OSA/user');})->name('osauser');
 Route::get('/osaemp/userlist', function (){return view('OSA/userlist');})->name('osauserlist');
 Route::get('/osaemp/message', function (){return view('OSA/message');})->name('osamessage');
+Route::get('/osaemp/updateunseenmessage', [App\Http\Controllers\OsaController::class, 'checkUnseenMessage']);
 Route::get('/osaemp/organization_list', function(){return view('OSA/organization_list');})->name('osaorganizationlist');
 Route::get('/osaemp/organization_list/new_organization', function(){return view('OSA/organization_new');})->name('osaorganization_new');
 

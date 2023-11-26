@@ -13,6 +13,21 @@
 
     var channel = pusher.subscribe('my-channel');
     channel.bind('my-event', function(data) {
+      $.ajax({
+        type:'GET',
+        url: '/osaemp/updateunseenmessage',
+        data: {
+        }
+        success: function(data){
+        console.log(data.unseenCounter);
+        $('.pending-div').empty();
+          html = ``;
+          if(data.unseenCounter >0){
+            html += `<span style="right:68px;" class="pending-notification-chat">`${data.unseenCounter}
+          }
+          $('.pending-div').html(html);
+        }
+      });
     });
   </script>
 </body>

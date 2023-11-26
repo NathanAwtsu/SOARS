@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Events\ChatifyEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -12,8 +12,14 @@ class OsaController extends Controller
 {
     public function index(){
 
-        $unseenCount = DB::table('ch_messages')->where('to_id','=',Auth::user()->id)->where('seen','=','0')->count();
+        
 
-        return view('osaemp', ['users'=>$user, 'unseenCounter'=> $unseenCount]);
+        return view('osaemp', ['users'=>$user, 'unseenCounter'=> $unseenCounter]);
+    }
+
+    public function checkUnseenMessage(){
+        $unseenCounter = DB::table('ch_messages')
+        ->where('to_id','=',Auth::user()->id)->where('seen','0')->count();
+        return response()->json(["unseenCounter"=>$unseenCounter]);
     }
 }
