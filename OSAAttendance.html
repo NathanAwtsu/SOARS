@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>OSA Activities</title>
+        <!-- Add the Bootstrap CSS CDN link -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="OSAgeneral.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- Add the Bootstrap JavaScript CDN link -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
+    </head>
+    
+<body>
+    
+    <!-- Sidebar portion -->
+    <div class="container-fluid">
+        <div class="row">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
+                    <div class="container">
+                        <a class="navbar-brand" href="#"><h2>Events</h2></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        
+                       
+                    </div>
+                </nav>
+            </header>
+     
+    
+          
+            
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <div class="sidebar-brand">
+                            <div class="d-flex align-items-center">
+                                <img src="OSA LOGO.png" alt="" style="max-width: 50px; margin-right: 6px;">
+                                <h1>SOARS</h1><br> 
+                            </div>
+                            <div class="admin" style="padding-left: 70px; padding-bottom: 0px;">
+                                <h4>OSA</h4>
+                            </div>
+                        </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="OSAprofile.html">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-regular fa-circle-user fa-lg"></i>
+                                    <span class="ml-2">User Name</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="OSAdashboard.html">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-regular fa-clipboard fa-lg"></i>
+                                    <span class="ml-2">Dashboard</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="OSAreports.html">
+                            <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                <i class="fa-solid fa-clipboard-list fa-lg"></i>
+                                <span class="ml-2">Reports</span>
+                            </div>
+                        </a>
+                    </li>
+                       
+                        <li class="nav-item">
+                            <a class="nav-link" href="OSAapproval.html">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-solid fa-clipboard-list fa-lg"></i>
+                                    <span class="ml-2">Event Manager</span>
+                                </div>
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="OSAuserlist.html">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-regular fa-address-book fa-lg"></i>
+                                    <span class="ml-2">User list</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="OSAorglist.html">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-solid fa-users fa-lg"></i>
+                                    <span class="ml-2">Org List</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="OSALogin.html">
+                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                    <i class="fa-solid fa-right-from-bracket fa-lg"></i>
+                                    <span class="ml-2">Log out</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <main>
+        <center>
+            <h1>Events List</h1>
+        
+            <table style="margin-left: 120px;">
+                <tr>
+                    <th>Event Name</th>
+                    <th>Organization</th>
+                    <th>Event Date & time</th>
+                    <th>Participants</th>
+                </tr>
+        
+                <tr>
+                    <td><a href="#" onclick="showEventModal('<img src=\'adulogo.png\' alt=\'Event Image\' style=\'max-width: 100%; height: auto;\'><p>testing test 1 test 2 test 3</p>')">Linux Seminar</a></td>
+
+                    <!-- Other table cells here -->
+                    <td><a href="ACOMSS.html">ACOMSS</a></td>
+                    <td>10:00 AM</td>
+                    <td><a href="#" onclick="showParticipantsModal(10)">10</a></td>
+                </tr>
+                </table><br>
+            </center>
+            </main>
+        
+     
+<!-- Event Description Modal -->
+<div class="modal fade" id="eventDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="eventDescriptionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventDescriptionModalLabel">Event Description</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="eventDescriptionModalBody">
+                <!-- Event description will be inserted here dynamically -->
+                <img src="adulogo.png" alt="Event Image" style="max-width: 100%; height: auto;"><br>
+                <p>testing test 1 test 2 test 3</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Participants Modal -->
+<div class="modal fade" id="participantsModal" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="participantsModalLabel">Participants</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Include the modal body element here -->
+            <div class="modal-body" id="participantsModalBody">
+                <!-- Participant details will be inserted here dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function showEventModal(content) {
+        // Set the HTML content in the modal body
+        document.getElementById('eventDescriptionModalBody').innerHTML = content;
+
+        // Show the modal
+        $('#eventDescriptionModal').modal('show');
+    }
+</script>
+
+<script>
+    function showParticipantsModal(participantCount) {
+        // Create the HTML content for participant details with checkboxes in a table
+        let content = '<table class="table"><thead><tr><th>Participant</th><th>Mark as Present</th><th>Mark as Absent</th></tr></thead><tbody>';
+
+        // Create checkboxes dynamically in a table row
+        for (let i = 1; i <= participantCount; i++) {
+            content += '<tr><td>Participant ' + i + '</td>';
+            content += '<td><label><input type="checkbox" class="attendanceCheckbox" data-type="present" id="present_' + i + '"> Present</label></td>';
+            content += '<td><label><input type="checkbox" class="attendanceCheckbox" data-type="absent" id="absent_' + i + '"> Absent</label></td></tr>';
+        }
+
+        content += '</tbody></table>';
+        content += '<button onclick="markAttendance()">Submit</button>';
+
+        // Set the HTML content in the modal body
+        document.getElementById('participantsModalBody').innerHTML = content;
+
+        // Show the modal
+        $('#participantsModal').modal('show');
+
+        // Attach event listener to checkboxes
+        let checkboxes = document.querySelectorAll('.attendanceCheckbox');
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                // Disable other checkbox when one is checked
+                checkboxes.forEach(function (otherCheckbox) {
+                    if (otherCheckbox !== checkbox && otherCheckbox.checked) {
+                        otherCheckbox.checked = false;
+                    }
+                });
+            });
+        });
+    }
+
+    // Function to mark attendance
+    function markAttendance() {
+        // Get all checkboxes for attendance
+        let attendanceCheckboxes = document.querySelectorAll('.attendanceCheckbox');
+
+        // Array to store the attendance status of each participant
+        let attendanceStatus = [];
+
+        // Iterate through attendance checkboxes and collect attendance status
+        attendanceCheckboxes.forEach(function (checkbox) {
+            attendanceStatus.push({
+                participant: checkbox.id.replace(checkbox.dataset.type + '_', ''),
+                present: checkbox.dataset.type === 'present' && checkbox.checked,
+                absent: checkbox.dataset.type === 'absent' && checkbox.checked
+            });
+        });
+
+        // Log attendance status (you can customize this part)
+        console.log('Attendance Status:', attendanceStatus);
+
+        // You can update the UI or send data to the server here
+        // For example, you might want to send the attendanceStatus array to the server via AJAX
+    }
+</script>
+
+
+ <!-- Add Bootstrap JavaScript and jQuery -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+        
+
+     
