@@ -76,7 +76,7 @@
                             <a class="nav-link" href="{{route('admin')}}">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-circle-user fa-lg"></i>
-                                    <span class="ml-2">{{Auth::user()->username}}</span>
+                                    <span class="ml-2">{{Auth::user()->name}}</span>
                                 </div>
                             </a>
                         </li>

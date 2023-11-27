@@ -1,7 +1,5 @@
-@extends('navbar.admin_nav')
-
-@section('content')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<?php $__env->startSection('content'); ?>
+<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <div class="container mt-2" style="margin-left: 300px;">
@@ -15,11 +13,11 @@
             </div>
         </div>
     </div>
-@if ($message = Session::get('success'))
+<?php if($message = Session::get('success')): ?>
     <div class="alert alert-success">
-        <p>{{$message}}</p>
+        <p><?php echo e($message); ?></p>
     </div>
-@endif
+<?php endif; ?>
 <div class="card-body">
     <table class="table table-bordered" id="student-list">
         <thead>
@@ -155,7 +153,7 @@
         $('#student-list').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ url('student-list') }}",
+            ajax: "<?php echo e(url('student-list')); ?>",
             columns: [
                 {data: 'student_id', name: 'student_id'},
                 {data: 'last_name', name: 'last_name'},
@@ -177,7 +175,7 @@
     function editF(id){
         $.ajax({
             type: "POST",
-            url: "{{ url('edit') }}",
+            url: "<?php echo e(url('edit')); ?>",
             data: {student_id: id},
             dataType: 'json',
             success: function(res){
@@ -204,7 +202,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "{{ url('delete') }}",
+                url: "<?php echo e(url('delete')); ?>",
                 data: { student_id:id },
                 dataType: 'json',
                 success: function(res){
@@ -230,7 +228,7 @@ $('#studentForm').submit(function(s){
     var formData = new FormData(this);
     $.ajax({
         type:'POST',
-        url: "{{ url('store') }}",
+        url: "<?php echo e(url('store')); ?>",
         data: formData,
         cache: false,
         contentType: false,
@@ -250,19 +248,20 @@ $('#studentForm').submit(function(s){
 });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@push('styles')
-<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+<?php $__env->startPush('styles'); ?>
+<link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
 
-@endpush
-@push('jquery')
+<?php $__env->stopPush(); ?>
+<?php $__env->startPush('jquery'); ?>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-@endpush
+<?php $__env->stopPush(); ?>
 
 
 
-@push('scripts')
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-@endpush
+<?php $__env->startPush('scripts'); ?>
+<script src="<?php echo e(asset('js/bootstrap.bundle.min.js')); ?>"></script>
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('navbar.admin_nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\SOARS Github\SOARS\resources\views/student-list.blade.php ENDPATH**/ ?>
