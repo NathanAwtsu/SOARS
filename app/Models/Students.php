@@ -16,7 +16,6 @@ class Students extends Model
         'middle_initial',
         'first_name',
         'email',
-        'course_id',
         'password',
         'member_status',
         'user_roles',

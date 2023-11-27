@@ -30,7 +30,6 @@ class StudentsController extends Controller
         'middle_initial' => $request->middle_initial,
         'first_name' => $request->first_name,
         'email' => $request->email,
-        'course_id' => $request->course_id,
         'member_status' => $request->member_status,
         'user_roles' => $request->user_roles,
         'username' => $request->username,

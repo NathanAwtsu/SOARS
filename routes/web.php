@@ -35,7 +35,7 @@ Auth::routes();
 
 
 //CourseController
-Route::get('/admin', function(){return view('admin');})->name('admin')->middleware('admin');
+
 //Admin
 Route::middleware(['admin'])->group(function () {
     
