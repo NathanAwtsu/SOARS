@@ -59,6 +59,8 @@
                             <h2>Oganization List</h2>
                         @elseif (Route::is('osaorganization_new'))
                             <h2>New Organization</h2>
+                        @elseif (Route::is('osaactivityapproval'))
+                            <h2>Activity Approval</h2>
                         @endif
 
                     </a>
@@ -66,6 +68,8 @@
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
+                    @if (Route::is('osauserlist') || Route::is('osaorganizationlist'))
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
@@ -76,6 +80,7 @@
                             </li>
                         </ul>
                     </div>
+                    @endif
                 </div>
             </nav>
         </header>
@@ -116,14 +121,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="OSAapproval.html" style="color:white;">
+                <a class="nav-link" href="{{url('/osaemp/activity_approval')}}" style="color:white;">
                     <i class="fa-solid fa-clipboard-list fa-lg"></i>
-                    Approval Request
+                    Activity Approval
                 </a>
             </li>
         
             <li class="nav-item">
-                <a class="nav-link" href="" style="color:white;">
+                <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white;">
                 <i class="fa-solid fa-user"></i>
                     Student List
                 </a>

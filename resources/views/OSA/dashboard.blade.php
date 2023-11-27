@@ -1,6 +1,6 @@
 @extends('navbar.navbar_osa')
 @section('content')
-
+<!--CARDS -->
 <main style="padding-left: 250px; overflow-x: hidden;">
     <div class="container">
         <div class="row">
@@ -10,7 +10,6 @@
                         <i class="fa-regular fa-message"></i> 
                         Messages
                         <div class="pending-notification">
-                            {{$unseenCounter}}
                         </div>                        
                     </h2>
                     
@@ -29,8 +28,8 @@
                 </a>
             </div>
             <div class="col-md-3 mb-3">
-                <a href="OSAuserlist.html" class="card" style="height: 130px; background-color: #ffb74d; text-decoration: none;">
-                    <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members 70</h2>
+                <a href="{{url('/osaemp/userlist')}}" class="card" style="height: 130px; background-color: #ffb74d; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members </h2>
                     
                 </a>
             </div>
