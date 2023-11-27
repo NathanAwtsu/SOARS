@@ -3,7 +3,7 @@
 <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<div class="container mt-2">
+<div class="container mt-2" style="margin-left: 300px;">
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
