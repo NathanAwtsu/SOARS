@@ -9,5 +9,5 @@ use Datatables;
 
 class OrganizationController extends Controller
 {
-    //
+    
 }
