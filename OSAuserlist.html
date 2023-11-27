@@ -82,14 +82,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="OSAaudit.html">
-                                <div class="d-flex align-items-center" style="margin-left: -10px;">
-                                    <i class="fa-regular fa-paste fa-lg"></i>
-                                    <span class="ml-2">Audit log</span>
-                                </div>
-                            </a>
-                        </li>
+                    
                         <li class="nav-item">
                             <a class="nav-link" href="OSAuserlist.html">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
@@ -124,10 +117,7 @@
             
             
         <table class="table"> <br>
-            
-            <div class="btn-group">
-                <button class="btn btn-create" id="createUserButton">Create New User</button>
-                <div class="dropdown">
+        
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Member category
                     </button>
@@ -146,6 +136,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Organizations</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -155,9 +146,10 @@
                     <td>DingDong</td>
                     <td>DingDongDonetest@gmail.com</td>
                     <td>Admin</td>
+                    <td>ADUIT,TNT,MESAU</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#myModal" onclick="showPopup()">Edit</button>
-                        <button class="btn btn-danger">Delete</button>
+                        
                     </td>
                 </tr>
                 
@@ -234,41 +226,117 @@
 
 <script>
     function showPopup() {
- // Create a modal or custom pop-up with checkboxes
- var popup = document.createElement("div");
- popup.className = "modal fade";
- popup.id = "myModal";
+        // Create a modal or custom pop-up with checkboxes
+        var popup = document.createElement("div");
+        popup.className = "modal fade";
+        popup.id = "myModal";
 
- var popupContent = document.createElement("div");
- popupContent.className = "modal-dialog modal-dialog-centered";
+        var popupContent = document.createElement("div");
+        popupContent.className = "modal-dialog modal-dialog-centered";
 
- // Add checkboxes
- popupContent.innerHTML = `
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Make user a</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <label><input type="radio" name="userType" id="radioAdmin"> Admin</label><br>
-            <label><input type="radio" name="userType" id="radioStudentLeader"> Student Leader</label><br>
-            <label><input type="radio" name="userType" id="radioMember"> Member</label><br>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="createEvent()">Confirm</button>
-            <button type="button" class="btn btn-secondary" onclick="closePopup()">Cancel</button>
-        </div>
-    </div>
-`;
+        // Add checkboxes and dropdown
+        popupContent.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Make user a</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label><input type="radio" name="userType" id="radioAdmin"> Admin</label>
+                    </div>
+                    <div>
+                        <label><input type="radio" name="userType" id="radioStudentLeader"> Student Leader</label>
+                    </div>
+                    <div>
+                        <label><input type="radio" name="userType" id="radioMember"> Member</label>
+                    </div><br>
+                     
 
- popup.appendChild(popupContent);
+                    <label for="organizationDropdown">Select an Organization:</label>
+                    <!-- Add a dropdown list -->
+                    <div>
+                        
+                        <select id="userRolesDropdown">
+                            
+                            <option value="Acomss">(ACOMSS)</option>
+                            <option value="Adusvst">(AdUSVST SOPHIA)</option>
+                            <option value="Aubs">(AUBS)</option>
+                            <option value="Aduchess">(ADUCHESS)</option>
+                            <option value="Aucs">(AUCS)</option>
+                            <option value="Ispe">(AdU-ISPE)</option>
+                            <option value="Acoes">(ACOES)</option>
+                            <option value="Aducare">(AdU-CARES)</option>
+                            <option value="Aueess">(AUEESS)</option>
+                            <option value="Auecess">(AUECESS)</option>
+                            <option value="Adugame">(AdU-GAME)</option>
+                            <option value="Aduitis">(AdU-IT & M Society)</option>
+                            <option value="Adjma">(ADJMA)</option>
+                            <option value="Aumes">(AUMES)</option>
+                            <option value="Aumega">(AUMEGA)</option>
+                            <option value="Aups">(AUPS)</option>
+                            <option value="Ausna">(AUSNA)</option>
+                            <option value="Auyea">(AUYEA)</option>
+                            <option value="Aduaces">(ADU-ACES)</option>
+                            <option value="Adupulitika">AdU-PULITIKA</option>
+                            <option value="Ahms">(AHMS)</option>
+                            <option value="Creacomss">(CreaComms)</option>
+                            <option value="Fjcph"> Philippine Pharmacists Association </option>
+                            <option value="Jfinex">(JFINEX)</option>
+                            <option value="Jma">(JMA)</option>
+                            <option value="Jpia">(JPIA)</option>
+                            <option value="Piieorsp">(PIIE-ORSP)</option>
+                            <option value="RacAdu">(RAC-AdU)</option>
+                            <option value="Speadu">(SPE-AdUSC)</option>
+                            <option value="Ucas">(UCAS)</option>
+                            <option value="Uapsa">(UAPSA)</option>
+                            <option value="Math">(AUMS)</option>
+                            <option value="Psau">(PSAU)</option>
+                            <option value="Silip">Silip@Lente - AdU</option>
+                            <option value="Asaadu">(ASA-AdU)</option>
+                            <option value="AduRyc">(AdU-RCYC)</option>
+                            <option value="Enactus">(ENACTUS)</option>
+                            <option value="Gravity">GRAVITY SET</option>
+                            <option value="Himig">(HIMIG)</option>
+                            <option value="Mesau">(MESAU)</option>
+                            <option value="AduSao">(AdU-SAO)</option>
+                            <option value="Tnt">(TNT)</option>
 
- // Append the modal to the body
- document.body.appendChild(popup);
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="createEvent()">Confirm</button>
+                    <button type="button" class="btn btn-secondary" onclick="closePopup()">Cancel</button>
+                </div>
+            </div>
+        `;
 
- // Show the modal
- $('#myModal').modal('show');
-}
+        popup.appendChild(popupContent);
+
+        // Append the modal to the body
+        document.body.appendChild(popup);
+
+        // Show the modal
+        $('#myModal').modal('show');
+    }
+
+    function createEvent() {
+        // Implement your logic here
+        console.log('Creating event...');
+        // Close the popup
+        closePopup();
+    }
+
+    function closePopup() {
+        // Remove the modal from the DOM
+        $('#myModal').modal('hide');
+        $('#myModal').remove();
+    }
+</script>
+
+
+<script>
 function createEvent() {
     var radioAdmin = document.getElementById('radioAdmin');
     var radioStudentLeader = document.getElementById('radioStudentLeader');
