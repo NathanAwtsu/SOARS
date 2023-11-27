@@ -76,7 +76,7 @@
                             <a class="nav-link" href="<?php echo e(route('admin')); ?>">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-circle-user fa-lg"></i>
-                                    <span class="ml-2"><?php echo e(Auth::user()->username); ?></span>
+                                    <span class="ml-2"><?php echo e(Auth::user()->name); ?></span>
                                 </div>
                             </a>
                         </li>
