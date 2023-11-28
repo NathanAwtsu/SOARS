@@ -24,23 +24,23 @@ class StudentsController extends Controller
     }
 
     public function store(Request $request)
-{
-    $studentId = $request->student_id;
-    $studentData = [
-        'last_name' => $request->last_name,
-        'middle_initial' => $request->middle_initial,
-        'first_name' => $request->first_name,
-        'email' => $request->email,
-        'member_status' => $request->member_status,
-        'user_roles' => $request->user_roles,
-        'username' => $request->username,
-        'phone_number' => $request->phone_number,
-    ];
+    {
+        $studentId = $request->student_id;
+        $studentData = [
+            'last_name' => $request->last_name,
+            'middle_initial' => $request->middle_initial,
+            'first_name' => $request->first_name,
+            'email' => $request->email,
+            'member_status' => $request->member_status,
+            'user_roles' => $request->user_roles,
+            'username' => $request->username,
+            'phone_number' => $request->phone_number,
+        ];
 
-    // Check if password is provided in the request
-    if (!empty($request->password)) {
-        $studentData['password'] = Hash::make($request->password); // Hash Password
-    }
+        // Check if password is provided in the request
+        if (!empty($request->password)) {
+            $studentData['password'] = Hash::make($request->password); // Hash Password
+        }
 
     DB::table('students')->updateOrInsert(
         ['student_id' => $studentId],

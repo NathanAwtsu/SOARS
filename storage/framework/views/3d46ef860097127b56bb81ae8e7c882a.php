@@ -5,8 +5,8 @@
 <main >
     <div class="container" style="padding-top: 10px;">
         <div class="container-event" style="margin-left:185px">
-            <h2>Create an event</h2>
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal">Create an Event</button>
+            <h3>Create an event</h3>
+            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#createEventModal">Create an Event</button>
         </div>
     </div>
     
@@ -62,7 +62,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary">Confirm</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     
                 </div>
             </div>
@@ -75,7 +75,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="rejectModalLabel">Confirmation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger">Confirm</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     
                 </div>
             </div>
@@ -158,6 +158,7 @@
                 <h5 class="modal-title">Send Email To</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="">
             <div class="modal-body">
                 <!-- Email recipients checkboxes -->
                 <label><input type="checkbox" id="checkbox1"> RSO</label><br>
@@ -169,6 +170,7 @@
                 <button type="button" class="btn btn-primary" onclick="createEvent()">Create</button>
                 <button type="button" class="btn btn-secondary" onclick="closePopup()">Cancel</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
