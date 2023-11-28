@@ -27,8 +27,7 @@ return new class extends Migration
             //$table->string('member_position');
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('course_id')
-                ->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
     }
 
