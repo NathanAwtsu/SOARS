@@ -99,14 +99,7 @@
                         </div>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="OSAaudit.html">
-                        <div class="d-flex align-items-center" style="margin-left: -10px;">
-                            <i class="fa-regular fa-paste fa-lg"></i>
-                            <span class="ml-2">Audit log</span>
-                        </div>
-                    </a>
-                </li>
+            
                 <li class="nav-item">
                     <a class="nav-link" href="OSAuserlist.html">
                         <div class="d-flex align-items-center" style="margin-left: -10px;">
@@ -140,29 +133,54 @@
     <center><main>
        
         <div class="card" style="height: auto; width: 600px;">
-            <h2>Organization Information Form</h2>
+            <h2>Organization Information Form</h2> <br><br>
 
             <form action="submit_organization.php" method="post" enctype="multipart/form-data">
-                <label for="missionVision">Mission and Vision:</label><br>
-                <textarea id="missionVision" name="missionVision" rows="4" cols="50" required></textarea><br><br>
+                <label for="Mission"><h2>Insert Mission :</h2></label><br>
+                <textarea id="Mission" name="Mission" rows="4" cols="50" required></textarea><br><br>
+
+                <label for="Vision"><h2>Insert Vision:</h2> </label><br>
+                <textarea id="Vision" name="Vision" rows="4" cols="50" required></textarea><br><br>
 
                 
-                <label for="Constitutions">Upload Constitutions:</label>
+                <label for="Constitutions"><h2>First Select and Upload Constitutions:</h2></label>
                 <input type="file" id="logoFile" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" required><br><br>
 
-                <label for="byLaws">Upload Bylaws:</label>
+                <label for="byLaws"><h2>And then Select and Upload Bylaws:</h2></label>
                 <input type="file" id="logoFile" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" required><br><br>
 
-                <label for="logoFile">Upload Logo:</label>
+                <label for="logoFile"><h2>Also Select and Upload Logo:</h2></label>
                 <input type="file" id="logoFile" name="logoFile" accept=".png, .jpg, .jpeg" required><br><br>
 
-                <label for="letterOfIntentFile">Upload Letter of Intent:</label>
+                <label for="letterOfIntentFile"><h2>As well as Upload Letter of Intent:</h2></label>
                 <input type="file" id="letterOfIntentFile" name="letterOfIntentFile" accept=".pdf" required><br><br>
 
-                <label for="advisersInfoFile">Upload Advisers and Officers Information:</label>
-                <input type="file" id="advisersInfoFile" name="advisersInfoFile" accept=".pdf" required><br><br>
+                <label for="advisersInfoText"><h2>Almost there! Enter Advisers and Officers Information:</h2></label>
 
-                <label for="adviserEndorsementFile">Upload Adviser Endorsement:</label>
+<div class="col-md-4">
+    <div class="officer-card" id="officerContainer">
+        <form action="update_officer_details.php" method="post">
+            <label for="janeName">Name:</label>
+            <input type="text" id="janeName" name="janeName" value="Jane Smith"><br>
+
+            <label for="janePosition">Position:</label>
+            <input type="text" id="janePosition" name="janePosition" value="AUSG Representative"><br>
+
+            <label for="janeContact">Contact:</label>
+            <input type="text" id="janeContact" name="janeContact" value="sampleemail.@adu.edu.ph"><br>
+        </form>
+    </div><br>
+
+    <button type="button" onclick="addOfficerForm()">Add Another Officer</button>
+    <button type="button" id="undoButton" onclick="undoAddOfficerForm()" style="display:none;">Undo</button>
+</div>
+                
+                
+    <!-- You can provide default text or leave it empty -->
+</textarea>
+
+
+                <label for="adviserEndorsementFile"><h2>Almost done ! Upload Adviser Endorsement File:</h2></label>
                 <input type="file" id="adviserEndorsementFile" name="adviserEndorsementFile" accept=".pdf" required><br><br>
 
                 <input type="submit" value="Submit">
@@ -171,6 +189,43 @@
     </main></center>
 
     
+    <script>
+    var officerContainer = document.getElementById('officerContainer');
+    var originalForm = officerContainer.innerHTML;
+
+    function addOfficerForm() {
+        var newForm = document.createElement('form');
+        newForm.innerHTML = `
+            <label for="newName">Name:</label>
+            <input type="text" id="newName" name="newName" value=""><br>
+
+            <label for="newPosition">Position:</label>
+            <input type="text" id="newPosition" name="newPosition" value=""><br>
+
+            <label for="newContact">Contact:</label>
+            <input type="text" id="newContact" name="newContact" value=""><br>
+        `;
+
+        officerContainer.appendChild(newForm);
+
+        // Show the Undo button
+        document.getElementById('undoButton').style.display = 'inline';
+    }
+
+    function undoAddOfficerForm() {
+        // Remove the last added form
+        var forms = officerContainer.getElementsByTagName('form');
+        if (forms.length > 1) {
+            officerContainer.removeChild(forms[forms.length - 1]);
+        } else {
+            // If there's only one form, reset its content to the original
+            officerContainer.innerHTML = originalForm;
+
+            // Hide the Undo button
+            document.getElementById('undoButton').style.display = 'none';
+        }
+    }
+</script>
     
     
     
