@@ -29,31 +29,7 @@
                 <p>Card description goes here.</p>
                 </a>
             </div>
-            <div class="card">
-                <img src="card4.jpg" alt="Card 4">
-                <h2>Card 4</h2>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                <img src="card5.jpg" alt="Card 5">
-                <h2>Card 5</h2>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                <img src="card6.jpg" alt="Card 6">
-                <h2>Card 6</h2>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                <img src="card7.jpg" alt="Card 7">
-                <h2>Card 7</h2>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                <img src="card8.jpg" alt="Card 8">
-                <h2>Card 8</h2>
-                <p>Card description goes here.</p>
-            </div>
+            
         </div>
         
         <div class="card-table-title"> <H1>CO-ACADEMIC</H1></div>
@@ -64,21 +40,7 @@
             <h2>Card 3</h2>
             <p>Card description goes here.</p>
         </div>
-        <div class="card">
-            <img src="card3.jpg" alt="Card 3">
-            <h2>Card 3</h2>
-            <p>Card description goes here.</p>
-        </div>
-        <div class="card">
-            <img src="card3.jpg" alt="Card 3">
-            <h2>Card 3</h2>
-            <p>Card description goes here.</p>
-        </div>
-        <div class="card">
-            <img src="card3.jpg" alt="Card 3">
-            <h2>Card 3</h2>
-            <p>Card description goes here.</p>
-        </div>
+        
         
     </div>
     <div class="card-table-title"> <H1>SOCIO-CIVIC</H1><br> </div>
@@ -90,42 +52,7 @@
                 <h2>Card 1</h2>
                 <p>Card description goes here.</p>
             </div>
-            <div class="card">
-                <img src="card2.jpg" alt="Card 2">
-                <h2>Card 2</h2>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                <img src="card3.jpg" alt="Card 3">
-                <h2>Card 3</h2>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                <img src="card4.jpg" alt="Card 4">
-                <h2>Card 4</h2>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                <img src="card5.jpg" alt="Card 5">
-                <h2>Card 5</h2>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                <img src="card6.jpg" alt="Card 6">
-                <h2>Card 6</h2>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                <img src="card7.jpg" alt="Card 7">
-                <h2>Card 7</h2>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                <img src="card8.jpg" alt="Card 8">
-                <h2>Card 8</h2>
-                <p>Card description goes here.</p>
-            </div>
-        </div>
+        
        
     </main></Center>
 

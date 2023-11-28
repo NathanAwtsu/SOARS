@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('organization', function (Blueprint $table) {
             $table->id();
+            $table->integer('requirement_status');
             $table->string('name');
-            $table->string('acro');
+            $table->string('nickname');
             $table->string('mission');
             $table->string('vision');
-            $table->binary('logo');
-            $table->binary('consti_and_byLaws');
-            $table->binary('letter_of_intent');
+            $table->mediumText('logo');
+            $table->mediumText('consti_and_byLaws');
+            $table->mediumText('letter_of_intent');
             $table->string('adviser_info');
             $table->string('officer_info');
             $table->binary('admin_endorsement');

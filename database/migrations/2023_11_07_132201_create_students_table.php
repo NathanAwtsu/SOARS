@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->unsignedBigInteger('course_id'); // Foreign key
+            $table->string('organization');
             $table->string('password');
             $table->string('member_status');
             $table->integer('user_roles'); // Roles: 4=User/Student, 3=Student Officer, 2=OSA Personnel, 1=admin
-            $table->string('username');
+            $table->string('name');
             $table->string('phone_number')->nullable();
             //$table->string('member_position');
             $table->rememberToken();
