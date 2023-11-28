@@ -11,44 +11,49 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+
 
     <!-- Fonts -->
-    <link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('bootstrap-5.3.2-dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/admingeneral.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')); ?>" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="<?php echo e(url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')); ?>" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="<?php echo e(url('https://code.jquery.com/jquery-3.6.0.min.js')); ?>"></script>
+    <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js')); ?>"></script>
+    <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js')); ?>"></script>
+    <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js')); ?>"></script>
     
     <?php echo $__env->yieldPushContent('jquery'); ?>
     <?php echo $__env->yieldPushContent('styles'); ?>
     
 
     <!-- Scripts -->
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss']); ?>    
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss']); ?>  
 </head>
 <body>
-    <!--Hamburger Menu-->
+    <!--Sidebar portion-->
     <div class="container-fluid">
         <div class="row">
             <header>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
                     <div class="container">
-                        <a class="navbar-brand" href="#"><h2>Dashboard</h2></a>
+                        <a class="navbar-brand">
+                        <?php if(Route::is('admin')): ?>
+                            <h2>Dashboard</h2>
+                        <?php elseif(Route::is('studlist')): ?>
+                            <h2>Manage Users</h2>
+                        <?php elseif(Route::is('auditlog')): ?>
+                            <h2>Audit Log</h2>
+                        <?php elseif(Route::is('admin_profile')): ?>
+                            <h2>Admin Profile</h2>
+                        <?php elseif(Route::is('rso_list')): ?>
+                            <h2>Student Organization List</h2>
+                        <?php endif; ?>
+                        </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <form class="form-inline">
-                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                                        <button class="btn btn-primary" type="submit">Search</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </nav>
             </header>
@@ -65,7 +70,7 @@
                             </div>
                         </div>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo e(route('admin')); ?>">
+                            <a class="nav-link" href="<?php echo e(route('admin_profile')); ?>">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-circle-user fa-lg"></i>
                                     <span class="ml-2"><?php echo e(Auth::user()->name); ?></span>
@@ -81,7 +86,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">
+                            <a class="nav-link" href="<?php echo e(route('auditlog')); ?>">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-paste fa-lg"></i>
                                     <span class="ml-2">Audit log</span>
@@ -92,7 +97,7 @@
                             <a class="nav-link" href="<?php echo e(route('studlist')); ?>">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-address-book fa-lg"></i>
-                                    <span class="ml-2">Students List</span>
+                                    <span class="ml-2">Manage Users</span>
                                 </div>
                             </a>
                         </li>
@@ -101,7 +106,7 @@
                             <a class="nav-link" href="/rso_list">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-solid fa-users fa-lg"></i>
-                                    <span class="ml-2">Org List</span>
+                                    <span class="ml-2">Organization List</span>
                                 </div>
                             </a>
                         </li>
@@ -124,10 +129,11 @@
         </div>
     </div>
 
-            
-            <?php echo $__env->yieldContent('content'); ?>
+<main >           
+<?php echo $__env->yieldContent('content'); ?>
+</main>
             
 <?php echo $__env->yieldPushContent('scripts'); ?>
-    
+
 </body>
 </html><?php /**PATH C:\xampp\htdocs\SOARS Github\SOARS\resources\views/navbar/admin_nav.blade.php ENDPATH**/ ?>
