@@ -82,12 +82,12 @@
                                 </div>
                             </a>
                         </li>
-                    
+                       
                         <li class="nav-item">
                             <a class="nav-link" href="OSAuserlist.html">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-address-book fa-lg"></i>
-                                    <span class="ml-2">User Management</span>
+                                    <span class="ml-2">Manage Users</span>
                                 </div>
                             </a>
                         </li>
@@ -95,7 +95,7 @@
                             <a class="nav-link" href="OSAorglist.html">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-solid fa-users fa-lg"></i>
-                                    <span class="ml-2">Organization Management</span>
+                                    <span class="ml-2">Manage Organizations</span>
                                 </div>
                             </a>
                         </li>
@@ -112,7 +112,6 @@
             </nav>
         </div>
     </div>
-
     <div class="container-tbl-up">
             
             
@@ -136,7 +135,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Organizations</th>
+                
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -145,8 +144,8 @@
                     <td>1</td>
                     <td>DingDong</td>
                     <td>DingDongDonetest@gmail.com</td>
-                    <td>Admin</td>
-                    <td>ADUIT,TNT,MESAU</td>
+                    <td>Member</td>
+                    
                     <td>
                         <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#myModal" onclick="showPopup()">Edit</button>
                         
@@ -196,7 +195,7 @@
                             <label for="role">Role</label><br>
                             <select class="form-control" id="role">
                                
-                                <option value="admin">Admin</option>
+                               
                                 <option value="member">Member</option>
                                 <option value="studentleader">Student Leader</option>
                                 <!-- Add more role options if needed -->
@@ -242,9 +241,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div>
-                        <label><input type="radio" name="userType" id="radioAdmin"> Admin</label>
-                    </div>
+                    
                     <div>
                         <label><input type="radio" name="userType" id="radioStudentLeader"> Student Leader</label>
                     </div>
