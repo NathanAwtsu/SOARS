@@ -99,12 +99,12 @@
                         </div>
                     </a>
                 </li>
-            
+               
                 <li class="nav-item">
                     <a class="nav-link" href="OSAuserlist.html">
                         <div class="d-flex align-items-center" style="margin-left: -10px;">
                             <i class="fa-regular fa-address-book fa-lg"></i>
-                            <span class="ml-2">User Management</span>
+                            <span class="ml-2">Manage Users</span>
                         </div>
                     </a>
                 </li>
@@ -112,7 +112,7 @@
                     <a class="nav-link" href="OSAorglist.html">
                         <div class="d-flex align-items-center" style="margin-left: -10px;">
                             <i class="fa-solid fa-users fa-lg"></i>
-                            <span class="ml-2">Organization Management</span>
+                            <span class="ml-2">Manage Organizations</span>
                         </div>
                     </a>
                 </li>
@@ -142,8 +142,15 @@
                 <label for="Vision"><h2>Insert Vision:</h2> </label><br>
                 <textarea id="Vision" name="Vision" rows="4" cols="50" required></textarea><br><br>
 
+                <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
+<select id="OrganizationType" name="OrganizationType" required>
+    <option value="option1">Academic</option>
+    <option value="option2">Co-Academic</option>
+    <option value="option3">Socio Civic</option>
+    <option value="option4">Religious</option>
+</select><br><br>
                 
-                <label for="Constitutions"><h2>First Select and Upload Constitutions:</h2></label>
+                <label for="Constitutions"><h2>Please Select and Upload Constitutions:</h2></label>
                 <input type="file" id="logoFile" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" required><br><br>
 
                 <label for="byLaws"><h2>And then Select and Upload Bylaws:</h2></label>
@@ -180,11 +187,12 @@
 </textarea>
 
 
-                <label for="adviserEndorsementFile"><h2>Almost done ! Upload Adviser Endorsement File:</h2></label>
-                <input type="file" id="adviserEndorsementFile" name="adviserEndorsementFile" accept=".pdf" required><br><br>
+<label for="adviserEndorsementFile"><h2>Almost done! Upload Adviser Endorsement File:</h2></label>
+<input type="file" id="adviserEndorsementFile" name="adviserEndorsementFile" accept=".pdf" required><br><br>
 
-                <input type="submit" value="Submit">
-            </form>
+<input type="button" value="Submit" onclick="confirmSubmission()">
+</form>
+            
         </div>
     </main></center>
 
@@ -227,7 +235,17 @@
     }
 </script>
     
-    
+<script>
+    function confirmSubmission() {
+        // Show a confirmation dialog
+        var isConfirmed = window.confirm("Are you sure you want to proceed with the submission?");
+
+        // If the user clicks "OK" in the confirmation dialog, submit the form
+        if (isConfirmed) {
+            document.forms[0].submit(); // Assuming the form is the first form in your document
+        }
+    }
+</script>
     
     
 
