@@ -169,7 +169,7 @@
             type: "POST",
             url: "<?php echo e(url('edit')); ?>",
             data: {student_id: id},
-            dataType: 'json',
+            
             success: function(res){
                 console.log(res);
                 $('#student-Modal').html("Edit Information");
@@ -183,7 +183,17 @@
                 $('#user_roles').val(res.user_roles);
                 $('#username').val(res.username);
                 $('#phone_number').val(res.phone_number);
+
+                
+
+                if (res.password) {
+                $('#password').val(res.password); // Assuming the password field has an ID 'password'
             }
+            },
+            error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+            // Handle error or log the details for troubleshooting
+        }
         });
     }
 
@@ -195,7 +205,7 @@
                 type: "POST",
                 url: "<?php echo e(url('delete')); ?>",
                 data: { student_id:id },
-                dataType: 'json',
+                
                 success: function(res){
                     var oTable = $("#student-list").dataTable();
                     oTable.fnDraw(false);
@@ -214,29 +224,30 @@
 
 
 
-$('#studentForm').submit(function(s){
-    s.preventDefault();
-    var formData = new FormData(this);
+// For submitting the form for adding or updating
+$('#studentForm').submit(function(event){
+    event.preventDefault();
+    var actionUrl = "<?php echo e(isset($student) ? url('update') : url('store')); ?>"; // Determine action based on the presence of $student
+
     $.ajax({
         type:'POST',
-        url: "<?php echo e(url('store')); ?>",
-        data: formData,
+        url: actionUrl,
+        data: new FormData(this),
         cache: false,
         contentType: false,
         processData: false,
-        success: (data) => {
-            console.log(data);
+        success: function(response) {
+            console.log(response.message);
             $('#studentModal').modal('hide');
-            var oTable=  $('#student-list').dataTable();
-            oTable.fnDraw(false);
-            $('#btn-save').html('Submit');
-            $('#btn-save').attr("disabled", false);
+            $('#student-list').DataTable().ajax.reload(); // Reload the DataTable
         },
-        error: function(data){ 
-            console.log(data);
+        error: function(xhr, status, error){ 
+            console.log(xhr.responseText);
+            // Handle error or log the details for troubleshooting
         }
     });
 });
+
 </script>
 </main>
 <?php $__env->stopSection(); ?>
