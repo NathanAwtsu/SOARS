@@ -1,71 +1,52 @@
 <?php $__env->startSection('content'); ?>    
 
 <main>
-<div class="organization" id="acomss" style="display: none;">
-    <!-- Content for ACOMSS page goes here -->
-    <h1>Adamson Computer Science Students Society (ACOMSS)</h1>
-    <!-- Add any specific content for ACOMSS -->
-    <img src="<?php echo e(asset('path_to_uploaded_image')); ?>" class="rounded float-start" alt="Logo">
-    <!-- Implement upload functionality -->
-    <form action="<?php echo e(route('upload_logo')); ?>" method="POST" enctype="multipart/form-data">
-        <?php echo csrf_field(); ?>
-        <input type="file" name="logo">
-        <input type="hidden" class="organizationName" name="organizationName" value="Adamson Computer Science Students Society (ACOMSS)">
-        <button type="submit">Upload Logo</button>
-    </form>
-    
-</div>
+<?php if(empty($organizations) || count($organizations) === 0): ?>
+        <!-- Handle case where no organizations exist -->
+        <div class="empty-organizations">
+            <p>No organizations found.</p>
+        </div>
+    <?php else: ?>
+        <?php $__currentLoopData = $organizations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $organization): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php if(!empty($organization['id']) && !empty($organization['name'])): ?>
+                <div class="organization" id="<?php echo e($organization['id']); ?>" style="display: none;">
+                    <!-- Content for <?php echo e($organization['name']); ?> page goes here -->
+                    <h1><?php echo e($organization['name']); ?></h1>
+                    <!-- Add any specific content for the organization -->
+                    <img src="<?php echo e(asset('path_to_uploaded_image')); ?>" alt="Logo">
+                    <!-- Implement upload functionality -->
+                    <form action="<?php echo e(route('upload_logo')); ?>" method="POST" enctype="multipart/form-data">
+                        <?php echo csrf_field(); ?>
+                        <input type="file" name="logo">
+                        <input type="hidden" class="organizationName" name="organizationName" value="<?php echo e($organization['name']); ?>">
+                        <button type="submit">Upload Logo</button>
+                    </form>
+                </div>
+                <?php else: ?>
+                
+                <div class="empty-organization">
+                    <p>This organization is empty or lacks necessary information.</p>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endif; ?>
 
-<div class="organization" id="adusvstsophia" style="display: none;">
-    <!-- Content for AdUSVST page goes here -->
-    <h1>Adamson University and St. Vincent School of Theology(AdUSVST SOPHIA)</h1>
-    <!-- Add any specific content for ACOMSS -->
-    <img src="<?php echo e(asset('path_to_uploaded_image')); ?>" alt="Logo">
-    <!-- Implement upload functionality -->
-    <form action="<?php echo e(route('upload_logo')); ?>" method="POST" enctype="multipart/form-data">
-        <?php echo csrf_field(); ?>
-        <input type="file" name="logo">
-        <input type="hidden" class="organizationName" name="organizationName" value="Adamson University and St. Vincent School of Theology(AdUSVST SOPHIA)">
-        <button type="submit">Upload Logo</button>
-    </form>
-
-</div>
-
-<div class="organization" id="aubs" style="display: none;">
-    <!-- Content for AUBS page goes here -->
-    <h1>Adamson University Biology Society (AUBS)</h1>
-    <!-- Add any specific content for ACOMSS -->
-    <img src="<?php echo e(asset('path_to_uploaded_image')); ?>" alt="Logo">
-    <!-- Implement upload functionality -->
-    <form action="<?php echo e(route('upload_logo')); ?>" method="POST" enctype="multipart/form-data">
-        <?php echo csrf_field(); ?>
-        <input type="file" name="logo">
-        <input type="hidden" class="organizationName" name="organizationName" value="Adamson University Biology Society (AUBS)">
-        <button type="submit">Upload Logo</button>
-    </form>
-    
-</div>
 
     <script>
-        // Function to show content based on content parameter
         window.onload = function() {
             let content = "<?php echo e($content); ?>";
-            if (content === 'acomss') {
-                showContent('acomss');
-            } else if (content === 'adusvstsophia') {
-                showContent('adusvstsophia');
-            } else if (content === 'aubs') {
-                showContent('aubs');
-            }
+            showContent(content);
         }
 
         function showContent(contentId) {
-            document.getElementById('acomss').style.display = 'none';
-            document.getElementById('adusvstsophia').style.display = 'none';
-            document.getElementById('aubs').style.display = 'none';
+            const organizations = document.querySelectorAll('.organization');
+            organizations.forEach(org => {
+                org.style.display = 'none';
+            });
 
             document.getElementById(contentId).style.display = 'block';
         }
+
     </script>
 
 </main>

@@ -1,7 +1,7 @@
 @extends('navbar.admin_nav')
 
 @section('content')
-<main class="col-md-12 col-lg-12 px-md-4" style="height: 100%;">
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
@@ -166,6 +166,7 @@
 
     });
 
+    //for updating students info
     function editF(id){
         $.ajax({
             type: "POST",
@@ -186,8 +187,6 @@
                 $('#username').val(res.username);
                 $('#phone_number').val(res.phone_number);
 
-                
-
                 if (res.password) {
                 $('#password').val(res.password); // Assuming the password field has an ID 'password'
             }
@@ -198,7 +197,7 @@
         }
         });
     }
-
+    //for deleting students
     function deleteF(id){
         if (confirm("Delete Student Record?") == true){
             var id = id;
@@ -251,7 +250,7 @@ $('#studentForm').submit(function(event){
 });
 
 </script>
-</main>
+
 @endsection
 
 

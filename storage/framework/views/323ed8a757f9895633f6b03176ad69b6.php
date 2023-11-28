@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="<?php echo e(url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')); ?>" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="<?php echo e(asset('bootstrap-5.3.2-dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/OSAgeneral.css')); ?>">
+    <script src="<?php echo e(url('https://code.jquery.com/jquery-3.6.0.min.js')); ?>"></script>
+    <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js')); ?>"></script>
+    <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js')); ?>"></script>
+
 
     <?php if(Route::is('osaorganization_new')): ?>
     <style> form {
@@ -59,6 +63,8 @@
                             <h2>Oganization List</h2>
                         <?php elseif(Route::is('osaorganization_new')): ?>
                             <h2>New Organization</h2>
+                        <?php elseif(Route::is('osaactivityapproval')): ?>
+                            <h2>Activity Approval</h2>
                         <?php endif; ?>
 
                     </a>
@@ -66,6 +72,8 @@
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
+                    <?php if(Route::is('osauserlist') || Route::is('osaorganizationlist')): ?>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
@@ -76,6 +84,7 @@
                             </li>
                         </ul>
                     </div>
+                    <?php endif; ?>
                 </div>
             </nav>
         </header>
@@ -117,14 +126,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="OSAapproval.html" style="color:white;">
+                <a class="nav-link" href="<?php echo e(url('/osaemp/activity_approval')); ?>" style="color:white;">
                     <i class="fa-solid fa-clipboard-list fa-lg"></i>
-                    Approval Request
+                    Activity Approval
                 </a>
             </li>
         
             <li class="nav-item">
-                <a class="nav-link" href="" style="color:white;">
+                <a class="nav-link" href="<?php echo e(url('/osaemp/userlist')); ?>" style="color:white;">
                 <i class="fa-solid fa-user"></i>
                     Student List
                 </a>

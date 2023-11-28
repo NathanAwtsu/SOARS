@@ -11,44 +11,49 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+
 
     <!-- Fonts -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/admingeneral.css')}}">
+    <link rel="stylesheet" href="{{asset('css/Studentgeneral.css')}}">
     <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')}}" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js')}}"></script>
     
     @stack('jquery')
     @stack('styles')
     
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss'])    
+    @vite(['resources/sass/app.scss'])  
 </head>
 <body>
-    <!--Hamburger Menu-->
+    <!--Sidebar portion-->
     <div class="container-fluid">
         <div class="row">
             <header>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
                     <div class="container">
-                        <a class="navbar-brand" href="#"><h2>Dashboard</h2></a>
+                        <a class="navbar-brand">
+                        @if (Route::is('admin'))
+                            <h2>Dashboard</h2>
+                        @elseif (Route::is('studlist'))
+                            <h2>Manage Users</h2>
+                        @elseif (Route::is('auditlog'))
+                            <h2>Audit Log</h2>
+                        @elseif (Route::is('admin_profile'))
+                            <h2>Admin Profile</h2>
+                        @elseif (Route::is('rso_list'))
+                            <h2>Student Organization List</h2>
+                        @endif
+                        </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <form class="form-inline">
-                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                                        <button class="btn btn-primary" type="submit">Search</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </nav>
             </header>
@@ -65,7 +70,7 @@
                             </div>
                         </div>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin')}}">
+                            <a class="nav-link" href="{{route('admin_profile')}}">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-circle-user fa-lg"></i>
                                     <span class="ml-2">{{Auth::user()->name}}</span>
@@ -81,7 +86,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">
+                            <a class="nav-link" href="{{route('auditlog')}}">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-paste fa-lg"></i>
                                     <span class="ml-2">Audit log</span>
@@ -92,7 +97,7 @@
                             <a class="nav-link" href="{{route('studlist')}}">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-address-book fa-lg"></i>
-                                    <span class="ml-2">Students List</span>
+                                    <span class="ml-2">Manage Users</span>
                                 </div>
                             </a>
                         </li>
@@ -101,7 +106,7 @@
                             <a class="nav-link" href="/rso_list">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-solid fa-users fa-lg"></i>
-                                    <span class="ml-2">Org List</span>
+                                    <span class="ml-2">Organization List</span>
                                 </div>
                             </a>
                         </li>
@@ -124,10 +129,11 @@
         </div>
     </div>
 
-            
-            @yield('content')
+<main >           
+@yield('content')
+</main>
             
 @stack('scripts')
-    
+
 </body>
 </html>
