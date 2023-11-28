@@ -1,4 +1,5 @@
 <?php $__env->startSection('content'); ?>
+<main class="col-md-12 col-lg-12 px-md-4" style="height: 100%;">
 <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
@@ -27,7 +28,6 @@
                 <th>Middle Initial</th>
                 <th>First Name</th>
                 <th>Email</th>
-                <th>Course ID</th>
                 <th>Membership Status</th>
                 <th>Roles</th>
                 <th>Username</th>
@@ -83,13 +83,6 @@
         <label for="email" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-12">
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="course_id" class="col-sm-2 control-label">Course ID</label>
-        <div class="col-sm-12">
-            <input type="text" class="form-control" id="course_id" name="course_id" placeholder="Enter Course ID" required>
         </div>
     </div>
 
@@ -160,7 +153,6 @@
                 {data: 'middle_initial', name: 'middle_initial'},
                 {data: 'first_name', name: 'first_name'},
                 {data: 'email', name: 'email'},
-                {data: 'course_id', name: 'course_id'},
                 {data: 'member_status', name: 'member_status'},
                 {data: 'user_roles', name: 'user_roles'},
                 {data: 'username', name: 'username'},
@@ -187,7 +179,6 @@
                 $('#middle_initial').val(res.middle_initial);
                 $('#first_name').val(res.first_name);
                 $('#email').val(res.email);
-                $('#course_id').val(res.course_id);
                 $('#member_status').val(res.member_status);
                 $('#user_roles').val(res.user_roles);
                 $('#username').val(res.username);
@@ -247,7 +238,7 @@ $('#studentForm').submit(function(s){
     });
 });
 </script>
-
+</main>
 <?php $__env->stopSection(); ?>
 
 

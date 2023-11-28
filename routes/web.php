@@ -25,6 +25,39 @@ require __DIR__.'/auth.php';
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+/*TESTING, MAINTENANCE and DEPLOYMENT
+Route::get('user/{id}', function($id){
+	$userIdQuery = DB::select('SELECT id, name, email, created_at, updated_at FROM users WHERE id = ?' , [$id]);
+
+	if($userIdQuery != null)
+	{
+	
+		$userIdQueryObj = array();
+		foreach($userIdQuery as $value)
+		{
+			$tempArray = array(
+				"id" => $value->id, 
+				"name" => $value->name,
+				"email" => $value->email,
+				"createdAt" => $value->created_at,
+				"updatedAt" => $value->updated_at
+		);
+		array_push($userIdQueryObj, $tempArray);
+
+	}
+	$objectUserQuery = (object)[
+		"data" => $userIdQueryObj
+	];
+	return response()->json($objectUserQuery);
+	}
+	else
+	{
+		return response()->json([
+			"message" => "User ID not found"
+		],404);
+	}
+});
+*/
 
 Route::get('/', function () {return view('soars');});
 Route::get('/soars', function () {return view('soars');});
@@ -69,7 +102,7 @@ Route::get('/osaemp/message', function (){return view('OSA/message');})->name('o
 Route::get('/osaemp/updateunseenmessage', [App\Http\Controllers\OsaController::class, 'checkUnseenMessage']);
 Route::get('/osaemp/organization_list', function(){return view('OSA/organization_list');})->name('osaorganizationlist');
 Route::get('/osaemp/organization_list/new_organization', function(){return view('OSA/organization_new');})->name('osaorganization_new');
-
+Route::get('/osaemp/activity_approval', function(){return view('OSA/approval');})->name('osaactivityapproval');
 
 //End of Routes for OSA
 

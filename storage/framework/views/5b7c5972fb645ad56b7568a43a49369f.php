@@ -1,13 +1,3 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOARS</title>
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo e(asset('css/admingeneral.css')); ?>">
-</head>-->
 <!doctype html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
@@ -28,9 +18,11 @@
     <link rel="stylesheet" href="<?php echo e(asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')); ?>" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <?php echo $__env->yieldPushContent('styles'); ?>
     <?php echo $__env->yieldPushContent('jquery'); ?>
+    <?php echo $__env->yieldPushContent('styles'); ?>
+    
 
     <!-- Scripts -->
     <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss']); ?>    
@@ -43,12 +35,12 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
                     <div class="container">
                         <a class="navbar-brand" href="#"><h2>Dashboard</h2></a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav ml-auto">
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <ul class="navbar-nav">
                                 <li class="nav-item">
                                     <form class="form-inline">
                                         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
@@ -132,9 +124,9 @@
         </div>
     </div>
 
-            <main class="col-md-12 col-lg-12 px-md-4" style="height: 100%;">
+            
             <?php echo $__env->yieldContent('content'); ?>
-            </main>
+            
 <?php echo $__env->yieldPushContent('scripts'); ?>
     
 </body>
