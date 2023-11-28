@@ -13,27 +13,27 @@ return new class extends Migration
     {
         Schema::create('event', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->string('requirement');
             $table->string('organization_name');
             $table->string('activity_title');
             $table->string('type_of_activity');
-            $table->date('activity_start_date');
-            $table->date('activity_end_date');
-            $table->time('activity_start_time');
-            $table->time('activity_end_time');
-            $table->string('venue');
-            $table->string('venue_type');
-            $table->integer('participants');
-            $table->mediumText('partner_organization');
-            $table->integer('organization_fund');
-            $table->integer('solidarity_share');
-            $table->integer('registration_fee');
-            $table->integer('AUSG_subsidy');
-            $table->longText('sponsored_by');
-            $table->integer('ticket_selling');
-            $table->integer('ticket_control_number');
-            $table->longText('other_source_of_fund');
+            $table->date('activity_start_date')->nullable();
+            $table->date('activity_end_date')->nullable();
+            $table->time('activity_start_time')->nullable();
+            $table->time('activity_end_time')->nullable();
+            $table->string('venue')->nullable();
+            $table->string('venue_type')->nullable();
+            $table->integer('participants')->nullable();
+            $table->mediumText('partner_organization')->nullable();
+            $table->integer('organization_fund')->nullable();
+            $table->integer('solidarity_share')->nullable();
+            $table->integer('registration_fee')->nullable();
+            $table->integer('AUSG_subsidy')->nullable();
+            $table->longText('sponsored_by')->nullable();
+            $table->integer('ticket_selling')->nullable();
+            $table->integer('ticket_control_number')->nullable();
+            $table->longText('other_source_of_fund')->nullable();
             $table->timestamps();
         });
     }

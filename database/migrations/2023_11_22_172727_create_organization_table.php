@@ -23,7 +23,7 @@ return new class extends Migration
             $table->mediumText('letter_of_intent');
             $table->string('adviser_info');
             $table->string('officer_info');
-            $table->binary('admin_endorsement');
+            $table->mediumText('admin_endorsement');
             $table->timestamps();
         });
     }
