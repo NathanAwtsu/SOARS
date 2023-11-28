@@ -57,7 +57,9 @@ Route::get('user/{id}', function($id){
 		],404);
 	}
 });
+
 */
+
 
 Route::get('/', function () {return view('soars');});
 Route::get('/soars', function () {return view('soars');});
