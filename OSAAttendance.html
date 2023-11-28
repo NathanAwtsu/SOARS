@@ -34,7 +34,6 @@
      
     
           
-            
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
                 <div class="position-sticky">
                     <ul class="nav flex-column">
@@ -80,12 +79,12 @@
                                 </div>
                             </a>
                         </li>
-                    
+                       
                         <li class="nav-item">
                             <a class="nav-link" href="OSAuserlist.html">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-address-book fa-lg"></i>
-                                    <span class="ml-2">User Manager</span>
+                                    <span class="ml-2">Manage Users</span>
                                 </div>
                             </a>
                         </li>
@@ -93,7 +92,7 @@
                             <a class="nav-link" href="OSAorglist.html">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-solid fa-users fa-lg"></i>
-                                    <span class="ml-2">Organization Management</span>
+                                    <span class="ml-2">Manage Organizations</span>
                                 </div>
                             </a>
                         </li>
@@ -195,8 +194,8 @@
         // Create checkboxes dynamically in a table row
         for (let i = 1; i <= participantCount; i++) {
             content += '<tr><td>Participant ' + i + '</td>';
-            content += '<td><label><input type="checkbox" class="attendanceCheckbox" data-type="present" id="present_' + i + '"> Present</label></td>';
-            content += '<td><label><input type="checkbox" class="attendanceCheckbox" data-type="absent" id="absent_' + i + '"> Absent</label></td></tr>';
+            content += '<td><label><input type="checkbox" class="attendanceCheckbox" data-type="present" data-participant="' + i + '"> Present</label></td>';
+            content += '<td><label><input type="checkbox" class="attendanceCheckbox" data-type="absent" data-participant="' + i + '"> Absent</label></td></tr>';
         }
 
         content += '</tbody></table>';
@@ -207,19 +206,6 @@
 
         // Show the modal
         $('#participantsModal').modal('show');
-
-        // Attach event listener to checkboxes
-        let checkboxes = document.querySelectorAll('.attendanceCheckbox');
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                // Disable other checkbox when one is checked
-                checkboxes.forEach(function (otherCheckbox) {
-                    if (otherCheckbox !== checkbox && otherCheckbox.checked) {
-                        otherCheckbox.checked = false;
-                    }
-                });
-            });
-        });
     }
 
     // Function to mark attendance
@@ -232,10 +218,21 @@
 
         // Iterate through attendance checkboxes and collect attendance status
         attendanceCheckboxes.forEach(function (checkbox) {
+            let participant = checkbox.dataset.participant;
+            let present = checkbox.dataset.type === 'present' && checkbox.checked;
+            let absent = checkbox.dataset.type === 'absent' && checkbox.checked;
+
+            // Check if the opposite checkbox is checked and uncheck it
+            if (present && document.getElementById('absent_' + participant).checked) {
+                document.getElementById('absent_' + participant).checked = false;
+            } else if (absent && document.getElementById('present_' + participant).checked) {
+                document.getElementById('present_' + participant).checked = false;
+            }
+
             attendanceStatus.push({
-                participant: checkbox.id.replace(checkbox.dataset.type + '_', ''),
-                present: checkbox.dataset.type === 'present' && checkbox.checked,
-                absent: checkbox.dataset.type === 'absent' && checkbox.checked
+                participant: participant,
+                present: present,
+                absent: absent
             });
         });
 
