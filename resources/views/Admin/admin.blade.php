@@ -3,84 +3,36 @@
 @section('content')
 
     <!-- Your main content goes here -->
-    <main >
+    
+        <style>
+            .card a {
+                text-decoration: none; /* Remove underline */
+                color: inherit; /* Inherit text color */
+            }
+        
+            .card a:hover {
+                text-decoration: none; /* Remove underline on hover */
+                color: inherit; /* Inherit text color on hover */
+            }
+        </style>
         
         <div class="card-table">
-
+                
+            <a href=""><div class="card" style="height: 150px; background-color: #81c784;">
+                <h2 style="color: white;">Activities <i class="fa-solid fa-chart-line"></i></h2>
+                <p style="font-size: 30px; color: white;">69</p>
+            </a>
+            </div>
+            <a href=""> <div class="card" style="height: 150px; background-color: #64b5f6;">
+                <h2 style="color: white;">Member Approval <i class="fa-solid fa-users fa-lg"></i></h2>
+                <p style="font-size: 30px; color: white;">69</p>
+            </a> 
+            </div>
             
-            <div class="card">
-                
-               <a href=""><h2>Messages</h2></a>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                
-                <a href=""><h2>Activities</h2></a>
-                <p>Card description goes here.</p>
-            </div>
-            <div class="card">
-                
-                <a href=""><h2>Member Approval</h2></a>
-                <p>Card description goes here.</p>
-            </div>
-           
         </div>
+    
         
-        <table class="table-home">
-            <thead>
-                <tr>
-                    <th>Attendance Monitoring</th>
-                
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <!-- Grid inside a table cell -->
-                        <div class="attendance-grid">
-                            <!-- Member 1 -->
-                            <div class="attendance-item">
-                                <div class="member-name">Member 1</div>
-                                <div class="status present">Present</div>
-                            </div>
-                    
-                            <!-- Member 2 -->
-                            <div class="attendance-item">
-                                <div class="member-name">Member 2</div>
-                                <div class="status absent">Absent</div>
-                            </div>
-                    
-                            <!-- Member 3 -->
-                            <div class="attendance-item">
-                                <div class="member-name">Member 3</div>
-                                <div class="status present">Present</div>
-                            </div>
-                    
-                            <!-- Member 4 -->
-                            <div class="attendance-item">
-                                <div class="member-name">Member 4</div>
-                                <div class="status absent">Absent</div>
-                            </div>
-                    
-                            <!-- Member 5 -->
-                            <div class="attendance-item">
-                                <div class="member-name">Member 5</div>
-                                <div class="status present">Present</div>
-                            </div>
-                    
-                            <!-- Member 6 -->
-                            <div class="attendance-item">
-                                <div class="member-name">Member 6</div>
-                                <div class="status absent">Absent</div>
-                            </div>
-                        </div>
-                    </td>
-                    
-                </tr>
-            </tbody>
-        </table>
-    </main>
-
+    
     <script>
         let lastScrollTop = 0;
         window.addEventListener("scroll", () => {

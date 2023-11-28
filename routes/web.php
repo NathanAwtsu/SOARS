@@ -5,6 +5,7 @@ use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentOrganizationController;
 
 
 
@@ -84,10 +85,11 @@ Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentsController::class, 'delete']);
 });
-Route::get('/audit_log', function () {return view('Admin.audit_log');})->name('audit_log');
-Route::get('/rso_list', function () {return view('student_orgs.rso_list');})->name('rso_list');
-Route::get('/rso_detail', function () { $content = request()->query('content'); return view('student_orgs.rso_detail', compact('content'));})->name('rso_detail');
-Route::post('/upload_logo', [StudentOrganizationController::class, 'uploadLogo'])->name('upload_logo');
+Route::get('/audit_log', function () {return view('Admin.audit_log');})->name('auditlog');
+Route::get('/rso_list', [StudentOrganizationController::class, 'showRSOlist'])->name('rso_list');
+Route::get('/rso_detail', [StudentOrganizationController::class, 'showRSODetail'])->name('rso_detail');
+Route::get('/admin_profile', function(){return view('Admin.admin_profile');})->name('admin_profile');
+
 //End of Admin
 
 //OrganizationController

@@ -13,29 +13,57 @@ class StudentOrganizationController extends Controller
     }
 
 
-    public function uploadLogo(Request $request)
+    public function showRSOList()
+{
+    // Assuming $categories is an array of categories with their respective organizations
+    $categories = [
+        [
+            'title' => 'Academic',
+            'organizations' => [
+                ['id' => '1', 'name' => 'Organization 1'],
+                ['id' => '2', 'name' => 'Organization 2'],
+                // Other organizations
+            ]
+        ],
+        [
+            'title' => 'Co-Academic',
+            'organizations' => [
+                ['id' => '3', 'name' => 'Organization 3'],
+                ['id' => '4', 'name' => 'Organization 4'],
+                // Other organizations
+            ]
+        ],
+        // Other categories
+    ];
+
+    return view('student_orgs.rso_list', compact('categories'));
+}
+
+public function showRSODetail(Request $request)
     {
-        $request->validate([
-            'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'organizationName' => 'required', 
-        ]);
+        $content = $request->query('content');
 
-        if ($request->hasFile('logo')) {
-            $file = $request->file('logo');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('logos'), $fileName);
+    
+    $organizations = [];
 
-            $organization = new StudentOrganization();
-            $organization->name = $request->input('organizationName'); // Store organization name
-            $organization->logo = $fileName; // Store logo file name/path
-            // Set other attributes if needed
-            $organization->save();
-
-            return redirect()->back()->with('success', 'Logo uploaded successfully.');
-        }
-
-        return redirect()->back()->with('error', 'File upload failed.');
+    if ($content === 'academic') {
+        $organizations = [
+            ['id' => '1', 'name' => 'Organization A'],
+            ['id' => '2', 'name' => 'Organization B'],
+           
+        ];
+    } elseif ($content === 'co-academic') {
+        $organizations = [
+            ['id' => '3', 'name' => 'Organization C'],
+            ['id' => '4', 'name' => 'Organization D'],
+            
+        ];
     }
+    
+
+    return view('student_orgs.rso_detail', compact('content', 'organizations'));
+    }
+
 }
 
 

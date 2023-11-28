@@ -20,12 +20,12 @@
             <div class="col-md-3 mb-3">
                 <a href="organization-activation.html" class="card" style="height: 130px; background-color: #64b5f6; text-decoration: none;">
                     <h2 style="color: white;"><i class="fa-solid fa-sitemap"></i> Organization Activation</h2>
-                    <p style="font-size: 20px; color: white;">100</p>
+                    <p style="font-size: 20px; color: white;"></p>
                 </a>
             </div>
             <div class="col-md-3 mb-3">
-                <a href="OSAuserlist.html" class="card" style="height: 130px; background-color: #ffb74d; text-decoration: none;">
-                    <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members 70</h2>
+                <a href="<?php echo e(url('/osaemp/userlist')); ?>" class="card" style="height: 130px; background-color: #ffb74d; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members </h2>
                     
                 </a>
             </div>
