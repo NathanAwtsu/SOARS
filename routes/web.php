@@ -103,6 +103,7 @@ Route::get('/osaemp/updateunseenmessage', [App\Http\Controllers\OsaController::c
 Route::get('/osaemp/organization_list', function(){return view('OSA/organization_list');})->name('osaorganizationlist');
 Route::get('/osaemp/organization_list/new_organization', function(){return view('OSA/organization_new');})->name('osaorganization_new');
 Route::get('/osaemp/activity_approval', function(){return view('OSA/approval');})->name('osaactivityapproval');
+Route::get('/osaemp/reports', function(){ return view('OSA/reports');})->name('osareports');
 
 //End of Routes for OSA
 
