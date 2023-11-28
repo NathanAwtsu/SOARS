@@ -109,6 +109,8 @@ Route::get('/osaemp/reports', function(){ return view('OSA/reports');})->name('o
 
 //End of Routes for OSA
 
+
+
 Route::get('/studentleader', function(){return view('studentleader');})->name('studentleader')->middleware('studentleader');
 
 Route::get('/member', function(){return view('member');})->name('member')->middleware('member');
