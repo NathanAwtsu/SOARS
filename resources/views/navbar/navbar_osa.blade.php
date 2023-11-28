@@ -59,6 +59,8 @@
                             <h2>{{Auth::user()->name}}</h2>
                         @elseif (Route::is('osauserlist'))
                             <h2>User List</h2>
+                        @elseif (Route::is('osareports'))
+                            <h2>Reports</h2>
                         @elseif (Route::is('osaorganizationlist'))
                             <h2>Oganization List</h2>
                         @elseif (Route::is('osaorganization_new'))
@@ -113,14 +115,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="" style="color:white;">
+                <a class="nav-link" href="{{url('/osaemp/reports')}}" style="color:white;">
                     <i class="fa-solid fa-clipboard-list fa-lg"></i>
                     Reports
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{url('/osaemp/organization_list')}}" style="color:white;">
-                    <i class="fa-solid fa-clipboard-check fa-lg"></i>
+                    <i class="fa-solid fa-users fa-lg"></i>
                     Organizations
                 </a>
             </li>
@@ -135,12 +137,6 @@
                 <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white;">
                 <i class="fa-solid fa-user"></i>
                     Student List
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="OSAorglist.html" style="color:white;">
-                    <i class="fa-solid fa-users fa-lg"></i>
-                    Organization List
                 </a>
             </li>
             <li class="nav-item">

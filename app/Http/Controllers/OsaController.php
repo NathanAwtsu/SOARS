@@ -22,4 +22,6 @@ class OsaController extends Controller
         ->where('to_id','=',Auth::user()->id)->where('seen','0')->count();
         return response()->json(["unseenCounter"=>$unseenCounter]);
     }
+
+    
 }

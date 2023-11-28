@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -84,7 +83,7 @@ public function update(Request $request)
 
     DB::table('students')->where('student_id', $studentId)->update($studentData);
 
-    return response()->json(['message' => 'Student information updated successfully']);
+    return response()->make(['message' => 'Student information updated successfully']);
 }
 
     public function delete(Request $request)
