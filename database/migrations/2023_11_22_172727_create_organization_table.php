@@ -22,8 +22,19 @@ return new class extends Migration
             $table->mediumText('logo')->nullable();
             $table->mediumText('consti_and_byLaws')->nullable();
             $table->mediumText('letter_of_intent')->nullable();
-            $table->string('adviser_info')->nullable();
-            $table->string('officer_info')->nullable();
+            //Adviser
+            $table->string('adviser_name')->nullable();
+            $table->string('adviser_email')->nullable();
+            //AUSG
+            $table->string('ausg_rep_studentno')->nullable();
+
+            //President
+            //VP Internal
+            //VP external
+            //Secretary
+            //Treasurer
+            //Auditor
+            //PRO
             $table->mediumText('admin_endorsement')->nullable();
             $table->timestamps();
         });
