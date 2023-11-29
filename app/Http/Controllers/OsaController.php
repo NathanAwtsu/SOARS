@@ -88,7 +88,34 @@ class OsaController extends Controller
             'logo'=>request('logo'),
             'consti_and_byLaws'=>request('consti_and_byLaws'),
             'letter_of_intent'=>request('letter_of_intent'),
-            ''=>request(''),
+            //Adviser
+            'adviser_name'=>request('adviser_name'),
+            'adviser_email'=>request('adviser_email'),
+            //AUSG
+            'ausg_rep_studno'=>request('ausg_rep_studno'),
+            'ausg_rep_name'=>request('ausg_rep_name'),
+            //President
+            'president_studno'=>request('president_studno'),
+            'president_name'=>request('president_name'),
+            //VP Internal
+            'vp_internal_studno'=>request('vp_internal_studno'),
+            'vp_internal_name'=>request('vp_internal_name'),
+            //VPexternal
+            'vp_external_studno'=>request('vp_external_studno'),
+            'vp_external_name'=>request('vp_external_name'),
+            //Secretary
+            'secretary_studno'=>request('secretary_studno'),
+            'secretary_name'=>request('secretary_name'),
+            //Treasurer
+            'treasurer_studno'=>request('treasurer_studno'),
+            'treasurer_name'=>request('treasurer_name'),
+            //Auditor
+            'auditor_studno'=>request('auditor_studno'),
+            'auditor_name'=>request('auditor_name'),
+            //PRO
+            'pro_studno'=>request('pro_studno'),
+            'pro_name'=>request('pro_name'),
+            //admin_endorsement
             'admin_endorsement'=>request('admin_endorsement'),
         ]);
 

@@ -20,7 +20,7 @@ class Organization extends Model
         'letter_of_intent',
         'adviser_name',
         'adviser_email',
-        'ausg_rep_studentno',
+        'ausg_rep_studno',
         'ausg_rep_name',
         'president_studno',
         'president_name',
