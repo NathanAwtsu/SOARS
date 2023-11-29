@@ -15,12 +15,12 @@
 
 
     <!-- Fonts -->
-    <link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('bootstrap-5.3.2-dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/admingeneral.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('css/Studentgeneral.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')); ?>" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="<?php echo e(url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')); ?>" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="<?php echo e(url('https://code.jquery.com/jquery-3.6.0.min.js')); ?>"></script>
+    <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js')); ?>"></script>
+    <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js')); ?>"></script>
     <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js')); ?>"></script>
     
     <?php echo $__env->yieldPushContent('styles'); ?>
