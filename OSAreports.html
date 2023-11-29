@@ -123,6 +123,17 @@
             <div class="table-responsive"> <!-- Add this div to make the table responsive -->
                 <table class="table table-bordered table-center"> <!-- Added table-center class -->
                     <h2>Event Status Report</h2>
+                    <div class="dropdown text-start">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="reportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Report
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="reportDropdown">
+    
+                            <li><a class="dropdown-item" href="#">Monthly</a></li>
+                            <li><a class="dropdown-item" href="#">Annual</a></li>
+                            <!-- Add more items as needed -->
+                        </ul>
+                </div>
                     <thead>
                         <tr>
                             <th>ID</th>
