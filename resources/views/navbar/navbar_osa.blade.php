@@ -53,20 +53,28 @@
 
                         @if (Route::is('osaemp'))
                             <h2>Home</h2>
+
                         @elseif (Route::is('osadashboard'))
                             <h2>Dashboard</h2>
+
                         @elseif (Route::is('osauser'))
                             <h2>{{Auth::user()->name}}</h2>
+
                         @elseif (Route::is('osauserlist'))
                             <h2>User List</h2>
+
                         @elseif (Route::is('osareports'))
                             <h2>Reports</h2>
+
                         @elseif (Route::is('osaorganizationlist'))
                             <h2>Oganization List</h2>
+
                         @elseif (Route::is('osaorganization_new'))
                             <h2>New Organization</h2>
+
                         @elseif (Route::is('osaactivityapproval'))
-                            <h2>Activity Approval</h2>
+                            <h2>Event Manager</h2>
+
                         @endif
 
                     </a>
@@ -122,21 +130,23 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{url('/osaemp/organization_list')}}" style="color:white;">
-                    <i class="fa-solid fa-users fa-lg"></i>
-                    Organizations
+                    <div class="d-flex align-items-center" style="margin-left: -10px;">
+                        <i class="fa-solid fa-users fa-lg"></i>
+                        <span class="ml-2">Manage Organizations</span>
+                    </div>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{url('/osaemp/activity_approval')}}" style="color:white;">
                     <i class="fa-solid fa-clipboard-list fa-lg"></i>
-                    Activity Approval
+                    <span class="ml-2">Event Manager</span>
                 </a>
             </li>
         
             <li class="nav-item">
                 <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white;">
-                <i class="fa-solid fa-user"></i>
-                    Student List
+                    <i class="fa-regular fa-address-book fa-lg"></i>
+                    <span class="ml-2">Manage Users</span>
                 </a>
             </li>
             <li class="nav-item">
