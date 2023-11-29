@@ -1,11 +1,12 @@
 <?php $__env->startSection('content'); ?>
 
 
+
 <main >
     <div class="container" style="padding-top: 10px;">
-        <div class="container-event" style="margin-left:185px">
-            <h3>Create an event</h3>
-            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#createEventModal">Create an Event</button>
+        <div class="container-event text-center">
+            <h2>Create an event</h2>
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal">Create an Event</button>
         </div>
     </div>
     
@@ -15,6 +16,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Organizaiton</th>
                     <th>Name</th>
                     <th>Event Name</th>
                     <th>Event Date</th>
@@ -26,6 +28,7 @@
             <tbody>
                 <tr>
                     <td>1</td>
+                    <td>AdU IT&IS</td>
                     <td>john Loyd</td>
                     <td>Out Reach Program</td>
                     <td>12/22/23</td>
@@ -37,14 +40,60 @@
 
                         <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
 
-                    </td>
+                      </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>AdU IT&IS</td>
+                    <td>john Loyd</td>
+                    <td>Out Reach Program</td>
+                    <td>12/22/23</td>
+                    <td>Sv Hall</td>
+                    <td>8:00 AM</td>
+                    
+                    <td>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
+
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
+
+                      </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>AdU IT&IS</td>
+                    <td>john Loyd</td>
+                    <td>Out Reach Program</td>
+                    <td>12/22/23</td>
+                    <td>Sv Hall</td>
+                    <td>8:00 AM</td>
+                    
+                    <td>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
+
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
+
+                      </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>AdU IT&IS</td>
+                    <td>john Loyd</td>
+                    <td>Out Reach Program</td>
+                    <td>12/22/23</td>
+                    <td>Sv Hall</td>
+                    <td>8:00 AM</td>
+                    
+                    <td>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
+
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
+
+                      </td>
                 </tr>
                 
-            </tbody>
-            </table>
-    </div>
-       
+                
 </main>
+
 
      <!-- "Approve" Confirmation Modal -->
      <div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel" aria-hidden="true">

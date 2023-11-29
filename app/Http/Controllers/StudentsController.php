@@ -30,9 +30,9 @@ class StudentsController extends Controller
             'middle_initial' => $request->middle_initial,
             'first_name' => $request->first_name,
             'email' => $request->email,
+            'organization' => $request->organization,
             'member_status' => $request->member_status,
             'user_roles' => $request->user_roles,
-            'username' => $request->username,
             'phone_number' => $request->phone_number,
         ];
 
@@ -70,9 +70,9 @@ public function update(Request $request)
         'middle_initial' => $request->middle_initial,
         'first_name' => $request->first_name,
         'email' => $request->email,
+        'organization' => $request->organization,
         'member_status' => $request->member_status,
         'user_roles' => $request->user_roles,
-        'username' => $request->username,
         'phone_number' => $request->phone_number,
     ];
 

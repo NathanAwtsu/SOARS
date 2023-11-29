@@ -16,10 +16,10 @@ class Students extends Model
         'middle_initial',
         'first_name',
         'email',
+        'organization',
         'password',
         'member_status',
         'user_roles',
-        'username',
-        'phone_number'
+        'phone_number',
     ];
 }
