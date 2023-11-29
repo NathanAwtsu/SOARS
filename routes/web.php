@@ -6,7 +6,8 @@ use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentOrganizationController;
-
+use App\Http\Controllers\OsaController;
+use App\Models\Event;
 
 
 Route::middleware('auth')->group(function () {
@@ -108,6 +109,8 @@ Route::get('/osaemp/organization_list', function(){return view('OSA/organization
 Route::get('/osaemp/organization_list/new_organization', function(){return view('OSA/organization_new');})->name('osaorganization_new');
 Route::get('/osaemp/activity_approval', function(){return view('OSA/approval');})->name('osaactivityapproval');
 Route::get('/osaemp/reports', function(){ return view('OSA/reports');})->name('osareports');
+
+Route::post('/osaemp/activity_approval', [OsaController::class, 'store'])->name('osaactivityevent');
 
 //End of Routes for OSA
 

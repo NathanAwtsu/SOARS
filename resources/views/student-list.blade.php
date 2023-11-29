@@ -157,7 +157,6 @@
                 {data: 'email', name: 'email'},
                 {data: 'member_status', name: 'member_status'},
                 {data: 'user_roles', name: 'user_roles'},
-                {data: 'username', name: 'username'},
                 {data: 'phone_number', name: 'phone_number'},
                 {data: 'action', name: 'action', orderable: false},
             ],

@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('event', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('status')->nullable();
-            $table->string('requirement');
+            $table->string('requirement')->nullable();
             $table->string('organization_name');
             $table->string('activity_title');
             $table->string('type_of_activity');
             $table->dateTime('activity_start_datetime')->nullable();
             $table->dateTime('activity_end_datetime')->nullable();
             $table->string('venue')->nullable();
-            $table->string('venue_type')->nullable();
             $table->integer('participants')->nullable();
             $table->mediumText('partner_organization')->nullable();
             $table->integer('organization_fund')->nullable();
