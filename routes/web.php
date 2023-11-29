@@ -111,7 +111,7 @@ Route::get('/osaemp/activity_approval', function(){return view('OSA/approval');}
 Route::get('/osaemp/reports', function(){ return view('OSA/reports');})->name('osareports');
 
 Route::post('/osaemp/activity_approval', [OsaController::class, 'store'])->name('osaactivityevent');
-Route::get('activity', [OsaController::class, 'retrieve']);
+Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve']);
 
 //End of Routes for OSA
 

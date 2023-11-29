@@ -28,9 +28,9 @@
                 <th>Middle Initial</th>
                 <th>First Name</th>
                 <th>Email</th>
+                <th>Organization</th>
                 <th>Membership Status</th>
                 <th>Roles</th>
-                <th>Username</th>
                 <th>Phone Number</th>
                 <th>Action</th>
             </tr>
@@ -87,6 +87,13 @@
     </div>
 
     <div class="form-group">
+        <label for="organization" class="col-sm-2 control-label">Organization</label>
+        <div class="col-sm-12">
+            <input type="text" class="form-control" id="organization" name="organization" placeholder="Enter Organization" required>
+        </div>
+    </div>
+
+    <div class="form-group">
         <label for="password" class="col-sm-2 control-label">Password</label>
         <div class="col-sm-12">
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
@@ -108,12 +115,6 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="username" class="col-sm-2 control-label">Username</label>
-        <div class="col-sm-12">
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
-        </div>
-    </div>
 
     <div class="form-group">
         <label for="phone_number" class="col-sm-2 control-label">Phone Number</label>
@@ -153,9 +154,9 @@
                 {data: 'middle_initial', name: 'middle_initial'},
                 {data: 'first_name', name: 'first_name'},
                 {data: 'email', name: 'email'},
+                {data: 'organization', name: 'organization'},
                 {data: 'member_status', name: 'member_status'},
                 {data: 'user_roles', name: 'user_roles'},
-                {data: 'username', name: 'username'},
                 {data: 'phone_number', name: 'phone_number'},
                 {data: 'action', name: 'action', orderable: false},
             ],
@@ -180,9 +181,9 @@
                 $('#middle_initial').val(res.middle_initial);
                 $('#first_name').val(res.first_name);
                 $('#email').val(res.email);
+                $('#organization').val(res.organization);
                 $('#member_status').val(res.member_status);
                 $('#user_roles').val(res.user_roles);
-                $('#username').val(res.username);
                 $('#phone_number').val(res.phone_number);
 
                 if (res.password) {

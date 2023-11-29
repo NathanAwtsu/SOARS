@@ -40,7 +40,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $__currentLoopData = $activity; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = $activity; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
                     <td><?php echo e($event->id); ?></td>
                     <td><?php echo e($event->status); ?></td>
@@ -54,13 +54,13 @@
                     <td><?php echo e($event->activity_end_time); ?></td>
                     <td><?php echo e($event->venue); ?></td>
                     <td><?php echo e($event->participants); ?></td>
-                    <td><?php echo e($event->partner_organizaton); ?></td>
+                    <td><?php echo e($event->partner_organization); ?></td>
                     <td><?php echo e($event->organization_fund); ?></td>
                     <td><?php echo e($event->solidarity_share); ?></td>
-                    <td><?php echo e($event->registraton_fee); ?></td>
+                    <td><?php echo e($event->registration_fee); ?></td>
                     <td><?php echo e($event->AUSG_subsidy); ?></td>
                     <td><?php echo e($event->sponsored_by); ?></td>
-                    <td><?php echo e($event->ticker_selling); ?></td>
+                    <td><?php echo e($event->ticket_selling); ?></td>
                     <td><?php echo e($event->ticket_control_number); ?></td>
                     <td><?php echo e($event->other_source_of_fund); ?></td>
                     <td>

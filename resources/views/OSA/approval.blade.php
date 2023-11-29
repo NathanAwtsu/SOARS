@@ -40,7 +40,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($activity as $event)
+                @foreach($activity as $key => $event)
                 <tr>
                     <td>{{$event->id}}</td>
                     <td>{{$event->status}}</td>
@@ -54,13 +54,13 @@
                     <td>{{$event->activity_end_time}}</td>
                     <td>{{$event->venue}}</td>
                     <td>{{$event->participants}}</td>
-                    <td>{{$event->partner_organizaton}}</td>
+                    <td>{{$event->partner_organization}}</td>
                     <td>{{$event->organization_fund}}</td>
                     <td>{{$event->solidarity_share}}</td>
-                    <td>{{$event->registraton_fee}}</td>
+                    <td>{{$event->registration_fee}}</td>
                     <td>{{$event->AUSG_subsidy}}</td>
                     <td>{{$event->sponsored_by}}</td>
-                    <td>{{$event->ticker_selling}}</td>
+                    <td>{{$event->ticket_selling}}</td>
                     <td>{{$event->ticket_control_number}}</td>
                     <td>{{$event->other_source_of_fund}}</td>
                     <td>

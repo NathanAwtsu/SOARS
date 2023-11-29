@@ -57,11 +57,8 @@ class OsaController extends Controller
     }
 
     public function retrieve(){
-
-
-        $activity = Event::all();
-        return view('activity.retrieve', compact('activity'));
-
+        $activity = DB::select('select * from events');
+        return view('OSA.approval', ['activity'=> $activity]);
 
     }
 

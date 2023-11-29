@@ -74,7 +74,8 @@
 
                         <?php elseif(Route::is('osaactivityapproval')): ?>
                             <h2>Event Manager</h2>
-
+                        <?php elseif(Route::is('osaactivityevent')): ?>
+                            <h2>Event Manager</h2>
                         <?php endif; ?>
 
                     </a>

@@ -23,8 +23,8 @@
     <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js')); ?>"></script>
     <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js')); ?>"></script>
     
-    <?php echo $__env->yieldPushContent('jquery'); ?>
     <?php echo $__env->yieldPushContent('styles'); ?>
+    <?php echo $__env->yieldPushContent('jquery'); ?>
     
 
     <!-- Scripts -->

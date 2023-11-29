@@ -74,7 +74,8 @@
 
                         @elseif (Route::is('osaactivityapproval'))
                             <h2>Event Manager</h2>
-
+                        @elseif (Route::is('osaactivityevent'))
+                            <h2>Event Manager</h2>
                         @endif
 
                     </a>
