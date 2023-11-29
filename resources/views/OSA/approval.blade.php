@@ -157,13 +157,25 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Start of Event Date:</label>
                     <div class="col-sm-8">
-                        <input type="date" class="form-control" id="activity_start_datetime" name="activity_start_datetime" required>
+                        <input type="date" class="form-control" id="activity_start_date" name="activity_start_date" required>
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">End of Event Date:</label>
                     <div class="col-sm-8">
-                        <input type="date" class="form-control" id="activity_end_datetime" name="activity_end_datetime" required>
+                        <input type="date" class="form-control" id="activity_end_date" name="activity_end_date" required>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventTime" class="col-sm-4 col-form-label text-left">Start of Event Time:</label>
+                    <div class="col-sm-8">
+                        <input type="time" class="form-control" id="activity_end_time" name="activity_start_time" required>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventTime" class="col-sm-4 col-form-label text-left">End of Event Time:</label>
+                    <div class="col-sm-8">
+                        <input type="time" class="form-control" id="activity_end_time" name="activity_end_time" required>
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -190,7 +202,7 @@
                     </div>
                 </div>
                 <div class="form-group row mb-2">
-                    <label for="eventDate" class="col-sm-4 col-form-label text-left">Organization_fund:</label>
+                    <label for="eventDate" class="col-sm-4 col-form-label text-left">Organization fund:</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="organization_fund" name="organization_fund" required>
                     </div>

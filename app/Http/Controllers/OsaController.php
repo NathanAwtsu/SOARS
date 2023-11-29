@@ -26,6 +26,7 @@ class OsaController extends Controller
 
     public function store(){
         
+        
         Event::create([
         
         'id'=> request('id'),
@@ -34,13 +35,15 @@ class OsaController extends Controller
         'organization_name' => request('organization_name'),
         'activity_title' => request('activity_title'),
         'type_of_activity' => request('type_of_activity'),
-        'activity_start_datetime' => request('activity_start_datetime'),
-        'activity_end_datetime' => request('activity_end_datetime'),
+        'activity_start_date' => request('activity_start_date'),
+        'activity_end_date' => request('activity_end_date'),
+        'activity_start_time' => request('activity_start_time'),
+        'activity_end_time' => request('activity_end_time'),
         'venue' => request('venue'),
         'participants'=> request('participants'),
         'partner_organization'=> request('partner_organization'),
         'organization_fund'=> request('organization_fund'),
-        'solidarity_share'=> request('solidartity_share'),
+        'solidarity_share'=> request('solidarity_share'),
         'registration_fee'=> request('registration_fee'),
         'AUSG_subsidy'=> request('AUSG_subsidy'),
         'sponsored_by'=> request('sponsored_by'),

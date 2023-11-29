@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('organization_name');
             $table->string('activity_title');
             $table->string('type_of_activity');
-            $table->dateTime('activity_start_datetime')->nullable();
-            $table->dateTime('activity_end_datetime')->nullable();
+            $table->date('activity_start_date')->nullable();
+            $table->date('activity_end_date')->nullable();
+            $table->time('activity_start_time')->nullable();
+            $table->time('activity_end_time')->nullable();
             $table->string('venue')->nullable();
             $table->integer('participants')->nullable();
             $table->mediumText('partner_organization')->nullable();
