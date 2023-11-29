@@ -114,18 +114,16 @@
         </div>
     </div>
 
-    <main >
-        
-        <div class="container" style="padding-top: 10px;">
-            <div class="container-event text-center">
+    <main>
+        <div class="container" style="padding-top: 10px; text-align: center;">
+            <div class="container-event">
                 <h2>Create an event</h2>
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal">Create an Event</button>
             </div>
         </div>
-        
+    
         <div class="container-tbl-up">
-                <table class="table"> <br>
-               
+            <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -138,7 +136,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <!-- Table rows with event details and actions -->
+<tr>
                         <td>1</td>
                         <td>john Loyd</td>
                         <td>Out Reach Program</td>
@@ -148,7 +147,7 @@
                         
                         <td>
                             <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
-
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editEventModal">Edit</button>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
 
                           </td>
@@ -163,45 +162,46 @@
                         
                         <td>
                             <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
-
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editEventModal">Edit</button>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
 
                           </td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>john Loyd</td>
-                        <td>Out Reach Program</td>
-                        <td>12/22/23</td>
-                        <td>Sv Hall</td>
-                        <td>8:00 AM</td>
-                        
-                        <td>
-                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
-
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
-
-                          </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>john Loyd</td>
-                        <td>Out Reach Program</td>
-                        <td>12/22/23</td>
-                        <td>Sv Hall</td>
-                        <td>8:00 AM</td>
-                        
-                        <td>
-                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
-
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
-
-                          </td>
-                    </tr>
-                    
-                    
-    </main>
+                </tbody>
+            </table>
     
+            <h1>Events List</h1>
+            
+            <table style="margin-left: auto; margin-right: auto;">
+                <tr>
+                    <th>Event Name</th>
+                    <th>Organization</th>
+                    <th>Event Date & time</th>
+                    <th>Participants</th>
+                </tr>
+    
+                <tr>
+                    <td><a href="#" onclick="showeventDescriptionModal('<img src=\'adulogo.png\' alt=\'Event Image\' style=\'max-width: 100%; height: auto;\'><p>testing test 1 test 2 test 3</p>')">Biology seminar</a></td>
+                    <!-- Other table cells here -->
+                    <td><a href="AUBS.html">AUBS</a></td>
+                    <td>10:00 AM</td>
+                    <td><a href="#" onclick="showParticipantsModal(10)">10</a></td>
+                </tr>
+            </table>
+        </div>
+    
+        <!-- Event Description Modal -->
+        <div class="modal fade" id="eventDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="eventDescriptionModalLabel" aria-hidden="true">
+            <!-- Modal content here -->
+            
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
      <!-- "Approve" Confirmation Modal -->
      <div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -217,8 +217,28 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary">Confirm</button>
+                    
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Participants Modal -->
+    <div class="modal fade" id="participantsModal" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="participantsModalLabel">Participants</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Include the modal body element here -->
+                <div class="modal-body" id="participantsModalBody">
+                    <!-- Participant details will be inserted here dynamically -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -246,7 +266,7 @@
         </div>
     </div>
 
-    <!-- Create Event Modal -->
+  
 
 
     <!-- Create Event Modal -->
@@ -330,6 +350,87 @@
     </div>
 </div>
 
+    <!-- Create Event Modal -->
+    <div class="modal fade" id="editEventModal" tabindex="-1" role="dialog" aria-labelledby="editEventModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="editEventModalLabel">Create an Event</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form style="max-width: 400px; margin: auto;">
+                        <!-- Event details input fields -->
+                        <div class="form-group row mb-2">
+                            <label for="eventName" class="col-sm-4 col-form-label text-left">Event Name:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="eventName" name="eventName" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="eventDate" class="col-sm-4 col-form-label text-left">Start of Event Date:</label>
+                            <div class="col-sm-8">
+                                <input type="date" class="form-control" id="eventDate" name="eventDate" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="eventDate" class="col-sm-4 col-form-label text-left">End of Event Date:</label>
+                            <div class="col-sm-8">
+                                <input type="date" class="form-control" id="eventDate" name="eventDate" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="eventTime" class="col-sm-4 col-form-label text-left">Start of Event Time:</label>
+                            <div class="col-sm-8">
+                                <input type="time" class="form-control" id="eventTime" name="eventTime" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="eventTime" class="col-sm-4 col-form-label text-left">End of Event Time:</label>
+                            <div class="col-sm-8">
+                                <input type="time" class="form-control" id="eventTime" name="eventTime" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="eventLocation" class="col-sm-4 col-form-label text-left">Event Location:</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="eventLocation" name="eventLocation" onchange="showHideOthers(this);" required>
+                                    <option value="option1">SV Hall</option>
+                                    <option value="option2">ST Quad</option>
+                                    <option value="option3">Adamson Theatre</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row mb-2" id="othersLocation" style="display: none;">
+                            <label for="otherEventLocation" class="col-sm-4 col-form-label text-left">Other Location:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="otherEventLocation" name="otherEventLocation">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row mb-2">
+                            <label for="eventDescription" class="col-sm-4 col-form-label text-left">Event Description:</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" id="eventDescription" name="eventDescription" rows="4" required></textarea><br>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="eventLink" class="col-sm-4 col-form-label text-left">Event Link:</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" id="eventLink" name="eventDescription" rows="4"></textarea><br>
+                            </div>
+                        </div>
+                        <!-- ... (other event details input fields) ... -->
+                        <button type="button" class="btn btn-primary btn-block" onclick="showEmailModal()">Next</button>
+                        <button type="button" class="btn btn-danger btn-block" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <!-- Send Email Modal -->
 <div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -347,15 +448,120 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="createEvent()">Create</button>
+              
                 <button type="button" class="btn btn-secondary" onclick="closePopup()">Cancel</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Add Bootstrap JavaScript and Popper.js -->
 
 
+<!-- Event Description Modal -->
+<div class="modal fade" id="eventDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="eventDescriptionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventDescriptionModalLabel">Event Description</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="eventDescriptionModalBody">
+                <!-- Event description will be inserted here dynamically -->
+                <img src="adulogo.png" alt="Event Image" style="max-width: 100%; height: auto;"><br>
+                <p>testing test 1 test 2 test 3</p>
+            </div>
+            </div>
+            </div>
+            </div>
+
+<!-- Participants Modal -->
+<div class="modal fade" id="participantsModal" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="participantsModalLabel">Participants</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Include the modal body element here -->
+            <div class="modal-body" id="participantsModalBody">
+                <!-- Participant details will be inserted here dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function showEventModal(content) {
+        // Set the HTML content in the modal body
+        document.getElementById('eventDescriptionModalBody').innerHTML = content;
+
+        // Show the modal
+        $('#eventDescriptionModal').modal('show');
+    }
+</script>
+
+<script>
+    function showParticipantsModal(participantCount) {
+        // Create the HTML content for participant details with checkboxes in a table
+        let content = '<table class="table"><thead><tr><th>Participant</th><th>Mark as Present</th><th>Mark as Absent</th></tr></thead><tbody>';
+
+        // Create checkboxes dynamically in a table row
+        for (let i = 1; i <= participantCount; i++) {
+            content += '<tr><td>Participant ' + i + '</td>';
+            content += '<td><label><input type="checkbox" class="attendanceCheckbox" data-type="present" data-participant="' + i + '"> Present</label></td>';
+            content += '<td><label><input type="checkbox" class="attendanceCheckbox" data-type="absent" data-participant="' + i + '"> Absent</label></td></tr>';
+        }
+
+        content += '</tbody></table>';
+        content += '<button onclick="markAttendance()">Submit</button>';
+
+        // Set the HTML content in the modal body
+        document.getElementById('participantsModalBody').innerHTML = content;
+
+        // Show the modal
+        $('#participantsModal').modal('show');
+    }
+
+    // Function to mark attendance
+    function markAttendance() {
+        // Get all checkboxes for attendance
+        let attendanceCheckboxes = document.querySelectorAll('.attendanceCheckbox');
+
+        // Array to store the attendance status of each participant
+        let attendanceStatus = [];
+
+        // Iterate through attendance checkboxes and collect attendance status
+        attendanceCheckboxes.forEach(function (checkbox) {
+            let participant = checkbox.dataset.participant;
+            let present = checkbox.dataset.type === 'present' && checkbox.checked;
+            let absent = checkbox.dataset.type === 'absent' && checkbox.checked;
+
+            // Check if the opposite checkbox is checked and uncheck it
+            if (present && document.getElementById('absent_' + participant).checked) {
+                document.getElementById('absent_' + participant).checked = false;
+            } else if (absent && document.getElementById('present_' + participant).checked) {
+                document.getElementById('present_' + participant).checked = false;
+            }
+
+            attendanceStatus.push({
+                participant: participant,
+                present: present,
+                absent: absent
+            });
+        });
+
+        // Log attendance status (you can customize this part)
+        console.log('Attendance Status:', attendanceStatus);
+
+        // You can update the UI or send data to the server here
+        // For example, you might want to send the attendanceStatus array to the server via AJAX
+    }
+</script>
 
 
 <script>
