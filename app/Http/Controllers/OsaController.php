@@ -6,6 +6,7 @@ use App\Events\ChatifyEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Event;
 use Illuminate\Support\Facades\DB;
 
 class OsaController extends Controller
@@ -21,6 +22,35 @@ class OsaController extends Controller
         $unseenCounter = DB::table('ch_messages')
         ->where('to_id','=',Auth::user()->id)->where('seen','0')->count();
         return response()->json(["unseenCounter"=>$unseenCounter]);
+    }
+
+    public function store(){
+        
+        Event::create([
+        
+        'id'=> request('id'),
+        'status' => request('status'),
+        'requirement' => request('requirement'),
+        'organization_name' => request('organization_name'),
+        'activity_title' => request('activity_title'),
+        'type_of_activity' => request('type_of_activity'),
+        'activity_start_datetime' => request('activity_start_datetime'),
+        'activity_end_datetime' => request('activity_end_datetime'),
+        'venue' => request('venue'),
+        'participants'=> request('participants'),
+        'partner_organization'=> request('partner_organization'),
+        'organization_fund'=> request('organization_fund'),
+        'solidarity_share'=> request('solidartity_share'),
+        'registration_fee'=> request('registration_fee'),
+        'AUSG_subsidy'=> request('AUSG_subsidy'),
+        'sponsored_by'=> request('sponsored_by'),
+        'ticket_selling'=> request('ticket_selling'),
+        'ticket_control_number'=> request('ticket_control_number'),
+        'other_source_of_fund'=> request('other_source_of_fund'),
+        ]);
+
+        return redirect('/osaemp/activity_approval');
+
     }
 
     
