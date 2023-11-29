@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin User Privilege</title>
+    <title>Admin Userlist</title>
     <!-- Add the Bootstrap CSS CDN link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="OSAgeneral.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    
     <!-- Sidebar portion -->
     <div class="container-fluid">
         <div class="row">
@@ -76,7 +76,7 @@
                             <a class="nav-link" href="T1adminUP.html">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-regular fa-address-book fa-lg"></i>
-                                    <span class="ml-2">User list</span>
+                                    <span class="ml-2">Manage Users</span>
                                 </div>
                             </a>
                         </li>
@@ -85,7 +85,7 @@
                             <a class="nav-link" href="T1adminorglist.html">
                                 <div class="d-flex align-items-center" style="margin-left: -10px;">
                                     <i class="fa-solid fa-users fa-lg"></i>
-                                    <span class="ml-2">Org List</span>
+                                    <span class="ml-2">Manage Organizations</span>
                                 </div>
                             </a>
                         </li>
@@ -103,7 +103,7 @@
         </div>
     </div>
 
-   <div class="container-tbl-up">
+    <div class="container-tbl-up">
             
             
         <table class="table"> <br>
@@ -115,9 +115,9 @@
                         Member category
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="#">Member</a></li>
+                        <li><a class="dropdown-item" href="#">Studentleader</a></li>
+                        <li><a class="dropdown-item" href="#">Admin</a></li>
                       </ul>
                     </div>
                 </div>
@@ -129,6 +129,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Organizations</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -138,8 +139,9 @@
                     <td>DingDong</td>
                     <td>DingDongDonetest@gmail.com</td>
                     <td>Admin</td>
+                    <td>ADUIT,TNT,MESAU</td>
                     <td>
-                        <button class="btn btn-info">Edit</button>
+                        <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#myModal" onclick="showPopup()">Edit</button>
                         <button class="btn btn-danger">Delete</button>
                     </td>
                 </tr>
@@ -215,12 +217,72 @@
     </script>
 </main>
 
+<script>
+    function showPopup() {
+ // Create a modal or custom pop-up with checkboxes
+ var popup = document.createElement("div");
+ popup.className = "modal fade";
+ popup.id = "myModal";
+
+ var popupContent = document.createElement("div");
+ popupContent.className = "modal-dialog modal-dialog-centered";
+
+ // Add checkboxes
+ popupContent.innerHTML = `
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Make user a</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <label><input type="radio" name="userType" id="radioAdmin"> Admin</label><br>
+            <label><input type="radio" name="userType" id="radioStudentLeader"> Student Leader</label><br>
+            <label><input type="radio" name="userType" id="radioMember"> Member</label><br>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="createEvent()">Confirm</button>
+            <button type="button" class="btn btn-secondary" onclick="closePopup()">Cancel</button>
+        </div>
+    </div>
+`;
+
+ popup.appendChild(popupContent);
+
+ // Append the modal to the body
+ document.body.appendChild(popup);
+
+ // Show the modal
+ $('#myModal').modal('show');
+}
+function createEvent() {
+    var radioAdmin = document.getElementById('radioAdmin');
+    var radioStudentLeader = document.getElementById('radioStudentLeader');
+    var radioMember = document.getElementById('radioMember');
+
+    if (radioAdmin.checked) {
+        // User selected Admin
+    } else if (radioStudentLeader.checked) {
+        // User selected Student Leader
+    } else if (radioMember.checked) {
+        // User selected Member
+    }
+
+    // Close the popup after handling the selection
+    closePopup();
+}
+
+     function closePopup() {
+         // Remove the popup from the DOM
+         var popup = document.querySelector(".modal");
+         document.body.removeChild(popup);
+     }
+ </script>
     
 
     
+<!-- Add Bootstrap JavaScript and jQuery -->
 
-    <!-- Add Bootstrap JavaScript and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    
 </body>
 </html>
