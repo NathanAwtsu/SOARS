@@ -27,7 +27,7 @@ require __DIR__.'/auth.php';
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-/*TESTING, MAINTENANCE and DEPLOYMENT
+
 Route::get('user/{id}', function($id){
 	$userIdQuery = DB::select('SELECT id, name, email, created_at, updated_at FROM users WHERE id = ?' , [$id]);
 
@@ -60,7 +60,7 @@ Route::get('user/{id}', function($id){
 	}
 });
 
-*/
+
 
 
 Route::get('/', function () {return view('soars');});
