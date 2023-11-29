@@ -88,8 +88,7 @@ class OsaController extends Controller
             'logo'=>request('logo'),
             'consti_and_byLaws'=>request('consti_and_byLaws'),
             'letter_of_intent'=>request('letter_of_intent'),
-            'adviser_info'=>request('adviser_info'),
-            'officer_info'=>request('officer_info'),
+            ''=>request(''),
             'admin_endorsement'=>request('admin_endorsement'),
         ]);
 

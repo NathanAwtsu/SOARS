@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('adviser_name')->nullable();
             $table->string('adviser_email')->nullable();
             //AUSG
-            $table->string('ausg_rep_studentno')->nullable();
+            $table->string('ausg_rep_studno')->nullable();
             $table->string('ausg_rep_name')->nullable();
             //President
             $table->string('president_studno')->nullable();
