@@ -16,7 +16,14 @@
             </div>
             <div class="col-md-3 mb-3">
                 <a href="OSAreports.html" class="card" style="height: 130px; background-color: #81c784; text-decoration: none;">
-                    <h2 style="color: white;"><i class="fa-solid fa-chart-line"></i> Activities <?php echo e($totalEvent); ?></h2>
+                    <h2 style="color: white;"><i class="fa-solid fa-chart-line"></i> Activities 
+                    <?php $__currentLoopData = $totalEvent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        
+                    
+                        <?php echo e($event->count()); ?>
+
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </h2>
                     
                 </a>
             </div>

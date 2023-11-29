@@ -5,36 +5,32 @@
        
     <div class="card" style="height: auto; width: 700px;">
         <h2>Organization Information Form</h2> <br><br>
-
-        <form action="submit_organization.php" method="post" enctype="multipart/form-data">
+        <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
 
             <label for="OrgName"><h2>Organization Name :</h2></label><br>
-            <textarea id="OrgName" name="OrgName" rows="2" cols="4" required></textarea><br><br>
+            <textarea id="name" name="name" rows="2" cols="4" required></textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
-            <textarea id="Mission" name="Mission" rows="4" cols="50" required></textarea><br><br>
+            <textarea id="mission" name="mission" rows="4" cols="50" required></textarea><br><br>
 
             <label for="Vision"><h2>Insert Vision:</h2> </label><br>
-            <textarea id="Vision" name="Vision" rows="4" cols="50" required></textarea><br><br>
+            <textarea id="vision" name="vision" rows="4" cols="50" required></textarea><br><br>
 
             <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
-             <select id="OrganizationType" name="OrganizationType" required>
-             <option value="option1">Academic</option>
-             <option value="option2">Co-Academic</option>
-             <option value="option3">Socio Civic</option>
-             <option value="option4">Religious</option>
+             <select id="type_of_organization" name="type_of_organization" required>
+             <option value="Academic">Academic</option>
+             <option value="Co-Academic">Co-Academic</option>
+             <option value="Socio Civic">Socio Civic</option>
+             <option value="Religious">Religious</option>
              </select><br><br>
             
-            <label for="Constitutions"><h2>Please Select and Upload Constitutions:</h2></label>
-            <input type="file" id="logoFile" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" required><br><br>
+            <label for="Constitutions"><h2>Please Select and Upload Constitutions & ByLaws:</h2></label>
+            <input type="file" id="consti_and_byLaws" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" required><br><br>
 
-            <label for="byLaws"><h2>And then Select and Upload Bylaws:</h2></label>
-            <input type="file" id="logoFile" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" required><br><br>
-
-            <label for="logoFile"><h2>Also Select and Upload Logo:</h2></label>
-            <input type="file" id="logoFile" name="logoFile" accept=".png, .jpg, .jpeg" required><br><br>
+            <label for="logoFile"><h2>And then Select and Upload Logo:</h2></label>
+            <input type="file" id="logo" name="logo" accept=".png, .jpg, .jpeg" required><br><br>
 
             <label for="letterOfIntentFile"><h2>As well as Upload Letter of Intent:</h2></label>
-            <input type="file" id="letterOfIntentFile" name="letterOfIntentFile" accept=".pdf" required><br><br>
+            <input type="file" id="letter_of_intent" name="letter_of_intent" accept=".pdf" required><br><br>
 
             <label for="advisersInfoText"><h2>Almost there! Enter Advisers and Officers Information:</h2></label>
 

@@ -72,11 +72,12 @@
                         @elseif (Route::is('osaorganization_new'))
                             <h2>New Organization</h2>
 
-                        @elseif (Route::is('osaactivityeventz'))
-                            <h2>Event Manager</h2>
                         @elseif (Route::is('osaactivityevent'))
                             <h2>Event Manager</h2>
+                        @elseif (Route::is('osaactivityapproval'))
+                            <h2>Event manager</h2>
                         @endif
+
 
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -129,27 +130,32 @@
                     Reports
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{url('/osaemp/organization_list')}}" style="color:white;">
-                    <div class="d-flex align-items-center" style="margin-left: -10px;">
-                        <i class="fa-solid fa-users fa-lg"></i>
-                        <span class="ml-2">Manage Organizations</span>
-                    </div>
-                </a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{{url('/osaemp/activity_approval')}}" style="color:white;">
                     <i class="fa-solid fa-clipboard-list fa-lg"></i>
                     <span class="ml-2">Event Manager</span>
                 </a>
             </li>
-        
+
             <li class="nav-item">
-                <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white;">
+                <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white; ">
                     <i class="fa-regular fa-address-book fa-lg"></i>
                     <span class="ml-2">Manage Users</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('/osaemp/organization_list')}}" style="color:white; margin-left:5px;">
+                    <div class="d-flex align-items-center" style="margin-left: -10px;">
+                        <i class="fa-solid fa-users fa-lg"></i>
+                        <span class="ml-2">Manage Organizations</span>
+                    </div>
+                </a>
+            </li>
+            
+        
+            
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}" 
                     onclick="event.preventDefault();

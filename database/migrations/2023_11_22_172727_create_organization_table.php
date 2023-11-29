@@ -12,18 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('organization', function (Blueprint $table) {
-            $table->id();
-            $table->integer('requirement_status');
-            $table->string('name');
-            $table->string('nickname');
-            $table->string('mission');
-            $table->string('vision');
-            $table->mediumText('logo');
-            $table->mediumText('consti_and_byLaws');
-            $table->mediumText('letter_of_intent');
-            $table->string('adviser_info');
-            $table->string('officer_info');
-            $table->mediumText('admin_endorsement');
+            $table->id()->autoIncrement();
+            $table->integer('requirement_status')->nullable();
+            $table->string('name')->nullable();
+            $table->string('nickname')->nullable();
+            $table->string('type_of_organization')->nullable();
+            $table->string('mission')->nullable();
+            $table->string('vision')->nullable();
+            $table->mediumText('logo')->nullable();
+            $table->mediumText('consti_and_byLaws')->nullable();
+            $table->mediumText('letter_of_intent')->nullable();
+            $table->string('adviser_info')->nullable();
+            $table->string('officer_info')->nullable();
+            $table->mediumText('admin_endorsement')->nullable();
             $table->timestamps();
         });
     }

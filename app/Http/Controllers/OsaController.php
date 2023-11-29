@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Organization;
 use Illuminate\Support\Facades\DB;
 
 class OsaController extends Controller
@@ -50,7 +51,7 @@ class OsaController extends Controller
         'sponsored_by'=> request('sponsored_by'),
         'ticket_selling'=> request('ticket_selling'),
         'ticket_control_number'=> request('ticket_control_number'),
-        'other_source_of_fund'=> request('other_source_of_fund'),
+        'other_source_of_fund'=> request('other_source_of_fund')
         ]);
 
         return redirect('/osaemp/activity_approval');
@@ -64,6 +65,7 @@ class OsaController extends Controller
     }
 
     public function totalDashboard(){
+        
         $totalEvent = DB::table('events')->get();
         $totalMember = DB::table('students')->get();
         $totalOrg= DB::table('student_organizations')->get();
@@ -72,6 +74,27 @@ class OsaController extends Controller
         ->with('totalMember',$totalMember)
         ->with('totalOrg', $totalOrg);
         
+    }
+
+    public function newOrganization(){
+        Organization::create([
+            'id'=> request('id'),
+            'requirement_status'=> request('requirement_status'),
+            'name'=> request('name'),
+            'nickname'=>request('nickname'),
+            'type_of_organization'=>request(''),
+            'mission'=>request('mission'),
+            'vision'=>request('vision'),
+            'logo'=>request('logo'),
+            'consti_and_byLaws'=>request('consti_and_byLaws'),
+            'letter_of_intent'=>request('letter_of_intent'),
+            'adviser_info'=>request('adviser_info'),
+            'officer_info'=>request('officer_info'),
+            'admin_endorsement'=>request('admin_endorsement'),
+        ]);
+
+        return redirect('/osaemp/organization_list/new_organization');
+
     }
     
 }
