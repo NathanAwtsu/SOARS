@@ -27,13 +27,14 @@ require __DIR__.'/auth.php';
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+/*
 Route::get('user/{id}', function($id){
 	$userIdQuery = DB::select('SELECT id, name, email, created_at, updated_at FROM users WHERE id = ?' , [$id]);
 
 	if($userIdQuery != null)
 	{
 	
+		$tempArray;
 		$userIdQueryObj = array();
 		foreach($userIdQuery as $value)
 		{
@@ -44,13 +45,13 @@ Route::get('user/{id}', function($id){
 				"createdAt" => $value->created_at,
 				"updatedAt" => $value->updated_at
 		);
-		array_push($userIdQueryObj, $tempArray);
+		//array_push($userIdQueryObj, $tempArray);
 
 	}
 	$objectUserQuery = (object)[
 		"data" => $userIdQueryObj
 	];
-	return response()->json($objectUserQuery);
+	return response()->json($tempArray);
 	}
 	else
 	{
@@ -59,7 +60,7 @@ Route::get('user/{id}', function($id){
 		],404);
 	}
 });
-
+*/
 
 
 

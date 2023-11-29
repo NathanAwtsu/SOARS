@@ -37,6 +37,7 @@
                     <th>Ticket Selling</th>
                     <th>Ticket Control No.</th>
                     <th>Other Source of Fund</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>

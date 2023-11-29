@@ -72,7 +72,7 @@
                         <?php elseif(Route::is('osaorganization_new')): ?>
                             <h2>New Organization</h2>
 
-                        <?php elseif(Route::is('osaactivityapproval')): ?>
+                        <?php elseif(Route::is('osaactivityeventz')): ?>
                             <h2>Event Manager</h2>
                         <?php elseif(Route::is('osaactivityevent')): ?>
                             <h2>Event Manager</h2>
