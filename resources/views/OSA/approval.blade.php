@@ -17,30 +17,60 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Event Name</th>
-                    <th>Event Date</th>
-                    <th>Event Location</th>
-                    <th>Time</th>
-                    <th>Actions</th>
+                    <th>Status</th>
+                    <th>Requirement</th>
+                    <th>Organization</th>
+                    <th>Activity Title</th>
+                    <th>Type of Activity</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Venue</th>
+                    <th>Participants</th>
+                    <th>Partner Org</th>
+                    <th>Org Fund</th>
+                    <th>Solidarity Share</th>
+                    <th>Registration Fee</th>
+                    <th>AUSG Subsidy</th>
+                    <th>Sponsored By</th>
+                    <th>Ticket Selling</th>
+                    <th>Ticket Control No.</th>
+                    <th>Other Source of Fund</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach($activity as $event)
                 <tr>
-                    <td>1</td>
-                    <td>john Loyd</td>
-                    <td>Out Reach Program</td>
-                    <td>12/22/23</td>
-                    <td>Sv Hall</td>
-                    <td>8:00 AM</td>
-                    
+                    <td>{{$event->id}}</td>
+                    <td>{{$event->status}}</td>
+                    <td>{{$event->requirement}}</td>
+                    <td>{{$event->organization_name}}</td>
+                    <td>{{$event->activity_title}}</td>
+                    <td>{{$event->type_of_activity}}</td>
+                    <td>{{$event->activity_start_date}}</td>
+                    <td>{{$event->activity_end_date}}</td>
+                    <td>{{$event->activity_start_time}}</td>
+                    <td>{{$event->activity_end_time}}</td>
+                    <td>{{$event->venue}}</td>
+                    <td>{{$event->participants}}</td>
+                    <td>{{$event->partner_organizaton}}</td>
+                    <td>{{$event->organization_fund}}</td>
+                    <td>{{$event->solidarity_share}}</td>
+                    <td>{{$event->registraton_fee}}</td>
+                    <td>{{$event->AUSG_subsidy}}</td>
+                    <td>{{$event->sponsored_by}}</td>
+                    <td>{{$event->ticker_selling}}</td>
+                    <td>{{$event->ticket_control_number}}</td>
+                    <td>{{$event->other_source_of_fund}}</td>
                     <td>
                         <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
 
                         <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
 
-                      </td>
+                    </td>
                 </tr>
+                @endforeach
             </tbody> 
                 
                 
