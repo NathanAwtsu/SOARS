@@ -23,8 +23,8 @@
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js')); ?>"></script>
     
-    <?php echo $__env->yieldPushContent('jquery'); ?>
     <?php echo $__env->yieldPushContent('styles'); ?>
+    <?php echo $__env->yieldPushContent('jquery'); ?>
     
 
     <!-- Scripts -->
