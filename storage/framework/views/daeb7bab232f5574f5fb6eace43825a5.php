@@ -4,7 +4,7 @@
         <div class="rowmain">
             <div class="col-md-6 offset-md-3">
                 <h2>User Profile Setup</h2>
-                <form>
+                <form method="post" action="/osaemp/user/{id}">
                     <div class="form-group"><br>
                         <img id="preview" src="/photos/icon.jpg" alt="Profile Picture" width="150">
                         <label for="profilePicture">Profile Picture</label> <br>

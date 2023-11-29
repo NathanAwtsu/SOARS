@@ -102,6 +102,8 @@ Route::get('/osaemp/organizations-list', [OrganizationController::class, 'orglis
 //Routes for OSA
 Route::get('/osaemp', function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
 Route::get('/osaemp/dashboard', function (){return view('OSA/dashboard');})->name('osadashboard');
+Route::get('/osaemp', [OsaController::class, 'totalDashboard']);
+Route::get('/osaemp/dashboard', [OsaController::class, 'totalDashboard']);
 Route::get('/osaemp/user', function (){return view('OSA/user');})->name('osauser');
 Route::get('/osaemp/userlist', function (){return view('OSA/userlist');})->name('osauserlist');
 Route::get('/osaemp/message', function (){return view('OSA/message');})->name('osamessage');

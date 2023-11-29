@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Events\ChatifyEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,5 +63,15 @@ class OsaController extends Controller
 
     }
 
+    public function totalDashboard(){
+        $totalEvent = DB::table('events')->get();
+        $totalMember = DB::table('students')->get();
+        $totalOrg= DB::table('student_organizations')->get();
+        return view('osaemp')
+        ->with('totalEvent', $totalEvent)
+        ->with('totalMember',$totalMember)
+        ->with('totalOrg', $totalOrg);
+        
+    }
     
 }
