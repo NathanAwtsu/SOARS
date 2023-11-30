@@ -1,83 +1,140 @@
 @extends('navbar.navbar_osa')
 @section('content')
 
-<center><main>
+<center>
+    
+    <main>
        
     <div class="card" style="height: auto; width: 700px;">
         <h2>Organization Information Form</h2> <br><br>
-
-        <form action="submit_organization.php" method="post" enctype="multipart/form-data">
-
+        <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
+            @csrf
             <label for="OrgName"><h2>Organization Name :</h2></label><br>
-            <textarea id="OrgName" name="OrgName" rows="2" cols="4" required></textarea><br><br>
+            <textarea id="name" name="name" rows="2" cols="4" ></textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
-            <textarea id="Mission" name="Mission" rows="4" cols="50" required></textarea><br><br>
+            <textarea id="mission" name="mission" rows="4" cols="50" ></textarea><br><br>
 
             <label for="Vision"><h2>Insert Vision:</h2> </label><br>
-            <textarea id="Vision" name="Vision" rows="4" cols="50" required></textarea><br><br>
+            <textarea id="vision" name="vision" rows="4" cols="50" ></textarea><br><br>
 
             <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
-             <select id="OrganizationType" name="OrganizationType" required>
-             <option value="option1">Academic</option>
-             <option value="option2">Co-Academic</option>
-             <option value="option3">Socio Civic</option>
-             <option value="option4">Religious</option>
-             </select><br><br>
+             <select id="type_of_organization" name="type_of_organization" >
+                <option value="Academic">Academic</option>
+                <option value="Co-Academic">Co-Academic</option>
+                <option value="Socio Civic">Socio Civic</option>
+                <option value="Religious">Religious</option>
+             </select><br></br>
             
-            <label for="Constitutions"><h2>Please Select and Upload Constitutions:</h2></label>
-            <input type="file" id="logoFile" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" required><br><br>
+            <label for="Constitutions"><h2>Please Select and Upload Constitutions & ByLaws:</h2></label>
+            <input type="file" id="consti_and_byLaws" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" ><br><br>
 
-            <label for="byLaws"><h2>And then Select and Upload Bylaws:</h2></label>
-            <input type="file" id="logoFile" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" required><br><br>
-
-            <label for="logoFile"><h2>Also Select and Upload Logo:</h2></label>
-            <input type="file" id="logoFile" name="logoFile" accept=".png, .jpg, .jpeg" required><br><br>
+            <label for="logoFile"><h2>And then Select and Upload Logo:</h2></label>
+            <input type="file" id="logo" name="logo" accept=".png, .jpg, .jpeg" ><br><br>
 
             <label for="letterOfIntentFile"><h2>As well as Upload Letter of Intent:</h2></label>
-            <input type="file" id="letterOfIntentFile" name="letterOfIntentFile" accept=".pdf" required><br><br>
+            <input type="file" id="letter_of_intent" name="letter_of_intent" accept=".pdf" ><br><br>
 
-            <label for="advisersInfoText"><h2>Almost there! Enter Advisers and Officers Information:</h2></label>
+            <label for="advisersInfoText">
+                <h2>Almost there! Enter Advisers and Officers Information:</h2>
+            </label>
+            
+            <div id="listOfOfficersContent" class="card mt-4 mb-4" style="height: auto;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;" ><h2>Adviser:</h2></label>
+                                    <label for="janeName" style="text-align:left;">Name:</label>
+                                    <input type="text" id="adviser_name" name="adviser_name"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="text" id="adviser_name" name="adviser_name" ><br>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h5>AUSG Representative:</h5></label>
+                                    <label for="ausg_rep_studno" style="text-align:left;">Student No:</label>
+                                    <input type="text" id="ausg_rep_studno" name="ausg_rep_studno" ><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label>
+                                    <input type="text" id="ausg_rep_name" name="ausg_rep_name" ><br>
+                            </div>
+                        </div>
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h5>President:</h5></label>
+                                    <label for="president_studno" style="text-align:left;">Student No:</label>
+                                    <input type="number" id="president_studno" name="president_studno" max="9"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label>
+                                    <input type="text" id="president_name" name="president_name" ><br>
+                            </div>
+                        </div>
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h5>Vp Internal:</h5></label>
+                                    <label for="vp_internal_studno" style="text-align:left;">Student No:</label>
+                                    <input type="number" id="vp_internal_studno" name="vp_internal_studno" max="9"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label>
+                                    <input type="text" id="vp_internal_name" name="vp_internal_name" ><br>
+                            </div>
+                        </div>
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h5>Vp External:</h5></label>
+                                    <label for="vp_external_studno" style="text-align:left;">Student No:</label>
+                                    <input type="number" id="vp_external_studno" name="vp_external_studno" max="9"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label>
+                                    <input type="text" id="vp_external_name" name="vp_external_name" ><br>
+                            </div>
+                        </div>
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h5>Secretary:</h5></label>
+                                    <label for="secretary_studno" style="text-align:left;">Student No:</label>
+                                    <input type="number" id="secretary_studno" name="secretary_studno" max="9"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label>
+                                    <input type="text" id="secretary_name" name="secretary_name" ><br>
+                            </div>
+                        </div>
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h5>Treasurer:</h5></label>
+                                    <label for="treasurer_studno" style="text-align:left;">Student No:</label>
+                                    <input type="number" id="treasurer_studno" name="treasurer_studno" max="9"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label>
+                                    <input type="text" id="treasurer_name" name="treasurer_name" ><br>
+                            </div>
+                        </div>
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h5>Auditor:</h5></label>
+                                    <label for="auditor_studno" style="text-align:left;">Student No:</label>
+                                    <input type="number" id="auditor_studno" name="auditor_studno" max="9"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label>
+                                    <input type="text" id="auditor_name" name="auditor_name" ><br>
+                            </div>
+                        </div>
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h5>PRO:</h5></label>
+                                    <label for="pro_studno" style="text-align:left;">Student No:</label>
+                                    <input type="number" id="pro_studno" name="pro_studno" max="9"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label>
+                                    <input type="text" id="pro_name" name="pro_name" ><br>
+                            </div>
+                        </div>
 
-            <div class="col-md-4">
-                <div class="officer-card" id="officerContainer" style="display: flex; flex-direction: row; gap: 20px;"> <!-- Increased the gap to 20px -->
-                    <form action="update_officer_details.php" method="post">
-                        <div>
-                            <label for="janeName">Name:</label>
-                            <input type="text" id="janeName" name="janeName" value="Jane Smith" style="width: 120px;"> <!-- Increased the width to 120px -->
-                        </div>
-            
-                        <div style="margin-left: 70px;">
-                            <label for="janePosition">Position:</label>
-                            <input type="text" id="janePosition" name="janePosition" value="AUSG Representative" style="width: 180px;"> <!-- Increased the width to 180px -->
-                        </div>
-            
-                        <div style="margin-left: 70px;">
-                            <label for="janeContact">Email:</label>
-                            <input type="text" id="janeContact" name="janeContact" value="sampleemail.@adu.edu.ph" style="width: 180px;"> <!-- Increased the width to 180px -->
-                        </div>
-                    </form>
+                        <label for="adviserEndorsementFile"><h2>Almost done! Upload Adviser Endorsement File:</h2></label>
+                        <input type="file" id="adviserEndorsementFile" name="adviserEndorsementFile" accept=".pdf" ><br><br>
+                        <input type="submit" value="Submit" >
+                        
+                    </div>
                 </div>
+            </div>
+        </form>
+    </main>
+</center>
             
-            
-            
-
-<button type="button" onclick="addOfficerForm()">Add Another Officer</button>
-<button type="button" id="undoButton" onclick="undoAddOfficerForm()" style="display:none;">Undo</button>
-</div>
-            
-            
-<!-- You can provide default text or leave it empty -->
-</textarea>
-
-
-<label for="adviserEndorsementFile"><h2>Almost done! Upload Adviser Endorsement File:</h2></label>
-<input type="file" id="adviserEndorsementFile" name="adviserEndorsementFile" accept=".pdf" required><br><br>
-
-<input type="button" value="Submit" onclick="confirmSubmission()">
-</form>
-    </div>
-    </div>
-</main></center>
 
 <script>
     var officerContainer = document.getElementById('officerContainer');

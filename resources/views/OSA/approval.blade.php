@@ -37,6 +37,7 @@
                     <th>Ticket Selling</th>
                     <th>Ticket Control No.</th>
                     <th>Other Source of Fund</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -140,7 +141,7 @@
                 <div class="form-group row mb-2">
                     <label for="eventId" class="col-sm-4 col-form-label text-left">Event ID:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="id" name="id" required>
+                        <input type="number" class="form-control" id="id" name="id" required>
                     </div>
                 </div>
                 <div class="form-group row mb-2">
