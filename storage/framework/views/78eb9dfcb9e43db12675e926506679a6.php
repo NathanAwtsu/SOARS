@@ -16,30 +16,62 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Event Name</th>
-                    <th>Event Date</th>
-                    <th>Event Location</th>
-                    <th>Time</th>
-                    <th>Actions</th>
+                    <th>Status</th>
+                    <th>Requirement</th>
+                    <th>Organization</th>
+                    <th>Activity Title</th>
+                    <th>Type of Activity</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Venue</th>
+                    <th>Participants</th>
+                    <th>Partner Org</th>
+                    <th>Org Fund</th>
+                    <th>Solidarity Share</th>
+                    <th>Registration Fee</th>
+                    <th>AUSG Subsidy</th>
+                    <th>Sponsored By</th>
+                    <th>Ticket Selling</th>
+                    <th>Ticket Control No.</th>
+                    <th>Other Source of Fund</th>
                 </tr>
             </thead>
             <tbody>
+                <?php $__currentLoopData = $activity; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <td>1</td>
-                    <td>john Loyd</td>
-                    <td>Out Reach Program</td>
-                    <td>12/22/23</td>
-                    <td>Sv Hall</td>
-                    <td>8:00 AM</td>
-                    
+                    <td><?php echo e($event->id); ?></td>
+                    <td><?php echo e($event->status); ?></td>
+                    <td><?php echo e($event->requirement); ?></td>
+                    <td><?php echo e($event->organization_name); ?></td>
+                    <td><?php echo e($event->activity_title); ?></td>
+                    <td><?php echo e($event->type_of_activity); ?></td>
+                    <td><?php echo e($event->activity_start_date); ?></td>
+                    <td><?php echo e($event->activity_end_date); ?></td>
+                    <td><?php echo e($event->activity_start_time); ?></td>
+                    <td><?php echo e($event->activity_end_time); ?></td>
+                    <td><?php echo e($event->venue); ?></td>
+                    <td><?php echo e($event->participants); ?></td>
+                    <td><?php echo e($event->partner_organization); ?></td>
+                    <td><?php echo e($event->organization_fund); ?></td>
+                    <td><?php echo e($event->solidarity_share); ?></td>
+                    <td><?php echo e($event->registration_fee); ?></td>
+                    <td><?php echo e($event->AUSG_subsidy); ?></td>
+                    <td><?php echo e($event->sponsored_by); ?></td>
+                    <td><?php echo e($event->ticket_selling); ?></td>
+                    <td><?php echo e($event->ticket_control_number); ?></td>
+                    <td><?php echo e($event->other_source_of_fund); ?></td>
+                    <td><?php echo e(count(array_filter(get_object_vars($event)))); ?> / 21</td>
+
                     <td>
                         <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
 
                         <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
 
-                      </td>
+                    </td>
                 </tr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody> 
                 
                 
@@ -156,13 +188,25 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Start of Event Date:</label>
                     <div class="col-sm-8">
-                        <input type="date" class="form-control" id="activity_start_datetime" name="activity_start_datetime" required>
+                        <input type="date" class="form-control" id="activity_start_date" name="activity_start_date" required>
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">End of Event Date:</label>
                     <div class="col-sm-8">
-                        <input type="date" class="form-control" id="activity_end_datetime" name="activity_end_datetime" required>
+                        <input type="date" class="form-control" id="activity_end_date" name="activity_end_date" required>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventTime" class="col-sm-4 col-form-label text-left">Start of Event Time:</label>
+                    <div class="col-sm-8">
+                        <input type="time" class="form-control" id="activity_end_time" name="activity_start_time" required>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventTime" class="col-sm-4 col-form-label text-left">End of Event Time:</label>
+                    <div class="col-sm-8">
+                        <input type="time" class="form-control" id="activity_end_time" name="activity_end_time" required>
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -189,7 +233,7 @@
                     </div>
                 </div>
                 <div class="form-group row mb-2">
-                    <label for="eventDate" class="col-sm-4 col-form-label text-left">Organization_fund:</label>
+                    <label for="eventDate" class="col-sm-4 col-form-label text-left">Organization fund:</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="organization_fund" name="organization_fund" required>
                     </div>
