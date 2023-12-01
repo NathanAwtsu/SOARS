@@ -148,7 +148,7 @@
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Event Status:</label>
                     <div class="col-sm-8">
                         <div class="col-sm-8">
-                            <select class="form-control" id="eventStatus" name="status" onchange="showHideOthers(this);" required>
+                            <select class="form-control" id="eventStatus" name="status"  required>
                                 <option value="Approved">Approved</option>
                                 <option value="Standby">Standby</option>
                                 <option value="Rejected">Rejected</option>
@@ -276,8 +276,8 @@
                 </div>
 
                 <!-- ... (other event details input fields) ... -->
-                <button type="Submit" class="btn btn-primary btn-block" onclick="showEmailModal()">Next</button>
-                <button type="button" class="btn btn-danger btn-block" data-bs-dismiss="modal">Cancel</button>
+                <button type="Submit" class="btn btn-primary btn-block" >Next</button>
+                <button type="" class="btn btn-danger btn-block" data-bs-dismiss="modal">Cancel</button>
             </form>
         </div>
     </div>

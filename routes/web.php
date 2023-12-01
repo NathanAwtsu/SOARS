@@ -107,7 +107,7 @@ Route::get('/osaemp/userlist', function (){return view('OSA/userlist');})->name(
 Route::get('/osaemp/message', function (){return view('OSA/message');})->name('osamessage');
 Route::get('/osaemp/organization_list', [OsaController::class, 'organization'], function(){return view('OSA/organization_list');})->name('osaorganizationlist');
 Route::get('/osaemp/organization_list/new_organization',  function(){return view('OSA/organization_new');})->name('osaorganization_new');
-Route::post('osaemp/organization_list/new_organization', [OsaController::class, 'newOrganization']);
+Route::post('/osaemp/organization_list/new_organization', [OsaController::class, 'newOrganization']);
 Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve'],function(){return view('OSA/approval');})->name('osaactivityapproval');
 Route::get('/osaemp/reports', function(){ return view('OSA/reports');})->name('osareports');
 Route::post('/osaemp/activity_approval', [OsaController::class, 'store']);

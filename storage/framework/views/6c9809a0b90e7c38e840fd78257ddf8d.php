@@ -9,7 +9,7 @@
         <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
             <label for="OrgName"><h2>Organization Name :</h2></label><br>
-            <textarea id="name" name="name" rows="2" cols="4" ></textarea><br><br>
+            <textarea id="name" name="name" rows="2" cols="4" required></textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
             <textarea id="mission" name="mission" rows="4" cols="50" ></textarea><br><br>
 
@@ -17,7 +17,7 @@
             <textarea id="vision" name="vision" rows="4" cols="50" ></textarea><br><br>
 
             <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
-             <select id="type_of_organization" name="type_of_organization" required>
+             <select id="type_of_organization" name="type_of_organization" onchange="showHideOthers(this);" required>
                 <option value="Academic">Academic</option>
                 <option value="Co-Academic">Co-Academic</option>
                 <option value="Socio Civic">Socio Civic</option>
@@ -125,6 +125,8 @@
 
                         <label for="adviserEndorsementFile"><h2>Almost done! Upload Adviser Endorsement File:</h2></label>
                         <input type="file" id="adviserEndorsementFile" name="adviserEndorsementFile" accept=".pdf" ><br><br>
+
+
                         <input type="submit" value="Submit" >
                         
                     </div>
