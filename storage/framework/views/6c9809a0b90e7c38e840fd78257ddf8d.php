@@ -17,7 +17,7 @@
             <textarea id="vision" name="vision" rows="4" cols="50" ></textarea><br><br>
 
             <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
-             <select id="type_of_organization" name="type_of_organization" >
+             <select id="type_of_organization" name="type_of_organization" required>
                 <option value="Academic">Academic</option>
                 <option value="Co-Academic">Co-Academic</option>
                 <option value="Socio Civic">Socio Civic</option>

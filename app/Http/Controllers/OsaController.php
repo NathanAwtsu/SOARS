@@ -20,11 +20,7 @@ class OsaController extends Controller
         return view('osaemp', ['users'=>$user, 'unseenCounter'=> $unseenCounter]);
     }
 
-    public function checkUnseenMessage(){
-        $unseenCounter = DB::table('ch_messages')
-        ->where('to_id','=',Auth::user()->id)->where('seen','0')->count();
-        return response()->json(["unseenCounter"=>$unseenCounter]);
-    }
+    
 
     public function store(){
         
@@ -53,6 +49,7 @@ class OsaController extends Controller
         'ticket_control_number'=> request('ticket_control_number'),
         'other_source_of_fund'=> request('other_source_of_fund')
         ]);
+        
 
         return redirect('/osaemp/activity_approval');
 
@@ -68,12 +65,134 @@ class OsaController extends Controller
         
         $totalEvent = DB::table('events')->get();
         $totalMember = DB::table('students')->get();
-        $totalOrg= DB::table('student_organizations')->get();
+        $totalOrg= DB::table('organizations')->get();
         return view('osaemp')
         ->with('totalEvent', $totalEvent)
         ->with('totalMember',$totalMember)
         ->with('totalOrg', $totalOrg);
         
+    }
+
+    public function organization(){
+        $organizationAcademic = DB::table('organizations')->where('type_of_organization','=','Academic')->get();
+        $organizationCoAcademic = DB::table('organizations')->where('type_of_organization','=','Co-Academic')->get();
+        $organizationSociocivic = DB::table('organizations')->where('type_of_organization','=','Sociocivic')->get();
+        $organizationReligious = DB::table('organizations')->where('type_of_organization','=','Religious')->get();
+    
+
+        //ProgressBar
+
+        $userID = DB::table('organizations')->wherenotnull('id');
+        
+        foreach($userID as $column=>$uid){
+            $nulls=0;
+            foreach($uid->id as $field){
+            if($uid->id != null && $field[$column]){
+
+            }
+            }
+
+
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->nickname == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->type_of_organization == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->mission == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->vision == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->logo == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->consti_and_bylaws == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->letter_of_intent == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            if ($uid->id != null && $uid->name == null){ 
+                $nulls+=1;
+            }
+            
+            /*
+            .
+            .
+            */
+
+            $percentage = ($nulls/27)*100;
+
+
+        }
+        
+
+        return view('OSA.organization_list')
+        ->with('organizationAcademic', $organizationAcademic)
+        ->with('organizationCoAcademic', $organizationCoAcademic)
+        ->with('organizationSociocivic', $organizationSociocivic)
+        ->with('organizationReligious', $organizationReligious)
+        ->with('percentage', $percentage);
+
     }
 
     public function newOrganization(){
@@ -118,7 +237,6 @@ class OsaController extends Controller
             //admin_endorsement
             'admin_endorsement'=>request('admin_endorsement'),
         ]);
-
         return redirect('/osaemp/organization_list/new_organization');
 
     }
