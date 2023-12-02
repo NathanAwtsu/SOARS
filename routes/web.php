@@ -110,6 +110,7 @@ Route::get('/osaemp/organizations-list', [OrganizationController::class, 'orglis
 //Routes for OSA
 //Load the Dashboard Total Number 
 Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
+Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
 Route::get('/osaemp/dashboard',[OsaController::class, 'totalDashboard'], function (){return view('OSA/dashboard'); })->name('osadashboard');
 Route::get('/osaemp/user', function (){return view('OSA/user');})->name('osauser');
 Route::get('/osaemp/userlist', function (){return view('OSA/userlist');})->name('osauserlist');

@@ -58,13 +58,7 @@ class OsaController extends Controller
 
     }
 
-    public function getActivities() {
-        $activities = DB::table('events')
-            ->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')
-            ->get();
     
-        return view('OSA.dashboard', ['activities' => $activities]);
-    }
     
 
     public function retrieve(){
@@ -79,7 +73,7 @@ class OsaController extends Controller
         $totalMember = DB::table('students')->get();
         $totalOrg= DB::table('organizations')->get();
         $totalPendingOrg = DB::table('organizations')->where('requirement_status','!=','complete')->get();
-        $activities = $this->getActivities();
+        $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
 
         return view('osaemp')
         ->with('totalEvent', $totalEvent)
@@ -88,6 +82,12 @@ class OsaController extends Controller
         ->with('totalPendingOrg', $totalPendingOrg)
         ->with('activities', $activities);
         
+    }
+
+    public function dashboard_Activities(){
+        $approved = DB::table('events')->where('status','=','approved')->get();
+
+        return view('OSA.activity')->with('approved',$approved);
     }
 
     public function organization(){
