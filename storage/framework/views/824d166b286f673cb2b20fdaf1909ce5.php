@@ -44,7 +44,7 @@
                         <?php elseif(Route::is('osalist')): ?>
                             <h2 style="margin-left: 150px;">OSA Employee List</h2>
                         <?php elseif(Route::is('rso_list')): ?>
-                            <h2 style="margin-left: 150px;">Student Organization List</h2>
+                            <h2 style="margin-left: 160px;">Student Organization List</h2>
                         <?php endif; ?>
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
