@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Models\Osa;
+USE App\Models\User;
 use Datatables;
 
 class OsaEmpController extends Controller
@@ -24,12 +26,15 @@ class OsaEmpController extends Controller
 
     public function stores(Request $request)
     {
+        $datetime = now();
         $employeeId = $request->employee_id;
         $employeeData = [
             'last_name' => $request->last_name,
             'middle_initial' => $request->middle_initial,
             'first_name' => $request->first_name,
             'email' => $request->email,
+            'email_verified_at' => $request->$datetime,
+            'password' => Hash::make($request->password),
             'phone_number' => $request->phone_number,
         ];
         
@@ -38,11 +43,33 @@ class OsaEmpController extends Controller
             $employeeData['password'] = Hash::make($request->password); // Hash Password
         }
 
+        
+
         DB::table('osa')->updateOrInsert(
             ['employee_id' => $employeeId],
             $employeeData
         );
+        $fname= $request->first_name;
+        $mname= $request->middle_inital;
+        $lname= $request->last_name;
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_';
+        $randomString = Str::random(10);
 
+        $name = $fname.' '.$mname.' '.$lname;
+        DB::table('users')->insert([
+            'id' => $employeeId,
+            'role' => '2',
+            'name' => $name,
+            'email' => $request->email,
+            'email_verified_at' => $datetime,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password),
+            'remember_token'=> $randomString,
+            'created_at'=>$datetime,
+            'updated_at' =>$datetime,
+        ]);
+        
+        
         $employee = Osa::where('employee_id', $employeeId)->first();
 
         $responseText = ($employee) ? 'Employee information updated successfully' : 'Failed to update employee information';
@@ -81,8 +108,9 @@ class OsaEmpController extends Controller
 
     public function deletes(Request $request)
     {
+        
         $employee = DB::table('osa')->where('employee_id', $request->employee_id)->delete();
-
+        DB::table('users')->where('id', $request->employee_id)->delete();
         return response()->make('OSA Employee deleted successfully');
 
     }
