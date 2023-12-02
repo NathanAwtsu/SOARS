@@ -81,7 +81,7 @@ Auth::routes();
 Route::middleware(['admin'])->group(function () {
     
 Route::get('/admin', [StudentsController::class, 'showDashboard'])->name('admin');
-Route::get('admin', [OsaController::class, 'totalDashboard']);
+
 
 
 

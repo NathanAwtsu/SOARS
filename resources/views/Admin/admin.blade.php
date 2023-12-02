@@ -30,7 +30,7 @@
                 
             <a href=""><div class="card" style="height: 150px; background-color: #81c784;">
                 <h2 style="color: white;">Activities <i class="fa-solid fa-chart-line"></i></h2>
-                <p style="font-size: 30px; color: white;">{{$totalEvent}}</p>
+                <p style="font-size: 30px; color: white;"></p>
             </a>
             </div>
             
