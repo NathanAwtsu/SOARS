@@ -124,10 +124,14 @@ Route::post('/osaemp/organization_list/new_organization', [OsaController::class,
 
 //Insert all the Info
 Route::post('/osaemp/activity_approval', [OsaController::class, 'store']);
+Route::post('/osaemp/activity_approval/approved', [OsaController::class, 'approved']);
 //Retrieve the list of Activity to be Approved
 Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve'],function(){return view('OSA/approval');})->name('osaactivityapproval');
 
-Route::get('/osaemp/reports', function(){ return view('OSA/reports');})->name('osareports');
+
+Route::get('/osaemp/reports', [OsaController::class, 'eventReport'], function(){ return view('OSA/reports');})->name('osareports');
+
+
 
 
 

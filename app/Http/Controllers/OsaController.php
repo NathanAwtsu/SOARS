@@ -27,9 +27,7 @@ class OsaController extends Controller
 
         
         
-        Event::create([
-        
-        'id'=> request('id'),
+        DB::table('events')->insertgetId([
         'status'=>request('status'),
         'organization_name' => request('organization_name'),
         'activity_title' => request('activity_title'),
@@ -50,22 +48,21 @@ class OsaController extends Controller
         'ticket_control_number'=> request('ticket_control_number'),
         'other_source_of_fund'=> request('other_source_of_fund')
         ]);
-
-        
-
-
         return redirect('/osaemp/activity_approval');
 
     }
 
-    
+    public function  eventReport(){
+        $activity = DB::table('events')->where('status','=','Approved')->get();
+        return view('OSA.reports', ['activity'=> $activity]);
+    }
     
 
     public function retrieve(){
-        $activity = DB::select('select * from events');
+        $activity = DB::table('events')->where('status','!=','Approved')->get();
         return view('OSA.approval', ['activity'=> $activity]);
-
     }
+
 
     public function totalDashboard(){
         
@@ -88,6 +85,22 @@ class OsaController extends Controller
         $approved = DB::table('events')->where('status','=','approved')->get();
 
         return view('OSA.activity')->with('approved',$approved);
+    }
+
+    public function approved(Request $request){
+        $action = $request->input('action');
+
+    // Extract event ID from the action (e.g., "approve_1" becomes "1")
+    $eventId = substr($action, strpos($action, '_') + 1);
+
+    $eventData = ['status' => 'Approved'];
+    
+
+    DB::table('events')->where('id', $eventId)->update($eventData);
+
+    return redirect('/osaemp/activity_approval');
+
+
     }
 
     public function organization(){

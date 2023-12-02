@@ -54,8 +54,10 @@
 
                         <?php if(Route::is('osaemp')): ?>
                             <h2>Home</h2>
+
                         <?php elseif(Route::is('osaactivity')): ?>
                             <h2>Approved Activity</h2>
+
                         <?php elseif(Route::is('osadashboard')): ?>
                             <h2>Dashboard</h2>
 
@@ -76,6 +78,7 @@
 
                         <?php elseif(Route::is('osaactivityevent')): ?>
                             <h2>Event Manager</h2>
+                            
                         <?php elseif(Route::is('osaactivityapproval')): ?>
                             <h2>Event manager</h2>
                         <?php endif; ?>

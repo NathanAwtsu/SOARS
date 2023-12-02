@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('status')->nullable();
-            $table->string('requirement')->nullable();
             $table->string('organization_name');
             $table->string('activity_title');
             $table->string('type_of_activity');
