@@ -7,10 +7,11 @@ use App\Events\ChatifyEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
-use Illuminate\Support\Facades\DB;
+
 
 class OsaController extends Controller
 {

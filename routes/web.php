@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentOrganizationController;
 use App\Http\Controllers\OsaController;
 use App\Http\Controllers\OsaEmpController;
+use App\Http\Controllers\UserController;
 use App\Models\Event;
 
 
@@ -112,7 +113,11 @@ Route::get('/osaemp/organizations-list', [OrganizationController::class, 'orglis
 Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
 Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
 Route::get('/osaemp/dashboard',[OsaController::class, 'totalDashboard'], function (){return view('OSA/dashboard'); })->name('osadashboard');
-Route::get('/osaemp/user', function (){return view('OSA/user');})->name('osauser');
+Route::get('/osaemp/user', [UserController::class, 'info'],function (){return view('OSA/user');})->name('osauser');
+Route::get('/osaemp/users', [UserController::class, 'index'])->name('user.index');
+Route::post('/osaemp/users/update', [UserController::class, 'update'])->name('user.update');
+
+
 Route::get('/osaemp/userlist', function (){return view('OSA/userlist');})->name('osauserlist');
 Route::get('/osaemp/message', function (){return view('OSA/message');})->name('osamessage');
 //Load the List of Organization
