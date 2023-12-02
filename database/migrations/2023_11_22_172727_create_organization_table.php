@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->integer('requirement_status')->nullable();
+            $table->string('requirement_status')->nullable();
             $table->string('name')->nullable();
             $table->string('nickname')->nullable();
             $table->string('type_of_organization')->nullable();

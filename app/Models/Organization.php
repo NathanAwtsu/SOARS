@@ -10,6 +10,7 @@ class Organization extends Model
     protected $fillable = [
         'id',
         'requirement_status',
+        //27
         'name',
         'nickname',
         'type_of_organization',

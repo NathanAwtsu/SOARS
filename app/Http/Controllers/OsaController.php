@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Events\ChatifyEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
@@ -20,20 +21,16 @@ class OsaController extends Controller
         return view('osaemp', ['users'=>$user, 'unseenCounter'=> $unseenCounter]);
     }
 
-    public function checkUnseenMessage(){
-        $unseenCounter = DB::table('ch_messages')
-        ->where('to_id','=',Auth::user()->id)->where('seen','0')->count();
-        return response()->json(["unseenCounter"=>$unseenCounter]);
-    }
+    
 
     public function store(){
+
         
         
         Event::create([
         
         'id'=> request('id'),
-        'status' => request('status'),
-        'requirement' => request('requirement'),
+        'status'=>request('status'),
         'organization_name' => request('organization_name'),
         'activity_title' => request('activity_title'),
         'type_of_activity' => request('type_of_activity'),
@@ -54,6 +51,9 @@ class OsaController extends Controller
         'other_source_of_fund'=> request('other_source_of_fund')
         ]);
 
+        
+
+
         return redirect('/osaemp/activity_approval');
 
     }
@@ -68,26 +68,113 @@ class OsaController extends Controller
         
         $totalEvent = DB::table('events')->get();
         $totalMember = DB::table('students')->get();
-        $totalOrg= DB::table('student_organizations')->get();
+        $totalOrg= DB::table('organizations')->get();
+        $totalPendingOrg = DB::table('organizations')->where('requirement_status','!=','complete')->get();
         return view('osaemp')
         ->with('totalEvent', $totalEvent)
         ->with('totalMember',$totalMember)
-        ->with('totalOrg', $totalOrg);
+        ->with('totalOrg', $totalOrg)
+        ->with('totalPendingOrg', $totalPendingOrg);
         
     }
 
-    public function newOrganization(){
+    public function organization(){
+        $organizationAcademic = DB::table('organizations')->where('type_of_organization','=','Academic')->where('requirement_status','=','complete')->get();
+        $organizationCoAcademic = DB::table('organizations')->where('type_of_organization','=','Co-Academic')->where('requirement_status','=','complete')->get();
+        $organizationSocioCivic = DB::table('organizations')->where('type_of_organization','=','Sociocivic')->where('requirement_status','=','complete')->get();
+        $organizationReligious = DB::table('organizations')->where('type_of_organization','=','Religious')->where('requirement_status','=','complete')->get();
+        $pendings = DB::table('organizations')->where('requirement_status','!=','Complete')->get();
+        
+        return view('OSA.organization_list')
+        ->with('organizationAcademic', $organizationAcademic)
+        ->with('organizationCoAcademic', $organizationCoAcademic)
+        ->with('organizationSocioCivic', $organizationSocioCivic)
+        ->with('organizationReligious', $organizationReligious)
+        ->with('pendings', $pendings);
+        
+
+    }
+
+    public function newOrganization(Request $request){
+
+        $fieldsToCheckForNull= [
+            'name',
+            'nickname',
+            'type_of_organization',
+            'mission',
+            'vision',
+            'logo',
+            'consti_and_byLaws',
+            'letter_of_intent',
+            'adviser_name',
+            'adviser_email',
+            'ausg_rep_studno',
+            'ausg_rep_name',
+            'president_studno',
+            'president_name',
+            'vp_internal_studno',
+            'vp_internal_name',
+            'vp_external_studno',
+            'vp_external_name',
+            'secretary_studno',
+            'secretary_name',
+            'treasurer_studno',
+            'treasurer_name',
+            'auditor_studno',
+            'auditor_name',
+            'pro_studno',
+            'pro_name',
+            'admin_endorsement'
+            ];
+            
+            $nullCount = 27;
+    
+            foreach ($fieldsToCheckForNull as $fieldName) {
+                
+                if (request($fieldName) === null) {
+                    $nullCount--;
+                }
+                
+            }
+
+            $total=($nullCount/27)*100;
+
+
+            //File Validation
+                $logoPath = null;
+                if ($request->hasFile('logo')) {
+                    $logoPath = $request->file('logo')->storePubliclyAs('logo', 'logo_' . time() . '.' . $request->file('logo')->extension(), 'public');
+                }
+
+                $constiPath = null;
+                if ($request->hasFile('consti_and_byLaws')) {
+                    $constiPath = $request->file('consti_and_byLaws')->storePubliclyAs('consti_and_bylaws', 'consti_' . time() . '.' . $request->file('consti_and_byLaws')->extension(), 'public');
+                }
+
+                $letterPath = null;
+                if ($request->hasFile('letter_of_intent')) {
+                    $letterPath = $request->file('letter_of_intent')->storePubliclyAs('letter_of_intent', 'letter_' . time() . '.' . $request->file('letter_of_intent')->extension(), 'public');
+                }
+
+                $adminEndorsementPath = null;
+                if ($request->hasFile('admin_endorsement')) {
+                    $adminEndorsementPath = $request->file('admin_endorsement')->storePubliclyAs('admin_endorsement', 'endorsement_' . time() . '.' . $request->file('admin_endorsement')->extension(), 'public');
+                }
+                        
+
+
+            
         Organization::create([
             'id'=> request('id'),
-            'requirement_status'=> request('requirement_status'),
+            'requirement_status'=> $total,
             'name'=> request('name'),
             'nickname'=>request('nickname'),
-            'type_of_organization'=>request(''),
+            'type_of_organization'=>request('type_of_organization'),
             'mission'=>request('mission'),
             'vision'=>request('vision'),
-            'logo'=>request('logo'),
-            'consti_and_byLaws'=>request('consti_and_byLaws'),
-            'letter_of_intent'=>request('letter_of_intent'),
+            'logo'=>$logoPath,
+            'consti_and_byLaws'=>$constiPath,
+            'letter_of_intent'=>$letterPath,
             //Adviser
             'adviser_name'=>request('adviser_name'),
             'adviser_email'=>request('adviser_email'),
@@ -116,10 +203,9 @@ class OsaController extends Controller
             'pro_studno'=>request('pro_studno'),
             'pro_name'=>request('pro_name'),
             //admin_endorsement
-            'admin_endorsement'=>request('admin_endorsement'),
+            'admin_endorsement'=>$adminEndorsementPath,
         ]);
-
-        return redirect('/osaemp/organization_list/new_organization');
+        return redirect('/osaemp/organization_list');
 
     }
     
