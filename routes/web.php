@@ -66,6 +66,9 @@ Route::get('user/{id}', function($id){
 
 Route::get('/', function () {return view('soars');});
 Route::get('/soars', function () {return view('soars');});
+Route::get('/soars', [UserController::class, 'create']);
+//reCAPTCHA
+
 Route::get('/soar/session_expired', function () {return view('session_expired');});
 Auth::routes();
 
@@ -78,6 +81,8 @@ Auth::routes();
 Route::middleware(['admin'])->group(function () {
     
 Route::get('/admin', [StudentsController::class, 'showDashboard'])->name('admin');
+
+
 
 
 //StudentController
@@ -103,17 +108,27 @@ Route::get('/admin_profile', function(){return view('Admin.admin_profile');})->n
 Route::get('/osaemp/organizations-list', [OrganizationController::class, 'orglist'])->name('orglist');
 
 //Routes for OSA
+//Load the Dashboard Total Number 
 Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
 Route::get('/osaemp/dashboard',[OsaController::class, 'totalDashboard'], function (){return view('OSA/dashboard'); })->name('osadashboard');
 Route::get('/osaemp/user', function (){return view('OSA/user');})->name('osauser');
 Route::get('/osaemp/userlist', function (){return view('OSA/userlist');})->name('osauserlist');
 Route::get('/osaemp/message', function (){return view('OSA/message');})->name('osamessage');
+//Load the List of Organization
 Route::get('/osaemp/organization_list', [OsaController::class, 'organization'], function(){return view('OSA/organization_list');})->name('osaorganizationlist');
 Route::get('/osaemp/organization_list/new_organization',  function(){return view('OSA/organization_new');})->name('osaorganization_new');
+
+//Send a New Org info to the DB
 Route::post('/osaemp/organization_list/new_organization', [OsaController::class, 'newOrganization']);
-Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve'],function(){return view('OSA/approval');})->name('osaactivityapproval');
-Route::get('/osaemp/reports', function(){ return view('OSA/reports');})->name('osareports');
+
+//Insert all the Info
 Route::post('/osaemp/activity_approval', [OsaController::class, 'store']);
+//Retrieve the list of Activity to be Approved
+Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve'],function(){return view('OSA/approval');})->name('osaactivityapproval');
+
+Route::get('/osaemp/reports', function(){ return view('OSA/reports');})->name('osareports');
+
+
 
 //End of Routes for OSA
 

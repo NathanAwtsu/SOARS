@@ -61,7 +61,7 @@ class StudentsController extends Controller
         $name = $fname.' '.$mname.' '.$lname;
         DB::table('users')->insert([
             'id' => $studentId,
-            'role' => '2',
+            'role' => '4',
             'name' => $name,
             'email' => $request->email,
             'email_verified_at' => $datetime,
