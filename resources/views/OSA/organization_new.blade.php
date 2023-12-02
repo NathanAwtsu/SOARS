@@ -11,6 +11,8 @@
             @csrf
             <label for="OrgName"><h2>Organization Name :</h2></label><br>
             <textarea id="name" name="name" rows="2" cols="4" required></textarea><br><br>
+            <label for="OrgName"><h2>Nickame :</h2></label><br>
+            <textarea id="name" name="nickname" rows="2" cols="4" required></textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
             <textarea id="mission" name="mission" rows="4" cols="50" ></textarea><br><br>
 
@@ -47,7 +49,7 @@
                                     <label for="janeName" style="text-align:left;">Name:</label>
                                     <input type="text" id="adviser_name" name="adviser_name"><br>
                                     <label for="janeContact" style="text-align:left;">Email:</label>
-                                    <input type="text" id="adviser_name" name="adviser_name" ><br>
+                                    <input type="text" id="adviser_name" name="adviser_email" ><br>
                             </div>
                         </div>
                     </div>
@@ -55,7 +57,7 @@
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>AUSG Representative:</h5></label>
                                     <label for="ausg_rep_studno" style="text-align:left;">Student No:</label>
-                                    <input type="text" id="ausg_rep_studno" name="ausg_rep_studno" ><br>
+                                    <input type="text" id="ausg_rep_studno" name="ausg_rep_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="ausg_rep_name" name="ausg_rep_name" ><br>
                             </div>
@@ -64,7 +66,7 @@
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>President:</h5></label>
                                     <label for="president_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="president_studno" name="president_studno" max="9"><br>
+                                    <input type="number" id="president_studno" name="president_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="president_name" name="president_name" ><br>
                             </div>
@@ -73,7 +75,7 @@
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>Vp Internal:</h5></label>
                                     <label for="vp_internal_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="vp_internal_studno" name="vp_internal_studno" max="9"><br>
+                                    <input type="number" id="vp_internal_studno" name="vp_internal_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="vp_internal_name" name="vp_internal_name" ><br>
                             </div>
@@ -82,7 +84,7 @@
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>Vp External:</h5></label>
                                     <label for="vp_external_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="vp_external_studno" name="vp_external_studno" max="9"><br>
+                                    <input type="number" id="vp_external_studno" name="vp_external_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="vp_external_name" name="vp_external_name" ><br>
                             </div>
@@ -91,7 +93,7 @@
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>Secretary:</h5></label>
                                     <label for="secretary_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="secretary_studno" name="secretary_studno" max="9"><br>
+                                    <input type="number" id="secretary_studno" name="secretary_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="secretary_name" name="secretary_name" ><br>
                             </div>
@@ -100,7 +102,7 @@
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>Treasurer:</h5></label>
                                     <label for="treasurer_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="treasurer_studno" name="treasurer_studno" max="9"><br>
+                                    <input type="number" id="treasurer_studno" name="treasurer_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="treasurer_name" name="treasurer_name" ><br>
                             </div>
@@ -109,7 +111,7 @@
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>Auditor:</h5></label>
                                     <label for="auditor_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="auditor_studno" name="auditor_studno" max="9"><br>
+                                    <input type="number" id="auditor_studno" name="auditor_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="auditor_name" name="auditor_name" ><br>
                             </div>
@@ -118,14 +120,14 @@
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>PRO:</h5></label>
                                     <label for="pro_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="pro_studno" name="pro_studno" max="9"><br>
+                                    <input type="number" id="pro_studno" name="pro_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="pro_name" name="pro_name" ><br>
                             </div>
                         </div>
 
                         <label for="adviserEndorsementFile"><h2>Almost done! Upload Adviser Endorsement File:</h2></label>
-                        <input type="file" id="adviserEndorsementFile" name="adviserEndorsementFile" accept=".pdf" ><br><br>
+                        <input type="file" id="adviserEndorsement" name="adviserEndorsement" accept=".pdf" ><br><br>
 
 
                         <input type="submit" value="Submit" >

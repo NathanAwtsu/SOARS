@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'SOARS') }}</title>
 
     <!-- Fonts -->
-    
+    <link rel="icon" href="{{url('/photos/OSA LOGO.png')}}">
     <link href="{{url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')}}" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -57,6 +57,9 @@
 
                         @elseif (Route::is('osaactivity'))
                             <h2>Approved Activity</h2>
+
+                        @elseif(Route::is('osaorgact'))
+                            <h2>Organization Activation</h2>
 
                         @elseif (Route::is('osadashboard'))
                             <h2>Dashboard</h2>

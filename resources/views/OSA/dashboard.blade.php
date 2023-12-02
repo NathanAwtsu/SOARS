@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="col-md-3 mb-3">
-                <a href="organization-activation.html" class="card" style="height: 130px; background-color: #64b5f6; text-decoration: none;">
+                <a href="{{url('/osaemp/organization_activation')}}" class="card" style="height: 130px; background-color: #64b5f6; text-decoration: none;">
                     <h2 style="color: white;"><i class="fa-solid fa-sitemap"></i> Organization Activation</h2>
                     <p style="font-size: 20px; color: white;">100</p>
                 </a>

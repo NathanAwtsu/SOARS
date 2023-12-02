@@ -121,6 +121,11 @@ class OsaController extends Controller
 
     }
 
+    public function org_act_list(Request $request){
+        $org_activation = DB::table('organizations')->get();
+        return view('OSA.organization_activation')->with('org_activation', $org_activation);
+    }
+
     public function newOrganization(Request $request){
 
         $fieldsToCheckForNull= [

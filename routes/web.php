@@ -107,12 +107,15 @@ Route::get('/admin_profile', function(){return view('Admin.admin_profile');})->n
 
 //OrganizationController
 Route::get('/osaemp/organizations-list', [OrganizationController::class, 'orglist'])->name('orglist');
+Route::get('/osaemp/organizaiton/{id}',function($id){$orgID = DB::table('organizations')->where('id','=',$id)->get();
+});
 
 //Routes for OSA
 //Load the Dashboard Total Number 
 Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
 Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
 Route::get('/osaemp/dashboard',[OsaController::class, 'totalDashboard'], function (){return view('OSA/dashboard'); })->name('osadashboard');
+Route::get('/osaemp/organization_activation', [OsaController::class, 'org_act_list'], function(){return view('OSA/organization_activation');})->name('osaorgact');
 Route::get('/osaemp/user', [UserController::class, 'info'],function (){return view('OSA/user');})->name('osauser');
 Route::get('/osaemp/users', [UserController::class, 'index'])->name('user.index');
 Route::post('/osaemp/users/update', [UserController::class, 'update'])->name('user.update');
