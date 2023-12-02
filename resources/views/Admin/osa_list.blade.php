@@ -29,6 +29,7 @@
                 <th>Middle Initial</th>
                 <th>First Name</th>
                 <th>Email</th>
+                <th>Email_verified at</th>
                 <th>Phone Number</th>
                 <th>Action</th>
             </tr>
@@ -128,6 +129,7 @@ $(document).ready(function (){
                 {data: 'middle_initial', name: 'middle_initial'},
                 {data: 'first_name', name: 'first_name'},
                 {data: 'email', name: 'email'},
+                {data: 'email_verified_at', name: 'email_verified_at'},
                 {data: 'phone_number', name: 'phone_number'},
                 {data: 'action', name: 'action', orderable: false},
             ],

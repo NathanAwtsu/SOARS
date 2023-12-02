@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Models\Students;
 use Datatables;
 
@@ -24,6 +25,7 @@ class StudentsController extends Controller
 
     public function store(Request $request)
     {
+        $datetime = now();
         $studentId = $request->student_id;
         $studentData = [
             'last_name' => $request->last_name,
@@ -49,6 +51,26 @@ class StudentsController extends Controller
         ['student_id' => $studentId],
         $studentData
     );
+
+        $fname= $request->first_name;
+        $mname= $request->middle_inital;
+        $lname= $request->last_name;
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_';
+        $randomString = Str::random(10);
+
+        $name = $fname.' '.$mname.' '.$lname;
+        DB::table('users')->insert([
+            'id' => $studentId,
+            'role' => '2',
+            'name' => $name,
+            'email' => $request->email,
+            'email_verified_at' => $datetime,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password),
+            'remember_token'=> $randomString,
+            'created_at'=>$datetime,
+            'updated_at' =>$datetime,
+        ]);
 
     $student = Students::where('student_id', $studentId)->first();
 
@@ -97,7 +119,7 @@ public function update(Request $request)
     public function delete(Request $request)
     {
         $student = DB::table('students')->where('student_id', $request->student_id)->delete();
-
+        DB::table('users')->where('id', $request->student_id)->delete();
         return response()->make('Student deleted successfully');
 
     }

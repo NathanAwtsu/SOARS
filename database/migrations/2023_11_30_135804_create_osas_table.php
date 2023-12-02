@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('middle_initial')->nullable(); // Make 'middle_initial' nullable.
             $table->string('first_name');
             $table->string('email');
+            $table->timestamp('email_verified_at');
             $table->string('password');
             $table->integer('user_role')->default(2); // Roles: 4=User/Student, 3=Student Officer, 2=OSA Personnel, 1=admin
             $table->string('phone_number')->nullable();

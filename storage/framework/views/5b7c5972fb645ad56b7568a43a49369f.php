@@ -41,6 +41,8 @@
                             <h2 style="margin-left: 150px;">Audit Log</h2>
                         <?php elseif(Route::is('admin_profile')): ?>
                             <h2 style="margin-left: 150px;">Admin Profile</h2>
+                        <?php elseif(Route::is('osalist')): ?>
+                            <h2 style="margin-left: 150px;">OSA Employee List</h2>
                         <?php elseif(Route::is('rso_list')): ?>
                             <h2 style="margin-left: 150px;">Student Organization List</h2>
                         <?php endif; ?>
@@ -93,6 +95,15 @@
                                 <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
                                     <i class="fa-regular fa-address-book fa-lg"></i>
                                     <span class="ml-2">Manage Students</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo e(route('osalist')); ?>">
+                                <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
+                                    <i class="fa-regular fa-address-book fa-lg"></i>
+                                    <span class="ml-2">Manage OSA Employees</span>
                                 </div>
                             </a>
                         </li>
