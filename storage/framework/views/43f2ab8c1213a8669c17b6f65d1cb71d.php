@@ -3,15 +3,25 @@
     <!-- Your main content goes here -->
     
         <style>
-            .card a {
-                text-decoration: none; /* Remove underline */
-                color: inherit; /* Inherit text color */
-            }
-        
-            .card a:hover {
-                text-decoration: none; /* Remove underline on hover */
-                color: inherit; /* Inherit text color on hover */
-            }
+            .card-table {
+        display: flex;
+        justify-content: space-between; /* Adjust as needed */
+        }
+
+        .card {
+            flex: 1;
+            margin: 0 5px; /* Adjust margin between cards */
+        }
+
+        .card a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card a:hover {
+            text-decoration: none;
+            color: inherit;
+        }
         </style>
         
         <div class="card-table">
@@ -22,10 +32,22 @@
             </a>
             </div>
             <a href=""> <div class="card" style="height: 150px; background-color: #64b5f6;">
-                <h2 style="color: white;">Member Approval <i class="fa-solid fa-users fa-lg"></i></h2>
+                <h4 style="color: white;">Member Approval <i class="fa-solid fa-users fa-lg"></i></h4>
                 <p style="font-size: 30px; color: white;">69</p>
             </a> 
             </div>
+            <a href="<?php echo e(route('studlist')); ?>">
+            <div class="card" style="height: 150px; background-color: #64b5f6;">
+                <h2 style="color: white;">Total Students <i class="fa-solid fa-users fa-lg"></i></h2>
+                    <p style="font-size: 30px; color: white;"><?php echo e($studentCount); ?></p>
+            </a>
+            </div>
+            <!--<a href="<?php echo e(route('osalist')); ?>">
+            <div class="card" style="height: 150px; background-color: #64b5f6;">
+                <h4 style="color: white;">OSA Employees <i class="fa-solid fa-users fa-lg"></i></h4>
+                    <p style="font-size: 30px; color: white;"><?php echo e($osaEmployeesCount ?? 'N/A'); ?></p>
+            </a>
+            </div>-->
             
         </div>
     

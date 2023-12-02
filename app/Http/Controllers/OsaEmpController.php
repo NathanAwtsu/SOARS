@@ -11,6 +11,8 @@ class OsaEmpController extends Controller
 {
     public function osalist()
     {
+        $osaEmployeesCount = Osa::count();
+
         if(request()->ajax()) {
             return datatables()->of(Osa::select('*'))
             ->addColumn('action', 'Admin.osa_action')
@@ -19,7 +21,7 @@ class OsaEmpController extends Controller
             ->make(true);
         }
 
-        return view ('Admin.osa_list');
+        return view ('Admin.osa_list', compact('osaEmployeesCount'));
     }
 
     public function stores(Request $request)
