@@ -123,4 +123,15 @@ public function update(Request $request)
         return response()->make('Student deleted successfully');
 
     }
+
+    public function getStudentCount() {
+        $studentCount = Students::count();
+        return $studentCount;
+    }
+    
+    public function showDashboard() {
+        $studentCount = $this->getStudentCount();
+        return view('Admin.admin', ['studentCount' => $studentCount]);
+    }
+    
 }

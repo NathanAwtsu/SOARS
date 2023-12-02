@@ -80,7 +80,7 @@ Auth::routes();
 //Admin
 Route::middleware(['admin'])->group(function () {
     
-Route::get('/admin', function(){return view('Admin.admin');})->name('admin');
+Route::get('/admin', [StudentsController::class, 'showDashboard'])->name('admin');
 
 
 //StudentController

@@ -36,6 +36,7 @@
                     <th>Ticket Selling</th>
                     <th>Ticket Control No.</th>
                     <th>Other Source of Fund</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,8 +63,6 @@
                     <td><?php echo e($event->ticket_selling); ?></td>
                     <td><?php echo e($event->ticket_control_number); ?></td>
                     <td><?php echo e($event->other_source_of_fund); ?></td>
-                    <td><?php echo e(count(array_filter(get_object_vars($event)))); ?> / 21</td>
-
                     <td>
                         <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
 
@@ -141,14 +140,14 @@
                 <div class="form-group row mb-2">
                     <label for="eventId" class="col-sm-4 col-form-label text-left">Event ID:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="id" name="id" required>
+                        <input type="number" class="form-control" id="id" name="id" required>
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Event Status:</label>
                     <div class="col-sm-8">
                         <div class="col-sm-8">
-                            <select class="form-control" id="eventStatus" name="status" onchange="showHideOthers(this);" required>
+                            <select class="form-control" id="eventStatus" name="status"  required>
                                 <option value="Approved">Approved</option>
                                 <option value="Standby">Standby</option>
                                 <option value="Rejected">Rejected</option>
@@ -276,8 +275,8 @@
                 </div>
 
                 <!-- ... (other event details input fields) ... -->
-                <button type="Submit" class="btn btn-primary btn-block" onclick="showEmailModal()">Next</button>
-                <button type="button" class="btn btn-danger btn-block" data-bs-dismiss="modal">Cancel</button>
+                <button type="Submit" class="btn btn-primary btn-block" >Next</button>
+                <button type="" class="btn btn-danger btn-block" data-bs-dismiss="modal">Cancel</button>
             </form>
         </div>
     </div>
