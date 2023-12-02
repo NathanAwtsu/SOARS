@@ -70,12 +70,18 @@ unset($__errorArgs, $__bag); ?>
     
                 <div>
                 <button type="submit" id="loginButton"><?php echo e(__('Login')); ?></button>
-                <?php if(Route::has('password.request')): ?>
+                <strong>Google reCAPTCHA:</strong>
+                <?php echo NoCaptcha::renderJs(); ?>
+
+                <?php echo NoCaptcha::display(); ?>
+
+                <!---<?php if(Route::has('password.request')): ?>
                     <a class="btn btn-link" href="<?php echo e(route('password.request')); ?>">
                         <?php echo e(__('Forgot Your Password?')); ?>
 
                     </a>
                 <?php endif; ?>
+                --->
                 </div>
             </form>
             <img src="/photos/adulogo.png" alt="" class="custom-image">

@@ -44,11 +44,15 @@
     
                 <div>
                 <button type="submit" id="loginButton">{{ __('Login')}}</button>
-                @if (Route::has('password.request'))
+                <strong>Google reCAPTCHA:</strong>
+                {!! NoCaptcha::renderJs() !!}
+                {!! NoCaptcha::display() !!}
+                <!---@if (Route::has('password.request'))
                     <a class="btn btn-link" href="{{ route('password.request') }}">
                         {{ __('Forgot Your Password?') }}
                     </a>
                 @endif
+                --->
                 </div>
             </form>
             <img src="/photos/adulogo.png" alt="" class="custom-image">
