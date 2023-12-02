@@ -30,8 +30,12 @@
                 <th>Middle Initial</th>
                 <th>First Name</th>
                 <th>Email</th>
-                <th>Organization</th>
-                <th>Membership Status</th>
+                <th>Organization 1</th>
+                <th>Organization 2</th>
+                <th>Organization 3</th>
+                <th>Org 1 Membership Status</th>
+                <th>Org 2 Membership Status</th>
+                <th>Org 3 Membership Status</th>
                 <th>Roles</th>
                 <th>Phone Number</th>
                 <th>Action</th>
@@ -89,9 +93,23 @@
     </div>
 
     <div class="form-group">
-        <label for="organization" class="col-sm-2 control-label">Organization</label>
+        <label for="organization1" class="col-sm-2 control-label">Organization 1</label>
         <div class="col-sm-12">
-            <input type="text" class="form-control" id="organization" name="organization" placeholder="Enter Organization" required>
+            <input type="text" class="form-control" id="organization1" name="organization1" placeholder="Enter Organization (required)" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="organization2" class="col-sm-2 control-label">Organization 2</label>
+        <div class="col-sm-12">
+            <input type="text" class="form-control" id="organization2" name="organization2" placeholder="Enter Organization (optional)">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="organization3" class="col-sm-2 control-label">Organization 3</label>
+        <div class="col-sm-12">
+            <input type="text" class="form-control" id="organization3" name="organization3" placeholder="Enter Organization (optional)">
         </div>
     </div>
 
@@ -104,9 +122,23 @@
 
 
     <div class="form-group">
-        <label for="member_status" class="col-sm-2 control-label">Membership Status</label>
+        <label for="org1_member_status" class="col-sm-2 control-label">Org 1 Membership Status</label>
         <div class="col-sm-12">
-            <input type="text" class="form-control" id="member_status" name="member_status" placeholder="Enter Membership Status" required>
+            <input type="text" class="form-control" id="org1_member_status" name="org1_member_status" placeholder="Enter Membership Status" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="org2_member_status" class="col-sm-2 control-label">Org 2 Membership Status</label>
+        <div class="col-sm-12">
+            <input type="text" class="form-control" id="org2_member_status" name="org2_member_status" placeholder="Enter Membership Status (optional)">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="org3_member_status" class="col-sm-2 control-label">Org 3 Membership Status</label>
+        <div class="col-sm-12">
+            <input type="text" class="form-control" id="org3_member_status" name="org3_member_status" placeholder="Enter Membership Status (optional)">
         </div>
     </div>
 
@@ -156,8 +188,12 @@
                 {data: 'middle_initial', name: 'middle_initial'},
                 {data: 'first_name', name: 'first_name'},
                 {data: 'email', name: 'email'},
-                {data: 'organization', name: 'organization'},
-                {data: 'member_status', name: 'member_status'},
+                {data: 'organization1', name: 'organization1'},
+                {data: 'organization2', name: 'organization2'},
+                {data: 'organization3', name: 'organization3'},
+                {data: 'org1_member_status', name: 'org1_member_status'},
+                {data: 'org2_member_status', name: 'org2_member_status'},
+                {data: 'org3_member_status', name: 'org3_member_status'},
                 {data: 'user_roles', name: 'user_roles'},
                 {data: 'phone_number', name: 'phone_number'},
                 {data: 'action', name: 'action', orderable: false},
@@ -183,8 +219,12 @@
                 $('#middle_initial').val(res.middle_initial);
                 $('#first_name').val(res.first_name);
                 $('#email').val(res.email);
-                $('#organization').val(res.organization);
-                $('#member_status').val(res.member_status);
+                $('#organization1').val(res.organization1);
+                $('#organization2').val(res.organization2);
+                $('#organization3').val(res.organization3);
+                $('#org1_member_status').val(res.org1_member_status);
+                $('#org2_member_status').val(res.org2_member_status);
+                $('#org3_member_status').val(res.org3_member_status);
                 $('#user_roles').val(res.user_roles);
                 $('#phone_number').val(res.phone_number);
 

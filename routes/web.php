@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentOrganizationController;
 use App\Http\Controllers\OsaController;
+use App\Http\Controllers\OsaEmpController;
 use App\Models\Event;
 
 
@@ -78,16 +78,19 @@ Auth::routes();
 Route::middleware(['admin'])->group(function () {
     
 Route::get('/admin', function(){return view('Admin.admin');})->name('admin');
-Route::get('/course-list', [CoursesController::class, 'courselist'])->name('courselist');
-Route::post('stores', [CoursesController::class, 'stores']);
-Route::post('edits', [CoursesController::class, 'edit']);
-Route::post('deletes', [CoursesController::class, 'delete']);
+
 
 //StudentController
 Route::get('/student-list', [StudentsController::class, 'studlist'])->name('studlist');
 Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentsController::class, 'delete']);
+
+//OsaEmpController
+Route::get('osa_list', [OsaEmpController::class, 'osalist'])->name('osalist');
+Route::post('stores', [OsaEmpController::class, 'stores']);
+Route::post('edits', [OsaEmpController::class, 'edits']);
+Route::post('deletes', [OsaEmpController::class, 'deletes']);
 });
 Route::get('/audit_log', function () {return view('Admin.audit_log');})->name('auditlog');
 Route::get('/rso_list', [StudentOrganizationController::class, 'showRSOlist'])->name('rso_list');

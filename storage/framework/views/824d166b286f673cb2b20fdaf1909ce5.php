@@ -10,10 +10,8 @@
     <title><?php echo e(config('app.name', 'SOARS')); ?></title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     
-
-
     <!-- Fonts -->
     <link href="<?php echo e(asset('bootstrap-5.3.2-dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/admingeneral.css')); ?>">
@@ -22,9 +20,6 @@
     <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js')); ?>"></script>
     <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js')); ?>"></script>
     <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js')); ?>"></script>
-    
-    <?php echo $__env->yieldPushContent('styles'); ?>
-    <?php echo $__env->yieldPushContent('jquery'); ?>
     
 
     <!-- Scripts -->
@@ -39,15 +34,17 @@
                     <div class="container">
                         <a class="navbar-brand">
                         <?php if(Route::is('admin')): ?>
-                            <h2>Dashboard</h2>
+                            <h2 style="margin-left: 150px;">Dashboard</h2>
                         <?php elseif(Route::is('studlist')): ?>
-                            <h2>Manage Users</h2>
+                            <h2 style="margin-left: 150px;">Manage Students</h2>
                         <?php elseif(Route::is('auditlog')): ?>
-                            <h2>Audit Log</h2>
+                            <h2 style="margin-left: 150px;">Audit Log</h2>
                         <?php elseif(Route::is('admin_profile')): ?>
-                            <h2>Admin Profile</h2>
+                            <h2 style="margin-left: 150px;">Admin Profile</h2>
+                        <?php elseif(Route::is('osalist')): ?>
+                            <h2 style="margin-left: 150px;">OSA Employee List</h2>
                         <?php elseif(Route::is('rso_list')): ?>
-                            <h2>Student Organization List</h2>
+                            <h2 style="margin-left: 150px;">Student Organization List</h2>
                         <?php endif; ?>
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
@@ -71,7 +68,7 @@
                         </div>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo e(route('admin_profile')); ?>">
-                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
                                     <i class="fa-regular fa-circle-user fa-lg"></i>
                                     <span class="ml-2"><?php echo e(Auth::user()->name); ?></span>
                                 </div>
@@ -79,7 +76,7 @@
                         </li>
                          <li class="nav-item">
                             <a class="nav-link" href="<?php echo e(route('admin')); ?>" >
-                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
                                     <i class="fa-regular fa-clipboard fa-lg"></i>
                                     <span class="ml-2">Dashboard</span>
                                 </div>
@@ -87,7 +84,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo e(route('auditlog')); ?>">
-                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
                                     <i class="fa-regular fa-paste fa-lg"></i>
                                     <span class="ml-2">Audit log</span>
                                 </div>
@@ -95,16 +92,25 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo e(route('studlist')); ?>">
-                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
                                     <i class="fa-regular fa-address-book fa-lg"></i>
-                                    <span class="ml-2">Manage Users</span>
+                                    <span class="ml-2">Manage Students</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo e(route('osalist')); ?>">
+                                <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
+                                    <i class="fa-regular fa-address-book fa-lg"></i>
+                                    <span class="ml-2">Manage OSA Employees</span>
                                 </div>
                             </a>
                         </li>
                         
                         <li class="nav-item">
                             <a class="nav-link" href="/rso_list">
-                                <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
                                     <i class="fa-solid fa-users fa-lg"></i>
                                     <span class="ml-2">Organization List</span>
                                 </div>

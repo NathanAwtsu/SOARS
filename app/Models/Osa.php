@@ -5,25 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-class Students extends Model
+class Osa extends Model
 {
     use HasFactory;
 
+    protected $table = 'osa';
+
     protected $fillable = [
-        'student_id',
+        'employee_id',
         'last_name',
         'middle_initial',
         'first_name',
         'email',
-        'organization1',
-        'organization2',
-        'organization3',
         'password',
-        'org1_member_status',
-        'org2_member_status',
-        'org3_member_status',
-        'user_roles',
+        'user_role',
         'phone_number',
     ];
 }
