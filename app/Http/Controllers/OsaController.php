@@ -25,100 +25,8 @@ class OsaController extends Controller
 
     public function store(){
 
-        $fieldsToCheckForNull= [
-        'id',
-        'requirement_status',
-        'name',
-        'nickname',
-        'type_of_organization',
-        'mission',
-        'vision',
-        'logo',
-        'consti_and_byLaws',
-        'letter_of_intent',
-        'adviser_name',
-        'adviser_email',
-        'ausg_rep_studno',
-        'ausg_rep_name',
-        'president_studno',
-        'president_name',
-        'vp_internal_studno',
-        'vp_internal_name',
-        'vp_external_studno',
-        'vp_external_name',
-        'secretary_studno',
-        'secretary_name',
-        'treasurer_studno',
-        'treasurer_name',
-        'auditor_studno',
-        'auditor_name',
-        'pro_studno',
-        'pro_name',
-        'admin_endorsement'
-        ];
         
-        $nullCount = 0;
-
-        foreach ($fieldsToCheckForNull as $fieldName) {
-            if (request($fieldName->id) === null) {
-                $nullCount++;
-            }
-            if (request($fieldName->name) === null) {
-                $nullCount++;
-            }if (request($fieldName->nickname) === null) {
-                $nullCount++;
-            }if (request($fieldName->type_of_organization) === null) {
-                $nullCount++;
-            }if (request($fieldName->mission) === null) {
-                $nullCount++;
-            }if (request($fieldName->vision) === null) {
-                $nullCount++;
-            }if (request($fieldName->logo) === null) {
-                $nullCount++;
-            }if (request($fieldName->consti_and_byLaws) === null) {
-                $nullCount++;
-            }if (request($fieldName->letter_of_intent) === null) {
-                $nullCount++;
-            }if (request($fieldName->adviser_name) === null) {
-                $nullCount++;
-            }if (request($fieldName->adviser_email) === null) {
-                $nullCount++;
-            }if (request($fieldName->ausg_rep_studno) === null) {
-                $nullCount++;
-            }if (request($fieldName->ausg_rep_name) === null) {
-                $nullCount++;
-            }if (request($fieldName->president_studno) === null) {
-                $nullCount++;
-            }if (request($fieldName->president_name) === null) {
-                $nullCount++;
-            }if (request($fieldName->vp_internal_studno) === null) {
-                $nullCount++;
-            }if (request($fieldName->vp_internal_name) === null) {
-                $nullCount++;
-            }if (request($fieldName->vp_external_studno) === null) {
-                $nullCount++;
-            }if (request($fieldName->vp_external_name) === null) {
-                $nullCount++;
-            }if (request($fieldName->secretary_studno) === null) {
-                $nullCount++;
-            }if (request($fieldName->secretary_name) === null) {
-                $nullCount++;
-            }if (request($fieldName->treasurer_studno) === null) {
-                $nullCount++;
-            }if (request($fieldName->treasurer_name) === null) {
-                $nullCount++;
-            }if (request($fieldName->auditor_studno) === null) {
-                $nullCount++;
-            }if (request($fieldName->iauditor_named) === null) {
-                $nullCount++;
-            }if (request($fieldName->pro_studno) === null) {
-                $nullCount++;
-            }if (request($fieldName->pro_name) === null) {
-                $nullCount++;
-            }if (request($fieldName->admin_endorsement) === null) {
-                $nullCount++;
-            }
-        }
+        
         Event::create([
         
         'id'=> request('id'),
@@ -161,10 +69,12 @@ class OsaController extends Controller
         $totalEvent = DB::table('events')->get();
         $totalMember = DB::table('students')->get();
         $totalOrg= DB::table('organizations')->get();
+        $totalPendingOrg = DB::table('organizations')->where('requirement_status','!=','complete')->get();
         return view('osaemp')
         ->with('totalEvent', $totalEvent)
         ->with('totalMember',$totalMember)
-        ->with('totalOrg', $totalOrg);
+        ->with('totalOrg', $totalOrg)
+        ->with('totalPendingOrg', $totalPendingOrg);
         
     }
 
@@ -230,25 +140,25 @@ class OsaController extends Controller
             $total=($nullCount/27)*100;
 
 
-            
+            //File Validation
                 $logoPath = null;
                 if ($request->hasFile('logo')) {
-                    $logoPath = $request->file('logo')->storeAs('logo', 'logo_' . time() . '.' . $request->file('logo')->extension(), 'public');
+                    $logoPath = $request->file('logo')->storePubliclyAs('logo', 'logo_' . time() . '.' . $request->file('logo')->extension(), 'public');
                 }
 
                 $constiPath = null;
                 if ($request->hasFile('consti_and_byLaws')) {
-                    $constiPath = $request->file('consti_and_byLaws')->storeAs('consti_and_bylaws', 'consti_' . time() . '.' . $request->file('consti_and_byLaws')->extension(), 'public');
+                    $constiPath = $request->file('consti_and_byLaws')->storePubliclyAs('consti_and_bylaws', 'consti_' . time() . '.' . $request->file('consti_and_byLaws')->extension(), 'public');
                 }
 
                 $letterPath = null;
                 if ($request->hasFile('letter_of_intent')) {
-                    $letterPath = $request->file('letter_of_intent')->storeAs('letter_of_intent', 'letter_' . time() . '.' . $request->file('letter_of_intent')->extension(), 'public');
+                    $letterPath = $request->file('letter_of_intent')->storePubliclyAs('letter_of_intent', 'letter_' . time() . '.' . $request->file('letter_of_intent')->extension(), 'public');
                 }
 
                 $adminEndorsementPath = null;
                 if ($request->hasFile('admin_endorsement')) {
-                    $adminEndorsementPath = $request->file('admin_endorsement')->storeAs('admin_endorsement', 'endorsement_' . time() . '.' . $request->file('admin_endorsement')->extension(), 'public');
+                    $adminEndorsementPath = $request->file('admin_endorsement')->storePubliclyAs('admin_endorsement', 'endorsement_' . time() . '.' . $request->file('admin_endorsement')->extension(), 'public');
                 }
                         
 
