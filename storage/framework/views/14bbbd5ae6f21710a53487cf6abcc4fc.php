@@ -7,16 +7,7 @@
         
         <div class="btn-group">
             <a class="btn btn-create" type="button" id="createUserButton" style="margin-right: 20px;" href="<?php echo e(url('/osaemp/organization_list/new_organization')); ?>">Create New Organization</a>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Organization Category
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Academic</a></li>
-                    <li><a class="dropdown-item" href="#">Co-Academic</a></li>
-                    <li><a class="dropdown-item" href="#">Socio-Civic</a></li>
-                </ul>
-            </div>
+            
         </div>
            
         <Center>
