@@ -25,12 +25,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <form class="form-inline">
-                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                                        <button class="btn btn-primary" type="submit">Search</button>
-                                    </form>
-                                </li>
+                              
                             </ul>
                         </div>
                     </div>
@@ -101,33 +96,80 @@
         </div>
     </div>
 
+    
+
 <main>
 
     <div class="container-event">
-        <h2 class="text-center">Event Notification</h2>
-        <form>
-            <div class="form-group">
-                <label for="eventName">Event Name:</label>
-                <input type="text" class="form-control" id="eventName" name="eventName" required>
-            </div>
-            <div class="form-group">
-                <label for="eventDate">Event Date:</label>
-                <input type="date" class="form-control" id="eventDate" name="eventDate" required>
-            </div>
-            <div class="form-group">
-                <label for="eventTime">Event Time:</label>
-                <input type="time" class="form-control" id="eventTime" name="eventTime" required>
-            </div>
-            <div class="form-group">
-                <label for="eventLocation">Event Location:</label>
-                <input type="text" class="form-control" id="eventLocation" name="eventLocation" required>
-            </div>
-            <div class="form-group">
-                <label for="eventDescription">Event Description:</label>
-                <textarea class="form-control" id="eventDescription" name="eventDescription" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Submit</button>
-        </form>
+        <div class="modal-body">
+            <form style="max-width: 400px; margin: auto;">
+                <!-- Event details input fields -->
+                <div class="form-group row mb-2">
+                    <label for="eventName" class="col-sm-4 col-form-label text-left">Event Name:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="eventName" name="eventName" required>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventDate" class="col-sm-4 col-form-label text-left">Start of Event Date:</label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" id="eventDate" name="eventDate" required>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventDate" class="col-sm-4 col-form-label text-left">End of Event Date:</label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" id="eventDate" name="eventDate" required>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventTime" class="col-sm-4 col-form-label text-left">Start of Event Time:</label>
+                    <div class="col-sm-8">
+                        <input type="time" class="form-control" id="eventTime" name="eventTime" required>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventTime" class="col-sm-4 col-form-label text-left">End of Event Time:</label>
+                    <div class="col-sm-8">
+                        <input type="time" class="form-control" id="eventTime" name="eventTime" required>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventLocation" class="col-sm-4 col-form-label text-left">Event Location:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="eventLocation" name="eventLocation" onchange="showHideOthers(this);" required>
+                            <option value="option1">SV Hall</option>
+                            <option value="option2">ST Quad</option>
+                            <option value="option3">Adamson Theatre</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group row mb-2" id="othersLocation" style="display: none;">
+                    <label for="otherEventLocation" class="col-sm-4 col-form-label text-left">Other Location:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="otherEventLocation" name="otherEventLocation">
+                    </div>
+                </div>
+                
+                <div class="form-group row mb-2">
+                    <label for="eventDescription" class="col-sm-4 col-form-label text-left">Event Description:</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="eventDescription" name="eventDescription" rows="4" required></textarea><br>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventLink" class="col-sm-4 col-form-label text-left">Event Link:</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="eventLink" name="eventDescription" rows="4"></textarea><br>
+                    </div>
+                </div>
+                <!-- ... (other event details input fields) ... -->
+                <button type="button" class="btn btn-primary btn-block" onclick="showEmailModal()">Next</button>
+                <button type="button" class="btn btn-danger btn-block" data-bs-dismiss="modal">Cancel</button>
+            </form>
+        </div>
     </div>
         
        
