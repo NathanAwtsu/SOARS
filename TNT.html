@@ -134,6 +134,7 @@
             <button type="button" class="btn btn-primary" onclick="showListOfOfficers()">List of Officers</button>
             <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
             <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
+            <button type="button" class="btn btn-primary" onclick="showMembers()">Members</button>
             <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>
             
         </div> <br>
@@ -253,6 +254,7 @@
                     </div>
                 </div>
             </div>
+            
 
             <div id="ContactUs" class="card mt-4" style="display: none;">
                 <div class="card-body">
@@ -263,6 +265,7 @@
                         Adamson University Biology Society</a>
                 </div>
             </div>
+        
             
             <div id="Events" class="card mt-4" style="height: auto;">
                 <div class="card-body">
@@ -305,6 +308,32 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="Members" class="card mt-4" style="display: none;">
+            <div class="card-body">
+                <h4 class="card-title">Member list</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Program</th>
+                            <th>Member ID</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jane Smith</td>
+                            <td>BS Bio</td>
+                            <td>123456</td>
+                        </tr>
+                        <!-- Add more rows for other members -->
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
             
             
             <div id="MoreInfo" class="card mt-1" style="height: auto;">
@@ -332,42 +361,44 @@
                     </div>
                 </div>
             </div>
+
+           
+
             <div class="floating-icon">
                 <a href="#" title="Create New Organization" onclick="togglePopup()">
                     <img src="register.png" alt="Create Organization">
                 </a>
             </div>
-            <div class="modal" id="registrationModal">
-                <div class="modal-content">
-                    <span onclick="closePopup()" style="cursor: pointer;">&times;</span>
-                    <h2>Registration Form</h2>
-                    <form id="registrationForm" onsubmit="submitForm(event)"><br>
-                        
-                      
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
-
-                        <label for="userId">User ID:</label>
-                        <input type="text" id="userId" name="userId" required>
-
-                        
-
-                        <label for="number">Number:</label>
-                        <input type="text" id="number" name="number" required>
-
-                        <label for="course">Year and program:</label>
-                        <input type="text" id="course" name="course" required><br>
-            
-            
-                        <input type="submit" value="Submit">
-                    </form>
-                </div>
-            </div>
+           
                     
     </main>
 
 
         <!-- Modal -->
+        <div class="modal" id="registrationModal">
+            <div class="modal-content">
+                <span onclick="closePopup()" style="cursor: pointer;">&times;</span>
+                <h2>Registration Form</h2>
+                <form id="registrationForm" onsubmit="submitForm(event)"><br>
+                    
+                  
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="userId">User ID:</label>
+                    <input type="text" id="userId" name="userId" required>
+
+                    <label for="number">Number:</label>
+                    <input type="text" id="number" name="number" required>
+
+                    <label for="course">Year and program:</label>
+                    <input type="text" id="course" name="course" required><br>
+        
+        
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
 
 
     <!-- Bootstrap JS and Popper.js -->
@@ -384,6 +415,7 @@
             document.getElementById('ContactUs').style.display = 'none';
             document.getElementById('Events').style.display = 'none';
             document.getElementById('MoreInfo').style.display = 'none';
+            document.getElementById('Members').style.display = 'none';
         }
 
         function showListOfOfficers() {
@@ -392,6 +424,7 @@
             document.getElementById('ContactUs').style.display = 'none';
             document.getElementById('Events').style.display = 'none';
             document.getElementById('MoreInfo').style.display = 'none';
+            document.getElementById('Members').style.display = 'none';
         }
         function showContactUs() {
             document.getElementById('missionVisionContent').style.display = 'none';
@@ -399,6 +432,7 @@
             document.getElementById('ContactUs').style.display = 'block';
             document.getElementById('Events').style.display = 'none';
             document.getElementById('MoreInfo').style.display = 'none';
+            document.getElementById('Members').style.display = 'none';
         }
         function showEvents() {
             document.getElementById('missionVisionContent').style.display = 'none';
@@ -406,6 +440,7 @@
             document.getElementById('ContactUs').style.display = 'none';
             document.getElementById('Events').style.display = 'block';
             document.getElementById('MoreInfo').style.display = 'none';
+            document.getElementById('Members').style.display = 'none';
         }
         function showMoreInfo() {
             document.getElementById('missionVisionContent').style.display = 'none';
@@ -413,6 +448,15 @@
             document.getElementById('ContactUs').style.display = 'none';
             document.getElementById('Events').style.display = 'none';
             document.getElementById('MoreInfo').style.display = 'block';
+            document.getElementById('Members').style.display = 'none';
+        }
+        function showMembers() {
+            document.getElementById('missionVisionContent').style.display = 'none';
+            document.getElementById('listOfOfficersContent').style.display = 'none';
+            document.getElementById('ContactUs').style.display = 'none';
+            document.getElementById('Events').style.display = 'none';
+            document.getElementById('MoreInfo').style.display = 'none';
+            document.getElementById('Members').style.display = 'block';
         }
 
     </script>
