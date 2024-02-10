@@ -88,6 +88,7 @@
             <button type="button" class="btn btn-primary" onclick="showListOfOfficers()">List of Officers</button>
             <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
             <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
+            <button type="button" class="btn btn-primary" onclick="showMembers()">Members</button>
             <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>
             
         </div> <br>
@@ -388,7 +389,30 @@
                 </div>
             
                  
-            
+                <div id="Members" class="card mt-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Member list</h4>
+                        <table class="table" id="memberTable">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Program</th>
+                                    <th>Member ID</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" class="form-control" name="name[]" placeholder="Enter name"></td>
+                                    <td><input type="text" class="form-control" name="program[]" placeholder="Enter program"></td>
+                                    <td><input type="text" class="form-control" name="memberID[]" placeholder="Enter member ID"></td>
+                                    <td><button class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-success" onclick="addRow()">Add Member</button>
+                    </div>
+                </div>
                     
             
             
@@ -445,6 +469,7 @@
         document.getElementById('ContactUs').style.display = 'none';
         document.getElementById('Events').style.display = 'none';
         document.getElementById('MoreInfo').style.display = 'none';
+        document.getElementById('Members').style.display = 'none';
     }
 
     function showListOfOfficers() {
@@ -453,6 +478,7 @@
         document.getElementById('ContactUs').style.display = 'none';
         document.getElementById('EventsContent').style.display = 'none';
         document.getElementById('MoreInfo').style.display = 'none';
+        document.getElementById('Members').style.display = 'none';
     }
 
     function showContactUs() {
@@ -461,6 +487,7 @@
         document.getElementById('ContactUs').style.display = 'block';
         document.getElementById('Events').style.display = 'none';
         document.getElementById('MoreInfo').style.display = 'none';
+        document.getElementById('Members').style.display = 'none';
     }
 
     function showEvents() {
@@ -469,6 +496,7 @@
         document.getElementById('ContactUs').style.display = 'none';
         document.getElementById('Events').style.display = 'block';
         document.getElementById('MoreInfo').style.display = 'none';
+        document.getElementById('Members').style.display = 'none';
     }
 
     function showMoreInfo() {
@@ -477,7 +505,16 @@
         document.getElementById('ContactUs').style.display = 'none';
         document.getElementById('Events').style.display = 'none';
         document.getElementById('MoreInfo').style.display = 'block';
+        document.getElementById('Members').style.display = 'none';
     }
+    function showMembers() {
+            document.getElementById('missionVisionContent').style.display = 'none';
+            document.getElementById('listOfOfficersContent').style.display = 'none';
+            document.getElementById('ContactUs').style.display = 'none';
+            document.getElementById('Events').style.display = 'none';
+            document.getElementById('MoreInfo').style.display = 'none';
+            document.getElementById('Members').style.display = 'block';
+        }
 </script>
 
 
@@ -491,7 +528,34 @@
         }
     }
 </script>
-        
+
+<script>
+    function addRow() {
+        var table = document.getElementById("memberTable").getElementsByTagName('tbody')[0];
+        var newRow = table.insertRow(table.rows.length);
+        var cols = ["name", "program", "memberID", ""];
+        for (var i = 0; i < cols.length - 1; i++) {
+            var cell = newRow.insertCell(i);
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = cols[i] + "[]";
+            input.className = "form-control";
+            input.placeholder = "Enter " + cols[i];
+            cell.appendChild(input);
+        }
+        var actionCell = newRow.insertCell(cols.length - 1);
+        var removeButton = document.createElement("button");
+        removeButton.className = "btn btn-danger";
+        removeButton.innerHTML = "Remove";
+        removeButton.onclick = function() { removeRow(this); };
+        actionCell.appendChild(removeButton);
+    }
+
+    function removeRow(button) {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+</script>
         
     
     
