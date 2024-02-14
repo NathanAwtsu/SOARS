@@ -5,6 +5,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://kit.fontawesome.com/14059d6bc2.js" crossorigin="anonymous"></script>
 <div class="container mt-2" style="margin-left: 300px;">
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -12,7 +13,7 @@
                 <h2>STUDENT LIST</h2>
             </div>
             <div class="pull-right mb-2">
-                <a href="javascript:void(0)" class="btn btn-success" onClick="add()">Add Student</a>
+                <a href="javascript:void(0)" class="btn btn-success" onClick="add()">New Student <i class="fa-solid fa-user-plus"></i></a>
             </div>
         </div>
     </div>
@@ -54,118 +55,137 @@
       </div>
       <!--Form-->
       <div class="modal-body">
-      <form action="javascript:void(0)" id="studentForm" name="studentForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="id" id="id">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- First column -->
+            <div class="col-md-6">
+            <form action="javascript:void(0)" id="studentForm" name="studentForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id" id="id">
+
+            <div class="form-group">
+                <label for="student_id" class="col-sm-4 control-label">Student ID</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="student_id" name="student_id" placeholder="Enter Student ID" required maxlength="9">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="last_name" class="col-sm-4 control-label">Last Name</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="middle_initial" class="col-sm-4 control-label">Middle Initial</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="middle_initial" name="middle_initial" placeholder="Enter Middle Initial">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="first_name" class="col-sm-4 control-label">First Name</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" required>
+                </div>
+            </div>
 
     <div class="form-group">
-        <label for="student_id" class="col-sm-2 control-label">Student ID</label>
-        <div class="col-sm-12">
-            <input type="text" class="form-control" id="student_id" name="student_id" placeholder="Enter Student ID" required maxlength="9">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="last_name" class="col-sm-2 control-label">Last Name</label>
-        <div class="col-sm-12">
-            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="middle_initial" class="col-sm-2 control-label">Middle Initial</label>
-        <div class="col-sm-12">
-            <input type="text" class="form-control" id="middle_initial" name="middle_initial" placeholder="Enter Middle Initial">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="first_name" class="col-sm-2 control-label">First Name</label>
-        <div class="col-sm-12">
-            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="email" class="col-sm-2 control-label">Email</label>
-        <div class="col-sm-12">
+        <label for="email" class="col-sm-4 control-label">Email</label>
+        <div class="col-sm-8">
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="organization1" class="col-sm-2 control-label">Organization 1</label>
-        <div class="col-sm-12">
+        <label for="organization1" class="col-sm-4 control-label">Organization 1</label>
+        <div class="col-sm-8">
             <input type="text" class="form-control" id="organization1" name="organization1" placeholder="Enter Organization (required)" required>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="organization2" class="col-sm-2 control-label">Organization 2</label>
-        <div class="col-sm-12">
+        <label for="organization2" class="col-sm-4 control-label">Organization 2</label>
+        <div class="col-sm-8">
             <input type="text" class="form-control" id="organization2" name="organization2" placeholder="Enter Organization (optional)">
         </div>
     </div>
 
+    </form>
+    </div>
+
+    <!--Second Column-->
+    <div class="col-md-6">
     <div class="form-group">
-        <label for="organization3" class="col-sm-2 control-label">Organization 3</label>
-        <div class="col-sm-12">
+        <label for="organization3" class="col-sm-4 control-label">Organization 3</label>
+        <div class="col-sm-8">
             <input type="text" class="form-control" id="organization3" name="organization3" placeholder="Enter Organization (optional)">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">Password</label>
-        <div class="col-sm-12">
+        <label for="password" class="col-sm-4 control-label">Password</label>
+        <div class="col-sm-8">
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
         </div>
     </div>
 
 
     <div class="form-group">
-        <label for="org1_member_status" class="col-sm-2 control-label">Org 1 Membership Status</label>
-        <div class="col-sm-12">
-            <input type="text" class="form-control" id="org1_member_status" name="org1_member_status" placeholder="Enter Membership Status" required>
+        <label for="org1_member_status" class="col-sm control-label">Org 1 Membership Status</label>
+        <div class="col-sm-8">
+            <select class="form-select" id="org1_member_status" name="org1_member_status" required>
+                <option value="" disabled selected>Choose Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="org2_member_status" class="col-sm-2 control-label">Org 2 Membership Status</label>
-        <div class="col-sm-12">
-            <input type="text" class="form-control" id="org2_member_status" name="org2_member_status" placeholder="Enter Membership Status (optional)">
+        <label for="org2_member_status" class="col-sm control-label">Org 2 Membership Status</label>
+        <div class="col-sm-8">
+            <select class="form-select" id="org1_member_status" name="org1_member_status" required>
+                <option value="" disabled selected>Choose Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="org3_member_status" class="col-sm-2 control-label">Org 3 Membership Status</label>
-        <div class="col-sm-12">
-            <input type="text" class="form-control" id="org3_member_status" name="org3_member_status" placeholder="Enter Membership Status (optional)">
+        <label for="org3_member_status" class="col-sm control-label">Org 3 Membership Status</label>
+        <div class="col-sm-8">
+            <select class="form-select" id="org1_member_status" name="org1_member_status" required>
+                <option value="" disabled selected>Choose Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="user_roles" class="col-sm-2 control-label">Roles</label>
-        <div class="col-sm-12">
+        <label for="user_roles" class="col-sm-4 control-label">Roles</label>
+        <div class="col-sm-8">
             <input type="text" class="form-control" id="user_roles" name="user_roles" placeholder="Enter Roles" required>
         </div>
     </div>
 
 
     <div class="form-group">
-        <label for="phone_number" class="col-sm-2 control-label">Phone Number</label>
-        <div class="col-sm-12">
+        <label for="phone_number" class="col-sm-4 control-label">Phone Number</label>
+        <div class="col-sm-8">
             <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Enter Phone Number" maxlength="11">
         </div>
     </div>
 
     <div class="col-sm-offset-2 col-sm-10"><br/>
         <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
     </div>
 </form>
 
 </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
 </div>

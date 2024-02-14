@@ -34,7 +34,7 @@
                     <div class="container">
                         <a class="navbar-brand">
                         <?php if(Route::is('admin')): ?>
-                            <h2 style="margin-left: 150px;">Dashboard</h2>
+                            <h2 >Dashboard</h2>
                         <?php elseif(Route::is('studlist')): ?>
                             <h2 style="margin-left: 150px;">Manage Students</h2>
                         <?php elseif(Route::is('auditlog')): ?>
@@ -44,7 +44,7 @@
                         <?php elseif(Route::is('osalist')): ?>
                             <h2 style="margin-left: 150px;">OSA Employee List</h2>
                         <?php elseif(Route::is('rso_list')): ?>
-                            <h2 style="margin-left: 160px;">Student Organization List</h2>
+                            <h2 >Student Organization List</h2>
                         <?php endif; ?>
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
@@ -54,18 +54,30 @@
                     </div>
                 </nav>
             </header>
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
-                <div class="position-sticky">
-                    <ul class="nav flex-column">
-                        <div class="sidebar-brand">
-                            <div class="d-flex align-items-center">
-                                <img src="photos/OSA LOGO.png" alt="" style="max-width: 50px; margin-right: 6px;">
-                                <h1>SOARS</h1><br> 
-                            </div>
-                            <div class="admin" style="padding-left: 70px; padding-bottom: 0px;">
-                                <h4>Admin</h4>
-                            </div>
+            <nav id="sidebar" class="navbar bg-body-tertiary" >
+                <div class="container-fluid" style="height: 100%;">
+                <!--Toggler-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <div class="d-flex align-items-center">
+                        <span class="navbar-toggler-icon"></span>
+                            <h3 style="margin-top:10px">SOARS</h3><br> 
+                    </div>
+                </button>
+                 <!--Content-->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color:#064b96;">
+                <div class="offcanvas-header d-flex justify-content-between align-items-center">
+                    <div class="sidebar-brand">
+                        <div class="d-flex align-items-center">
+                            <h1 style="color:white;">SOARS</h1> 
                         </div>
+                        <div class="admin" style="padding-left: 70px; padding-bottom: 0px;">
+                                <h4>Admin</h4>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="color:white;"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo e(route('admin_profile')); ?>">
                                 <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
@@ -74,7 +86,7 @@
                                 </div>
                             </a>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="<?php echo e(route('admin')); ?>" >
                                 <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
                                     <i class="fa-regular fa-clipboard fa-lg"></i>
@@ -98,7 +110,6 @@
                                 </div>
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo e(route('osalist')); ?>">
                                 <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
@@ -107,7 +118,6 @@
                                 </div>
                             </a>
                         </li>
-                        
                         <li class="nav-item">
                             <a class="nav-link" href="/rso_list">
                                 <div class="d-flex align-items-center" style="margin-left: -10px; color:white;">
@@ -131,10 +141,11 @@
                         </li>
                     </ul>
                 </div>
-            </nav>
+                <!--End of Toggler-->
+            </div>
         </div>
-    </div>
-
+    </nav>
+                <!--End of content-->
 <main >           
 <?php echo $__env->yieldContent('content'); ?>
 </main>
