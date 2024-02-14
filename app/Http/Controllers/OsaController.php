@@ -7,10 +7,11 @@ use App\Events\ChatifyEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
-use Illuminate\Support\Facades\DB;
+
 
 class OsaController extends Controller
 {
@@ -27,9 +28,7 @@ class OsaController extends Controller
 
         
         
-        Event::create([
-        
-        'id'=> request('id'),
+        DB::table('events')->insertgetId([
         'status'=>request('status'),
         'organization_name' => request('organization_name'),
         'activity_title' => request('activity_title'),
@@ -50,28 +49,21 @@ class OsaController extends Controller
         'ticket_control_number'=> request('ticket_control_number'),
         'other_source_of_fund'=> request('other_source_of_fund')
         ]);
-
-        
-
-
         return redirect('/osaemp/activity_approval');
 
     }
 
-    public function getActivities() {
-        $activities = DB::table('events')
-            ->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')
-            ->get();
-    
-        return view('OSA.dashboard', ['activities' => $activities]);
+    public function  eventReport(){
+        $activity = DB::table('events')->where('status','=','Approved')->get();
+        return view('OSA.reports', ['activity'=> $activity]);
     }
     
 
     public function retrieve(){
-        $activity = DB::select('select * from events');
+        $activity = DB::table('events')->where('status','!=','Approved')->get();
         return view('OSA.approval', ['activity'=> $activity]);
-
     }
+
 
     public function totalDashboard(){
         
@@ -79,7 +71,7 @@ class OsaController extends Controller
         $totalMember = DB::table('students')->get();
         $totalOrg= DB::table('organizations')->get();
         $totalPendingOrg = DB::table('organizations')->where('requirement_status','!=','complete')->get();
-        $activities = $this->getActivities();
+        $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
 
         return view('osaemp')
         ->with('totalEvent', $totalEvent)
@@ -88,6 +80,28 @@ class OsaController extends Controller
         ->with('totalPendingOrg', $totalPendingOrg)
         ->with('activities', $activities);
         
+    }
+
+    public function dashboard_Activities(){
+        $approved = DB::table('events')->where('status','=','approved')->get();
+
+        return view('OSA.activity')->with('approved',$approved);
+    }
+
+    public function approved(Request $request){
+        $action = $request->input('action');
+
+    // Extract event ID from the action (e.g., "approve_1" becomes "1")
+    $eventId = substr($action, strpos($action, '_') + 1);
+
+    $eventData = ['status' => 'Approved'];
+    
+
+    DB::table('events')->where('id', $eventId)->update($eventData);
+
+    return redirect('/osaemp/activity_approval');
+
+
     }
 
     public function organization(){
@@ -105,6 +119,11 @@ class OsaController extends Controller
         ->with('pendings', $pendings);
         
 
+    }
+
+    public function org_act_list(Request $request){
+        $org_activation = DB::table('organizations')->get();
+        return view('OSA.organization_activation')->with('org_activation', $org_activation);
     }
 
     public function newOrganization(Request $request){

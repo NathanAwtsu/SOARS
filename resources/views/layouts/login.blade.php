@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'SOARS') }}</title>
 
     <!-- Fonts -->
+    <link rel="icon" href="{{url('/photos/OSA LOGO.png')}}">
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/adminlogin.css')}}">

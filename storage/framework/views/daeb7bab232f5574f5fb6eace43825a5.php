@@ -3,6 +3,8 @@
     <div class="container mt-1">
         <div class="rowmain">
             <div class="col-md-6 offset-md-3">
+                <form action="<?php echo e(route('user.update')); ?>" method="post">
+                    <?php echo csrf_field(); ?>
                 <h2>User Profile Setup</h2>
                 <form>
                     <div class="form-group"><br>
@@ -12,21 +14,25 @@
                         
                     </div>
                     <div class="form-group"><br>
+                        
+                            
+                        
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter your new password">
+                        <input type="password" class="form-control" id="password" placeholder="Enter your Password">
                     </div>
                     <div class="form-group"><br>
                         <label for="contactNumber">Contact Number</label>
-                        <input type="tel" class="form-control" id="contactNumber" placeholder="Enter your contact number">
+                        <input type="tel" class="form-control" id="contactNumber" placeholder="Enter your New Contact Number">
                     </div>
                     <div class="form-group"><br>
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" placeholder="Enter your email address">
+                        
                     </div>
                     <div class="text-right mt-3">
                         <div class="d-flex"><br><br>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                            <button type="button" class="btn btn-default ml-2">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button href="<?php echo e(route('user.index')); ?>" class="btn btn-default ml-2">Cancel</button>
                         </div>
                     </div>
                 </form>

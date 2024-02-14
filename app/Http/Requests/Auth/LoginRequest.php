@@ -28,6 +28,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => ['required', 'string', 'email'],
+            'email' => [new AdamsonEmailValidation()],
             'password' => ['required', 'string'],
         ];
     }

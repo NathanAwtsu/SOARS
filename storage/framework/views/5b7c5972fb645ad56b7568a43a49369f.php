@@ -13,6 +13,7 @@
     <link href="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     
     <!-- Fonts -->
+    <link rel="icon" href="<?php echo e(url('/photos/OSA LOGO.png')); ?>">
     <link href="<?php echo e(asset('bootstrap-5.3.2-dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/admingeneral.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')); ?>" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -44,7 +45,7 @@
                         <?php elseif(Route::is('osalist')): ?>
                             <h2 style="margin-left: 150px;">OSA Employee List</h2>
                         <?php elseif(Route::is('rso_list')): ?>
-                            <h2 style="margin-left: 150px;">Student Organization List</h2>
+                            <h2 style="margin-left: 160px;">Student Organization List</h2>
                         <?php endif; ?>
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 

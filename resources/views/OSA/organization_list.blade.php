@@ -9,9 +9,7 @@
         
         <div class="btn-group">
             <a class="btn btn-create" type="button" id="createUserButton" style="margin-right: 20px;" href="{{url('/osaemp/organization_list/new_organization')}}">Create New Organization</a>
-            
         </div>
-           
         <Center>
             @if($pendings != null)
                 <div class="card-table-title">

@@ -9,7 +9,6 @@ class Event extends Model
 {
     protected $fillable = ['id',
     'status',
-    'requirement',
     'organization_name',
     'activity_title',
     'type_of_activity',

@@ -45,8 +45,8 @@
                 <div>
                 <button type="submit" id="loginButton">{{ __('Login')}}</button>
                 <strong>Google reCAPTCHA:</strong>
-                <!--{!! NoCaptcha::renderJs() !!}
-                {!! NoCaptcha::display() !!}-->
+                {!! NoCaptcha::renderJs() !!}
+                {!! NoCaptcha::display() !!}
                 <!---@if (Route::has('password.request'))
                     <a class="btn btn-link" href="{{ route('password.request') }}">
                         {{ __('Forgot Your Password?') }}

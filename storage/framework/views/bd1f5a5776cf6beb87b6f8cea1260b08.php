@@ -71,9 +71,10 @@ unset($__errorArgs, $__bag); ?>
                 <div>
                 <button type="submit" id="loginButton"><?php echo e(__('Login')); ?></button>
                 <strong>Google reCAPTCHA:</strong>
-                <!--<?php echo NoCaptcha::renderJs(); ?>
+                <?php echo NoCaptcha::renderJs(); ?>
 
-                <?php echo NoCaptcha::display(); ?>-->
+                <?php echo NoCaptcha::display(); ?>
+
                 <!---<?php if(Route::has('password.request')): ?>
                     <a class="btn btn-link" href="<?php echo e(route('password.request')); ?>">
                         <?php echo e(__('Forgot Your Password?')); ?>
