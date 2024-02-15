@@ -19,6 +19,8 @@ class LoginRequest extends FormRequest
         return true;
     }
 
+    
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,8 +29,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
-            'email' => [new AdamsonEmailValidation()],
+            'email' => ['required', 'string,' ,'email',new AdamsonEmailValidation()],
             'password' => ['required', 'string'],
         ];
     }

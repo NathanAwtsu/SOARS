@@ -45,6 +45,16 @@
                 <div>
                 <button type="submit" id="loginButton">{{ __('Login')}}</button>
                 <strong>Google reCAPTCHA:</strong>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Errors!</strong> <br>
+                    <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                    </ul>
+                </div>
+                @endif
                 {!! NoCaptcha::renderJs() !!}
                 {!! NoCaptcha::display() !!}
                 <!---@if (Route::has('password.request'))

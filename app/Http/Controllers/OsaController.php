@@ -121,6 +121,13 @@ class OsaController extends Controller
 
     }
 
+    public function user(){
+        $info=DB::table('users')->where('role','=','2')->where('role','=','3')->where('role','=','4')->get();
+        return view('OSA.userlist')
+        ->with('info', $info);
+
+    }
+
     public function org_act_list(Request $request){
         $org_activation = DB::table('organizations')->get();
         return view('OSA.organization_activation')->with('org_activation', $org_activation);

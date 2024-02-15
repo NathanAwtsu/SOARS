@@ -27,18 +27,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($info as $inf)
+                        
+                    
                     <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>johndoe@example.com</td>
-                        <td>User</td>
+                        <td>{{$inf->id}}</td>
+                        <td>{{$inf->name}}</td>
+                        <td>{{$inf->email}}</td>
+                        <td>{{$inf->role}}</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Smith</td>
-                        <td>janesmith@example.com</td>
-                        <td>Admin</td>
-                    </tr>
+                    @endforeach
                     <!-- Add more user rows here -->
                 </tbody>
             </table>

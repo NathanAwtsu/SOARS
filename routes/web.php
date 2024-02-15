@@ -8,6 +8,7 @@ use App\Http\Controllers\StudentOrganizationController;
 use App\Http\Controllers\OsaController;
 use App\Http\Controllers\OsaEmpController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 use App\Models\Event;
 
 
@@ -28,8 +29,9 @@ require __DIR__.'/auth.php';
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-/*
+
 Route::get('user/{id}', function($id){
+	
 	$userIdQuery = DB::select('SELECT id, name, email, created_at, updated_at FROM users WHERE id = ?' , [$id]);
 
 	if($userIdQuery != null)
@@ -61,13 +63,52 @@ Route::get('user/{id}', function($id){
 		],404);
 	}
 });
-*/
+
+Route::get('usersx', function(){
+	
+	DB::table('users')->insert(
+		['id'=> 7, 'name'=>'New User', 'email'=>'newuser@adamson.com']
+	);
+
+	$userIdQuery = DB::select('SELECT id, name, email, created_at, updated_at FROM users WHERE id = 7' );
+
+	if($userIdQuery != null)
+	{
+	
+		$tempArray;
+		$userIdQueryObj = array();
+		foreach($userIdQuery as $value)
+		{
+			$tempArray = array(
+				"id" => $value->id, 
+				"name" => $value->name,
+				"email" => $value->email,
+				"createdAt" => $value->created_at,
+				"updatedAt" => $value->updated_at
+		);
+		//array_push($userIdQueryObj, $tempArray);
+
+	}
+	$objectUserQuery = (object)[
+		"data" => $userIdQueryObj
+	];
+	return response()->json($tempArray);
+	}
+	else
+	{
+		return response()->json([
+			"message" => "User ID not found"
+		],404);
+	}
+	
+});
+
 
 
 
 Route::get('/', function () {return view('soars');});
-Route::get('/soars', function () {return view('soars');});
-Route::get('/soars', [UserController::class, 'create']);
+Route::get('/soars', [LoginController::class, 'store'], [LoginController::class, 'create'],function () {return view('soars');});
+Route::get('/soars/store', [LoginController::class], 'store');
 //reCAPTCHA
 
 Route::get('/soar/session_expired', function () {return view('session_expired');});
@@ -121,7 +162,7 @@ Route::get('/osaemp/users', [UserController::class, 'index'])->name('user.index'
 Route::post('/osaemp/users/update', [UserController::class, 'update'])->name('user.update');
 
 
-Route::get('/osaemp/userlist', function (){return view('OSA/userlist');})->name('osauserlist');
+Route::get('/osaemp/userlist', [OsaController::class,'user'], function (){return view('OSA/userlist');})->name('osauserlist');
 Route::get('/osaemp/message', function (){return view('OSA/message');})->name('osamessage');
 //Load the List of Organization
 Route::get('/osaemp/organization_list', [OsaController::class, 'organization'], function(){return view('OSA/organization_list');})->name('osaorganizationlist');

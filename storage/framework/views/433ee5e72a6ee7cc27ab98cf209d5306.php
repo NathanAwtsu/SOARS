@@ -25,18 +25,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php $__currentLoopData = $info; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $inf): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        
+                    
                     <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>johndoe@example.com</td>
-                        <td>User</td>
+                        <td><?php echo e($inf->id); ?></td>
+                        <td><?php echo e($inf->name); ?></td>
+                        <td><?php echo e($inf->email); ?></td>
+                        <td><?php echo e($inf->role); ?></td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Smith</td>
-                        <td>janesmith@example.com</td>
-                        <td>Admin</td>
-                    </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <!-- Add more user rows here -->
                 </tbody>
             </table>

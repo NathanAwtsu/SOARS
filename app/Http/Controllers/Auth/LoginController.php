@@ -72,4 +72,19 @@ class LoginController extends Controller
             return redirect('/error?credential=404')->with('error', 'BAWAL');
         }
     }
+
+    public function create() {
+        return view('create_user');
+    }
+    public function store(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'g-recaptcha-response' => 'required|captcha',
+        ]);
+        User::create($request->all());
+        return "Successfully created!";
+    }
+
 }
