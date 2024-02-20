@@ -6,7 +6,7 @@
     <div class="container-report-list">
     
         <div class="table-responsive"> <!-- Add this div to make the table responsive -->
-            <div class="col-10"> <!-- Use the entire row -->
+            <div class="col-10" style="padding: 10px;"> <!-- Use the entire row -->
                 <h2 class="text-left">APPROVED EVENTS</h2>
             </div>
             <table class="table table-bordered table-center"> <!-- Added table-center class -->
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-   <div class="container-report-list">
+   <div class="container-report-list" style="padding-top: 20px;">
     <div class="row">
         <div class="col-10"> <!-- Use the entire row -->
             <h2 class="text-left">PAYPAL TRANSACTIONS</h2>

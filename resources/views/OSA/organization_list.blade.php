@@ -2,17 +2,18 @@
 
 @section('content')
 
-<div class="container-tbl-up">
+<div class="container-tbl-up" style="padding: 0px 100px;">
             
             
     <table class="table"> <br>
         
-        <div class="btn-group">
-            <a class="btn btn-create" type="button" id="createUserButton" style="margin-right: 20px;" href="{{url('/osaemp/organization_list/new_organization')}}">Create New Organization</a>
-        </div>
+        
         <Center>
+            <div class="btn-group">
+                <a class="btn btn-create" type="button" id="createUserButton" style="margin-left: 10px;" href="{{url('/osaemp/organization_list/new_organization')}}">Create New Organization</a>
+            </div>
             @if($pendings != null)
-                <div class="card-table-title">
+                <div class="card-table-title" style="padding: 30px 0px 0px 0px;">
                     <h1>PENDING</h1><br>
                 </div>
                 <div class="card-table">
@@ -38,7 +39,7 @@
                 </div>
             @endif
 
-            <div class="card-table-title"> <H1>ACADEMIC</H1><br> </div>
+            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> <H1>ACADEMIC</H1><br> </div>
                 <div class="card-table">
                     @foreach ($organizationAcademic as $key => $orgAcads)
                     <div class="col-lg-3 col-md-4 col-sm-6">
@@ -60,7 +61,7 @@
 
                 
             
-            <div class="card-table-title"> <H1>CO-ACADEMIC</H1><br> </div>
+            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> <H1>CO-ACADEMIC</H1><br> </div>
             <div class="card-table">
                 @foreach ($organizationCoAcademic as $key => $orgCoAcad)
                 <div class="col-lg-3 col-md-4 col-sm-6">
@@ -81,7 +82,7 @@
                 @endforeach
             </div>
 
-            <div class="card-table-title"> <H1>SOCIO-CIVIC</H1><br> </div>
+            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> <H1>SOCIO-CIVIC</H1><br> </div>
             <div class="card-table">
                 @foreach ($organizationSocioCivic as $key => $orgSocioCivic)
                 <div class="col-lg-3 col-md-4 col-sm-6">
@@ -102,7 +103,7 @@
                 @endforeach
             </div>
             
-            <div class="card-table-title"> <H1>RELIGIOUS</H1><br> </div>
+            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> <H1>RELIGIOUS</H1><br> </div>
             <div class="card-table">
                 @foreach ($organizationReligious as $key => $orgRel)
                 <div class="col-lg-3 col-md-4 col-sm-6">

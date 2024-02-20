@@ -1,16 +1,17 @@
 <?php $__env->startSection('content'); ?>
 
-<div class="container-tbl-up">
+<div class="container-tbl-up" style="padding: 0px 100px;">
             
             
     <table class="table"> <br>
         
-        <div class="btn-group">
-            <a class="btn btn-create" type="button" id="createUserButton" style="margin-right: 20px;" href="<?php echo e(url('/osaemp/organization_list/new_organization')); ?>">Create New Organization</a>
-        </div>
+        
         <Center>
+            <div class="btn-group">
+                <a class="btn btn-create" type="button" id="createUserButton" style="margin-left: 10px;" href="<?php echo e(url('/osaemp/organization_list/new_organization')); ?>">Create New Organization</a>
+            </div>
             <?php if($pendings != null): ?>
-                <div class="card-table-title">
+                <div class="card-table-title" style="padding: 30px 0px 0px 0px;">
                     <h1>PENDING</h1><br>
                 </div>
                 <div class="card-table">
@@ -37,7 +38,7 @@
                 </div>
             <?php endif; ?>
 
-            <div class="card-table-title"> <H1>ACADEMIC</H1><br> </div>
+            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> <H1>ACADEMIC</H1><br> </div>
                 <div class="card-table">
                     <?php $__currentLoopData = $organizationAcademic; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $orgAcads): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-lg-3 col-md-4 col-sm-6">
@@ -59,7 +60,7 @@
 
                 
             
-            <div class="card-table-title"> <H1>CO-ACADEMIC</H1><br> </div>
+            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> <H1>CO-ACADEMIC</H1><br> </div>
             <div class="card-table">
                 <?php $__currentLoopData = $organizationCoAcademic; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $orgCoAcad): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-lg-3 col-md-4 col-sm-6">
@@ -81,7 +82,7 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
 
-            <div class="card-table-title"> <H1>SOCIO-CIVIC</H1><br> </div>
+            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> <H1>SOCIO-CIVIC</H1><br> </div>
             <div class="card-table">
                 <?php $__currentLoopData = $organizationSocioCivic; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $orgSocioCivic): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-lg-3 col-md-4 col-sm-6">
@@ -103,7 +104,7 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
             
-            <div class="card-table-title"> <H1>RELIGIOUS</H1><br> </div>
+            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> <H1>RELIGIOUS</H1><br> </div>
             <div class="card-table">
                 <?php $__currentLoopData = $organizationReligious; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $orgRel): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-lg-3 col-md-4 col-sm-6">

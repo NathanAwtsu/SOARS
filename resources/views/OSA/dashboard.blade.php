@@ -1,7 +1,7 @@
 @extends('navbar.navbar_osa')
 @section('content')
 <!--CARDS -->
-<main style="padding-left: 250px; overflow-x: hidden;">
+<main style="overflow-x: hidden;">
     <div class="container">
         <div class="row">
             <div class="col-md-3 mb-3">

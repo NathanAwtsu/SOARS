@@ -4,14 +4,14 @@
 
 <main >
         
-    <div class="container" style="padding-top: 10px;">
-        <div class="container-event text-center">
+    <div class="container" >
+        <div class="container-event text-center" style="padding: 10px;">
             <h2>Create an event</h2>
             <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal">Create an Event</button>
         </div>
     </div>
     
-    <div class="container-tbl-up">
+    <div class="container-tbl-up" style="padding: 0px 0px !important; ">
         <form method="post" action="/osaemp/activity_approval/approved">
             @csrf
             <table class="table"> <br>
@@ -20,7 +20,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Status</th>
-                    <th>Organization</th>
+                    <th>Org</th>
                     <th>Activity Title</th>
                     <th>Type of Activity</th>
                     <th>Start Date</th>
@@ -36,8 +36,8 @@
                     <th>AUSG Subsidy</th>
                     <th>Sponsored By</th>
                     <th>Ticket Selling</th>
-                    <th>Ticket Control No.</th>
-                    <th>Other Source of Fund</th>
+                    <th>Ticket No.</th>
+                    <th>Other Source</th>
                     <th>Actions</th>
                 </tr>
             </thead>

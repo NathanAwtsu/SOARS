@@ -1,11 +1,11 @@
 <?php $__env->startSection('content'); ?>    
-    <main>
+    <main class="orglist">
         <Center>
             <div class="card-table-title"> <H1>ACADEMIC</H1><br> </div>
             <div class="card-table">
     
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;  min-height: 185px;">
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;  min-height: 185px; min-width: 185px;">
                         <img src="photos/acomms_logo.png" class="card-img-top" alt="Image" style="max-width: 100%; flex-shrink: 0;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <a href="ACOMSSadmin.html" style="text-decoration: none; display: block;">
@@ -17,8 +17,8 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;  min-height: 185px;">
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;  min-height: 185px; min-width: 185px;">
                         <img src="photos/svst-logo.png" class="card-img-top" alt="Image" style="max-width: 100%; flex-shrink: 0;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <a href="#" style="text-decoration: none; display: block;">
@@ -30,8 +30,8 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px;">
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px; min-width: 185px;">
                         <img src="photos/aubs-logo.png" class="card-img-top" alt="Image" style="max-width: 100%; flex-shrink: 0;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <a href="<?php echo e(route('rso_detail')); ?>" style="text-decoration: none; display: block;">
@@ -43,8 +43,8 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px;">
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px; min-width: 185px;">
                         <img src="photos/aduchess-logo.png" class="card-img-top" alt="Image" style="max-width: 100%; flex-shrink: 0;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: flex; flex-direction: column; justify-content: center; align-items: center; ">
                             <a href="#" style="text-decoration: none; display: block;">
@@ -55,8 +55,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px;">
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px; min-width: 185px;">
                         <img src="photos/aucs-logo.png" class="card-img-top" alt="Image" style="max-width: 100%; flex-shrink: 0;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <a href="#" style="text-decoration: none; display: block;">
@@ -67,8 +67,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px;">
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px; min-width: 185px;">
                         <img src="photos/adu-ispe_logo.png" class="card-img-top" alt="Image" style="max-width: 100%; flex-shrink: 0;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <a href="#" style="text-decoration: none; display: block;">
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-lg-2 col-md-3 col-sm-4">
                     <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px;">
                         <img src="photos/acoes-logo.png" class="card-img-top" alt="Image" style="max-width: 100%; flex-shrink: 0;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: flex; flex-direction: column; justify-content: center; align-items: center;">
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-lg-2 col-md-3 col-sm-4">
                     <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px;">
                         <img src="photos/aducares-logo.png" class="card-img-top" alt="Image" style="max-width: 100%; flex-shrink: 0;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: flex; flex-direction: column; justify-content: center; align-items: center;">
@@ -103,7 +103,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-lg-2 col-md-3 col-sm-4">
                     <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 185px;">
                         <img src="photos/OSA LOGO.png" class="card-img-top" alt="Image" style="max-width: 100%; flex-shrink: 0;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: flex; flex-direction: column; justify-content: center; align-items: center;">

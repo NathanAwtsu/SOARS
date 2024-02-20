@@ -7,7 +7,7 @@
     <center>
         <h1>Activity List</h1>
     
-        <table style="margin-left: 120px;">
+        <table >
             <tr>
                 <th>Event Name</th>
                 <th>Organization</th>
