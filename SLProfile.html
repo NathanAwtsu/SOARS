@@ -16,7 +16,50 @@
     height: 200px;
     object-fit: cover;
 }
+
+     #passwordMessage {
+            color: red; /* Set text color to red */
+            font-size: 80%; /* Reduce font size to 80% */
+        }
+
+        #confirmPasswordMessage {
+            color: red; /* Set text color to red */
+            font-size: 80%; /* Reduce font size to 80% */
+        }
+    
 </Style>
+<script>
+    window.onload = function() {
+        var passwordInput = document.getElementById('password');
+        var confirmPasswordInput = document.getElementById('confirmPassword');
+        var passwordMessage = document.getElementById('passwordMessage');
+        var confirmPasswordMessage = document.getElementById('confirmPasswordMessage');
+
+        // Function to update message below password input field
+        function updatePasswordMessage() {
+            passwordMessage.textContent = "Password must:\n" +
+                "- Be between 12 - 100 characters\n" +
+                "- Contain at least one special character (~!@#$%^&*_-+=`|(){}[]:;\"'<>,.?/)\n" +
+                "- Contain at least one number (0-9)\n" +
+                "- Not match common profile fields";
+        }
+
+        // Function to update message below confirm password input field
+        function updateConfirmPasswordMessage() {
+            confirmPasswordMessage.textContent = "Must be the same as password";
+        }
+
+        // Add event listener for click event on password input field
+        passwordInput.addEventListener('click', function() {
+            updatePasswordMessage();
+        });
+
+        // Add event listener for click event on confirm password input field
+        confirmPasswordInput.addEventListener('click', function() {
+            updateConfirmPasswordMessage();
+        });
+    };
+</script>
 <body>
     
     <div class="container-fluid">
@@ -133,16 +176,18 @@
                                 <td>
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control" id="password" placeholder="Enter your new password">
+                                    <p id="passwordMessage"></p> <!-- Paragraph to display message -->
                                 </td>
-                            </tr>
+                            </tr> 
             
                             <!-- Contact Number Input -->
                             <tr>
                                 <td>
                                     <label for="confirmPassword">Confirm Password</label>
-                                    <input type="tel" class="form-control" id="confirmPassword" placeholder="Enter your new password">
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your new password">
+                                    <p id="confirmPasswordMessage"></p> <!-- Paragraph to display message -->
                                 </td>
-                            </tr>
+                            </tr> 
             
                             <!-- Email Input -->
                             <tr>
