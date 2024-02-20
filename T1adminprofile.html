@@ -10,6 +10,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
+<Style>
+    .card-img-top {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+     #passwordMessage {
+            color: red; /* Set text color to red */
+            font-size: 80%; /* Reduce font size to 80% */
+        }
+
+        #confirmPasswordMessage {
+            color: red; /* Set text color to red */
+            font-size: 80%; /* Reduce font size to 80% */
+        }
+    
+</Style>
+<script>
+    window.onload = function() {
+        var passwordInput = document.getElementById('password');
+        var confirmPasswordInput = document.getElementById('confirmPassword');
+        var passwordMessage = document.getElementById('passwordMessage');
+        var confirmPasswordMessage = document.getElementById('confirmPasswordMessage');
+
+        // Function to update message below password input field
+        function updatePasswordMessage() {
+            passwordMessage.textContent = "Password must:\n" +
+                "- Be between 12 - 100 characters\n" +
+                "- Contain at least one special character (~!@#$%^&*_-+=`|(){}[]:;\"'<>,.?/)\n" +
+                "- Contain at least one number (0-9)\n" +
+                "- Not match common profile fields";
+        }
+
+        // Function to update message below confirm password input field
+        function updateConfirmPasswordMessage() {
+            confirmPasswordMessage.textContent = "Must be the same as password";
+        }
+
+        // Add event listener for click event on password input field
+        passwordInput.addEventListener('click', function() {
+            updatePasswordMessage();
+        });
+
+        // Add event listener for click event on confirm password input field
+        confirmPasswordInput.addEventListener('click', function() {
+            updateConfirmPasswordMessage();
+        });
+    };
+</script>
 <body>
     
     <!-- Sidebar portion  -->
@@ -94,44 +144,71 @@
         </div>
     </div>
 
-    <!-- Your main content goes here -->
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="container mt-1">
             <div class="rowmain">
                 <div class="col-md-6 offset-md-3">
                     <h2>User Profile Setup</h2>
                     <form>
-                        <div class="form-group"><br>
-                            <img id="preview" src="icon.jpg" alt="Profile Picture" width="150">
-                            <label for="profilePicture">Profile Picture</label> <br>
-                            <input type="file" class="form-control-file" id="profilePicture" accept="image/*">
-                            
-                        </div>
-                        <div class="form-group"><br>
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter your new password">
-                        </div>
-                        <div class="form-group"><br>
-                            <label for="password">Confirm Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter your new password">
-                        </div>
-                        <div class="form-group"><br>
-                            <label for="contactNumber">Email Adress</label>
-                            <input type="tel" class="form-control" id="contactNumber" placeholder="Enter your Email Adress">
-                        </div>
-                        
-                        <div class="text-right mt-3">
-                            <div class="d-flex"><br><br>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                                <button type="button" class="btn btn-default ml-2">Cancel</button>
-                            </div>
-                        </div>
+                        <table class="table">
+                            <tbody>
+                                <!-- Profile Picture Input -->
+                                <tr>
+                                    <td>
+                                        <label for="profilePicture">Profile Picture</label>
+                                        <br>
+                                        <img id="preview" src="icon.jpg" alt="Profile Picture" width="150">
+                                        <br>
+                                        <input type="file" class="form-control-file" id="profilePicture" accept="image/*">
+                                    </td>
+                                </tr>
+                
+                                <!-- Password Input -->
+                                <tr>
+                                    <td>
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" placeholder="Enter your new password">
+                                        <p id="passwordMessage"></p> <!-- Paragraph to display message -->
+                                    </td>
+                                </tr> 
+                
+                                <!-- Contact Number Input -->
+                                <tr>
+                                    <td>
+                                        <label for="confirmPassword">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your new password">
+                                        <p id="confirmPasswordMessage"></p> <!-- Paragraph to display message -->
+                                    </td>
+                                </tr> 
+                
+                                <!-- Email Input -->
+                                <tr>
+                                    <td>
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter your email address">
+                                    </td>
+                                </tr>
+                
+                                <!-- Save and Cancel Buttons -->
+                                <tr>
+                                    <td colspan="2" class="text-right mt-3">
+                                        <div class="d-flex">
+                                            <br><br>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-default ml-2">Cancel</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </form>
                 </div>
             </div>
         </div>
-        </main>
-
+        
+       
+    </main>
+    
     <script>
         let lastScrollTop = 0;
         window.addEventListener("scroll", () => {
