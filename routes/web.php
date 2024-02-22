@@ -167,9 +167,11 @@ Route::get('/osaemp/message', function (){return view('OSA/message');})->name('o
 //Load the List of Organization
 Route::get('/osaemp/organization_list', [OsaController::class, 'organization'], function(){return view('OSA/organization_list');})->name('osaorganizationlist');
 Route::get('/osaemp/organization_list/new_organization',  function(){return view('OSA/organization_new');})->name('osaorganization_new');
+Route::get('/osaemp/organization_list/pending_edit', function(){return view('OSA/organization_pending_edit');})->name('osaorganization_pending_edit');
 
 //Send a New Org info to the DB
 Route::post('/osaemp/organization_list/new_organization', [OsaController::class, 'newOrganization']);
+Route::post('/osaemp/organization_list/pending_edit');
 
 //Insert all the Info
 Route::post('/osaemp/activity_approval', [OsaController::class, 'store']);
