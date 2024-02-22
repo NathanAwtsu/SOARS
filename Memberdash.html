@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOARS Dashboard</title>
+    <!-- Add the Bootstrap CSS CDN link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Studentgeneral.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+    <!-- Sidebar portion  -->
+    <div class="container-fluid">
+        <div class="row">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
+                    <div class="container">
+                        <a class="navbar-brand" href="#"><h2>Dashboard</h2></a> 
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <form class="form-inline">
+                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-primary" type="submit">Search</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <div class="sidebar-brand">
+                            <div class="d-flex align-items-center">
+                                <img src="OSA LOGO.png" alt="" style="max-width: 50px; margin-right: 6px;">
+                                <h1>SOARS</h1><br> 
+                            </div>
+                            <div class="admin" style="padding-left: 70px;">
+                               
+                            </div>
+                        </div>
+                        
+                        <div class="position-sticky">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="SLProfile.html">
+                                        <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                            <i class="fa-regular fa-circle-user fa-lg"></i>
+                                            <span class="ml-2">User Name</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Memberdash.html">
+                                        <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                            <i class="fa-regular fa-clipboard fa-lg"></i>
+                                            <span class="ml-2">Dashboard</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Memberorglist.html">
+                                        <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                            <i class="fa-solid fa-users fa-lg"></i>
+                                            <span class="ml-2">Organization List</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="SLlogin.html">
+                                        <div class="d-flex align-items-center" style="margin-left: -10px;">
+                                            <i class="fa-solid fa-right-from-bracket fa-lg"></i>
+                                            <span class="ml-2">Log out</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<main style="padding-left: 250px; overflow-x: hidden;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <a href="OSAmessages.html" class="card" style="height: 130px; background-color: #e57373; text-decoration: none;">
+                    <h2 style="color: white;">Messages <i class="fa-regular fa-message"></i></h2>
+                    <p style="font-size: 20px; color: white;">20</p>
+                </a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a href="MemberActivities.html" class="card" style="height: 130px; background-color: #81c784; text-decoration: none;">
+                    <h2 style="color: white;">Activities <i class="fa-solid fa-chart-line"></i></h2>
+                    <p style="font-size: 20px; color: white;">25</p>
+                </a>
+            </div>
+           
+           
+        </div>
+    </div>
+</main>
+
+    
+    
+
+    <!-- Add Bootstrap JavaScript (optional) -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+
+</body>
+</html>
