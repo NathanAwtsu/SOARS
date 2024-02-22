@@ -6,7 +6,7 @@
     <table class="table"> <br>
         
         
-        <Center>
+        <center>
             <div class="btn-group">
                 <a class="btn btn-create" type="button" id="createUserButton" style="margin-left: 10px;" href="<?php echo e(url('/osaemp/organization_list/new_organization')); ?>">Create New Organization</a>
             </div>
@@ -14,15 +14,12 @@
                 <div class="card-table-title" style="padding: 30px 0px 0px 0px;">
                     <h1>PENDING</h1><br>
                 </div>
-                <div class="card-table">
+                <div class="card-table" style="margin: 0 0 0 0;">
                     <?php $__currentLoopData = $pendings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pend): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php if($pend != Null): ?>
                             <div class="col-lg-5 col-md-5 col-sm-5">
                                 <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                                    <?php if($pend->requirement_status != "100"): ?>
-                                        <progress id="file" value="<?php echo e($pend->requirement_status); ?>" max="100"></progress>
-                                    <?php endif; ?>
-                                    <img src="<?php echo e(asset('storage/app/public/'.$pend->logo)); ?>" alt="Image">
+                                    <img src="<?php echo e(asset('/storage/'.$pend->logo)); ?>" alt="<?php echo e($pend->logo); ?>" style="max-width: 200px;">
                                     <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                                         <a href="<?php echo e(url('')); ?>" style="text-decoration: none; display: block;">
                                             <h5 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center;">
@@ -31,6 +28,9 @@
                                             </h5>
                                         </a>
                                     </div>
+                                    <?php if($pend->requirement_status != "100"): ?>
+                                        <progress id="file" value="<?php echo e($pend->requirement_status); ?>" max="100"></progress>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php endif; ?>

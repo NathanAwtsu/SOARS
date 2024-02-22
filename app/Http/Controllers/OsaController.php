@@ -181,7 +181,9 @@ class OsaController extends Controller
             //File Validation
                 $logoPath = null;
                 if ($request->hasFile('logo')) {
-                    $logoPath = $request->file('logo')->storePubliclyAs('logo', 'logo_' . time() . '.' . $request->file('logo')->extension(), 'public');
+                    $logoPath = $request->file('logo')->
+                    storeAs( 'logo_' . time() . '.' . $request->
+                    file('logo')->extension(), 'public');
                 }
 
                 $constiPath = null;
