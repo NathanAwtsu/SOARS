@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="Studentgeneral.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <!-- Add the Bootstrap JavaScript CDN link -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <Style>
@@ -74,12 +76,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <form class="form-inline">
-                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                                        <button class="btn btn-primary" type="submit">Search</button>
-                                    </form>
-                                </li>
+                               
                             </ul>
                         </div>
                     </div>
@@ -284,11 +281,70 @@
 </div>
 </div>
 </div>
+<!-- My Attendance Section -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center">My Attendance</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Organization</th>
+                        <th>Event Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample attendance records, replace with actual data -->
+                    <tr>
+                        <td><a href="#" onclick="showEventModal('<img src=\'adulogo.png\' alt=\'Event Image\' style=\'max-width: 100%; height: auto;\'><p>testing test 1 test 2 test 3</p>')">Linux Seminar</a></td>
+    
+                        <!-- Other table cells here -->
+                        <td><a href="TNT.html">TNT</a></td>
+                        <td>2-14-24</td>
+                        <td style="color: red;">Absent</td>
+                    </tr>
+                </tbody>
+            </table>
+<!-- Event Description Modal -->
+<div class="modal fade" id="eventDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="eventDescriptionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventDescriptionModalLabel">Event Description</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="eventDescriptionModalBody">
+                <!-- Event description will be inserted here dynamically -->
+                <img src="adulogo.png" alt="Event Image" style="max-width: 100%; height: auto;"><br>
+                <p>testing test 1 test 2 test 3</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+
 
 
 </main>
  
-       
+<script>
+    function showEventModal(content) {
+        // Set the HTML content in the modal body
+        document.getElementById('eventDescriptionModalBody').innerHTML = content;
+
+        // Show the modal
+        $('#eventDescriptionModal').modal('show');
+    }
+</script>
 
     
 
