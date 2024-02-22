@@ -19,19 +19,21 @@
                         <?php if($pend != Null): ?>
                             <div class="col-lg-5 col-md-5 col-sm-5">
                                 <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                                    <img src="<?php echo e(asset('/storage/'.$pend->logo)); ?>" alt="<?php echo e($pend->logo); ?>" style="max-width: 200px;">
+                                    <img src="/storage/logo/<?php echo e($pend->logo); ?>" alt="<?php echo e($pend->logo); ?>" style="max-width: 200px;">
                                     <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                                         <a href="<?php echo e(url('')); ?>" style="text-decoration: none; display: block;">
-                                            <h5 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center;">
+                                            <h1 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; text-shadow: -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
                                                 <?php echo e($pend->name); ?>
 
-                                            </h5>
+                                            </h1>
                                         </a>
                                     </div>
-                                    <?php if($pend->requirement_status != "100"): ?>
-                                        <progress id="file" value="<?php echo e($pend->requirement_status); ?>" max="100"></progress>
-                                    <?php endif; ?>
+                                    
                                 </div>
+                                <?php if($pend->requirement_status != "100"): ?>
+                                        <progress id="file" value="<?php echo e($pend->requirement_status); ?>" max="100"></progress><br>
+                                        <?php echo (round($pend->requirement_status).'% out of 100%');?>
+                                    <?php endif; ?>
                             </div>
                         <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

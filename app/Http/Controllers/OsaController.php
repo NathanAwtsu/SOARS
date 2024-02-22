@@ -181,24 +181,77 @@ class OsaController extends Controller
             //File Validation
                 $logoPath = null;
                 if ($request->hasFile('logo')) {
-                    $logoPath = $request->file('logo')->
-                    storeAs( 'logo_' . time() . '.' . $request->
-                    file('logo')->extension(), 'public');
+                    /*$logoPath = $request->file('logo')->
+                    storePubliclyAs('logo','image_'.time() . '.' . 
+                    $request->file('logo')->extension(), 'public');
+                     */
+
+                    $logo = $request->file('logo'); // Retrieve the uploaded file
+
+                    // Generate a unique filename for the image
+                    $fileName = 'image_' . time() . '.' . $logo->getClientOriginalExtension();
+
+                    // Move the uploaded file to the public directory
+                    $logo->move(public_path('storage/logo'), $fileName);
+
+                    // Set the path to the uploaded image
+                    $logoPath = $fileName;
                 }
 
                 $constiPath = null;
                 if ($request->hasFile('consti_and_byLaws')) {
-                    $constiPath = $request->file('consti_and_byLaws')->storePubliclyAs('consti_and_bylaws', 'consti_' . time() . '.' . $request->file('consti_and_byLaws')->extension(), 'public');
+                    /*$constiPath = $request->file('consti_and_byLaws')->
+                    storePubliclyAs('consti_and_bylaws', 'consti_' . time() . '.' . 
+                    $request->file('consti_and_byLaws')->extension(), 'public');*/
+
+                    $consti = $request->file('consti_and_bylaws'); //Retrieve the uploaded file
+
+                    //Generate a unique filename for the consti
+                    $filename = 'cab_'.time().'.'. $consti->getClientOriginalExtension();
+
+                    //Move the uploaded file to the public directory
+                    $consti->move(public_path('storage/consti_and_bylaws').$fileName);
+
+                    //Set the path to the uploaded pdf
+                    $constiPath = $fileName;
                 }
 
                 $letterPath = null;
                 if ($request->hasFile('letter_of_intent')) {
-                    $letterPath = $request->file('letter_of_intent')->storePubliclyAs('letter_of_intent', 'letter_' . time() . '.' . $request->file('letter_of_intent')->extension(), 'public');
+                    /*$letterPath = $request->file('letter_of_intent')->
+                    storePubliclyAs('letter_of_intent', 'letter_' . time() . '.' . 
+                    $request->file('letter_of_intent')->extension(), 'public');
+                    */
+
+                    $letter = $request->file('letter_of_intent'); //Retrive the Uploaded File
+
+                    //Generate a unique filename for the letter
+                    $filename = 'loi_'.time().'.'. $letter->getClientOriginalExtension();
+
+                    //Move the uploaded file to the public directory
+                    $letter->move(public_path('storage/letter_of_intent').$filename);
+
+                    //Set the path to the uploaded pdf
+                    $letterPath = $filename;
                 }
 
                 $adminEndorsementPath = null;
                 if ($request->hasFile('admin_endorsement')) {
-                    $adminEndorsementPath = $request->file('admin_endorsement')->storePubliclyAs('admin_endorsement', 'endorsement_' . time() . '.' . $request->file('admin_endorsement')->extension(), 'public');
+                    /*$adminEndorsementPath = $request->file('admin_endorsement')->
+                    storePubliclyAs('admin_endorsement', 'endorsement_' . time() . '.' . 
+                    $request->file('admin_endorsement')->extension(), 'public');
+                    */
+                    
+                    $admin = $request->file('admin_endorsement'); //Retrieve the uploaded File
+
+                    //Generate a unique filename for the Endorsement
+                    $filename = 'ae_'.time().'.'. $admin->getClientOriginalExtension();
+
+                    //Move the uploaded file to the public directory
+                    $admin->move(public_path('storage/admin_endorsement').$filename);
+
+                    //Set the path to the uploaded pdf
+                    $adminEndorsementPath = $fileName;
                 }
                         
 
