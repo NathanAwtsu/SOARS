@@ -109,6 +109,7 @@ Route::get('usersx', function(){
 Route::get('/', function () {return view('soars');});
 Route::get('/soars', [LoginController::class, 'store'], [LoginController::class, 'create'],function () {return view('soars');});
 Route::get('/soars/store', [LoginController::class], 'store');
+Route::get('/', function () {return view('soars');});
 //reCAPTCHA
 
 Route::get('/soar/session_expired', function () {return view('session_expired');});
