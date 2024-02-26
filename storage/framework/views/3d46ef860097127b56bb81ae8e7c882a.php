@@ -2,19 +2,20 @@
 <?php $__env->startSection('content'); ?>
 
 
-<main >
-        
+<main>
     <div class="container" >
         <div class="container-event text-center" style="padding: 10px;">
             <h2>Create an event</h2>
             <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal">Create an Event</button>
         </div>
     </div>
-    
-    <div class="container-tbl-up" style="padding: 0px 0px !important; ">
-        <form method="post" action="/osaemp/activity_approval/approved">
+    <center>
+    <div class="table-responsive" style="margin: 0px 100px 0px 100px;">
+    <div class="container-tbl-up" style="padding: 0px 0px !important; " >
+        <form method="post" action="/osaemp/activity_approval/approved" >
             <?php echo csrf_field(); ?>
-            <table class="table"> <br>
+            
+            <table class="table table-bordered table-center" style="padding:0px 50px 0px 50px;"> <br>
            
             <thead>
                 <tr>
@@ -73,6 +74,9 @@
             </tbody> 
             </table>
         </form>
+    </div>
+    </div>
+    </center>
                 
                 
 </main>

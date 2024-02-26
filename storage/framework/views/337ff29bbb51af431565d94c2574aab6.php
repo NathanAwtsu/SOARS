@@ -7,7 +7,7 @@
     
         <div class="table-responsive"> <!-- Add this div to make the table responsive -->
             <div class="col-10" style="padding: 10px;"> <!-- Use the entire row -->
-                <h2 class="text-left">APPROVED EVENTS</h2>
+                <h2 class="text-left">PAST EVENTS</h2>
             </div>
             <table class="table table-bordered table-center"> <!-- Added table-center class -->
                 <table class="table">

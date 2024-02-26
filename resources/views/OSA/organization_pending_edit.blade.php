@@ -1,23 +1,28 @@
 @extends('navbar.navbar_osa')
 @section('content')
 
+
 <center>
     
     <main>
        
     <div class="card" style="height: auto; width: 700px;">
         <h2>Organization Information Form</h2> <br><br>
-        <form action="/osaemp/organization_list/pending_edit" method="post" enctype="multipart/form-data">
+        
+        <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
             @csrf
-            <label for="OrgName"><h2>Organization Name :</h2></label><br>
-            <textarea id="name" name="name" rows="2" cols="4" required></textarea><br><br>
+            
+                
+            
+            <label for="OrgName"><h2>Organization Name:</h2></label><br>
+            <textarea id="name" name="name" rows="2" cols="4" required>{{$org->name}}</textarea><br><br>
             <label for="OrgName"><h2>Nickame :</h2></label><br>
-            <textarea id="name" name="nickname" rows="2" cols="4" required></textarea><br><br>
+            <textarea id="nameickname" name="nickname" rows="2" cols="4" required>{{$org->nickname}}</textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
-            <textarea id="mission" name="mission" rows="4" cols="50" ></textarea><br><br>
+            <textarea id="mission" name="mission" rows="4" cols="50" >{{$org->mission}}</textarea><br><br>
 
             <label for="Vision"><h2>Insert Vision:</h2> </label><br>
-            <textarea id="vision" name="vision" rows="4" cols="50" ></textarea><br><br>
+            <textarea id="vision" name="vision" rows="4" cols="50" >{{$org->vision}}</textarea><br><br>
 
             <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
              <select id="type_of_organization" name="type_of_organization" onchange="showHideOthers(this);" required>
@@ -27,11 +32,14 @@
                 <option value="Religious">Religious</option>
              </select><br></br>
             
-            <label for="Constitutions"><h2>Please Select and Upload Constitutions & ByLaws:</h2></label>
+            <label for="Constitutions"><h2>Upload Constitutions & ByLaws:</h2></label>
             <input type="file" id="consti_and_byLaws" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" ><br><br>
 
-            <label for="logoFile"><h2>And then Select and Upload Logo:</h2></label>
-            <input type="file" id="logo" name="logo" accept=".png, .jpg, .jpeg" ><br><br>
+            <label for="logoFile"><h2>Logo:</h2></label>
+            <img src="/storage/logo/{{$org->logo}}" alt="{{$org->logo}}" style="max-width: 200px; padding-bottom:10px;">
+            
+            <input type="file" id="logo" name="logo" accept=".png, .jpg, .jpeg"><br><br>
+            
 
             <label for="letterOfIntentFile"><h2>As well as Upload Letter of Intent:</h2></label>
             <input type="file" id="letter_of_intent" name="letter_of_intent" accept=".pdf" ><br><br>
@@ -128,7 +136,7 @@
 
                         <label for="adviserEndorsementFile"><h2>Almost done! Upload Adviser Endorsement File:</h2></label>
                         <input type="file" id="adviserEndorsement" name="adviserEndorsement" accept=".pdf" ><br><br>
-
+                        
 
                         <input type="submit" value="Submit" >
                         

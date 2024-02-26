@@ -301,5 +301,13 @@ class OsaController extends Controller
         return redirect('/osaemp/organization_list');
 
     }
+
     
+    public function pending_edit_view(Request $request){
+        
+        $id = $request->route('id');
+        $org = Organization::find($id);
+	    return view('OSA.organization_pending_edit')->with('org',$org);
+        
+    }
 }

@@ -46,6 +46,9 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" name="password" required autocomplete="current-password" placeholder="Enter your password">
+                   
+                    
+
                     <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -60,7 +63,10 @@ endif;
 unset($__errorArgs, $__bag); ?>
                     
                 </div>
-
+                <div class="form-group">
+                    <input type="checkbox" name="remember" id="remember" style="width:10%;" <?php echo e(old('remember') ? 'checked' : ''); ?>>
+                    <label for="remember" for="remember" style="display: inline;"><?php echo e(__('Remember Me')); ?></label>
+                </div>
                 <div class="form-group">
                     <?php if(isset($_GET['timeout'])): ?>
                         <h3 style="text-align: center; color: orangered">You've been automatically Logged out.</h3>

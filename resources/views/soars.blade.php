@@ -27,6 +27,9 @@
                     <label for="password">Password:</label>
                     <input id="password" type="password" class="form-control @error('password') 
                     is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Enter your password">
+                   
+                    
+
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -34,7 +37,10 @@
                     @enderror
                     
                 </div>
-
+                <div class="form-group">
+                    <input type="checkbox" name="remember" id="remember" style="width:10%;" {{ old('remember') ? 'checked' : '' }}>
+                    <label for="remember" for="remember" style="display: inline;">{{__('Remember Me')}}</label>
+                </div>
                 <div class="form-group">
                     @isset($_GET['timeout'])
                         <h3 style="text-align: center; color: orangered">You've been automatically Logged out.</h3>

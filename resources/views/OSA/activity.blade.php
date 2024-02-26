@@ -14,6 +14,7 @@
                 <th>Event Start Date & time</th>
                 <th>Event End Date & Time</th>
                 <th>Venue</th>
+                <th>Button</th>
             </tr>
             @foreach ($approved as $approve)
                 
@@ -25,6 +26,9 @@
                 <td>{{$approve->activity_start_date}} @ {{$approve->activity_start_time}}</td>
                 <td>{{$approve->activity_end_date}} @ {{$approve->activity_end_date}}</td>
                 <td>{{$approve->venue}}</td>
+                <td>
+                    <a href="{{url('')}}">Edit</a>
+                </td>
             </tr>
             @endforeach
             </table><br>

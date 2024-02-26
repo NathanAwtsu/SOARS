@@ -164,10 +164,11 @@ Route::post('/osaemp/users/update', [UserController::class, 'update'])->name('us
 
 Route::get('/osaemp/userlist', [OsaController::class,'user'], function (){return view('OSA/userlist');})->name('osauserlist');
 Route::get('/osaemp/message', function (){return view('OSA/message');})->name('osamessage');
+
 //Load the List of Organization
 Route::get('/osaemp/organization_list', [OsaController::class, 'organization'], function(){return view('OSA/organization_list');})->name('osaorganizationlist');
 Route::get('/osaemp/organization_list/new_organization',  function(){return view('OSA/organization_new');})->name('osaorganization_new');
-Route::get('/osaemp/organization_list/pending_edit', function(){return view('OSA/organization_pending_edit');})->name('osaorganization_pending_edit');
+Route::get('/osaemp/organization_list/pending_edit/{id}', [OsaController::class, 'pending_edit_view'], function(){return view('OSA/organization_pending_edit');})->name('osaorganization_pending_edit_view');
 
 //Send a New Org info to the DB
 Route::post('/osaemp/organization_list/new_organization', [OsaController::class, 'newOrganization']);
@@ -176,6 +177,7 @@ Route::post('/osaemp/organization_list/pending_edit');
 //Insert all the Info
 Route::post('/osaemp/activity_approval', [OsaController::class, 'store']);
 Route::post('/osaemp/activity_approval/approved', [OsaController::class, 'approved']);
+
 //Retrieve the list of Activity to be Approved
 Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve'],function(){return view('OSA/approval');})->name('osaactivityapproval');
 

@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -46,8 +47,9 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
+        ;
 
-        if(Auth::attempt($credentials)){
+        if(Auth::attempt($credentials, $remember = $request->has('remember'))){
             $user_role=Auth::user()->role;
 
             switch($user_role){
@@ -86,5 +88,16 @@ class LoginController extends Controller
         User::create($request->all());
         return "Successfully created!";
     }
+
+    public function logout(Request $request)
+{
+    Auth::logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    return redirect('/');
+}
 
 }

@@ -11,7 +11,7 @@
                         <th>Status</th>
                         <th>Organization Name</th>
                         <th>Organization Type</th>
-                        
+                        <th>Action</th>
                         
                     </tr>
                 </thead>
@@ -34,6 +34,11 @@
                         </td>
                         <td>{{$org->name}}</td>
                         <td>{{$org->type_of_organization}}</td>
+                        <td>
+
+                            <a href="{{url('/osaemp/organization_list/pending_edit/'.$org->id)}}">Edit</a>
+                            <a href="{{url('/')}}">Delete</a>
+                        </td>
                     </tr>
                    
                     @endforeach
