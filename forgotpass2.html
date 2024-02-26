@@ -18,18 +18,16 @@
                         <img src="OSA LOGO.png" alt="" class="custom-image2">
                         <h1>SOARS</h1><br>
                     </div>
-                    <h2>Welcome Klasmeyt</h2>
+                    <h3 style="padding-top: 5px; ">Please enter your OTP</h3>
+                    <h8 style="color: red;">Do not share your OTP (One Time Password)</h8>
                     <form>
                         <div class="form-group">
-                            <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" placeholder="Enter your username">
+                            <label for="username" style="padding-top: 10px;">OTP(One Time Password):</label>
+                            <input type="text" id="username" name="username" placeholder="Enter your OTP">
                         </div>
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" id="password" name="password" placeholder="Enter your password">
-                        </div> 
-                        <button type="button" id="loginButton">Log In</button><br>
-                        <a href="Forgotpass1.html" id="forgotPasswordLink" style="font-size: 12px;">Forgot Password?</a> <!-- Moved Forgot Password link above the image -->
+                        
+                        <button type="button" id="NextButton">Next</button><br>
+                        
                        
                     </form>
                     <img src="adulogo.png" alt="" class="custom-image">
@@ -39,12 +37,17 @@
     </body>
 
     <script>
-        document.getElementById('loginButton').addEventListener('click', function() {
-            redirectToSLdash();
+        document.getElementById('NextButton').addEventListener('click', function() {
+            var otpInput = document.getElementById('username').value;
+            if (otpInput.trim() !== '') {
+                redirectToForgotpass3();
+            } else {
+                alert('Please enter your OTP.'); // Show an alert if the OTP field is empty
+            }
         });
-
-        function redirectToSLdash() {
-            window.location.href = 'SLdash.html';
+    
+        function redirectToForgotpass3() {
+            window.location.href = 'Forgotpass3.html';
         }
     </script>
 </body>

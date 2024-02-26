@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/adminlogin.css">
+
+</head>
+
+<body>
+    <center>
+        <div class="container my-5">
+            <div class="login-container">
+                <div class="logo-and-heading">
+                    <img src="OSA LOGO.png" alt="" class="custom-image2">
+                    <h1>SOARS</h1><br>
+                </div>
+                <h2 style="padding-top: 5px;">Change password</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password"
+                            onclick="showPasswordRequirements()">
+                        <div id="passwordRequirements" style="display: none; font-size: 14px; color: red;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmpassword">Confirm Password:</label>
+                        <input type="password" id="confirmpassword" name="confirmpassword"
+                            placeholder="Confirm password">
+                    </div>
+                    <div class="button-group d-flex justify-content-between align-items-center">
+                        <button type="button" id="SaveButton" class="btn btn-primary btn-sm">Save changes</button>
+                        <div class="w-25"></div> <!-- Add space -->
+                        <button type="button" id="CancelButton" class="btn btn-secondary btn-sm">Cancel</button>
+                    </div>
+                </form>
+                <img src="adulogo.png" alt="" class="custom-image">
+            </div>
+        </div>
+    </center>
+
+    <script>
+        document.getElementById('SaveButton').addEventListener('click', saveChanges);
+        document.getElementById('CancelButton').addEventListener('click', redirectToSLlogin);
+    
+        function saveChanges() {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmpassword').value;
+    
+            if (password === "" && confirmPassword === "") {
+                window.alert("Please fill in both the password and confirm password fields.");
+                return; // Exit function early if both fields are empty
+            }
+    
+            if (password === "") {
+                window.alert("Please fill in the password field.");
+                return; // Exit function early if password field is empty
+            }
+    
+            if (confirmPassword === "") {
+                window.alert("Please fill in the confirm password field.");
+                return; // Exit function early if confirm password field is empty
+            }
+    
+            // Proceed with saving changes
+            window.alert("Changes saved successfully!");
+            redirectToSLlogin();
+        }
+    
+        function redirectToSLlogin() {
+            window.location.href = 'SLlogin.html';
+        }
+    
+        function showPasswordRequirements() {
+            var passwordRequirements = document.getElementById('passwordRequirements');
+            passwordRequirements.innerHTML = "Password must:<br>" +
+                "- Be between 12 - 100 characters<br>" +
+                "- Contain at least one special character (~!@#$%^&*_-+=`|(){}[]:;\"'<>,.?/)<br>" +
+                "- Contain at least one number (0-9)<br>" +
+                "- Not match common profile fields";
+            passwordRequirements.style.display = 'block';
+        }
+    
+        function checkPasswordMatch() {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmpassword').value;
+            var passwordMatch = document.getElementById('passwordMatch');
+    
+            if (password !== confirmPassword) {
+                passwordMatch.innerHTML = "Password must match the above password.";
+                passwordMatch.style.display = 'block';
+            } else {
+                passwordMatch.style.display = 'none';
+            }
+        }
+    </script>
+    
+
+</body>
+
+</html>
