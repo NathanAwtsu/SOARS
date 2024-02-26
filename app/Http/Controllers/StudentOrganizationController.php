@@ -3,12 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Event;
+use App\Models\Organization;
 use App\Models\StudentOrganization;
+use App\Events\ChatifyEvent;
 
 class StudentOrganizationController extends Controller
 {
     public function index()
     {
+        
+    }
+
+    public function totalDashboard(){
+        
+        $totalEvent = DB::table('events')->get();
+        $totalMember = DB::table('students')->get();
+        $totalOrg= DB::table('organizations')->get();
+        $totalPendingOrg = DB::table('organizations')->where('requirement_status','!=','complete')->get();
+        $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
+
+        return view('SL.dashboard')
+        ->with('totalEvent', $totalEvent)
+        ->with('totalMember',$totalMember)
+        ->with('totalOrg', $totalOrg)
+        ->with('totalPendingOrg', $totalPendingOrg)
+        ->with('activities', $activities);
         
     }
 
@@ -63,6 +87,8 @@ public function showRSODetail(Request $request)
 
     return view('student_orgs.rso_detail', compact('content', 'organizations'));
     }
+
+
 
 }
 

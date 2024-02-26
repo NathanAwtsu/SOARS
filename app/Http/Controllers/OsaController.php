@@ -73,7 +73,7 @@ class OsaController extends Controller
         $totalPendingOrg = DB::table('organizations')->where('requirement_status','!=','complete')->get();
         $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
 
-        return view('osaemp')
+        return view('OSA.dashboard')
         ->with('totalEvent', $totalEvent)
         ->with('totalMember',$totalMember)
         ->with('totalOrg', $totalOrg)

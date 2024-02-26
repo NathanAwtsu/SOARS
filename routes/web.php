@@ -156,7 +156,7 @@ Route::get('/osaemp/organizaiton/{id}',function($id){$orgID = DB::table('organiz
 //Load the Dashboard Total Number 
 Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
 Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
-Route::get('/osaemp/dashboard',[OsaController::class, 'totalDashboard'], function (){return view('OSA/dashboard'); })->name('osadashboard');
+Route::get('/osaemp/dashboard', [OsaController::class, 'totalDashboard'], function (){return view('OSA/dashboard'); })->name('osadashboard');
 Route::get('/osaemp/organization_activation', [OsaController::class, 'org_act_list'], function(){return view('OSA/organization_activation');})->name('osaorgact');
 Route::get('/osaemp/user', [UserController::class, 'info'],function (){return view('OSA/user');})->name('osauser');
 Route::get('/osaemp/users', [UserController::class, 'index'])->name('user.index');
@@ -185,15 +185,12 @@ Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve'],funct
 
 Route::get('/osaemp/reports', [OsaController::class, 'eventReport'], function(){ return view('OSA/reports');})->name('osareports');
 
-
-
-
-
 //End of Routes for OSA
 
 
+//Routes for Student Leader
 
-Route::get('/studentleader', function(){return view('studentleader');})->name('studentleader')->middleware('studentleader');
+Route::get('/studentleader', [StudentOrganizationController::class, 'totalDashboard'], function(){return view('SL.dashboard');})->name('studentleader')->middleware('studentleader');
 
 Route::get('/member', function(){return view('member');})->name('member')->middleware('member');
 

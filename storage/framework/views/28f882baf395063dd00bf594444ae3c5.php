@@ -10,7 +10,7 @@
     <title><?php echo e(config('app.name', 'SOARS')); ?></title>
 
     <!-- Fonts -->
-    <link rel="icon" href="<?php echo e(url('/photos/OSA LOGO.png')); ?>">
+    <link rel="icon" href="<?php echo e(asset('/photos/OSA LOGO.png')); ?>">
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/adminlogin.css')); ?>">
