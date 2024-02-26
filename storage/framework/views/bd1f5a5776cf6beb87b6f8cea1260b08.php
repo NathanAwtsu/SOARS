@@ -75,30 +75,10 @@ unset($__errorArgs, $__bag); ?>
 
     
                 <div>
+                
+                
+                
                 <button type="submit" id="loginButton"><?php echo e(__('Login')); ?></button>
-                <strong>Google reCAPTCHA:</strong>
-                <?php if($errors->any()): ?>
-                <div class="alert alert-danger">
-                    <strong>Errors!</strong> <br>
-                    <ul>
-                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <li><?php echo e($error); ?></li>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </ul>
-                </div>
-                <?php endif; ?>
-                <?php echo NoCaptcha::renderJs(); ?>
-
-                <?php echo NoCaptcha::display(); ?>
-
-                <!---<?php if(Route::has('password.request')): ?>
-                    <a class="btn btn-link" href="<?php echo e(route('password.request')); ?>">
-                        <?php echo e(__('Forgot Your Password?')); ?>
-
-                    </a>
-                <?php endif; ?>
-                --->
-                </div>
             </form>
             <img src="/photos/adulogo.png" alt="" class="custom-image">
         </div>

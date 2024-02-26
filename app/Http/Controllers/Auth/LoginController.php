@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 
 class LoginController extends Controller
@@ -49,7 +50,26 @@ class LoginController extends Controller
         ]);
         ;
 
+        
+        $loginAttempts = session('login_attempts', 0);
+        
+
+        if ($loginAttempts >= 3) {
+            $validator = Validator::make($request->all(), [
+                'g-recaptcha-response' => 'required|captcha'
+            ]);
+
+            if ($validator->fails()) {
+                
+                return redirect('/error?credential=404')
+                    ->withErrors(['g-recaptcha-response' =>
+                     'Incorrect reCAPTCHA response. Please try again.'])
+                    ->withInput();
+            }
+        }
         if(Auth::attempt($credentials, $remember = $request->has('remember'))){
+            session(['login_attempts' => 0]);
+            
             $user_role=Auth::user()->role;
 
             switch($user_role){
@@ -71,7 +91,10 @@ class LoginController extends Controller
             }
 
         }else{
+            session(['login_attempts' => $loginAttempts + 1]); // Increment login attempts
             return redirect('/error?credential=404')->with('error', 'BAWAL');
+
+
         }
     }
 

@@ -5,7 +5,7 @@
 <center>
     <div class="container my-5">
         <div class="login-container">
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login') }}" onsubmit="return validateRecaptcha()">
                 @csrf
             <div class="logo-and-heading">
                 <img src="photos/OSA LOGO.png" alt="" class="custom-image2">
@@ -40,7 +40,20 @@
                         <h3 style="text-align: center; color: orangered">Your email or password must be incorrect</h3>
                     @endisset
                 </div>
-                <div>
+                
+                @if(session('login_attempts') >= 3)
+                    <strong>Google reCAPTCHA:</strong>
+                    @if ($errors->has('g-recaptcha-response'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ $errors->first('g-recaptcha-response') }}
+                    </div>
+                    @endif
+                    <div class="form-group">
+                    {!! NoCaptcha::renderJs() !!}
+                    {!! NoCaptcha::display() !!}
+                    </div>
+                @endif
+                
                 <button type="submit" id="loginButton">{{ __('Login')}}</button>
                 @if (Route::has('password.request'))
                     <a class="btn btn-link" href="{{ route('password.request') }}">
@@ -53,6 +66,21 @@
         </div>
     </div>
 </center>
+
+<!-- Include reCAPTCHA script -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    function validateRecaptcha() {
+        var response = grecaptcha.getResponse();
+        if (response.length === 0) {
+            // If reCAPTCHA not checked, prevent form submission
+            alert('Please complete the reCAPTCHA.');
+            return false;
+        }
+        return true;
+    }
+</script>
+
 
 @endsection
 
