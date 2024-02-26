@@ -44,25 +44,31 @@
                 @if(session('login_attempts') >= 3)
                     <strong>Google reCAPTCHA:</strong>
                     @if ($errors->has('g-recaptcha-response'))
+                    <center>
                     <div class="alert alert-danger" role="alert">
                         {{ $errors->first('g-recaptcha-response') }}
                     </div>
+                    </center>
                     @endif
-                    <div class="form-group">
+                    <div class="form-group" style="margin-left: 30px; ">
                     {!! NoCaptcha::renderJs() !!}
                     {!! NoCaptcha::display() !!}
                     </div>
                 @endif
                 
                 <button type="submit" id="loginButton">{{ __('Login')}}</button>
+                
                 @if (Route::has('password.request'))
                     <a class="btn btn-link" href="{{ route('password.request') }}">
                         {{ __('Forgot Your Password?') }}
                     </a>
                 @endif
+                <br>
+                <img src="/photos/adulogo.png" alt="" class="custom-image">
                 </div>
+                
             </form>
-            <img src="/photos/adulogo.png" alt="" class="custom-image">
+            
         </div>
     </div>
 </center>
