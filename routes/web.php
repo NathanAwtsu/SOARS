@@ -205,3 +205,4 @@ Route::get('error', function(){return view('error');});
 //Forgot Password
 Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');

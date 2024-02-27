@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+<center>
+    <div class="container my-5">
+        <div class="login-container">
+            <div class="logo-and-heading">
+                <img src="{{url('photos/OSA LOGO.png')}}" alt="" class="custom-image2">
+                <h1>SOARS</h1><br>
+            </div>
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
@@ -58,8 +61,8 @@
                         </div>
                     </form>
                 </div>
-            </div>
+                <img src="/photos/adulogo.png" alt="" class="custom-image">
         </div>
     </div>
-</div>
+</center>
 @endsection

@@ -1,36 +1,41 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Include any additional meta tags, stylesheets, or scripts -->
+    <link rel="icon" href="{{asset('/photos/OSA LOGO.png')}}">
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/adminlogin.css')}}">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    @stack('styles')
+    @stack('jquery')
+    @vite(['resources/sass/app.scss'])
+</head>
+<body>
+    <header>
+        <!-- Navbar or header content -->
+        <nav>
+            <ul>
+                
+                <!-- Add more navigation links as needed -->
+            </ul>
+        </nav>
+    </header>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <main>
+        @yield('content')
+        <!-- This is where the content of child views will be injected -->
+    </main>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <footer>
+        <!-- Footer content -->
+        <p>&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}</p>
+    </footer>
 
-        <!-- Scripts -->
-        @vite(['resources/sass/app.scss'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
+    <!-- Include any additional scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
 </html>

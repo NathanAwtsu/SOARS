@@ -1,39 +1,42 @@
 <!DOCTYPE html>
-<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo e(config('app.name', 'Laravel')); ?></title>
+    <!-- Include any additional meta tags, stylesheets, or scripts -->
+    <link rel="icon" href="<?php echo e(asset('/photos/OSA LOGO.png')); ?>">
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo e(asset('css/adminlogin.css')); ?>">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <?php echo $__env->yieldPushContent('styles'); ?>
+    <?php echo $__env->yieldPushContent('jquery'); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss']); ?>
+</head>
+<body>
+    <header>
+        <!-- Navbar or header content -->
+        <nav>
+            <ul>
+                
+                <!-- Add more navigation links as needed -->
+            </ul>
+        </nav>
+    </header>
 
-        <title><?php echo e(config('app.name', 'Laravel')); ?></title>
+    <main>
+        <?php echo $__env->yieldContent('content'); ?>
+        <!-- This is where the content of child views will be injected -->
+    </main>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <footer>
+        <!-- Footer content -->
+        <p>&copy; <?php echo e(date('Y')); ?> <?php echo e(config('app.name', 'Laravel')); ?></p>
+    </footer>
 
-        <!-- Scripts -->
-        <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss']); ?>
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <?php echo $__env->make('layouts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-            <!-- Page Heading -->
-            <?php if(isset($header)): ?>
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        <?php echo e($header); ?>
-
-                    </div>
-                </header>
-            <?php endif; ?>
-
-            <!-- Page Content -->
-            <main>
-                <?php echo e($slot); ?>
-
-            </main>
-        </div>
-    </body>
+    <!-- Include any additional scripts -->
+    <script src="<?php echo e(asset('js/app.js')); ?>"></script>
+</body>
 </html>
 <?php /**PATH C:\xampp\htdocs\SOARS Github\SOARS\resources\views/layouts/app.blade.php ENDPATH**/ ?>
