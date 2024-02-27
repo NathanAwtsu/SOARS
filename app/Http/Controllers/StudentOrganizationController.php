@@ -36,6 +36,11 @@ class StudentOrganizationController extends Controller
         
     }
 
+    public function user(Request $request){
+        $id = $request->route('id');
+	    return view('SL.user')->with('org',$org);
+    }
+
 
     public function showRSOList()
 {

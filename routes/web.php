@@ -9,6 +9,7 @@ use App\Http\Controllers\OsaController;
 use App\Http\Controllers\OsaEmpController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Models\Event;
 
 
@@ -191,6 +192,7 @@ Route::get('/osaemp/reports', [OsaController::class, 'eventReport'], function(){
 //Routes for Student Leader
 
 Route::get('/studentleader', [StudentOrganizationController::class, 'totalDashboard'], function(){return view('SL.dashboard');})->name('studentleader')->middleware('studentleader');
+Route::get('/studentleader/user/{id}', [StudentOrganizationController::class, ''], function(){return view('SL.user');});
 
 Route::get('/member', function(){return view('member');})->name('member')->middleware('member');
 
@@ -199,3 +201,7 @@ Route::get('/soars-timeout?timeout=true');
 
 //Credential Errors
 Route::get('error', function(){return view('error');});
+
+//Forgot Password
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
