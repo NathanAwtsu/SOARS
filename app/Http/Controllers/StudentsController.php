@@ -47,10 +47,10 @@ class StudentsController extends Controller
             $studentData['password'] = Hash::make($request->password); // Hash Password
         }
 
-    DB::table('students')->updateOrInsert(
-        ['student_id' => $studentId],
-        $studentData
-    );
+        DB::table('students')->updateOrInsert(
+            ['student_id' => $studentId],
+            $studentData
+        );
 
         $fname= $request->first_name;
         $mname= $request->middle_inital;
