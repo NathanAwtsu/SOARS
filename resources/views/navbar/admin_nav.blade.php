@@ -31,19 +31,18 @@
     <div class="container-fluid">
         <div class="row">
             <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
                     <div class="container">
                         <a class="navbar-brand">
                         @if (Route::is('admin'))
                             <h2 >Dashboard</h2>
                         @elseif (Route::is('studlist'))
-                            <h2 style="margin-left: 150px;">Manage Students</h2>
+                            <h2 >Manage Students</h2>
                         @elseif (Route::is('auditlog'))
                             <h2 style="margin-left: 150px;">Audit Log</h2>
                         @elseif (Route::is('admin_profile'))
                             <h2 style="margin-left: 150px;">Admin Profile</h2>
                         @elseif (Route::is('osalist'))
-                            <h2 style="margin-left: 150px;">OSA Employee List</h2>
+                            <h2 >OSA Employee List</h2>
                         @elseif (Route::is('rso_list'))
                             <h2 >Student Organization List</h2>
                         @endif
@@ -53,7 +52,6 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
-                </nav>
             </header>
             <nav id="sidebar" class="navbar bg-body-tertiary" >
                 <div class="container-fluid" style="height: 100%;">
@@ -61,6 +59,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <div class="d-flex align-items-center">
                         <span class="navbar-toggler-icon"></span>
+                        <img src="{{url('/photos/OSA LOGO.png')}}" alt="Logo" style="width: 40px; height: 40px;">
                             <h3 style="margin-top:10px">SOARS</h3><br> 
                     </div>
                 </button>
@@ -69,6 +68,7 @@
                 <div class="offcanvas-header d-flex justify-content-between align-items-center">
                     <div class="sidebar-brand">
                         <div class="d-flex align-items-center">
+                        <img src="{{url('/photos/OSA LOGO.png')}}" alt="Logo" style="width: 40px; height: 40px;">
                             <h1 style="color:white;">SOARS</h1> 
                         </div>
                         <div class="admin" style="padding-left: 70px; padding-bottom: 0px;">

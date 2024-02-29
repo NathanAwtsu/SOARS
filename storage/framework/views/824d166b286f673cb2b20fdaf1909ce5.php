@@ -13,6 +13,7 @@
     <link href="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     
     <!-- Fonts -->
+    <link rel="icon" href="<?php echo e(url('/photos/OSA LOGO.png')); ?>">
     <link href="<?php echo e(asset('bootstrap-5.3.2-dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/admingeneral.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')); ?>" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -30,19 +31,18 @@
     <div class="container-fluid">
         <div class="row">
             <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
                     <div class="container">
                         <a class="navbar-brand">
                         <?php if(Route::is('admin')): ?>
                             <h2 >Dashboard</h2>
                         <?php elseif(Route::is('studlist')): ?>
-                            <h2 style="margin-left: 150px;">Manage Students</h2>
+                            <h2 >Manage Students</h2>
                         <?php elseif(Route::is('auditlog')): ?>
                             <h2 style="margin-left: 150px;">Audit Log</h2>
                         <?php elseif(Route::is('admin_profile')): ?>
                             <h2 style="margin-left: 150px;">Admin Profile</h2>
                         <?php elseif(Route::is('osalist')): ?>
-                            <h2 style="margin-left: 150px;">OSA Employee List</h2>
+                            <h2 >OSA Employee List</h2>
                         <?php elseif(Route::is('rso_list')): ?>
                             <h2 >Student Organization List</h2>
                         <?php endif; ?>
@@ -52,7 +52,6 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
-                </nav>
             </header>
             <nav id="sidebar" class="navbar bg-body-tertiary" >
                 <div class="container-fluid" style="height: 100%;">
@@ -60,6 +59,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <div class="d-flex align-items-center">
                         <span class="navbar-toggler-icon"></span>
+                        <img src="<?php echo e(url('/photos/OSA LOGO.png')); ?>" alt="Logo" style="width: 40px; height: 40px;">
                             <h3 style="margin-top:10px">SOARS</h3><br> 
                     </div>
                 </button>
@@ -68,6 +68,7 @@
                 <div class="offcanvas-header d-flex justify-content-between align-items-center">
                     <div class="sidebar-brand">
                         <div class="d-flex align-items-center">
+                        <img src="<?php echo e(url('/photos/OSA LOGO.png')); ?>" alt="Logo" style="width: 40px; height: 40px;">
                             <h1 style="color:white;">SOARS</h1> 
                         </div>
                         <div class="admin" style="padding-left: 70px; padding-bottom: 0px;">

@@ -164,12 +164,12 @@ body {
 .card-table {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 800px;
+    justify-content: space-around;
+    max-width: 1150px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
-    margin-left: 380px;
+   
 }
 
 .card {
@@ -179,7 +179,7 @@ body {
     padding: 10px;
     margin: 10px;
     height: 250px;
-    width: 180p;
+    width: 180px;
     box-sizing: border-box;
     text-align: center;
 
@@ -204,7 +204,7 @@ body {
 
 .card-table-title{
    
-    padding-left: 260px;
+    
     padding-top: 30px;
 }
 .card-overlay {

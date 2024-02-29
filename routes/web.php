@@ -186,6 +186,11 @@ Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve'],funct
 
 Route::get('/osaemp/reports', [OsaController::class, 'eventReport'], function(){ return view('OSA/reports');})->name('osareports');
 
+//Calendar of activities dashboard
+Route::get('/osaemp/dash', [OsaController::class, 'getEvents'])->name('osa.fullcalendar');
+Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAjax']);
+
+
 //End of Routes for OSA
 
 

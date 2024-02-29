@@ -11,13 +11,14 @@
     </div>
     
     <div class="container-tbl-up">
+        <form method="post" action="/osaemp/activity_approval/approved">
+            <?php echo csrf_field(); ?>
             <table class="table"> <br>
            
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Status</th>
-                    <th>Requirement</th>
                     <th>Organization</th>
                     <th>Activity Title</th>
                     <th>Type of Activity</th>
@@ -44,7 +45,6 @@
                 <tr>
                     <td><?php echo e($event->id); ?></td>
                     <td><?php echo e($event->status); ?></td>
-                    <td><?php echo e($event->requirement); ?></td>
                     <td><?php echo e($event->organization_name); ?></td>
                     <td><?php echo e($event->activity_title); ?></td>
                     <td><?php echo e($event->type_of_activity); ?></td>
@@ -64,14 +64,14 @@
                     <td><?php echo e($event->ticket_control_number); ?></td>
                     <td><?php echo e($event->other_source_of_fund); ?></td>
                     <td>
-                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
-
-                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
-
+                        <button type="submit" name="action" value="approve_<?php echo e($event->id); ?>" class="btn btn-info">Approve</button>
+                    <button type="submit" name="action" value="reject_<?php echo e($event->id); ?>" class="btn btn-danger">Reject</button>
                     </td>
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody> 
+            </table>
+        </form>
                 
                 
 </main>
@@ -90,9 +90,10 @@
                 Are you sure you want to approve this event?
             </div>
             <div class="modal-footer">
+                <form action="" method="post">
                 <button type="button" class="btn btn-primary">Confirm</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                
+                </form>
             </div>
         </div>
     </div>
@@ -138,17 +139,13 @@
 
                 <!-- Event details input fields -->
                 <div class="form-group row mb-2">
-                    <label for="eventId" class="col-sm-4 col-form-label text-left">Event ID:</label>
-                    <div class="col-sm-8">
-                        <input type="number" class="form-control" id="id" name="id" required>
-                    </div>
+                    
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Event Status:</label>
                     <div class="col-sm-8">
                         <div class="col-sm-8">
                             <select class="form-control" id="eventStatus" name="status"  required>
-                                <option value="Approved">Approved</option>
                                 <option value="Standby">Standby</option>
                                 <option value="Rejected">Rejected</option>
                             </select>
@@ -222,55 +219,55 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Participants:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="participants" name="participants" required>
+                        <input type="text" class="form-control" id="participants" name="participants" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Partner Organization:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="partner_organization" name="partner_organization" required>
+                        <input type="text" class="form-control" id="partner_organization" name="partner_organization" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Organization fund:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="organization_fund" name="organization_fund" required>
+                        <input type="text" class="form-control" id="organization_fund" name="organization_fund">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Solidarity Share:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="solidarity_share" name="solidarity_share" required>
+                        <input type="text" class="form-control" id="solidarity_share" name="solidarity_share">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Registration Fee:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="registration_fee" name="registration_fee" required>
+                        <input type="text" class="form-control" id="registration_fee" name="registration_fee">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">AUSG Subsidy:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="AUSG_subsidy" name="AUSG_subsidy" required>
+                        <input type="text" class="form-control" id="AUSG_subsidy" name="AUSG_subsidy">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Sponsored By:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="sponsored_by" name="sponsored_by" required>
+                        <input type="text" class="form-control" id="sponsored_by" name="sponsored_by" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Ticket Selling:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="ticket_selling" name="ticket_selling" required>
+                        <input type="text" class="form-control" id="ticket_selling" name="ticket_selling" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Ticket Control #:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="ticket_control_number" name="ticket_control_number" required>
+                        <input type="text" class="form-control" id="ticket_control_number" name="ticket_control_number" >
                     </div>
                 </div>
 
@@ -348,6 +345,8 @@ function showHideOthers(selectElement) {
     }
 }
 </script>
+
+
 
 
 

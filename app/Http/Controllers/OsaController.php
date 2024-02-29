@@ -17,9 +17,9 @@ class OsaController extends Controller
 {
     public function index(){
 
-        
+        $events = Event::all();
 
-        return view('osaemp', ['users'=>$user, 'unseenCounter'=> $unseenCounter]);
+        return view('osaemp', ['users'=>$user, 'unseenCounter'=> $unseenCounter, 'events' => $events]);
     }
 
     
@@ -300,6 +300,69 @@ class OsaController extends Controller
         ]);
         return redirect('/osaemp/organization_list');
 
+    }
+
+    public function eventRange (Request $request)
+    {
+        if($request->ajax()) {
+            $data = Event::whereDate('activity_start_date', '>=', $request->activity_start_date)
+                       ->whereDate('activity_end_date',   '<=', $request->activity_end_date)
+                       ->get(['id', 'activity_title', 'activity_start_date', 'activity_end_date']);
+  
+            return response()->json($data);
+        }
+        return redirect('/osaemp/dashboard');
+    }
+
+    public function getEvents(){
+        $events = Event::all();
+
+        $formattedEvents = $events->map(function ($event) {
+            return [
+                'title' => $event->activity_title,
+                'start' => $event->activity_start_date,
+                'end' => $event->activity_end_date,
+            ];
+        });
+        
+        return response()->json($formattedEvents);
+    }
+
+    public function calendarAjax(Request $request)
+    {
+ 
+        switch ($request->type) {
+           case 'add':
+            $event = Event::create([
+                'activity_title' => $request->activity_title,
+                'activity_start_date' => $request->activity_start_date,
+                'activity_end_date' => $request->activity_end_date,
+            ]);
+ 
+              return response()->json($event);
+             break;
+  
+           case 'update':
+            $event = Event::find($request->id)->update([
+                'activity_title' => $request->activity_title,
+                'activity_start_date' => $request->activity_start_date,
+                'activity_end_date' => $request->activity_end_date,
+            ]);
+ 
+              return response()->json($event);
+             break;
+  
+           case 'delete':
+            $event = Event::find($request->id)->delete();
+
+            return response()->json($event);
+            break;
+
+             
+           default:
+             //tentative
+             break;
+        }
     }
 
     

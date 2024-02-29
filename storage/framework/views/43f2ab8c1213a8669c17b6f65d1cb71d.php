@@ -26,11 +26,6 @@
         
         <div class="card-table">
                 
-            <a href=""><div class="card" style="height: 150px; background-color: #81c784;">
-                <h2 style="color: white;">Activities <i class="fa-solid fa-chart-line"></i></h2>
-                <p style="font-size: 30px; color: white;"></p>
-            </a>
-            </div>
             
             <a href="<?php echo e(route('studlist')); ?>">
             <div class="card" style="height: 150px; background-color: #64b5f6;">
@@ -38,12 +33,18 @@
                     <p style="font-size: 30px; color: white;"><?php echo e($studentCount); ?></p>
             </a>
             </div>
-            <!--<a href="<?php echo e(route('osalist')); ?>">
+            <a href="<?php echo e(route('osalist')); ?>">
             <div class="card" style="height: 150px; background-color: #64b5f6;">
                 <h4 style="color: white;">OSA Employees <i class="fa-solid fa-users fa-lg"></i></h4>
                     <p style="font-size: 30px; color: white;"><?php echo e($osaEmployeesCount ?? 'N/A'); ?></p>
             </a>
-            </div>-->
+            </div>
+            <a href=""><div class="card" style="height: 150px; background-color: #81c784;">
+                <h2 style="color: white;">Total Recognized Student Organizations <i class="fa-solid fa-chart-line"></i></h2>
+                <p style="font-size: 30px; color: white;"></p>
+            </a>
+            </div>
+            
             
         </div>
     
