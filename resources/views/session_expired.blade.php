@@ -10,21 +10,42 @@
     <title>{{ config('app.name', 'SOARS') }}</title>
 
     <!-- Fonts -->
-    <link href="{{url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!--<link href="{{ asset('bootstrap-5.3.2-dist/css/bootstrap.min.css') }}" rel="stylesheet"> -->
-    <link rel="stylesheet" href="{{asset('css/OSAgeneral.css')}}">
+    <link rel="icon" href="{{asset('/photos/OSA LOGO.png')}}">
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/adminlogin.css')}}">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    @stack('styles')
+    @stack('jquery')
+
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss'])
     
     <!-- Scripts -->
     
 </head>
 <body>
 
-    <div class="position-absolute top-50 start-50 translate-middle">
-    <button class="btn btn-danger" type="button" href="{{ route('logout') }}" onclick="event.preventDefault();
-    document.getElementById('logout-form').submit();">Session Expired</button>
-
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" style="color:white;">
+<main class="py-4">
+    <center>
+        <div class="container my-5">
+            <div class="login-container">
+                <div class="logo-and-heading">
+                    <img src={{asset("photos/OSA LOGO.png")}} alt="" class="custom-image2">
+                    <h1>SOARS</h1><br>
+                </div>
+                <h2>Office of Student Affairs</h2><br>
+                
+                    <button class="btn btn-danger" type="button" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">Session Expired</button>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" style="color:white;">
         @csrf
     </form>
+                <img src="/photos/adulogo.png" alt="" class="custom-image">
+            </div>
+        </div>
+    </center>
+    </main>
 
-    </div>
+</body>
+</html>
