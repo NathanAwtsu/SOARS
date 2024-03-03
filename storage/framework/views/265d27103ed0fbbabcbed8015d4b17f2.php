@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/OSAgeneral.css')); ?>">
     
     <!-- Scripts -->
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss']); ?>
+    
 </head>
 <body>
 
