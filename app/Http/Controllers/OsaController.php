@@ -304,14 +304,6 @@ class OsaController extends Controller
 
     }
 
-    public function getEvents()
-    {
-        // Fetch events data with only the required fields
-        $events = Event::all(['activity_title', 'activity_start_date', 'activity_end_date']);
-
-       
-        return response()->json($events);
-    }
 
     public function getEvents(){
         $events = Event::all();

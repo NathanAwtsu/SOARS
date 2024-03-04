@@ -122,7 +122,6 @@ Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){retur
 //Calendar of activities dashboard
 Route::get('/osaemp/dash', [OsaController::class, 'getEvents'])->name('osa.fullcalendar');
 Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAjax']);
-
 Route::get('/osaemp/dashboard', [OsaController::class, 'totalDashboard'])->name('osadashboard');
 Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
 Route::get('/osaemp/organization_activation', [OsaController::class, 'org_act_list'], function(){return view('OSA/organization_activation');})->name('osaorgact');
@@ -153,9 +152,7 @@ Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve'],funct
 
 Route::get('/osaemp/reports', [OsaController::class, 'eventReport'], function(){ return view('OSA/reports');})->name('osareports');
 
-//Calendar of activities dashboard
-Route::get('/osaemp/dash', [OsaController::class, 'getEvents'])->name('osa.fullcalendar');
-Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAjax']);
+
 
 
 //End of Routes for OSA
