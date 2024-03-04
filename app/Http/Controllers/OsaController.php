@@ -306,17 +306,23 @@ class OsaController extends Controller
 
 
     public function getEvents(){
-        $events = Event::all();
+        // Fetch events from the database
+    $events = Event::all();
 
-        $formattedEvents = $events->map(function ($event) {
-            return [
-                'title' => $event->activity_title,
-                'start' => $event->activity_start_date,
-                'end' => $event->activity_end_date,
-            ];
-        });
-        
-        return response()->json($formattedEvents);
+    // Format events as required by FullCalendar
+    $formattedEvents = $events->map(function ($event) {
+        $startDateTime = $event->activity_start_date . 'T' . $event->activity_start_time;
+        $endDateTime = $event->activity_end_date . 'T' . $event->activity_end_time;
+
+        return [
+            'title' => $event->activity_title,
+            'start' => $startDateTime,
+            'end' => $endDateTime,
+        ];
+    });
+
+    // Return the formatted events data
+    return response()->json($formattedEvents);
     }
 
     public function calendarAjax(Request $request)
