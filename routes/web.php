@@ -125,7 +125,7 @@ Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAja
 Route::get('/osaemp/dashboard', [OsaController::class, 'totalDashboard'])->name('osadashboard');
 Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
 Route::get('/osaemp/organization_activation', [OsaController::class, 'org_act_list'], function(){return view('OSA/organization_activation');})->name('osaorgact');
-Route::get('/osaemp/user', [UserController::class, 'info'],function (){return view('OSA/user');})->name('osauser');
+Route::get('/osaemp/user', [UserController::class, 'info'],function (){return view('OSA.user');})->name('osauser');
 Route::get('/osaemp/users', [UserController::class, 'index'])->name('user.index');
 Route::post('/osaemp/users/update', [UserController::class, 'update'])->name('user.update');
 
@@ -142,12 +142,15 @@ Route::get('/osaemp/organization_list/pending_edit/{id}', [OsaController::class,
 Route::post('/osaemp/organization_list/new_organization', [OsaController::class, 'newOrganization']);
 Route::post('/osaemp/organization_list/pending_edit');
 
-//Insert all the Info
+//Insert all the Info for Activity Approval
 Route::post('/osaemp/activity_approval', [OsaController::class, 'store']);
-Route::post('/osaemp/activity_approval/approved', [OsaController::class, 'approved']);
+Route::post('/osaemp/activity_approval/event_approve_or_edit', [OsaController::class, 'event_Approve_or_edit']);
+Route::get('/osaemp/activity_approval/edit_pending_activity/{id}', [OsaController::class, 'edit_pending_activity'])->name('edit_pending_activity');
+Route::post('/osaemp/activity_approval/edit_save', [OsaController::class, 'edit_save_pending_activity']);
+
 
 //Retrieve the list of Activity to be Approved
-Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve'],function(){return view('OSA/approval');})->name('osaactivityapproval');
+Route::get('/osaemp/activity_approval', [OsaController::class, 'activity_pending_retrieve'],function(){return view('OSA/approval');})->name('osaactivityapproval');
 
 
 Route::get('/osaemp/reports', [OsaController::class, 'eventReport'], function(){ return view('OSA/reports');})->name('osareports');

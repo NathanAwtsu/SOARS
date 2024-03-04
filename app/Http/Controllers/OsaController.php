@@ -21,13 +21,17 @@ class OsaController extends Controller
         return view('osaemp', ['users'=>$user, 'unseenCounter'=> $unseenCounter]);
     }
 
-    
+    public function activity_pending_retrieve(){
+        $activity = DB::table('events')->where('status','!=','Approved')->get();
+        return view('OSA.approval', ['activity'=> $activity]);
+    }
 
     public function store(){
 
         
         
-        DB::table('events')->insertgetId([
+        DB::table('events')->insert([
+        'id' => request('id'),
         'status'=>request('status'),
         'organization_name' => request('organization_name'),
         'activity_title' => request('activity_title'),
@@ -52,16 +56,78 @@ class OsaController extends Controller
 
     }
 
-    public function  eventReport(){
+    public function event_Approve_or_edit(Request $request){
+        if ($request->has('approve')) {
+            $approve = $request->input('approve');
+            // Extract event ID from the action (e.g., "approve_1" becomes "1")
+            $eventId = substr($approve, strpos($approve, '_') + 1);
+            $eventData = ['status' => 'Approved'];
+            DB::table('events')->where('id', $eventId)->update($eventData);
+        } elseif ($request->has('edit')) {
+            $edit = $request->input('edit');
+            // Extract event ID from the action (e.g., "edit_1" becomes "1")
+            $eventId = substr($edit, strpos($edit, '_') + 1);
+            // Redirect to edit route with the event ID for editing
+            return redirect()->route('edit_pending_activity', ['id' => $eventId]);
+        }
+    
+        return redirect('/osaemp/activity_approval');
+    }
+
+    public function edit_pending_activity($id) {
+        // Retrieve the event data based on the ID and pass it to the edit view
+        $event = Event::findOrFail($id);
+        $activity = DB::table('events')->where('id','!=','Approved')->get();
+        
+        $pending_event = DB::table('events')->where('id','=',$id)->get();
+        return view('OSA.edit_pending_activity', ['pending_event'=> $pending_event]);
+    }
+
+    public function edit_save_pending_activity(Request $request){
+        // Find the event by ID
+        if ($request->has('edited')) {
+            $eventId = $request->input('edited');
+            // Extract event ID from the action (e.g., "approve_1" becomes "1")
+            
+            $event = Event::findOrFail($eventId);
+    
+
+            // Update the fields with the new values from the request
+            $event->update([
+                'status' => $request->input('status'),
+                'organization_name' => $request->input('organization_name'),
+                'activity_title' => $request->input('activity_title'),
+                'type_of_activity' => $request->input('type_of_activity'),
+                'activity_start_date' => $request->input('activity_start_date'),
+                'activity_end_date' => $request->input('activity_end_date'),
+                'activity_start_time' => $request->input('activity_start_time'),
+                'activity_end_time' => $request->input('activity_end_time'),
+                'venue' => $request->input('venue'),
+                'participants' => $request->input('participants'),
+                'partner_organization' => $request->input('partner_organization'),
+                'organization_fund' => $request->input('organization_fund'),
+                'solidarity_share' => $request->input('solidarity_share'),
+                'registration_fee' => $request->input('registration_fee'),
+                'AUSG_subsidy' => $request->input('AUSG_subsidy'),
+                'sponsored_by' => $request->input('sponsored_by'),
+                'ticket_selling' => $request->input('ticket_selling'),
+                'ticket_control_number' => $request->input('ticket_control_number'),
+                'other_source_of_fund' => $request->input('other_source_of_fund')
+            ]);
+            
+
+    }
+    return redirect('/osaemp/activity_approval');
+}
+    
+
+    public function eventReport(){
         $activity = DB::table('events')->where('status','=','Approved')->get();
         return view('OSA.reports', ['activity'=> $activity]);
     }
     
 
-    public function retrieve(){
-        $activity = DB::table('events')->where('status','!=','Approved')->get();
-        return view('OSA.approval', ['activity'=> $activity]);
-    }
+    
 
 
     public function totalDashboard(){
@@ -75,7 +141,7 @@ class OsaController extends Controller
 
         
         
-        return view('OSA.dashboard')
+        return view('osaemp')
         ->with('totalEvent', $totalEvent)
         ->with('totalMember',$totalMember)
         ->with('totalOrg', $totalOrg)
@@ -90,21 +156,7 @@ class OsaController extends Controller
         return view('OSA.activity')->with('approved',$approved);
     }
 
-    public function approved(Request $request){
-        $action = $request->input('action');
-
-    // Extract event ID from the action (e.g., "approve_1" becomes "1")
-    $eventId = substr($action, strpos($action, '_') + 1);
-
-    $eventData = ['status' => 'Approved'];
     
-
-    DB::table('events')->where('id', $eventId)->update($eventData);
-
-    return redirect('/osaemp/activity_approval');
-
-
-    }
 
     public function organization(){
         $organizationAcademic = DB::table('organizations')->where('type_of_organization','=','Academic')->where('requirement_status','=','complete')->get();

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
     <meta charset="utf-8">
@@ -140,7 +140,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo e(url('/osaemp/dashboard')); ?>" style="color:white;">
+                            <a class="nav-link" href="<?php echo e(url('/osaemp')); ?>" style="color:white;">
                                 <i class="fa-regular fa-clipboard fa-lg" style="margin-right: 20px; font-size: 25px;"></i>
                                 Dashboard
                             </a>
@@ -202,4 +202,38 @@
 
 
 <?php echo $__env->yieldContent('content'); ?>
+<script src="/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+<script src=<?php echo e(url('https://code.jquery.com/jquery-3.6.0.min.js')); ?>></script>
+<script src=<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js')); ?>></script>
+<script src=<?php echo e(url('https://js.pusher.com/8.2.0/pusher.min.js')); ?>></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('e972c3b0e0031d8238fe', {
+      cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      $.ajax({
+        type:'GET',
+        url: '/osaemp/updateunseenmessage',
+        data: {
+        }
+        success: function(data){
+        console.log(data.unseenCounter);
+        $('.pending-div').empty();
+          html = ``;
+          if(data.unseenCounter >0){
+            html += `<span style="right:68px;" class="pending-notification-chat">`${data.unseenCounter}
+          }
+          $('.pending-div').html(html);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 <?php /**PATH C:\xampp\htdocs\SOARS Github\SOARS\resources\views/navbar/navbar_osa.blade.php ENDPATH**/ ?>
