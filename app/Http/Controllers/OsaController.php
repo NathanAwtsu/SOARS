@@ -17,9 +17,8 @@ class OsaController extends Controller
 {
     public function index(){
 
-        $events = Event::all();
 
-        return view('osaemp', ['users'=>$user, 'unseenCounter'=> $unseenCounter, 'events' => $events]);
+        return view('osaemp', ['users'=>$user, 'unseenCounter'=> $unseenCounter]);
     }
 
     
@@ -305,73 +304,67 @@ class OsaController extends Controller
 
     }
 
-    public function eventRange (Request $request)
+    public function getEvents()
     {
-        if($request->ajax()) {
-            $data = Event::whereDate('activity_start_date', '>=', $request->activity_start_date)
-                       ->whereDate('activity_end_date',   '<=', $request->activity_end_date)
-                       ->get(['id', 'activity_title', 'activity_start_date', 'activity_end_date']);
-  
-            return response()->json($data);
-        }
-        return redirect('/osaemp/dashboard');
+        // Fetch events data with only the required fields
+        $events = Event::all(['activity_title', 'activity_start_date', 'activity_end_date']);
+
+       
+        return response()->json($events);
     }
 
     public function getEvents(){
-            // Fetch events from the database
         $events = Event::all();
 
-        // Format events as required by FullCalendar
         $formattedEvents = $events->map(function ($event) {
-            $startDateTime = $event->activity_start_date . 'T' . $event->activity_start_time;
-            $endDateTime = $event->activity_end_date . 'T' . $event->activity_end_time;
             return [
                 'title' => $event->activity_title,
-                'start' => $startDateTime,
-                'end' => $endDateTime,
+                'start' => $event->activity_start_date,
+                'end' => $event->activity_end_date,
             ];
         });
-
-        // Return the formatted events data
+        
         return response()->json($formattedEvents);
     }
 
     public function calendarAjax(Request $request)
     {
- 
         switch ($request->type) {
-           case 'add':
-            $event = Event::create([
-                'activity_title' => $request->activity_title,
-                'activity_start_date' => $request->activity_start_date,
-                'activity_end_date' => $request->activity_end_date,
-            ]);
- 
-              return response()->json($event);
-             break;
-  
-           case 'update':
-            $event = Event::find($request->id)->update([
-                'activity_title' => $request->activity_title,
-                'activity_start_date' => $request->activity_start_date,
-                'activity_end_date' => $request->activity_end_date,
-            ]);
- 
-              return response()->json($event);
-             break;
-  
-           case 'delete':
-            $event = Event::find($request->id)->delete();
+            case 'add':
+                $event = Event::create([
+                    'activity_title' => $request->activity_title,
+                    'activity_start_date' => $request->activity_start_date,
+                    'activity_end_date' => $request->activity_end_date,
+                ]);
+                return response()->json($event);
+                break;
 
-            return response()->json($event);
-            break;
+            case 'update':
+                $event = Event::find($request->id);
+                if ($event) {
+                    $event->update([
+                        'activity_title' => $request->activity_title,
+                        'activity_start_date' => $request->activity_start_date,
+                        'activity_end_date' => $request->activity_end_date,
+                    ]);
+                    return response()->json($event);
+                }
+                break;
 
-             
-           default:
-             //tentative
-             break;
+            case 'delete':
+                $event = Event::find($request->id);
+                if ($event) {
+                    $event->delete();
+                    return response()->json(['success' => true]);
+                }
+                break;
+
+            default:
+                return response()->json(['error' => 'Invalid request']);
+                break;
         }
     }
+
 
     
     public function pending_edit_view(Request $request){

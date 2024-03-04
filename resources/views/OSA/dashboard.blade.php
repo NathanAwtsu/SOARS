@@ -35,9 +35,8 @@
 
     <div class="container">
         <h1>Calendar of Events</h1>
-        <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 100px; margin-bottom:100px;"></div>
+        <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 30px;"></div>
     </div>
-
 
     <div class="container">
         <h2>Activities</h2>
@@ -66,9 +65,11 @@
     </div>
 
     
+
         
 </main>
   
+        
 <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
