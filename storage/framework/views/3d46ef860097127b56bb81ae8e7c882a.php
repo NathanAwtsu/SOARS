@@ -284,6 +284,11 @@
     </div>
 </div>
 </div>
+
+<div class="container">
+    <h1>Calendar of Events</h1>
+    <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 100px; margin-bottom:100px;"></div>
+</div>
 <!------
 
 <div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalLabel" aria-hidden="true">
@@ -351,10 +356,37 @@ function showHideOthers(selectElement) {
 }
 </script>
 
+  
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'dayGridMonth,timeGridWeek,timeGridDay',
+          center: 'title',
+          right: 'prev,next today',
+        },
+        events: {
+          url: '/osaemp/dash', // Specify the URL to fetch events data from
+          method: 'GET'
+        }
+        
+      });
+      calendar.render();
+    });
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+  
+
+
 
 
 
 
 <?php $__env->stopSection(); ?>
+
+
 <?php echo $__env->make('layouts.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('navbar.navbar_osa', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\SOARS Github\SOARS\resources\views/OSA/approval.blade.php ENDPATH**/ ?>

@@ -22,12 +22,7 @@
     <script src="{{url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js')}}"></script>
 
     <!--FullCalendar-->
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" rel="stylesheet">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-        
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 
 
     @if (Route::is('osaorganization_new')||Route::is('osaorganization_pending_edit_view'))
@@ -139,42 +134,41 @@
                         
                         <li class="nav-item">
                             <a class="nav-link active" href="{{url('/osaemp/user')}}" style="color:white;">
-                                <i class="fa-regular fa-circle-user fa-lg"></i>
+                                <i class="fa-regular fa-circle-user fa-lg" style="margin-right:15px; font-size: 25px;"></i>
                                 {{Auth::user()->name}}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/osaemp/dashboard')}}" style="color:white;">
-                                <i class="fa-regular fa-clipboard fa-lg"></i>
+                                <i class="fa-regular fa-clipboard fa-lg" style="margin-right: 20px; font-size: 25px;"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/osaemp/reports')}}" style="color:white;">
-                                <i class="fa-solid fa-clipboard-list fa-lg"></i>
+                                <i class="fa-solid fa-clipboard-list fa-lg"style="margin-right:20px; font-size: 25px;"></i>
                                 Reports
                             </a>
                         </li>
             
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/osaemp/activity_approval')}}" style="color:white;">
-                                <i class="fa-solid fa-clipboard-list fa-lg"></i>
-                                <span class="ml-2">Event Manager</span>
+                                <i class="fa-solid fa-clipboard-list fa-lg" style="margin-right:20px; font-size: 25px;"></i>
+                                Event Manager
                             </a>
                         </li>
             
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white; ">
-                                <i class="fa-regular fa-address-book fa-lg"></i>
-                                <span class="ml-2">Manage Users</span>
+                            <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white; padding-left: 15px;">
+                                <i class="fa-regular fa-address-book fa-lg" style="margin-right:20px; font-size: 25px;"> </i>Manage Users
                             </a>
                         </li>
             
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/osaemp/organization_list')}}" style="color:white; margin-left:5px;">
-                                <div class="d-flex align-items-center" style="margin-left: -10px;">
-                                    <i class="fa-solid fa-users fa-lg"></i>
-                                    <span class="ml-2">Manage Organizations</span>
+                            <a class="nav-link" href="{{url('/osaemp/organization_list')}}" style="color:white;  padding-left: 15px; ">
+                                <div class="d-flex align-items-center" style="margin-left: -4px;">
+                                    <i class="fa-solid fa-users fa-lg" style="margin-right: 18px; font-size: 25px;"></i>
+                                    Manage Organization
                                 </div>
                             </a>
                         </li>
@@ -185,7 +179,7 @@
                             <a class="nav-link" href="{{ route('logout') }}" 
                                 onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();" style="color:white;">
-                                <i class="fa-solid fa-right-from-bracket fa-lg"></i>
+                                <i class="fa-solid fa-right-from-bracket fa-lg" style="margin-right: 20px; font-size: 20px;"></i>
                                 {{ __('Logout') }}
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" style="color:white;">

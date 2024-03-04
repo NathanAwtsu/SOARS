@@ -73,6 +73,9 @@ class OsaController extends Controller
         $totalPendingOrg = DB::table('organizations')->where('requirement_status','!=','complete')->get();
         $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
 
+
+        
+        
         return view('OSA.dashboard')
         ->with('totalEvent', $totalEvent)
         ->with('totalMember',$totalMember)
@@ -315,16 +318,21 @@ class OsaController extends Controller
     }
 
     public function getEvents(){
+            // Fetch events from the database
         $events = Event::all();
 
+        // Format events as required by FullCalendar
         $formattedEvents = $events->map(function ($event) {
+            $startDateTime = $event->activity_start_date . 'T' . $event->activity_start_time;
+            $endDateTime = $event->activity_end_date . 'T' . $event->activity_end_time;
             return [
                 'title' => $event->activity_title,
-                'start' => $event->activity_start_date,
-                'end' => $event->activity_end_date,
+                'start' => $startDateTime,
+                'end' => $endDateTime,
             ];
         });
-        
+
+        // Return the formatted events data
         return response()->json($formattedEvents);
     }
 

@@ -1,5 +1,4 @@
 @extends('navbar.navbar_osa')
-
 @section('content')
 
 
@@ -35,6 +34,12 @@
     </div>
 
     <div class="container">
+        <h1>Calendar of Events</h1>
+        <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 100px; margin-bottom:100px;"></div>
+    </div>
+
+
+    <div class="container">
         <h2>Activities</h2>
         <table class="table">
             <thead>
@@ -59,12 +64,38 @@
             </tbody>
         </table>
     </div>
+
+    
+        
 </main>
   
-</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'dayGridMonth,timeGridWeek,timeGridDay',
+          center: 'title',
+          right: 'prev,next today',
+        },
+        events: {
+          url: '/osaemp/dash', // Specify the URL to fetch events data from
+          method: 'GET'
+        }
+        
+      });
+      calendar.render();
+    });
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+  
 
 
 
 
-@extends('layouts.footer')
+
+
 @endsection
+@extends('layouts.footer')

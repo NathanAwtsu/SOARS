@@ -65,44 +65,7 @@ Route::get('user/{id}', function($id){
 	}
 });
 
-Route::get('usersx', function(){
-	
-	DB::table('users')->insert(
-		['id'=> 7, 'name'=>'New User', 'email'=>'newuser@adamson.com']
-	);
 
-	$userIdQuery = DB::select('SELECT id, name, email, created_at, updated_at FROM users WHERE id = 7' );
-
-	if($userIdQuery != null)
-	{
-	
-		$tempArray;
-		$userIdQueryObj = array();
-		foreach($userIdQuery as $value)
-		{
-			$tempArray = array(
-				"id" => $value->id, 
-				"name" => $value->name,
-				"email" => $value->email,
-				"createdAt" => $value->created_at,
-				"updatedAt" => $value->updated_at
-		);
-		//array_push($userIdQueryObj, $tempArray);
-
-	}
-	$objectUserQuery = (object)[
-		"data" => $userIdQueryObj
-	];
-	return response()->json($tempArray);
-	}
-	else
-	{
-		return response()->json([
-			"message" => "User ID not found"
-		],404);
-	}
-	
-});
 
 
 
@@ -156,8 +119,12 @@ Route::get('/osaemp/organizaiton/{id}',function($id){$orgID = DB::table('organiz
 //Routes for OSA
 //Load the Dashboard Total Number 
 Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
+//Calendar of activities dashboard
+Route::get('/osaemp/dash', [OsaController::class, 'getEvents'])->name('osa.fullcalendar');
+Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAjax']);
+
+Route::get('/osaemp/dashboard', [OsaController::class, 'totalDashboard'])->name('osadashboard');
 Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
-Route::get('/osaemp/dashboard', [OsaController::class, 'totalDashboard'], function (){return view('OSA/dashboard'); })->name('osadashboard');
 Route::get('/osaemp/organization_activation', [OsaController::class, 'org_act_list'], function(){return view('OSA/organization_activation');})->name('osaorgact');
 Route::get('/osaemp/user', [UserController::class, 'info'],function (){return view('OSA/user');})->name('osauser');
 Route::get('/osaemp/users', [UserController::class, 'index'])->name('user.index');
@@ -186,9 +153,8 @@ Route::get('/osaemp/activity_approval', [OsaController::class, 'retrieve'],funct
 
 Route::get('/osaemp/reports', [OsaController::class, 'eventReport'], function(){ return view('OSA/reports');})->name('osareports');
 
-//Calendar of activities dashboard
-Route::get('/osaemp/dash', [OsaController::class, 'getEvents'])->name('osa.fullcalendar');
-Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAjax']);
+
+
 
 
 //End of Routes for OSA
