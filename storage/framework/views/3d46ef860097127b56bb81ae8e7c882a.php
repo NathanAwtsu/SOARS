@@ -3,6 +3,19 @@
 <?php $__env->startSection('content'); ?>
 
 <main>
+    <?php if(session('error')): ?>
+            <div class="alert alert-danger">
+                <?php echo e(session('error')); ?>
+
+            </div>
+        <?php endif; ?>
+
+        <?php if(session('success')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('success')); ?>
+
+            </div>
+        <?php endif; ?>
     <div class="container" >
         <div class="container-event" style="padding: 10px;">
             <h1 style="text-align: start;">Create an event</h1>

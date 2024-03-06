@@ -26,14 +26,48 @@
                 <option value="Religious">Religious</option>
              </select><br></br>
             
-            <label for="Constitutions"><h2>Please Select and Upload Constitutions & ByLaws:</h2></label>
-            <input type="file" id="consti_and_byLaws" name="logoFile" accept=".png, .jpg, .jpeg, .pdf" ><br><br>
+            <!--Logo-->
+            <label for="logoFile"><h3>Logo:</h3></label>
+            
+            
+            <label for="logo" style="background-color: #007bff; color: #fff; margin-right:550px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                <span>Upload logo</span>
+                <input type="file" id="logo" name="logo" accept=".png, .jpg, .jpeg" style="display: none;">
+            </label><br><br>
+            
 
-            <label for="logoFile"><h2>And then Select and Upload Logo:</h2></label>
-            <input type="file" id="logo" name="logo" accept=".png, .jpg, .jpeg" ><br><br>
 
-            <label for="letterOfIntentFile"><h2>As well as Upload Letter of Intent:</h2></label>
-            <input type="file" id="letter_of_intent" name="letter_of_intent" accept=".pdf" ><br><br>
+            <!--Constitution and By Laws-->
+            <label for="Constitutions"><h2>Upload Constitutions & ByLaws:</h2></label>
+           
+            
+            <label for="consti_and_byLaws" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                <span>Upload Constitution-Bylaws</span>
+                <input type="file" id="consti_and_byLaws" name="consti_and_byLaws" accept=".pdf" style="display: none;"><br><br>
+            </label>
+            <br><br>
+            
+            
+            
+            
+            <!--Letter of Intent--->
+            <label for="letterOfIntentFile"><h2>Letter of Intent:</h2></label>
+            
+            
+            <label for="letter_of_intent" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                <span>Upload Letter of Intent</span>
+                <input type="file" id="letter_of_intent" name="letter_of_intent" accept=".pdf" style="display: none;">
+            </label><br><br>
+            
+
+
+            <!---Admin Endorsement--->
+            <label for="admin_endorsement"><h2>Admin Endorsement</h2></label>
+            <label for="admin_endorsement" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                <span>Upload Admin Endorsement</span>
+                <input type="file" id="admin_endorsement" name="admin_endorsement" accept=".pdf" style="display: none;">
+            </label><br><br>
+            
 
             <label for="advisersInfoText">
                 <h2>Almost there! Enter Advisers and Officers Information:</h2>
@@ -125,11 +159,10 @@
                             </div>
                         </div>
 
-                        <label for="adviserEndorsementFile"><h2>Almost done! Upload Adviser Endorsement File:</h2></label>
-                        <input type="file" id="adviserEndorsement" name="adviserEndorsement" accept=".pdf" ><br><br>
+                        
 
 
-                        <input type="submit" value="Submit" >
+                        <input type="submit" value="Submit">
                         
                     </div>
                 </div>

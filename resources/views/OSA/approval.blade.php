@@ -3,6 +3,17 @@
 @section('content')
 
 <main>
+    @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
     <div class="container" >
         <div class="container-event" style="padding: 10px;">
             <h1 style="text-align: start;">Create an event</h1>

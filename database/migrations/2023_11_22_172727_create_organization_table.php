@@ -51,7 +51,7 @@ return new class extends Migration
             $table->string('pro_studno')->nullable();
             $table->string('pro_name')->nullable();
 
-            $table->mediumText('admin_endorsement')->nullable();
+            $table->string('admin_endorsement')->nullable();
             $table->timestamps();
         });
     }

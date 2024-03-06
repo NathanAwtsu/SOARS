@@ -1,10 +1,10 @@
 @extends('navbar.navbar_osa')
 @section('content')
-
-<form style="max-width: 400px; margin: auto; padding: 150 0 50 0 ;" method="post" action="/osaemp/activity_approval/edit_save">
-    @csrf
+@csrf
     
     @foreach ( $pending_event as $events => $event)
+<form style="max-width: 400px; margin: auto; padding: 150 0 50 0 ;" method="post" action="/osaemp/activity_approval/edit_save/{{ $event->id }}">
+    @csrf
         
     
     <!-- Event details input fields -->
