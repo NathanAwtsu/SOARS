@@ -23,7 +23,10 @@ class OsaController extends Controller
 
     public function activity_pending_retrieve(){
         $activity = DB::table('events')->where('status','!=','Approved')->get();
-        return view('OSA.approval', ['activity'=> $activity]);
+        $approved = DB::table('events')->where('status','=','approved')->get();
+
+        
+        return view('OSA.approval', ['activity'=> $activity])->with('approved',$approved);
     }
 
     public function store(){
