@@ -43,6 +43,12 @@
             <label for="Vision"><h2>Insert Vision:</h2> </label><br>
             <textarea id="vision" name="vision" rows="4" cols="50" >{{$org->vision}}</textarea><br><br>
 
+            <label for="janeContact" style="text-align:left;"> Organization Email:</label>
+            <input type="org_email" id="org_email" name="org_email" placeholder="{{$org->org_email}}" value="{{$org->org_email}}"><br>
+
+            <label for="janeContact" style="text-align:left;"> Organization Facebook:</label>
+            <input type="org_fb" id="org_fb" name="org_fb" placeholder="{{$org->org_fb}}" value="{{$org->org_fb}}"><br>
+
             <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
              <select id="type_of_organization" name="type_of_organization" onchange="showHideOthers(this);" required>
                 <option value="Academic"{{$org->type_of_organization == 'Academic' ? 'selected' : ' '}}>Academic</option>
@@ -149,7 +155,23 @@
                                     <label for="janeName" style="text-align:left;">Name:</label>
                                     <input type="text" id="adviser_name" name="adviser_name" placeholder="{{$org->adviser_name}}" value="{{$org->adviser_name}}"><br>
                                     <label for="janeContact" style="text-align:left;">Email:</label>
-                                    <input type="text" id="adviser_name" name="adviser_email" placeholder="{{$org->adviser_email}}" value="{{$org->adviser_email}}"><br>
+                                    <input type="email" id="adviser_name" name="adviser_email" placeholder="{{$org->adviser_email}}" value="{{$org->adviser_email}}"><br>
+                                    @if (isset($org->adviser_photo))
+                                    <h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/adviser_photo/{{$org->adviser_photo}}" alt="{{$org->adviser_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="adviser_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Adviser Photo</span>
+                                        <input type="file" id="adviser_photo" name="adviser_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->adviser_photo == null)
+                                    <label for="adviser_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="adviser_photo" name="adviser_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
                             </div>
                         </div>
                     </div>
@@ -161,6 +183,24 @@
                                     <input type="text" id="ausg_rep_studno" name="ausg_rep_studno" maxlength="9"placeholder="{{$org->ausg_rep_studno}}" value="{{$org->ausg_rep_studno}}"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="ausg_rep_name" name="ausg_rep_name" placeholder="{{$org->ausg_rep_name}}" value="{{$org->ausg_rep_name}}"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="ausg_rep_email" name="ausg_rep_email" placeholder="{{$org->ausg_rep_email}}" value="{{$org->ausg_rep_email}}"><br>
+                                    @if (isset($org->ausg_rep_photo))
+                                    <h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/ausg_rep_photo/{{$org->ausg_rep_photo}}" alt="{{$org->ausg_rep_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="ausg_rep_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change AUSG Representative Photo</span>
+                                        <input type="file" id="ausg_rep_photo" name="ausg_rep_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->ausg_rep_photo == null)
+                                    <label for="ausg_rep_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="ausg_rep_photo" name="ausg_rep_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
                             </div>
                         </div>
                         <br><br>
@@ -171,6 +211,24 @@
                                     <input type="number" id="president_studno" name="president_studno" maxlength="9"placeholder="{{$org->president_studno}}" value="{{$org->president_studno}}"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="president_name" name="president_name" placeholder="{{$org->president_name}}" value="{{$org->president_name}}"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="president_email" name="president_email" placeholder="{{$org->president_email}}" value="{{$org->president_email}}"><br>
+                                    @if (isset($org->president_photo))
+                                    <h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/president_photo/{{$org->president_photo}}" alt="{{$org->president_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change President Photo</span>
+                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->president_photo == null)
+                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
                             </div>
                         </div>
                         <br><br>
@@ -181,6 +239,24 @@
                                     <input type="number" id="vp_internal_studno" name="vp_internal_studno" maxlength="9" placeholder="{{$org->vp_internal_studno}}" value="{{$org->vp_internal_studno}}"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="vp_internal_name" name="vp_internal_name" placeholder="{{$org->vp_internal_name}}" value="{{$org->vp_internal_name}}"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="vp_internal_email" name="vp_internal_email" placeholder="{{$org->vp_internal_email}}" value="{{$org->vp_internal_email}}"><br>
+                                    @if (isset($org->vp_internal_photo))
+                                    <h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/vp_internal_photo/{{$org->vp_internal_photo}}" alt="{{$org->vp_internal_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="vp_internal_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Vice President Internal Photo</span>
+                                        <input type="file" id="vp_internal_photo" name="vp_internal_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->vp_internal_photo == null)
+                                    <label for="vp_internal_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="vp_internal_photo" name="vp_internal_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
                             </div>
                         </div>
                         <br><br>
@@ -191,6 +267,24 @@
                                     <input type="number" id="vp_external_studno" name="vp_external_studno" maxlength="9" placeholder="{{$org->vp_external_studno}}" value="{{$org->vp_external_studno}}"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="vp_external_name" name="vp_external_name" placeholder="{{$org->vp_external_name}}" value="{{$org->vp_external_name}}"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="vp_external_email" name="vp_external_email" placeholder="{{$org->vp_external_email}}" value="{{$org->vp_external_email}}"><br>
+                                    @if (isset($org->vp_external_photo))
+                                    <h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/vp_external_photo/{{$org->vp_external_photo}}" alt="{{$org->vp_external_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="vp_external_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Vice President External Photo</span>
+                                        <input type="file" id="vp_external_photo" name="vp_external_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->vp_external_photo == null)
+                                    <label for="vp_external_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="vp_external_photo" name="vp_external_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
                             </div>
                         </div>
                         <br><br>
@@ -201,6 +295,24 @@
                                     <input type="number" id="secretary_studno" name="secretary_studno" maxlength="9" placeholder="{{$org->secretary_studno}}" value="{{$org->secretary_studno}}"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="secretary_name" name="secretary_name" placeholder="{{$org->secretary_name}}" value="{{$org->secretary_name}}"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="secretary_email" name="secretary_email" placeholder="{{$org->secretary_email}}" value="{{$org->secretary_email}}"><br>
+                                    @if (isset($org->secretary_photo))
+                                    <h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/secretary_photo/{{$org->secretary_photo}}" alt="{{$org->secretary_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="secretary_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Secretary Photo</span>
+                                        <input type="file" id="secretary_photo" name="secretary_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->secretary_photo == null)
+                                    <label for="secretary_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="secretary_photo" name="secretary_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
                             </div>
                         </div>
                         <br><br>
@@ -212,6 +324,24 @@
                                     <input type="number" id="treasurer_studno" name="treasurer_studno" maxlength="9" placeholder="{{$org->treasurer_studno}}" value="{{$org->treasurer_studno}}"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="treasurer_name" name="treasurer_name" placeholder="{{$org->treasurer_name}}" value="{{$org->treasurer_name}}"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="treasurer_email" name="treasurer_email" placeholder="{{$org->treasurer_email}}" value="{{$org->treasurer_email}}"><br>
+                                    @if (isset($org->treasurer_photo))
+                                    <h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/treasurer_photo/{{$org->treasurer_photo}}" alt="{{$org->treasurer_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="treasurer_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Treasurer Photo</span>
+                                        <input type="file" id="treasurer_photo" name="treasurer_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->treasurer_photo == null)
+                                    <label for="treasurer_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="treasurer_photo" name="treasurer_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
                             </div>
                         </div>
                         <br><br>
@@ -223,6 +353,24 @@
                                     <input type="number" id="auditor_studno" name="auditor_studno" maxlength="9" placeholder="{{$org->auditor_studno}}" value="{{$org->auditor_studno}}"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="auditor_name" name="auditor_name" placeholder="{{$org->auditor_name}}" value="{{$org->auditor_name}}"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="auditor_email" name="auditor_email" placeholder="{{$org->auditor_email}}" value="{{$org->auditor_email}}"><br>
+                                    @if (isset($org->auditor_photo))
+                                    <h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/auditor_photo/{{$org->auditor_photo}}" alt="{{$org->auditor_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="auditor_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Auditor Photo</span>
+                                        <input type="file" id="auditor_photo" name="auditor_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->auditor_photo == null)
+                                    <label for="auditor_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="auditor_photo" name="auditor_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
                             </div>
                         </div>
                         <br><br>
@@ -234,6 +382,24 @@
                                     <input type="number" id="pro_studno" name="pro_studno" maxlength="9" placeholder="{{$org->pro_studno}}" value="{{$org->pro_studno}}"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="pro_name" name="pro_name" placeholder="{{$org->pro_name}}" value="{{$org->pro_name}}"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="pro_email" name="pro_email" placeholder="{{$org->pro_email}}" value="{{$org->pro_email}}"><br>
+                                    @if (isset($org->pro_photo))
+                                    <h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/pro_photo/{{$org->pro_photo}}" alt="{{$org->pro_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="pro_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Pro Photo</span>
+                                        <input type="file" id="pro_photo" name="pro_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->pro_photo == null)
+                                    <label for="pro_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="pro_photo" name="pro_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
                             </div>
                         </div>
                         <br><br>

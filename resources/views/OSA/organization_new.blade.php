@@ -84,6 +84,11 @@
                                     <input type="text" id="adviser_name" name="adviser_name"><br>
                                     <label for="janeContact" style="text-align:left;">Email:</label>
                                     <input type="text" id="adviser_name" name="adviser_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="adviser_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Adviser Photo</span>
+                                        <input type="file" id="adviser_photo" name="adviser_photo" aaccept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
                             </div>
                         </div>
                     </div>
@@ -94,6 +99,13 @@
                                     <input type="text" id="ausg_rep_studno" name="ausg_rep_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="ausg_rep_name" name="ausg_rep_name" ><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="ausg_rep_email" name="ausg_rep_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="ausg_rep_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Adviser Photo</span>
+                                        <input type="file" id="ausg_rep_photo" name="ausg_rep_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
                             </div>
                         </div>
                         <div class="col-md-15">
@@ -103,6 +115,13 @@
                                     <input type="number" id="president_studno" name="president_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="president_name" name="president_name" ><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="president_email" name="president_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload President Photo</span>
+                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
                             </div>
                         </div>
                         <div class="col-md-15">
@@ -112,6 +131,13 @@
                                     <input type="number" id="vp_internal_studno" name="vp_internal_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="vp_internal_name" name="vp_internal_name" ><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="vp_internal_email" name="vp_internal_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="vp_internal_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Adviser Photo</span>
+                                        <input type="file" id="vp_internal_photo" name="vp_internal_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
                             </div>
                         </div>
                         <div class="col-md-15">
@@ -121,6 +147,13 @@
                                     <input type="number" id="vp_external_studno" name="vp_external_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="vp_external_name" name="vp_external_name" ><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="vp_external_email" name="vp_external_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="vp_external_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Adviser Photo</span>
+                                        <input type="file" id="vp_external_photo" name="vp_external_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
                             </div>
                         </div>
                         <div class="col-md-15">
@@ -130,6 +163,13 @@
                                     <input type="number" id="secretary_studno" name="secretary_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="secretary_name" name="secretary_name" ><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="secretary_email" name="secretary_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="secretary_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Adviser Photo</span>
+                                        <input type="file" id="secretary_photo" name="secretary_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
                             </div>
                         </div>
                         <div class="col-md-15">
@@ -139,6 +179,13 @@
                                     <input type="number" id="treasurer_studno" name="treasurer_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="treasurer_name" name="treasurer_name" ><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="treasurer_email" name="treasurer_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="treasurer_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Adviser Photo</span>
+                                        <input type="file" id="treasurer_photo" name="treasurer_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
                             </div>
                         </div>
                         <div class="col-md-15">
@@ -148,6 +195,13 @@
                                     <input type="number" id="auditor_studno" name="auditor_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="auditor_name" name="auditor_name" ><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="auditor_email" name="auditor_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="auditor_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Adviser Photo</span>
+                                        <input type="file" id="auditor_photo" name="auditor_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
                             </div>
                         </div>
                         <div class="col-md-15">
@@ -157,6 +211,13 @@
                                     <input type="number" id="pro_studno" name="pro_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;">Name:</label>
                                     <input type="text" id="pro_name" name="pro_name" ><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <input type="email" id="pro_email" name="pro_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="pro_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Adviser Photo</span>
+                                        <input type="file" id="pro_photo" name="pro_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
                             </div>
                         </div>
 

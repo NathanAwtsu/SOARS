@@ -136,13 +136,14 @@ Route::get('/osaemp/message', function (){return view('OSA/message');})->name('o
 
 //Load the List of Organization
 Route::get('/osaemp/organization_list', [OrganizationController::class, 'organization'], function(){return view('OSA/organization_list');})->name('osaorganizationlist');
-
+Route::get('/osaemp/organization_list/organization_page/{id}', [OrganizationController::class, 'organization_page']);
 Route::get('/osaemp/organization_list/new_organization',  function(){return view('OSA/organization_new');})->name('osaorganization_new');
 Route::get('/osaemp/organization_list/pending_edit/{id}', [OrganizationController::class, 'org_pending_edit_view'], function(){return view('OSA/organization_pending_edit');})->name('osaorganization_pending_edit_view');
 Route::post('/osaemp/organization_list/pending_edit_save/{id}', [OrganizationController::class, 'org_pending_edit_save']);
 //Send a New Org info to the DB
 Route::post('/osaemp/organization_list/new_organization', [OrganizationController::class, 'newOrganization']);
 
+//OrganizationPages
 
 //Insert all the Info for Activity Approval
 Route::post('/osaemp/activity_approval', [OsaController::class, 'store']);

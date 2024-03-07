@@ -2,7 +2,7 @@
 @section('content')
 
 <main>
-    <div class="container-report-list">
+    <div class="container-report-list" style="padding: 0px 200px 0px 200px;">
         @if (session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
@@ -15,6 +15,15 @@
             </div>
         @endif
 
+        <div class="btn-group">
+            <a class="btn btn-create" type="button" id="createUserButton" style="margin-left: 10px; margin-top: 5%; text-align:end" 
+            href="{{url('/osaemp/organization_list')}}">Go to Manage Organization</a>
+        </div>
+        <center>
+        <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> 
+            <H1>Pending Organizations</H1><br> 
+        </div>
+        </center>
         <div class="table-responsive"> <!-- Add this div to make the table responsive -->
             <table class="table table-bordered table-center"> <!-- Added table-center class -->
                 <thead>
@@ -34,7 +43,7 @@
                         <td>
                             @if ($org->requirement_status != 'Approved')
                             @php
-                                $rounded = round($org->requirement_status);
+                                $rounded = $org->requirement_status;
                             @endphp
                             {{$rounded}}% out of 100
                             @endif
@@ -47,11 +56,14 @@
                         <td>{{$org->type_of_organization}}</td>
                         <td>
 
-                            <a href="{{url('/osaemp/organization_list/pending_edit/'.$org->id)}}">Edit</a>
+                            <form method="GET" action="{{url('/osaemp/organization_list/pending_edit/'.$org->id)}}">
+                            <button class= "btn btn-warning" style="padding-bottom:10px; margin-bottom: 10px;">Edit</button>
+                            
+                            </form>
                             <form method="POST" action="{{url('/osaemp/organization_list/delete/'.$org->id)}}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">Delete</button>
+                                <button type="submit"class= "btn btn-danger"style="padding-bottom:10px;">Delete</button>
                             </form>
                         </td>
                     </tr>
