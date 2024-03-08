@@ -12,6 +12,8 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
 
+use setasign\Fpdi\Fpdi;
+
 
 class OsaController extends Controller
 {
@@ -240,5 +242,33 @@ class OsaController extends Controller
 
 
     
-    
+    public function pending_edit_view(Request $request){
+        
+        $id = $request->route('id');
+        $org = Organization::find($id);
+	    return view('OSA.organization_pending_edit')->with('org',$org);
+        
+    }
+
+    public function generate (Request $request, $eventId)
+    {
+        $event = Event::findOrFail($eventId);
+
+        $pdf = new Fpdi();
+
+        $pdf->AddPage('L');
+
+        $pdf->SetFont('Helvetica', 'B', 16);
+
+        $templatePath = public_path('photos/testcert.png');
+        $pdf->Image($templatePath, 0, 0, 297, 210);
+        $pdf->SetXY(63, 106.5); 
+        $pdf->Cell(0, 10, $event->activity_title, 0, 1, 'C'); 
+
+        $pdf->SetXY(50, 117.5); 
+        $pdf->Cell(0, 10, $event->activity_start_date, 0, 1, 'C'); 
+
+        
+        $pdf->Output('certificate.pdf', 'D');
+    }
 }

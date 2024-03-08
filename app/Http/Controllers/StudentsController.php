@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Students;
+use App\Models\Osa;
+use App\Models\User;
 use Datatables;
 
 class StudentsController extends Controller
@@ -128,10 +130,31 @@ public function update(Request $request)
         $studentCount = Students::count();
         return $studentCount;
     }
+
+    public function getOsaEmpCount() {
+        $osaEmpCount = Osa::count();
+        return $osaEmpCount;
+    }
     
     public function showDashboard() {
         $studentCount = $this->getStudentCount();
-        return view('Admin.admin', ['studentCount' => $studentCount]);
+        $osaEmpCount = $this->getOsaEmpCount();
+        $recentUsers = $this->recentUser();
+        return view('Admin.admin', [
+            'studentCount' => $studentCount,
+            'osaEmpCount' => $osaEmpCount,
+            'recentUsers' =>$recentUsers,
+        ]);
+    }
+
+    public function recentUser()
+    {
+        
+        $recentUsers = User::orderBy('created_at', 'desc')
+                           ->take(10) // Limit to 10 users, adjust as needed
+                           ->get();
+
+        return $recentUsers;
     }
     
 }

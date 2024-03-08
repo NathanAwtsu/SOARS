@@ -10,6 +10,7 @@ use App\Http\Controllers\OsaEmpController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\PDFController;
 use App\Models\Event;
 
 
@@ -159,6 +160,7 @@ Route::get('/osaemp/activity_approval', [OsaController::class, 'activity_pending
 
 Route::get('/osaemp/reports', [OsaController::class, 'eventReport'], function(){ return view('OSA/reports');})->name('osareports');
 
+Route::get('/generate-certificate/{eventId}', [OsaController::class, 'generate'])->name('generate-certificate');
 
 
 

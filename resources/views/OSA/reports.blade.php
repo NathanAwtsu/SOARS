@@ -33,6 +33,7 @@
                             <th>Ticket Selling</th>
                             <th>Ticket Control No.</th>
                             <th>Other Source of Fund</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,7 +59,9 @@
                             <td>{{$event->ticket_selling}}</td>
                             <td>{{$event->ticket_control_number}}</td>
                             <td>{{$event->other_source_of_fund}}</td>
-                            
+                            <td>
+                            <a href="{{ route('generate-certificate', ['eventId' => $event->id]) }}" class="btn btn-primary">Generate Certificate</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody> 
