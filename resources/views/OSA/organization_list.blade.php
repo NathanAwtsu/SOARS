@@ -1,4 +1,5 @@
 @extends('navbar.navbar_osa')
+
 @section('content')
 
 <div class="container-tbl-up" style="padding: 0px 100px;">
