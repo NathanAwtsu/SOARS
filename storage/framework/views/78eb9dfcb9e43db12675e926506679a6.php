@@ -3,20 +3,24 @@
 
 <main>
     <div class="container" >
-        <div class="container-event text-center" style="padding: 10px;">
-            <h2>Create an event</h2>
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal">Create an Event</button>
+        <div class="container-event" style="padding: 10px;">
+            <h1 style="text-align: start;">Create an event</h1>
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal" >Create an Event</button>
         </div>
     </div>
+    <div class="container">
+        <h1 style="text-align: start;">Pending Events</h1>
+    </div>
     <center>
-    <div class="table-responsive" style="margin: 0px 100px 0px 100px;">
+    <div class="table-responsive" style="margin: 0px 110px 0px 110px;">
     <div class="container-tbl-up" style="padding: 0px 0px !important; " >
-        <form method="post" action="/osaemp/activity_approval/approved" >
+        <form method="post" action="/osaemp/activity_approval/event_approve_or_edit" >
             <?php echo csrf_field(); ?>
             
             <table class="table table-bordered table-center" style="padding:0px 50px 0px 50px;"> <br>
-           
+           </thead>
             <thead>
+                
                 <tr>
                     <th>ID</th>
                     <th>Status</th>
@@ -65,8 +69,9 @@
                     <td><?php echo e($event->ticket_control_number); ?></td>
                     <td><?php echo e($event->other_source_of_fund); ?></td>
                     <td>
-                        <button type="submit" name="action" value="approve_<?php echo e($event->id); ?>" class="btn btn-info">Approve</button>
-                    <button type="submit" name="action" value="reject_<?php echo e($event->id); ?>" class="btn btn-danger">Reject</button>
+                        <button type="submit" name="approve" value="approve_<?php echo e($event->id); ?>" class="btn btn-success" style="padding-bottom:10px;">Approve</button>
+                        <button type="submit" name="edit" value="edit_<?php echo e($event->id); ?>" class= "btn btn-warning"style="padding-bottom:10px;">Edit</button>
+                        <button type="submit" name="action" value="reject_<?php echo e($event->id); ?>" class="btn btn-danger" style="padding-bottom:10px;">Reject</button>
                     </td>
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -125,7 +130,6 @@
     </div>
 </div>
 
-<!-- Create Event Modal -->
 
 
 <!-- Create Event Modal -->
@@ -143,8 +147,12 @@
 
                 <!-- Event details input fields -->
                 <div class="form-group row mb-2">
-                    
+                    <label for="id" class="col-sm-4 col-form-label text-left">ID:</label>
+                    <div class="col-sm-8">
+                        <input type="number" id="id" class="id" name="id" required>
+                    </div>
                 </div>
+
                 <div class="form-group row mb-2">
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Event Status:</label>
                     <div class="col-sm-8">
@@ -213,7 +221,7 @@
                     <label for="eventLocation" class="col-sm-4 col-form-label text-left">Event Location:</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="venue" name="venue" onchange="showHideOthers(this);" required>
-                            <option value="SV HAll">SV Hall</option>
+                            <option value="SV Hall">SV Hall</option>
                             <option value="ST Quad">ST Quad</option>
                             <option value="Adamson Theatre">Adamson Theatre</option>
                         </select>
@@ -283,6 +291,11 @@
     </div>
 </div>
 </div>
+
+<div class="container" style="margin-top: 100px;">
+    <h1>Calendar of Events</h1>
+    <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 100px; margin-bottom:100px;"></div>
+</div>
 <!------
 
 <div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalLabel" aria-hidden="true">
@@ -350,10 +363,37 @@ function showHideOthers(selectElement) {
 }
 </script>
 
+  
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'dayGridMonth,timeGridWeek,timeGridDay',
+          center: 'title',
+          right: 'prev,next today',
+        },
+        events: {
+          url: '/osaemp/dash', // Specify the URL to fetch events data from
+          method: 'GET'
+        }
+        
+      });
+      calendar.render();
+    });
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+  
+
+
 
 
 
 
 <?php $__env->stopSection(); ?>
+
+
 <?php echo $__env->make('layouts.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('navbar.navbar_osa', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\soarsWebProject\resources\views/OSA/approval.blade.php ENDPATH**/ ?>

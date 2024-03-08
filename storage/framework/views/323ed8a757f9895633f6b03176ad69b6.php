@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
     <meta charset="utf-8">
@@ -22,12 +22,7 @@
     <script src="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js')); ?>"></script>
 
     <!--FullCalendar-->
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" rel="stylesheet">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-        
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 
 
     <?php if(Route::is('osaorganization_new')||Route::is('osaorganization_pending_edit_view')): ?>
@@ -139,43 +134,42 @@
                         
                         <li class="nav-item">
                             <a class="nav-link active" href="<?php echo e(url('/osaemp/user')); ?>" style="color:white;">
-                                <i class="fa-regular fa-circle-user fa-lg"></i>
+                                <i class="fa-regular fa-circle-user fa-lg" style="margin-right:15px; font-size: 25px;"></i>
                                 <?php echo e(Auth::user()->name); ?>
 
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo e(url('/osaemp/dashboard')); ?>" style="color:white;">
-                                <i class="fa-regular fa-clipboard fa-lg"></i>
+                            <a class="nav-link" href="<?php echo e(url('/osaemp')); ?>" style="color:white;">
+                                <i class="fa-regular fa-clipboard fa-lg" style="margin-right: 20px; font-size: 25px;"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo e(url('/osaemp/reports')); ?>" style="color:white;">
-                                <i class="fa-solid fa-clipboard-list fa-lg"></i>
+                                <i class="fa-solid fa-clipboard-list fa-lg"style="margin-right:20px; font-size: 25px;"></i>
                                 Reports
                             </a>
                         </li>
             
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo e(url('/osaemp/activity_approval')); ?>" style="color:white;">
-                                <i class="fa-solid fa-clipboard-list fa-lg"></i>
-                                <span class="ml-2">Event Manager</span>
+                                <i class="fa-solid fa-clipboard-list fa-lg" style="margin-right:20px; font-size: 25px;"></i>
+                                Event Manager
                             </a>
                         </li>
             
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo e(url('/osaemp/userlist')); ?>" style="color:white; ">
-                                <i class="fa-regular fa-address-book fa-lg"></i>
-                                <span class="ml-2">Manage Users</span>
+                            <a class="nav-link" href="<?php echo e(url('/osaemp/userlist')); ?>" style="color:white; padding-left: 15px;">
+                                <i class="fa-regular fa-address-book fa-lg" style="margin-right:20px; font-size: 25px;"> </i>Manage Users
                             </a>
                         </li>
             
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo e(url('/osaemp/organization_list')); ?>" style="color:white; margin-left:5px;">
-                                <div class="d-flex align-items-center" style="margin-left: -10px;">
-                                    <i class="fa-solid fa-users fa-lg"></i>
-                                    <span class="ml-2">Manage Organizations</span>
+                            <a class="nav-link" href="<?php echo e(url('/osaemp/organization_list')); ?>" style="color:white;  padding-left: 15px; ">
+                                <div class="d-flex align-items-center" style="margin-left: -4px;">
+                                    <i class="fa-solid fa-users fa-lg" style="margin-right: 18px; font-size: 25px;"></i>
+                                    Manage Organization
                                 </div>
                             </a>
                         </li>
@@ -186,7 +180,7 @@
                             <a class="nav-link" href="<?php echo e(route('logout')); ?>" 
                                 onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();" style="color:white;">
-                                <i class="fa-solid fa-right-from-bracket fa-lg"></i>
+                                <i class="fa-solid fa-right-from-bracket fa-lg" style="margin-right: 20px; font-size: 20px;"></i>
                                 <?php echo e(__('Logout')); ?>
 
                             </a>
@@ -208,4 +202,38 @@
 
 
 <?php echo $__env->yieldContent('content'); ?>
+<script src="/bootstrap-5.3.2-dist/js/bootstrap.js"></script>
+<script src=<?php echo e(url('https://code.jquery.com/jquery-3.6.0.min.js')); ?>></script>
+<script src=<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js')); ?>></script>
+<script src=<?php echo e(url('https://js.pusher.com/8.2.0/pusher.min.js')); ?>></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('e972c3b0e0031d8238fe', {
+      cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      $.ajax({
+        type:'GET',
+        url: '/osaemp/updateunseenmessage',
+        data: {
+        }
+        success: function(data){
+        console.log(data.unseenCounter);
+        $('.pending-div').empty();
+          html = ``;
+          if(data.unseenCounter >0){
+            html += `<span style="right:68px;" class="pending-notification-chat">`${data.unseenCounter}
+          }
+          $('.pending-div').html(html);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 <?php /**PATH C:\xampp\htdocs\soarsWebProject\resources\views/navbar/navbar_osa.blade.php ENDPATH**/ ?>

@@ -4,6 +4,7 @@
 
     <!-- Your main content goes here -->
     
+    
         <style>
             .card-table {
         display: flex;
@@ -38,10 +39,10 @@
             <a href="{{ route('osalist') }}">
             <div class="card" style="height: 150px; background-color: #64b5f6;">
                 <h4 style="color: white;">OSA Employees <i class="fa-solid fa-users fa-lg"></i></h4>
-                    <p style="font-size: 30px; color: white;">{{ $osaEmployeesCount ?? 'N/A' }}</p>
+                    <p style="font-size: 30px; color: white;">{{ $osaEmpCount }}</p>
             </a>
             </div>
-            <a href=""><div class="card" style="height: 150px; background-color: #81c784;">
+            <a href="{{ route('rso_list') }}"><div class="card" style="height: 150px; background-color: #81c784;">
                 <h2 style="color: white;">Total Recognized Student Organizations <i class="fa-solid fa-chart-line"></i></h2>
                 <p style="font-size: 30px; color: white;"></p>
             </a>
@@ -49,6 +50,28 @@
             
             
         </div>
+
+        
+        <div class="mt-4">
+            <h3>Recently Created User Accounts</h3>
+                <div class="list-group">
+                @forelse ($recentUsers as $user)
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">{{ $user->name }}</h5>
+                                            <small>{{ $user->created_at->format('F j, Y') }}</small>
+                                        </div>
+                                        <p class="mb-1">{{ $user->email }}</p>
+                                        <small class="text-muted">User ID: {{ $user->id }}</small>
+                                    </a>
+                                @empty
+                                    <div class="alert alert-info" role="alert">
+                                        No recently created users found.
+                                    </div>
+                                @endforelse
+                </div>
+        </div>
+
     
         
     
@@ -66,7 +89,6 @@
             lastScrollTop = st;
         });
     </script>
-    
     
 
     <!-- Add Bootstrap JavaScript (optional) -->

@@ -9,7 +9,7 @@
     height: 100vh;
     position: fixed;
     width: 250px;
-    z-index: 1000; /* Set a high z-index value to keep it in front */
+   
 
 }
 .sidebar-brand{
@@ -159,6 +159,7 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 .card-table {
