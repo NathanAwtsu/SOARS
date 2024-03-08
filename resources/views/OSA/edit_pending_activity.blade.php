@@ -1,10 +1,10 @@
 @extends('navbar.navbar_osa')
 @section('content')
-
-<form style="max-width: 400px; margin: auto; padding: 150 0 50 0 ;" method="post" action="/osaemp/activity_approval/edit_save">
-    @csrf
+@csrf
     
     @foreach ( $pending_event as $events => $event)
+<form style="max-width: 400px; margin: auto; padding: 150 0 50 0 ;" method="post" action="/osaemp/activity_approval/edit_save/{{ $event->id }}">
+    @csrf
         
     
     <!-- Event details input fields -->
@@ -146,9 +146,14 @@
             <input type="text" class="form-control" id="ticket_control_number" name="ticket_control_number" value="{{$event->ticket_control_number}}">
         </div>
     </div>
+    <div class="form-group row mb-2">
+        <label for="eventDate" class="col-sm-4 col-form-label text-left">Other Source</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="other_source_of_fund" name="other_source_of_fund" value="{{$event->other_source_of_fund}}">
+        </div>
+    </div>
 
     <!-- ... (other event details input fields) ... -->
-    <button type="submit" name="edited" value="{{$event->id}}" class="btn btn-primary btn-block">Next</button>
-    <button type="" class="btn btn-danger btn-block" data-bs-dismiss="modal">Cancel</button>
+    <button type="submit" name="edited" value="{{$event->id}}" class="btn btn-primary btn-block">Done</button>
     @endforeach
 </form>

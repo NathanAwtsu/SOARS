@@ -1,14 +1,62 @@
 @extends('navbar.navbar_osa')
+
 @section('content')
 
-
 <main>
+    @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
     <div class="container" >
         <div class="container-event" style="padding: 10px;">
             <h1 style="text-align: start;">Create an event</h1>
             <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal" >Create an Event</button>
         </div>
     </div>
+
+    <div class="container" style="margin-top: 20px;">
+        <h1 style="text-align: start;">Calendar of Events</h1>
+        <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 100px; margin-bottom:100px;"></div>
+    </div>
+
+    <center>
+        <h1>Activity List</h1>
+    
+        <table >
+            <tr>
+                <th>Event Name</th>
+                <th>Organization</th>
+                <th>Event Start Date & time</th>
+                <th>Event End Date & Time</th>
+                <th>Venue</th>
+                <th>Button</th>
+            </tr>
+            @foreach ($approved as $approve)
+                
+            
+            <tr>
+                <td><a>{{$approve->activity_title}}</a></td>
+                <!-- Other table cells here -->
+                <td><a>{{$approve->organization_name}}</a></td>
+                <td>{{$approve->activity_start_date}} @ {{$approve->activity_start_time}}</td>
+                <td>{{$approve->activity_end_date}} @ {{$approve->activity_end_date}}</td>
+                <td>{{$approve->venue}}</td>
+                <td>
+                    <a href="{{url('')}}">Edit</a>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+            <br>
+    </center>
+
     <div class="container">
         <h1 style="text-align: start;">Pending Events</h1>
     </div>
@@ -232,7 +280,7 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Participants:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="participants" name="participants" >
+                        <input type="number" class="form-control" id="participants" name="participants" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -244,43 +292,49 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Organization fund:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="organization_fund" name="organization_fund">
+                        <input type="number" class="form-control" id="organization_fund" name="organization_fund">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Solidarity Share:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="solidarity_share" name="solidarity_share">
+                        <input type="number" class="form-control" id="solidarity_share" name="solidarity_share">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Registration Fee:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="registration_fee" name="registration_fee">
+                        <input type="number" class="form-control" id="registration_fee" name="registration_fee">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">AUSG Subsidy:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="AUSG_subsidy" name="AUSG_subsidy">
+                        <input type="number" class="form-control" id="AUSG_subsidy" name="AUSG_subsidy">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Sponsored By:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="sponsored_by" name="sponsored_by" >
+                        <input type="number" class="form-control" id="sponsored_by" name="sponsored_by" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Ticket Selling:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="ticket_selling" name="ticket_selling" >
+                        <input type="number" class="form-control" id="ticket_selling" name="ticket_selling" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Ticket Control #:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="ticket_control_number" name="ticket_control_number" >
+                        <input type="number" class="form-control" id="ticket_control_number" name="ticket_control_number" >
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventDate" class="col-sm-4 col-form-label text-left">Other Source</label>
+                    <div class="col-sm-8">
+                        <input type="number" class="form-control" id="other_source_of_fund" name="other_source_of_fund">
                     </div>
                 </div>
 
@@ -293,10 +347,8 @@
 </div>
 </div>
 
-<div class="container" style="margin-top: 100px;">
-    <h1>Calendar of Events</h1>
-    <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 100px; margin-bottom:100px;"></div>
-</div>
+
+
 <!------
 
 <div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalLabel" aria-hidden="true">

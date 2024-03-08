@@ -1,6 +1,6 @@
 @extends('navbar.navbar_osa')
-@section('content')
 
+@section('content')
 
 
 <main>
@@ -31,9 +31,10 @@
                 </td>
             </tr>
             @endforeach
-            </table><br>
-        </center>
-        </main>
+        </table>
+            <br>
+    </center>
+</main>
     
 
 
