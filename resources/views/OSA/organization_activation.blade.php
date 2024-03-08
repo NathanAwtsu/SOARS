@@ -24,7 +24,7 @@
             <H1>Pending Organizations</H1><br> 
         </div>
         </center>
-        <div class="table-responsive"> <!-- Add this div to make the table responsive -->
+        <div class="table-responsive" style="overflow-x: auto;"> <!-- Add this div to make the table responsive -->
             <table class="table table-bordered table-center"> <!-- Added table-center class -->
                 <thead>
                     <tr>
@@ -41,30 +41,39 @@
                     
                     <tr>
                         <td>
-                            @if ($org->requirement_status != 'Approved')
+                            @if ($org->requirement_status != 'Approved' && $org->requirement_status != 'complete')
                             @php
                                 $rounded = $org->requirement_status;
                             @endphp
                             {{$rounded}}% out of 100
                             @endif
 
-                            @if ($org->requirement_status == 'Approved')
-                            Approved
+                            @if ($org->requirement_status == 'complete')
+                            Complete
                             @endif
                         </td>
                         <td>{{$org->name}}</td>
                         <td>{{$org->type_of_organization}}</td>
                         <td>
-
-                            <form method="GET" action="{{url('/osaemp/organization_list/pending_edit/'.$org->id)}}">
-                            <button class= "btn btn-warning" style="padding-bottom:10px; margin-bottom: 10px;">Edit</button>
+                            @if($org->requirement_status == 'complete')
+                            <a href="{{url('/osaemp/organization_list/organization_edit/'.$org->id)}}" style="text-align:end; margin-bottom:5px;" class="btn btn-primary">Edit Page</a><br>
+                            <form method="GET" action="{{url('osaemp/organization_list/organization_page/'.$org->id)}}">
+                            <button class="btn btn-create" style="padding-bottom:10px; margin-bottom: 5px;">View Organization Page</button>
+                            </form>
                             
+                            @endif
+
+
+                            @if($org->requirement_status != 'complete')
+                            <form method="GET" action="{{url('/osaemp/organization_list/pending_edit/'.$org->id)}}">
+                            <button class="btn btn-warning" style="padding-bottom:10px; margin-bottom: 5px;">Edit</button>
                             </form>
                             <form method="POST" action="{{url('/osaemp/organization_list/delete/'.$org->id)}}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"class= "btn btn-danger"style="padding-bottom:10px;">Delete</button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                    
@@ -94,7 +103,7 @@
                         <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <img src="/storage/logo/{{$orgAcads->logo }}" alt="{{$orgAcads->logo}}" style="max-width: 200px;">
                             <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                                <a href="{{url('/osaemp/organization_list/organization/'.$orgAcads->id)}}" style="text-decoration: none; display: block;">
+                                <a href="{{url('/osaemp/organization_list/organization_page/'.$orgAcads->id)}}" style="text-decoration: none; display: block;">
                                     <h1 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; text-shadow: -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
                                         {{$orgAcads->name}}<br>
                                         
@@ -119,7 +128,7 @@
                     <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <img src="/storage/logo/{{$orgCoAcad->logo }}" alt="{{$orgCoAcad->logo}}" style="max-width: 200px;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <a href="{{url('/osaemp/organization_list/organization/'.$orgCoAcad->id)}}" style="text-decoration: none; display: block;">
+                            <a href="{{url('/osaemp/organization_list/organization_page/'.$orgCoAcad->id)}}" style="text-decoration: none; display: block;">
                                 <h1 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; text-shadow: -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
                                     {{$orgCoAcad->name}}<br>
                                     
@@ -142,7 +151,7 @@
                     <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <img src="/storage/logo/{{$orgSocioCivic->logo }}" alt="{{$orgSocioCivic->logo}}" style="max-width: 200px;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <a href="{{url('/osaemp/organization_list/organization/'.$orgSocioCivic->id)}}" style="text-decoration: none; display: block;">
+                            <a href="{{url('/osaemp/organization_list/organization_page/'.$orgSocioCivic->id)}}" style="text-decoration: none; display: block;">
                                 <h1 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; text-shadow: -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
                                     {{$orgSocioCivic->name}}<br>
                                     
@@ -164,7 +173,7 @@
                     <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <img src="/storage/logo/{{$orgRel->logo }}" alt="{{$orgRel->logo}}" style="max-width: 200px;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <a href="{{url('/osaemp/organization_list/organization/'.$orgRel->id)}}" style="text-decoration: none; display: block;">
+                            <a href="{{url('/osaemp/organization_list/organization_page/'.$orgRel->id)}}" style="text-decoration: none; display: block;">
                                 <h1 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; text-shadow: -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
                                     {{$orgRel->name}}<br>
                                     
