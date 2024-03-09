@@ -30,10 +30,12 @@
 
     <center>
         <h1>Activity List</h1>
-    
+        <form form method="post" action="/osaemp/activity_approval/event_approve_or_edit" >
+            <?php echo csrf_field(); ?>
         <table >
             <tr>
                 <th>Event Name</th>
+                <th>Status</th>
                 <th>Organization</th>
                 <th>Event Start Date & time</th>
                 <th>Event End Date & Time</th>
@@ -45,17 +47,18 @@
             
             <tr>
                 <td><a><?php echo e($approve->activity_title); ?></a></td>
-                <!-- Other table cells here -->
+                <td><a><?php echo e($approve->status); ?></a></td>
                 <td><a><?php echo e($approve->organization_name); ?></a></td>
                 <td><?php echo e($approve->activity_start_date); ?> @ <?php echo e($approve->activity_start_time); ?></td>
                 <td><?php echo e($approve->activity_end_date); ?> @ <?php echo e($approve->activity_end_date); ?></td>
                 <td><?php echo e($approve->venue); ?></td>
                 <td>
-                    <a href="<?php echo e(url('')); ?>">Edit</a>
+                    <button type="submit" name="edit" value="edit_<?php echo e($approve->id); ?>" class= "btn btn-warning"style="padding-bottom:10px;">Edit</button>
                 </td>
             </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </table>
+        </form>
             <br>
     </center>
 
@@ -216,10 +219,17 @@
                     </div>
                 </div>
                 <div class="form-group row mb-2">
-                    <label for="eventOrgname" class="col-sm-4 col-form-label text-left">Organization Name:</label>
+                    <label for="eventOrgname" class="col-sm-4 col-form-label text-left">Organization:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="organization_name" name="organization_name" required>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="organization_name" name="type_of_activity" onchange="showHideOthers(this);" required>
+                                <?php $__currentLoopData = $org; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $org_name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($org_name->name); ?>"><?php echo e($org_name->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                        </div>
                     </div>
+                    
                 </div>
                 
                 <div class="form-group row mb-2">
@@ -272,6 +282,7 @@
                     <label for="eventLocation" class="col-sm-4 col-form-label text-left">Event Location:</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="venue" name="venue" onchange="showHideOthers(this);" required>
+                            <option value="TBA">TBA</option>
                             <option value="SV Hall">SV Hall</option>
                             <option value="ST Quad">ST Quad</option>
                             <option value="Adamson Theatre">Adamson Theatre</option>
@@ -288,7 +299,14 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Partner Organization:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="partner_organization" name="partner_organization" >
+
+                        <select class="form-control" id="partner_organization" name="partner_organization" onchange="showHideOthers(this);">
+                            <option value="">--None--</option>
+                            <?php $__currentLoopData = $org; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $org_name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($org_name->name); ?>"><?php echo e($org_name->name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                        
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -318,7 +336,7 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Sponsored By:</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="sponsored_by" name="sponsored_by" >
+                        <input type="text" class="form-control" id="sponsored_by" name="sponsored_by" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -336,7 +354,7 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Other Source</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="other_source_of_fund" name="other_source_of_fund">
+                        <input type="text" class="form-control" id="other_source_of_fund" name="other_source_of_fund">
                     </div>
                 </div>
 

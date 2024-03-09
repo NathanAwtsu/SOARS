@@ -118,6 +118,10 @@ Route::get('/osaemp/organizaiton/{id}',function($id){$orgID = DB::table('organiz
 Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
 //Calendar of activities dashboard
 Route::get('/osaemp/dash', [OsaController::class, 'getEvents'])->name('osa.fullcalendar');
+//Org Page Event
+Route::get('/org_page/event/', [EventController::class, 'getEventsOrg']);
+
+Route::get('/osaemp/organization_page/events', [EventController::class, 'getEvents']);
 Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAjax']);
 //Dashboard Routes
 Route::get('/osaemp/dashboard', [OsaController::class, 'totalDashboard'])->name('osadashboard');

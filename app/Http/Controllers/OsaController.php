@@ -24,11 +24,14 @@ class OsaController extends Controller
     }
 
     public function activity_pending_retrieve(){
-        $activity = DB::table('events')->where('status','!=','Approved')->get();
-        $approved = DB::table('events')->where('status','=','approved')->get();
+        $activity = DB::table('events')->whereNotIn('status', ['Approved', 'On Hold', 'Done'])->get();
+        $approved = DB::table('events')->whereIn('status', ['Approved', 'On Hold', 'Done'])->get();
+        $org = DB::table('organizations')->where('requirement_status','=','complete')->get();
 
         
-        return view('OSA.approval', ['activity'=> $activity])->with('approved',$approved);
+        return view('OSA.approval', ['activity'=> $activity])
+        ->with('approved',$approved)
+        ->with('org', $org);
     }
 
     public function store(){
@@ -92,9 +95,11 @@ class OsaController extends Controller
         // Retrieve the event data based on the ID and pass it to the edit view
         $event = Event::findOrFail($id);
         $activity = DB::table('events')->where('id','!=','Approved')->get();
-        
+        $partner_org = DB::table('organizations')->where('requirement_status','=','complete')->get();
         $pending_event = DB::table('events')->where('id','=',$id)->get();
-        return view('OSA.edit_pending_activity', ['pending_event'=> $pending_event]);
+        return view('OSA.edit_pending_activity')
+        ->with('pending_event', $pending_event)
+        ->with('partner_org', $partner_org);
     }
 
     public function edit_save_pending_activity(Request $request, $id) {
@@ -150,7 +155,7 @@ class OsaController extends Controller
     }
 
     public function dashboard_Activities(){
-        $approved = DB::table('events')->where('status','=','approved')->get();
+        $approved = DB::table('events')->whereIn('status', ['Approved', 'On Hold', 'Done'])->get();
 
         return view('OSA.activity')->with('approved',$approved);
     }
@@ -198,9 +203,33 @@ class OsaController extends Controller
         ];
     });
 
+    
+
     // Return the formatted events data
     return response()->json($formattedEvents);
     }
+
+    public function getEventsOrg($id)
+{
+    $org = Organization::findOrFail($id);
+    $events = Event::where('organization_name', $org->name)->get(); // Add get() to execute the query
+    
+    // Format events as required by FullCalendar
+    $formattedEvents = $events->map(function ($event) {
+        $startDateTime = $event->activity_start_date . 'T' . $event->activity_start_time;
+        $endDateTime = $event->activity_end_date . 'T' . $event->activity_end_time;
+
+        return [
+            'title' => $event->activity_title,
+            'start' => $startDateTime,
+            'end' => $endDateTime,
+        ];
+    });
+
+    return response()->json($formattedEvents); // Return the formatted events as JSON response
+}
+
+    
 
     public function calendarAjax(Request $request)
     {

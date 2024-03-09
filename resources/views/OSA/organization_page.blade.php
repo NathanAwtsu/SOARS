@@ -57,7 +57,8 @@
                         <div class="col-md-4">
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/ausg_rep_photo/{{$org->ausg_rep_photo}}" alt="{{$org->ausg_rep_photo}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$org->ausg_rep_name}}</p>
+                                <br>
+                                <a class="officer-name" href="/chatify/{{$org->ausg_rep_id}}">{{$org->ausg_rep_name}}</a>
                                 <p class="officer-email">{{$org->ausg_rep_email}}</p>
                                 <p class="officer-position">AUSG Representative </p>
                                 
@@ -67,7 +68,8 @@
                         <div class="col-md-4">
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/president_photo/{{$org->president_photo}}" alt="{{$org->president_name}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$org->president_name}}</p>
+                                <br>
+                                <a class="officer-name" href="/chatify/{{$org->president_studno}}">{{$org->president_name}}</a>
                                 <p class="officer-email">{{$org->president_email}}</p>
                                 <p class="officer-position">President </p>
                                 
@@ -77,7 +79,8 @@
                         <div class="col-md-4">
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/vp_internal_photo/{{$org->vp_internal_photo}}" alt="{{$org->vp_internal_name}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$org->vp_internal_name}}</p>
+                                <br>
+                                <a class="officer-name" href="/chatify/{{$org->vp_internal_studno}}">{{$org->vp_internal_name}}</a>
                                 <p class="officer-email">{{$org->vp_internal_email}}</p>
                                 <p class="officer-position">Vice President for Internal Affairs </p>
                                 
@@ -87,7 +90,8 @@
                         <div class="col-md-4">
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/vp_external_photo/{{$org->vp_external_photo}}" alt="{{$org->vp_external_photo}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$org->vp_external_name}}</p>
+                                <br>
+                                <a class="officer-name" href="/chatify/{{$org->vp_external_studno}}">{{$org->vp_external_name}}</a>
                                 <p class="officer-email">{{$org->vp_external_email}}</p>
                                 <p class="officer-position">Vice President for External Affairs</p>
                                 
@@ -97,7 +101,8 @@
                         <div class="col-md-4">
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/secretary_photo/{{$org->secretary_photo}}" alt="{{$org->secretary_photo}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$org->secretary_name}}</p>
+                                <br>
+                                <a class="officer-name" href="/chatify/{{$org->secretary_studno}}">{{$org->secretary_name}}</a>
                                 <p class="officer-email">{{$org->secretary_email}}</p>
                                 <p class="officer-position">Secretary </p>
                                 
@@ -107,7 +112,8 @@
                         <div class="col-md-4">
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/treasurer_photo/{{$org->treasurer_photo}}" alt="{{$org->treasurer_photo}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$org->treasurer_name}}</p>
+                                <br>
+                                <a class="officer-name" href="/chatify/{{$org->treasurer_studno}}">{{$org->treasurer_name}}</a>
                                 <p class="officer-email">{{$org->treasurer_email}}</p>
                                 <p class="officer-position">Treasurer</p>
                                 
@@ -117,7 +123,8 @@
                         <div class="col-md-4">
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/auditor_photo/{{$org->auditor_photo}}" alt="{{$org->auditor_photo}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$org->auditor_name}}</p>
+                                <br>
+                                <a class="officer-name" href="/chatify/{{$org->auditor_studno}}">{{$org->auditor_name}}</a>
                                 <p class="officer-email">{{$org->auditor_email}}</p>
                                 <p class="officer-position">Auditor</p>
                                 
@@ -127,7 +134,8 @@
                         <div class="col-md-4">
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/pro_photo/{{$org->pro_photo}}" alt="{{$org->pro_photo}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$org->pro_name}}</p>
+                                <br>
+                                <a class="officer-name" href="/chatify/{{$org->pro_studno}}">{{$org->pro_name}}</a>
                                 <p class="officer-email">{{$org->pro_email}}</p>
                                 <p class="officer-position">PRO</p>
                                 
@@ -162,6 +170,10 @@
             <div id="Events" class="card mt-4" style="height: auto;">
                 <div class="card-body">
                     
+                    <div class="container">
+                        <h1>Calendar of Events</h1>
+                        <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 30px;"></div>
+                    </div>
                 </div>
             </div>
             
@@ -236,6 +248,30 @@
      }
 
  </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var org_id = {{$org->id}};
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'dayGridMonth,timeGridWeek,timeGridDay',
+          center: 'title',
+          right: 'prev,next today',
+        },
+        events: {
+          url: '/org_page/event/' + org_id, // Specify the URL to fetch events data from
+          method: 'GET'
+        }
+        
+      });
+      calendar.render();
+    });
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+  
+
 
           
 

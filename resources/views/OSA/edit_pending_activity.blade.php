@@ -22,6 +22,8 @@
                 <select class="form-control" id="eventStatus" name="status"  required>
                     <option value="Standby">Standby</option>
                     <option value="Rejected">Rejected</option>
+                    <option value="On Hold">On Hold</option>
+                    <option value="Done">Done</option>
                 </select>
             </div>
         </div>
@@ -30,7 +32,18 @@
     <div class="form-group row mb-2">
         <label for="eventOrgname" class="col-sm-4 col-form-label text-left">Organization Name:</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="organization_name" name="organization_name" value="{{ $event->organization_name}}" required>
+            <select class="form-control" id="organization_name" name="organization_name" onchange="showHideOthers(this);">
+                
+                @if ($event->partner_organization == null)
+                    <option value="">None</option>
+                @endif
+                @if (isset($event->partner_organization) )
+                    <option value="{{$event->partner_organization}}">{{$event->partner_organization}}</option>
+                @endif
+                @foreach($partner_org as $org_name)
+                <option value="{{$org_name->name}}">{{$org_name->name}}</option>
+                @endforeach
+            </select>
         </div>
     </div>
     
@@ -84,7 +97,7 @@
         <label for="eventLocation" class="col-sm-4 col-form-label text-left">Event Location:</label>
         <div class="col-sm-8">
             <select class="form-control" id="venue" name="venue" onchange="showHideOthers(this);" required>
-                
+                <option value="TBA" {{ $event->venue == 'TBA' ? 'selected' :' '}}>TBA</option>
                 <option value="SV HAll" {{ $event->venue == 'SV Hall' ? 'selected' :' '}}>SV Hall</option>
                 <option value="ST Quad" {{ $event->venue == 'ST Quad' ? 'selected' :' '}}>ST Quad</option>
                 <option value="Adamson Theatre" {{ $event->venue == 'Adamson Theatre' ? 'selected' :' '}}>Adamson Theatre</option>
@@ -101,31 +114,42 @@
     <div class="form-group row mb-2">
         <label for="eventDate" class="col-sm-4 col-form-label text-left">Partner Organization:</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="partner_organization" name="partner_organization" value="{{$event->partner_organization}}">
+            <select class="form-control" id="partner_organization" name="partner_organization" onchange="showHideOthers(this);">
+                
+                @if ($event->partner_organization == null)
+                    <option value="None">None</option>
+                @endif
+                @if (isset($event->partner_organization) )
+                    <option value="{{$event->partner_organization}}">{{$event->partner_organization}}</option>
+                @endif
+                @foreach($partner_org as $org_name)
+                <option value="{{$org_name->name}}">{{$org_name->name}}</option>
+                @endforeach
+            </select>
         </div>
     </div>
     <div class="form-group row mb-2">
         <label for="eventDate" class="col-sm-4 col-form-label text-left">Organization fund:</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="organization_fund" name="organization_fund" value="{{$event->organization_fund}}">
+            <input type="number" class="form-control" id="organization_fund" name="organization_fund" value="{{$event->organization_fund}}">
         </div>
     </div>
     <div class="form-group row mb-2">
         <label for="eventDate" class="col-sm-4 col-form-label text-left">Solidarity Share:</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="solidarity_share" name="solidarity_share" value="{{$event->solidarity_share}}">
+            <input type="number" class="form-control" id="solidarity_share" name="solidarity_share" value="{{$event->solidarity_share}}">
         </div>
     </div>
     <div class="form-group row mb-2">
         <label for="eventDate" class="col-sm-4 col-form-label text-left">Registration Fee:</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="registration_fee" name="registration_fee" value="{{$event->registration_fee}}">
+            <input type="number" class="form-control" id="registration_fee" name="registration_fee" value="{{$event->registration_fee}}">
         </div>
     </div>
     <div class="form-group row mb-2">
         <label for="eventDate" class="col-sm-4 col-form-label text-left">AUSG Subsidy:</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="AUSG_subsidy" name="AUSG_subsidy" value="{{$event->AUSG_subsidy}}">
+            <input type="number" class="form-control" id="AUSG_subsidy" name="AUSG_subsidy" value="{{$event->AUSG_subsidy}}">
         </div>
     </div>
     <div class="form-group row mb-2">
@@ -137,13 +161,13 @@
     <div class="form-group row mb-2">
         <label for="eventDate" class="col-sm-4 col-form-label text-left">Ticket Selling:</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="ticket_selling" name="ticket_selling" value="{{$event->ticket_selling}}">
+            <input type="number" class="form-control" id="ticket_selling" name="ticket_selling" value="{{$event->ticket_selling}}">
         </div>
     </div>
     <div class="form-group row mb-2">
         <label for="eventDate" class="col-sm-4 col-form-label text-left">Ticket Control #:</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="ticket_control_number" name="ticket_control_number" value="{{$event->ticket_control_number}}">
+            <input type="number" class="form-control" id="ticket_control_number" name="ticket_control_number" value="{{$event->ticket_control_number}}">
         </div>
     </div>
     <div class="form-group row mb-2">
