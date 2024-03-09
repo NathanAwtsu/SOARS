@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\EventController;
 use App\Models\Event;
 
 
@@ -119,8 +120,7 @@ Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){retur
 //Calendar of activities dashboard
 Route::get('/osaemp/dash', [OsaController::class, 'getEvents'])->name('osa.fullcalendar');
 //Org Page Event
-Route::get('/org_page/event/', [EventController::class, 'getEventsOrg']);
-
+Route::get('/org_page/event/{id}', [EventController::class, 'getEventsOrg']);
 Route::get('/osaemp/organization_page/events', [EventController::class, 'getEvents']);
 Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAjax']);
 //Dashboard Routes

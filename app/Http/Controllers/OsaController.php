@@ -38,7 +38,7 @@ class OsaController extends Controller
 
         
         
-        DB::table('events')->insert([
+        DB::table('events')->insertGetId([
         'id' => request('id'),
         'status'=>request('status'),
         'organization_name' => request('organization_name'),

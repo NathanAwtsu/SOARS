@@ -200,12 +200,7 @@
                 
 
                 <!-- Event details input fields -->
-                <div class="form-group row mb-2">
-                    <label for="id" class="col-sm-4 col-form-label text-left">ID:</label>
-                    <div class="col-sm-8">
-                        <input type="number" id="id" class="id" name="id" required>
-                    </div>
-                </div>
+                
 
                 <div class="form-group row mb-2">
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Event Status:</label>
@@ -222,7 +217,7 @@
                     <label for="eventOrgname" class="col-sm-4 col-form-label text-left">Organization:</label>
                     <div class="col-sm-8">
                         <div class="col-sm-8">
-                            <select class="form-control" id="organization_name" name="type_of_activity" onchange="showHideOthers(this);" required>
+                            <select class="form-control" id="organization_name" name="organization_name" onchange="showHideOthers(this);" required>
                                 <?php $__currentLoopData = $org; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $org_name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($org_name->name); ?>"><?php echo e($org_name->name); ?></option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
