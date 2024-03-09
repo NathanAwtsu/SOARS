@@ -1,10 +1,6 @@
 @extends('navbar.navbar_osa')
 @section('content')
 
-
-@foreach ($org as $orgs => $o)
-    
-
 <main class="container mt-4" style="margin-right: 740px !important;">
     
         <div class="btn-group mb-4" role="group" aria-label="Basic example" style="margin-left:35px;">
@@ -12,31 +8,30 @@
             <button type="button" class="btn btn-primary" onclick="showListOfOfficers()">List of Officers</button>
             <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
             <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
-            <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>
-            
+            <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
+            <a href="{{url('/osaemp/organization_list/organization_edit/'.$org->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
         </div> <br>
-
-       
-
+        
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="container mt-4">
+                
                 <!-- ... other content ... -->
         
                 <div id="missionVisionContent" class="card mt-1" style="height: 500px;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="/storage/logo/{{$o->logo}}" alt="{{$o->logo}}" class="img-fluid mb-3">
+                                <img src="/storage/logo/{{$org->logo}}" alt="{{$org->logo}}" class="img-fluid mb-3">
                                 <br>
                             </div>
                             <div class="col-md-8">
                                 <h4 class="card-title">Vision and Mission</h4>
                                 <p class="card-text">
                                     <strong>Vision</strong><br><br>
-                                    {{$o->vision}}
+                                    {{$org->vision}}
                                     <br><br>
                                     <strong>Mission</strong><br><br>
-                                    {{$o->mission}}
+                                    {{$org->mission}}
                                 </p>
                             </div>
                         </div>
@@ -50,8 +45,9 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="icon.jpg" alt="{{$o->adviser_name}}" class="img-fluid" width="100"><br>
-                                <p class="officer-name">{{$o->adviser_name}}</p>
+                                <img src="/storage/organization_officer_photo/adviser_photo/{{$org->adviser_photo}}" alt="{{$org->adviser_photo}}" class="img-fluid" width="100"><br>
+                                <p class="officer-name">{{$org->adviser_name}}</p>
+                                <p class="officer-email">{{$org->adviser_email}}</p>
                                 <p class="officer-position">Adviser</p>
                                 
                                 
@@ -60,8 +56,9 @@
             
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="icon.jpg" alt="{{$o->ausg_rep_name}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$o->ausg_rep_name}}</p>
+                                <img src="/storage/organization_officer_photo/ausg_rep_photo/{{$org->ausg_rep_photo}}" alt="{{$org->ausg_rep_photo}}" class="img-fluid" width="100">
+                                <p class="officer-name">{{$org->ausg_rep_name}}</p>
+                                <p class="officer-email">{{$org->ausg_rep_email}}</p>
                                 <p class="officer-position">AUSG Representative </p>
                                 
                             </div>
@@ -69,8 +66,9 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="icon.jpg" alt="{{$o->president_name}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$o->president_name}}</p>
+                                <img src="/storage/organization_officer_photo/president_photo/{{$org->president_photo}}" alt="{{$org->president_name}}" class="img-fluid" width="100">
+                                <p class="officer-name">{{$org->president_name}}</p>
+                                <p class="officer-email">{{$org->president_email}}</p>
                                 <p class="officer-position">President </p>
                                 
                             </div>
@@ -78,8 +76,9 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="icon.jpg" alt="{{$o->vp_internal_name}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$o->vp_internal_name}}</p>
+                                <img src="/storage/organization_officer_photo/vp_internal_photo/{{$org->vp_internal_photo}}" alt="{{$org->vp_internal_name}}" class="img-fluid" width="100">
+                                <p class="officer-name">{{$org->vp_internal_name}}</p>
+                                <p class="officer-email">{{$org->vp_internal_email}}</p>
                                 <p class="officer-position">Vice President for Internal Affairs </p>
                                 
                             </div>
@@ -87,8 +86,9 @@
             
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="icon.jpg" alt="{{$o->vp_external_name}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$o->vp_external_name}}</p>
+                                <img src="/storage/organization_officer_photo/vp_external_photo/{{$org->vp_external_photo}}" alt="{{$org->vp_external_photo}}" class="img-fluid" width="100">
+                                <p class="officer-name">{{$org->vp_external_name}}</p>
+                                <p class="officer-email">{{$org->vp_external_email}}</p>
                                 <p class="officer-position">Vice President for External Affairs</p>
                                 
                             </div>
@@ -96,8 +96,9 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="icon.jpg" alt="{{$o->secretary_name}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$o->secretary_name}}</p>
+                                <img src="/storage/organization_officer_photo/secretary_photo/{{$org->secretary_photo}}" alt="{{$org->secretary_photo}}" class="img-fluid" width="100">
+                                <p class="officer-name">{{$org->secretary_name}}</p>
+                                <p class="officer-email">{{$org->secretary_email}}</p>
                                 <p class="officer-position">Secretary </p>
                                 
                             </div>
@@ -105,8 +106,9 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="icon.jpg" alt="{{$o->treasurer_name}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$o->treasurer_name}}</p>
+                                <img src="/storage/organization_officer_photo/treasurer_photo/{{$org->treasurer_photo}}" alt="{{$org->treasurer_photo}}" class="img-fluid" width="100">
+                                <p class="officer-name">{{$org->treasurer_name}}</p>
+                                <p class="officer-email">{{$org->treasurer_email}}</p>
                                 <p class="officer-position">Treasurer</p>
                                 
                             </div>
@@ -114,8 +116,9 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="icon.jpg" alt="{{$o->auditor_name}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$o->auditor_name}}</p>
+                                <img src="/storage/organization_officer_photo/auditor_photo/{{$org->auditor_photo}}" alt="{{$org->auditor_photo}}" class="img-fluid" width="100">
+                                <p class="officer-name">{{$org->auditor_name}}</p>
+                                <p class="officer-email">{{$org->auditor_email}}</p>
                                 <p class="officer-position">Auditor</p>
                                 
                             </div>
@@ -123,8 +126,9 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="icon.jpg" alt="{{$o->pro_name}}" class="img-fluid" width="100">
-                                <p class="officer-name">{{$o->pro_name}}</p>
+                                <img src="/storage/organization_officer_photo/pro_photo/{{$org->pro_photo}}" alt="{{$org->pro_photo}}" class="img-fluid" width="100">
+                                <p class="officer-name">{{$org->pro_name}}</p>
+                                <p class="officer-email">{{$org->pro_email}}</p>
                                 <p class="officer-position">PRO</p>
                                 
                             </div>
@@ -134,52 +138,30 @@
                 </div>
             </div>
 
-            <div id="ContactUs" class="card mt-4" style="display: none;">
-                <div class="card-body">
+            <div id="ContactUs" class="card mt-4" style="height: auto;">
+                <div class="card-body" style="text-align: start;">
                     <h4 class="card-title">Contact Us</h4>
                     For inquiries and further information, please feel free to contact us:<br>
-                    Email: <a href="mailto:acomss@adamson.edu.ph">acomss@adamson.edu.ph</a><br>
-                    FB: <a href="https://www.facebook.com/ACOMSSofficia/" target="_blank">Adamson Computer Science Society</a>
+                    Email: <a href=" mailto: {{$org->org_email}}">{{$org->org_email}}</a><br>
+                    FB: <a href="{{$org->org_fb}}" target="_blank">{{$org->org_fb}}</a><br>
+
+                    <H2 style="text-align: start;">Facebook Page:</H2><br>
+                    <div id="fb-root">
+
+                    </div>
+                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="z2ywPdxc"></script>
+                    <div class="row mt-3">
+                        <div class="fb-page" data-href="{{$org->org_fb}}" data-tabs="timeline" 
+                        data-width="500" data-height="" data-small-header="true" data-adapt-container-width="false" 
+                        data-hide-cover="true" data-show-facepile="true"><blockquote cite="{{$org->org_fb}}" 
+                        class="fb-xfbml-parse-ignore"><a href="{{$org->org_fb}}">{{$org->name}}</a></blockquote></div>
+                    </div>
                 </div>
             </div>
             
             <div id="Events" class="card mt-4" style="height: auto;">
                 <div class="card-body">
-                    <h2 class="mb-4">What is your favorite programming language?</h2>
-                    <form action="" method="post">
-                        <div class="mb-2">
-                            <input type="radio" id="option1" name="language" value="option1">
-                            <label for="option1">JavaScript</label>
-                        </div>
-            
-                        <div class="mb-2">
-                            <input type="radio" id="option2" name="language" value="option2">
-                            <label for="option2">Python</label>
-                        </div>
-            
-                        <div class="mb-2">
-                            <input type="radio" id="option3" name="language" value="option3">
-                            <label for="option3">Java</label>
-                        </div>
-            
-                        <div class="mb-2">
-                            <input type="radio" id="option4" name="language" value="option4">
-                            <label for="option4">C++</label>
-                        </div>
-            
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                    </form>  <br>
-            
-                    <H2>Images</H2>
-                    <div id="fb-root"></div>
-                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="z2ywPdxc"></script>
-
-                    <div class="row mt-3">
-                        <div class="fb-page" data-href="https://www.facebook.com/AwtsuPhotography" data-tabs="timeline" 
-                        data-width="500" data-height="" data-small-header="true" data-adapt-container-width="false" 
-                        data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/AwtsuPhotography" 
-                        class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/AwtsuPhotography">N4yt-han.</a></blockquote></div>
-                    </div>
+                    
                 </div>
             </div>
             
@@ -187,24 +169,20 @@
             <div id="MoreInfo" class="card mt-1" style="height: auto;">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="container">
+                            <center>
                             <!-- Details for Constitutional Bylaws -->
-                            <h5 class="mb-3">Constitutional Bylaws</h5>
-                            <p>
-                                Your content for constitutional bylaws goes here. Provide information about the rules and regulations that govern your organization.
-                            </p>
+                            <h2 class="mb-3">Constitutional Bylaws</h2>
+                            <iframe src="/storage/consti_and_bylaws/{{$org->consti_and_byLaws}}" width="100%" height="600px"></iframe>
             
                             <!-- Details for Letter of Intent -->
-                            <h5 class="mt-4 mb-3">Letter of Intent</h5>
-                            <p>
-                                Include details about the letter of intent, its purpose, and any specific requirements or guidelines for submitting a letter of intent.
-                            </p>
+                            <h2 class="mt-4 mb-3">Letter of Intent</h2>
+                            <iframe name="letter_of_intent" src="/storage/letter_of_intent/{{$org->letter_of_intent}}" width="100%" height="600px"></iframe>
             
                             <!-- Details for Adviser Endorsement -->
-                            <h5 class="mt-4 mb-3">Adviser Endorsement</h5>
-                            <p>
-                                Provide information about the process of obtaining adviser endorsement, its importance, and any criteria that advisers need to meet.
-                            </p>
+                            <h2 class="mt-4 mb-3">Adviser Endorsement</h2>
+                            <iframe src="/storage/admin_endorsement/{{$org->admin_endorsement}}" width="100%" height="600px"></iframe>
+                            </center>
                         </div>
                         
                 </div>
@@ -213,7 +191,7 @@
         </div>
     </div>            
 </main>
-@endforeach
+
  <!-- Bootstrap JS and Popper.js -->
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -265,11 +243,7 @@
      
  
  
- <script>
-     function goBack() {
-         window.history.back();
-     }
- </script>
+ 
  <!-- Add Bootstrap JavaScript (optional) -->
  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
 
