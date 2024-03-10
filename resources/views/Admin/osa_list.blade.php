@@ -80,10 +80,14 @@
 
     <div class="form-group">
         <label for="email" class="col-sm-2 control-label">Email</label>
-        <div class="col-sm-12">
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+        <div class="col-sm-12" style="position: relative;">
+            <input type="text" class="form-control" id="email" name="email" placeholder="Enter the email in the end @adamson.edu.ph" required 
+                   pattern=".*@adamson\.edu\.ph$" 
+                   title="Please enter a valid email address ending with @adamson.edu.ph"
+                   style="padding-right: 120px;">
         </div>
     </div>
+    
 
     <div class="form-group">
         <label for="password" class="col-sm-2 control-label">Password</label>

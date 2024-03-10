@@ -34,12 +34,13 @@
         <div class="col-sm-8">
             <select class="form-control" id="organization_name" name="organization_name" onchange="showHideOthers(this);" required>
                 
-                
-                @if (isset($event->partner_organization) )
-                    <option value="{{$event->partner_organization}}">{{$event->partner_organization}}</option>
+                @if (isset($event->organization_name) )
+                    <option value="{{$event->organization_name}}">{{$event->organization_name}}</option>
                 @endif
                 @foreach($partner_org as $org_name)
+                @if ($event->organization_name == null)
                 <option value="{{$org_name->name}}">{{$org_name->name}}</option>
+                @endif
                 @endforeach
             </select>
         </div>
@@ -115,13 +116,13 @@
             <select class="form-control" id="partner_organization" name="partner_organization" onchange="showHideOthers(this);">
                 
                 @if ($event->partner_organization == null)
-                    <option value="None">None</option>
+                <option value="{{$org_name->name}}">{{$org_name->name}}</option>
                 @endif
                 @if (isset($event->partner_organization) )
                     <option value="{{$event->partner_organization}}">{{$event->partner_organization}}</option>
                 @endif
                 @foreach($partner_org as $org_name)
-                <option value="{{$org_name->name}}">{{$org_name->name}}</option>
+                
                 @endforeach
             </select>
         </div>

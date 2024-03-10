@@ -105,7 +105,8 @@ class OsaController extends Controller
         // Retrieve the event data based on the ID and pass it to the edit view
         $event = Event::findOrFail($id);
         $activity = DB::table('events')->where('id','!=','Approved')->get();
-        $partner_org = DB::table('organizations')->where('requirement_status','=','complete')->get();
+        $partner_org = DB::table('organizations')
+        ->where('requirement_status','=','complete')->get();
         $pending_event = DB::table('events')->where('id','=',$id)->get();
         return view('OSA.edit_pending_activity')
         ->with('pending_event', $pending_event)
@@ -144,7 +145,9 @@ class OsaController extends Controller
     
 
     public function eventReport(){
-        $activity = DB::table('events')->where('status','=','Approved')->get();
+        $activity = DB::table('events')
+        ->orwhere('status','=','Done')
+        ->get();
         return view('OSA.reports', ['activity'=> $activity]);
     }
 
