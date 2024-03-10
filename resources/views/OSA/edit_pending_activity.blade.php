@@ -32,11 +32,9 @@
     <div class="form-group row mb-2">
         <label for="eventOrgname" class="col-sm-4 col-form-label text-left">Organization Name:</label>
         <div class="col-sm-8">
-            <select class="form-control" id="organization_name" name="organization_name" onchange="showHideOthers(this);">
+            <select class="form-control" id="organization_name" name="organization_name" onchange="showHideOthers(this);" required>
                 
-                @if ($event->partner_organization == null)
-                    <option value="">None</option>
-                @endif
+                
                 @if (isset($event->partner_organization) )
                     <option value="{{$event->partner_organization}}">{{$event->partner_organization}}</option>
                 @endif

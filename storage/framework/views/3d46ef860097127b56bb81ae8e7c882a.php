@@ -124,8 +124,9 @@
                     <td><?php echo e($event->other_source_of_fund); ?></td>
                     <td>
                         <button type="submit" name="approve" value="approve_<?php echo e($event->id); ?>" class="btn btn-success" style="padding-bottom:10px;">Approve</button>
-                        <button type="submit" name="edit" value="edit_<?php echo e($event->id); ?>" class= "btn btn-warning"style="padding-bottom:10px;">Edit</button>
-                        <button type="submit" name="action" value="reject_<?php echo e($event->id); ?>" class="btn btn-danger" style="padding-bottom:10px;">Reject</button>
+                        <button type="submit" name="edit" value="edit_<?php echo e($event->id); ?>" class= "btn btn-primary"style="padding-bottom:10px;">Edit</button>
+                        <button type="submit" name="action" value="reject_<?php echo e($event->id); ?>" class="btn btn-warning" style="padding-bottom:10px;">Reject</button>
+                        <button type="submit" name="delete" value="reject_<?php echo e($event->id); ?>" class="btn btn-danger" style="padding-bottom:10px;">Delete</button>
                     </td>
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -208,7 +209,6 @@
                         <div class="col-sm-8">
                             <select class="form-control" id="eventStatus" name="status"  required>
                                 <option value="Standby">Standby</option>
-                                <option value="Rejected">Rejected</option>
                             </select>
                         </div>
                     </div>
@@ -296,7 +296,7 @@
                     <div class="col-sm-8">
 
                         <select class="form-control" id="partner_organization" name="partner_organization" onchange="showHideOthers(this);">
-                            <option value="">--None--</option>
+                            <option value="None">--None--</option>
                             <?php $__currentLoopData = $org; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $org_name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <option value="<?php echo e($org_name->name); ?>"><?php echo e($org_name->name); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

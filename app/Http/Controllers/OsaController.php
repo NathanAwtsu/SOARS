@@ -34,61 +34,71 @@ class OsaController extends Controller
         ->with('org', $org);
     }
 
-    public function store(){
+    
 
-        
-        
-        DB::table('events')->insertGetId([
-        'id' => request('id'),
-        'status'=>request('status'),
-        'organization_name' => request('organization_name'),
-        'activity_title' => request('activity_title'),
-        'type_of_activity' => request('type_of_activity'),
-        'activity_start_date' => request('activity_start_date'),
-        'activity_end_date' => request('activity_end_date'),
-        'activity_start_time' => request('activity_start_time'),
-        'activity_end_time' => request('activity_end_time'),
-        'venue' => request('venue'),
-        'participants'=> request('participants'),
-        'partner_organization'=> request('partner_organization'),
-        'organization_fund'=> request('organization_fund'),
-        'solidarity_share'=> request('solidarity_share'),
-        'registration_fee'=> request('registration_fee'),
-        'AUSG_subsidy'=> request('AUSG_subsidy'),
-        'sponsored_by'=> request('sponsored_by'),
-        'ticket_selling'=> request('ticket_selling'),
-        'ticket_control_number'=> request('ticket_control_number'),
-        'other_source_of_fund'=> request('other_source_of_fund')
-        ]);
-        return redirect('/osaemp/activity_approval')
-        ->with('success', 'You have created an Event');
+    public function store()
+    {
+        $event = new Event();
 
+        // Assign values to the properties of the model instance
+        $event->status = request('status');
+        $event->organization_name = request('organization_name');
+        $event->activity_title = request('activity_title');
+        $event->type_of_activity = request('type_of_activity');
+        $event->activity_start_date = request('activity_start_date');
+        $event->activity_end_date = request('activity_end_date');
+        $event->activity_start_time = request('activity_start_time');
+        $event->activity_end_time = request('activity_end_time');
+        $event->venue = request('venue');
+        $event->participants = request('participants');
+        $event->partner_organization = request('partner_organization');
+        $event->organization_fund = request('organization_fund');
+        $event->solidarity_share = request('solidarity_share');
+        $event->registration_fee = request('registration_fee');
+        $event->AUSG_subsidy = request('AUSG_subsidy');
+        $event->sponsored_by = request('sponsored_by');
+        $event->ticket_selling = request('ticket_selling');
+        $event->ticket_control_number = request('ticket_control_number');
+        $event->other_source_of_fund = request('other_source_of_fund');
+
+        // Save the model instance to the database
+        $event->save();
+
+        return redirect('/osaemp/activity_approval')->with('success', 'You have created an Event');
     }
 
-    public function event_Approve_or_edit(Request $request){
-        if ($request->has('approve')) {
-            $approve = $request->input('approve');
-            // Extract event ID from the action (e.g., "approve_1" becomes "1")
-            $eventId = substr($approve, strpos($approve, '_') + 1);
-            $eventData = ['status' => 'Approved'];
-            DB::table('events')->where('id', $eventId)->update($eventData);
-        } 
-        elseif ($request->has('edit')) {
-            $edit = $request->input('edit');
-            // Extract event ID from the action (e.g., "edit_1" becomes "1")
-            $eventId = substr($edit, strpos($edit, '_') + 1);
-            // Redirect to edit route with the event ID for editing
-            return redirect()->route('edit_pending_activity', ['id' => $eventId]);
+
+    public function event_Approve_or_edit(Request $request)
+    {
+        try {
+            if ($request->has('approve')) {
+                $approve = $request->input('approve');
+                $eventId = substr($approve, strpos($approve, '_') + 1);
+                $eventData = ['status' => 'Approved'];
+                DB::table('events')->where('id', $eventId)->update($eventData);
+            } elseif ($request->has('edit')) {
+                $edit = $request->input('edit');
+                $eventId = substr($edit, strpos($edit, '_') + 1);
+                return redirect()->route('edit_pending_activity', ['id' => $eventId]);
+            } elseif ($request->has('action')) {
+                $reject = $request->input('action');
+                $eventId = substr($reject, strpos($reject, '_') + 1);
+                $eventData = ['status' => 'Rejected'];
+                // Update Status to 'Rejected'
+                DB::table('events')->where('id', $eventId)->update($eventData);
+            } elseif ($request->has('delete')) {
+                $delete = $request->input('delete'); // Fix variable name
+                $eventId = substr($delete, strpos($delete, '_') + 1);
+                // Delete the event with the given ID
+                DB::table('events')->where('id', $eventId)->delete();
+            }
+    
+            return redirect()->back()->with('success', 'Event action performed successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while processing the request.');
         }
-        elseif($request->has('action')){
-            $reject = $request->input('action');
-            // Extract event ID from the action (e.g., "approve_1" becomes "1")
-            $eventId = substr($reject, strpos($reject, '_') + 1);
-            $eventData = ['status' => 'Rejected'];
-            DB::table('events')->where('id', $eventId)->update($eventData);
-        }
-        return redirect('/osaemp/activity_approval');
     }
+
     
 
     public function edit_pending_activity($id) {
@@ -139,7 +149,7 @@ class OsaController extends Controller
     }
 
     public function totalDashboard(){
-        
+
         $totalEvent = DB::table('events')->get();
         $totalMember = DB::table('students')->get();
         $totalOrg= DB::table('organizations')->get();

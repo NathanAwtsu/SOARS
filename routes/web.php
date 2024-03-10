@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\OrganizationController;
@@ -32,52 +31,11 @@ require __DIR__.'/auth.php';
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('user/{id}', function($id){
-	
-	$userIdQuery = DB::select('SELECT id, name, email, created_at, updated_at FROM users WHERE id = ?' , [$id]);
-
-	if($userIdQuery != null)
-	{
-	
-		$tempArray;
-		$userIdQueryObj = array();
-		foreach($userIdQuery as $value)
-		{
-			$tempArray = array(
-				"id" => $value->id, 
-				"name" => $value->name,
-				"email" => $value->email,
-				"createdAt" => $value->created_at,
-				"updatedAt" => $value->updated_at
-		);
-		//array_push($userIdQueryObj, $tempArray);
-
-	}
-	$objectUserQuery = (object)[
-		"data" => $userIdQueryObj
-	];
-	return response()->json($tempArray);
-	}
-	else
-	{
-		return response()->json([
-			"message" => "User ID not found"
-		],404);
-	}
-});
-
-
-
-
-
-
 Route::get('/', function () {return view('soars');});
 Route::get('/soars', [LoginController::class, 'store'], [LoginController::class, 'create'],function () {return view('soars');});
 Route::get('/soars/store', [LoginController::class], 'store');
 Route::get('/', function () {return view('soars');});
 //reCAPTCHA
-
 Route::get('/soar/session_expired', function () {return view('session_expired');});
 Auth::routes();
 
