@@ -31,6 +31,15 @@ require __DIR__.'/auth.php';
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//PAYPAL ROUTES
+
+
+Route::get('paypal-payment',[PayPalController::class,"payment"])->name('paypal.payment');
+Route::get('paypal-success',[PayPalController::class,"success"])->name('paypal.success');
+Route::get('paypal-cancel',[PayPalController::class,'cancel'])->name('paypal.cancel');
+
+//
 Route::get('/', function () {return view('soars');});
 Route::get('/soars', [LoginController::class, 'store'], [LoginController::class, 'create'],function () {return view('soars');});
 Route::get('/soars/store', [LoginController::class], 'store');
