@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('nickname')->nullable();
             $table->string('type_of_organization')->nullable();
+            $table->string('academic_course_based')->nullable();
             $table->string('mission')->nullable();
             $table->string('vision')->nullable();
             $table->string('org_email')->nullable();

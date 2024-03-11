@@ -22,6 +22,8 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <img src="/storage/logo/{{$org->logo}}" alt="{{$org->logo}}" class="img-fluid mb-3">
+                                <strong>Academic Course Based:</strong><br><br>
+                                    {{$org->academic_course_based}}
                                 <br>
                             </div>
                             <div class="col-md-8">

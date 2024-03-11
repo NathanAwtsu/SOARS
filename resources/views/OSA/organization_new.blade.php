@@ -25,7 +25,7 @@
             <label for="janeContact" style="text-align:left;"> Organization Facebook:</label>
             <input type="org_fb" id="org_fb" name="org_fb" ><br>
 
-            <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
+            <label for="OrganizationType"><h2>First Select Organization Type</h2></label><br>
              <select id="type_of_organization" name="type_of_organization" onchange="showHideOthers(this);" required>
                 <option value="Academic">Academic</option>
                 <option value="Co-Academic">Co-Academic</option>
@@ -33,6 +33,42 @@
                 <option value="Religious">Religious</option>
              </select><br></br>
             
+             <label for="AcademicCourseBased"><h2>Select, if Org is based on Academic Course</h2></label><br>
+             <select id="academic_course_based" name="academic_course_based" onchange="showHideOthers(this);" required>
+                <option value="Not Academic Couse Based">None</option>
+                <option value="ACT">Associate in Computer Technology</option>
+                <option value="BAComm">Bachelor of Arts in Communication</option>
+                <option value="BAPhilo">Bachelor of Arts in Philosophy</option>
+                <option value="BAPolSci">Bachelor of Arts in Political Science</option>
+                <option value="BEEd">Bachelor of Elementary Education</option>
+                <option value="BPEd">Bachelor of Physical Education</option>
+                <option value="BPE-SWM">Bachelor of Physical Education Major in Sports and Wellness Management</option>
+                <option value="BSA">Bachelor of Science in Accountancy</option>
+                <option value="BSArchi">Bachelor of Science in Architecture</option>
+                <option value="BSBio">Bachelor of Science in Biology</option>
+                <option value="BSBAFM">Bachelor of Science in Business Administration Major in Financial Management</option>
+                <option value="BSBAMM">Bachelor of Science in Business Administration Major in Marketing Management</option>
+                <option value="BSBAOM">Bachelor of Science in Business Administration Major in Operations Management</option>
+                <option value="BSChE">Bachelor of Science in Chemical Engineering</option>
+                <option value="BSCPT">Bachelor of Science in Chemical Process Technology</option>
+                <option value="BSChem">Bachelor of Science in Chemistry</option>
+                <option value="BSCE">Bachelor of Science in Civil Engineering</option>
+                <option value="BSCooE">Bachelor of Science in Computer Engineering</option>
+                <option value="BSCS">Bachelor of Science in Computer Science</option>
+                <option value="BSCA">Bachelor of Science in Customs Administration</option>
+                <option value="BSEE">Bachelor of Science in Electrical Engineering</option>
+                <option value="BSGeo">Bachelor of Science in Geology</option>
+                <option value="BSHM">Bachelor of Science in Hospitality Management</option>
+                <option value="BSIE">Bachelor of Science in Industrial Engineering</option>
+                <option value="BSIS">Bachelor of Science in Information System</option>
+                <option value="BSIT">Bachelor of Science in Information Technology</option>
+                <option value="BSME">Bachelor of Science in Mechanical Engineering</option>
+                <option value="BSMining">Bachelor of Science in Mining Engineering</option>
+                <option value="BSNursing">Bachelor of Science in Nursing</option>
+                <option value="BSPE">Bachelor of Science in Petroleum Engineering</option>
+                <option value="BSPharma">Bachelor of Science in Pharmacy</option>
+                <option value="BSPsych">Bachelor of Science in Psychology</option>
+             </select><br></br>
             <!--Logo-->
             <label for="logoFile"><h3>Logo:</h3></label>
             

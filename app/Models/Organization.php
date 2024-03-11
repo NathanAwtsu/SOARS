@@ -14,6 +14,7 @@ class Organization extends Model
         'name',
         'nickname',
         'type_of_organization',
+        'academic_course_based',
         'mission',
         'vision',
         'org_email',

@@ -58,6 +58,43 @@
                 <option value="Religious" {{$org->type_of_organization == 'Religious' ? 'selected' : ' '}}>Religious</option>
              </select><br></br>
 
+             <label for="AcademicCourseBased"><h2>Select, if Org is based on Academic Course</h2></label><br>
+             <select id="academic_course_based" name="academic_course_based" onchange="showHideOthers(this);" required>
+                <option value="Not Academic Couse Based" {{$org->academic_course_based == 'Not Academic Couse Based' ? 'selected' : ' '}}>None</option>
+                <option value="ACT"{{$org->academic_course_based == 'ACT' ? 'selected' : ' '}}>Associate in Computer Technology</option>
+                <option value="BAComm"{{$org->academic_course_based == 'BAComm' ? 'selected' : ' '}}>Bachelor of Arts in Communication</option>
+                <option value="BAPhilo"{{$org->academic_course_based == 'BAPhilo' ? 'selected' : ' '}}>Bachelor of Arts in Philosophy</option>
+                <option value="BAPolSci"{{$org->academic_course_based == 'BAPolSci' ? 'selected' : ' '}}>Bachelor of Arts in Political Science</option>
+                <option value="BEEd"{{$org->academic_course_based == 'BEEd' ? 'selected' : ' '}}>Bachelor of Elementary Education</option>
+                <option value="BPEd"{{$org->academic_course_based == 'BPEd' ? 'selected' : ' '}}>Bachelor of Physical Education</option>
+                <option value="BPE-SWM"{{$org->academic_course_based == 'BPE-SWM' ? 'selected' : ' '}}>Bachelor of Physical Education Major in Sports and Wellness Management</option>
+                <option value="BSA"{{$org->academic_course_based == 'BSA' ? 'selected' : ' '}}>Bachelor of Science in Accountancy</option>
+                <option value="BSArchi"{{$org->academic_course_based == 'BSArchi' ? 'selected' : ' '}}>Bachelor of Science in Architecture</option>
+                <option value="BSBio"{{$org->academic_course_based == 'BSBio' ? 'selected' : ' '}}>Bachelor of Science in Biology</option>
+                <option value="BSBAFM"{{$org->academic_course_based == 'BSBAFM' ? 'selected' : ' '}}>Bachelor of Science in Business Administration Major in Financial Management</option>
+                <option value="BSBAMM"{{$org->academic_course_based == 'BSBAMM' ? 'selected' : ' '}}>Bachelor of Science in Business Administration Major in Marketing Management</option>
+                <option value="BSBAOM"{{$org->academic_course_based == 'BSBAOM' ? 'selected' : ' '}}>Bachelor of Science in Business Administration Major in Operations Management</option>
+                <option value="BSChE"{{$org->academic_course_based == 'BSChE' ? 'selected' : ' '}}>Bachelor of Science in Chemical Engineering</option>
+                <option value="BSCPT"{{$org->academic_course_based == 'BSCPT' ? 'selected' : ' '}}>Bachelor of Science in Chemical Process Technology</option>
+                <option value="BSChem"{{$org->academic_course_based == 'BSChem' ? 'selected' : ' '}}>Bachelor of Science in Chemistry</option>
+                <option value="BSCE"{{$org->academic_course_based == 'BSCE' ? 'selected' : ' '}}>Bachelor of Science in Civil Engineering</option>
+                <option value="BSCooE"{{$org->academic_course_based == 'BSCooE' ? 'selected' : ' '}}>Bachelor of Science in Computer Engineering</option>
+                <option value="BSCS"{{$org->academic_course_based == 'BSCS' ? 'selected' : ' '}}>Bachelor of Science in Computer Science</option>
+                <option value="BSCA"{{$org->academic_course_based == 'BSCA' ? 'selected' : ' '}}>Bachelor of Science in Customs Administration</option>
+                <option value="BSEE"{{$org->academic_course_based == 'BSEE' ? 'selected' : ' '}}>Bachelor of Science in Electrical Engineering</option>
+                <option value="BSGeo"{{$org->academic_course_based == 'BSGeo' ? 'selected' : ' '}}>Bachelor of Science in Geology</option>
+                <option value="BSHM"{{$org->academic_course_based == 'BSHM' ? 'selected' : ' '}}>Bachelor of Science in Hospitality Management</option>
+                <option value="BSIE"{{$org->academic_course_based == 'BSIE' ? 'selected' : ' '}}>Bachelor of Science in Industrial Engineering</option>
+                <option value="BSIS"{{$org->academic_course_based == 'BSIS' ? 'selected' : ' '}}>Bachelor of Science in Information System</option>
+                <option value="BSIT"{{$org->academic_course_based == 'BSIT' ? 'selected' : ' '}}>Bachelor of Science in Information Technology</option>
+                <option value="BSME"{{$org->academic_course_based == 'BSME' ? 'selected' : ' '}}>Bachelor of Science in Mechanical Engineering</option>
+                <option value="BSMining"{{$org->academic_course_based == 'BSMining' ? 'selected' : ' '}}>Bachelor of Science in Mining Engineering</option>
+                <option value="BSNursing"{{$org->academic_course_based == 'BSNursing' ? 'selected' : ' '}}>Bachelor of Science in Nursing</option>
+                <option value="BSPE"{{$org->academic_course_based == 'BSPE' ? 'selected' : ' '}}>Bachelor of Science in Petroleum Engineering</option>
+                <option value="BSPharma"{{$org->academic_course_based == 'BSPharma' ? 'selected' : ' '}}>Bachelor of Science in Pharmacy</option>
+                <option value="BSPsych"{{$org->academic_course_based == 'BSPsych' ? 'selected' : ' '}}>Bachelor of Science in Psychology</option>
+             </select><br></br>
+
 
             <!--Logo-->
             <label for="logoFile"><h3>Logo:</h3></label>

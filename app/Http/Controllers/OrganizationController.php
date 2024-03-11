@@ -48,6 +48,7 @@ class OrganizationController extends Controller
             'name',
             'nickname',
             'type_of_organization',
+            'academic_course_based',
             'mission',
             'vision',
             'org_email',
@@ -109,6 +110,7 @@ class OrganizationController extends Controller
             'name' => request('name'),
             'nickname' => request('nickname'),
             'type_of_organization' => request('type_of_organization'),
+            'academic_course_based' => request('academic_course_based'),
             'mission' => request('mission'),
             'vision' => request('vision'),
             'org_email' => request('org_email'),
@@ -190,7 +192,7 @@ class OrganizationController extends Controller
             $org = Organization::findOrFail($orgId);
             if($org->requirement_status != 'complete'){
                 $fieldsToCheckForNull = [
-                    'name', 'nickname', 'type_of_organization', 'mission', 'vision', 'org_email', 'org_fb',
+                    'name', 'nickname', 'type_of_organization','academic_course_based', 'mission', 'vision', 'org_email', 'org_fb',
                     'adviser_name', 'adviser_email', 'ausg_rep_studno', 'ausg_rep_name', 'ausg_rep_email',
                     'president_studno', 'president_name', 'president_email', 'vp_internal_studno', 'vp_internal_name',
                     'vp_internal_email', 'vp_external_studno', 'vp_external_name', 'vp_external_email', 'secretary_studno',
@@ -259,6 +261,7 @@ class OrganizationController extends Controller
                 $org->name = $request->input('name');
                 $org->nickname = $request->input('nickname');
                 $org->type_of_organization = $request->input('type_of_organization');
+                $org->academic_course_based = $request->input('academic_course_based');
                 $org->mission = $request->input('mission');
                 $org->vision = $request->input('vision');
                 $org->org_email = $request->input('org_email');
@@ -343,6 +346,7 @@ class OrganizationController extends Controller
                 $org->name = $request->input('name');
                 $org->nickname = $request->input('nickname');
                 $org->type_of_organization = $request->input('type_of_organization');
+                $org->academic_course_based = $request->input('academic_course_based');
                 $org->mission = $request->input('mission');
                 $org->vision = $request->input('vision');
                 $org->org_email = $request->input('org_email');
