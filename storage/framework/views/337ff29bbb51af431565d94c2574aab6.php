@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 
 
@@ -33,6 +32,7 @@
                             <th>Ticket Selling</th>
                             <th>Ticket Control No.</th>
                             <th>Other Source of Fund</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,7 +58,9 @@
                             <td><?php echo e($event->ticket_selling); ?></td>
                             <td><?php echo e($event->ticket_control_number); ?></td>
                             <td><?php echo e($event->other_source_of_fund); ?></td>
-                            
+                            <td>
+                            <a href="<?php echo e(route('generate-certificate', ['eventId' => $event->id])); ?>" class="btn btn-primary">Generate Certificate</a>
+                            </td>
                         </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody> 

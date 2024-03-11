@@ -28,10 +28,12 @@
 
     <center>
         <h1>Activity List</h1>
-    
+        <form form method="post" action="/osaemp/activity_approval/event_approve_or_edit" >
+            @csrf
         <table >
             <tr>
                 <th>Event Name</th>
+                <th>Status</th>
                 <th>Organization</th>
                 <th>Event Start Date & time</th>
                 <th>Event End Date & Time</th>
@@ -43,17 +45,18 @@
             
             <tr>
                 <td><a>{{$approve->activity_title}}</a></td>
-                <!-- Other table cells here -->
+                <td><a>{{$approve->status}}</a></td>
                 <td><a>{{$approve->organization_name}}</a></td>
                 <td>{{$approve->activity_start_date}} @ {{$approve->activity_start_time}}</td>
                 <td>{{$approve->activity_end_date}} @ {{$approve->activity_end_date}}</td>
                 <td>{{$approve->venue}}</td>
                 <td>
-                    <a href="{{url('')}}">Edit</a>
+                    <button type="submit" name="edit" value="edit_{{$approve->id}}" class= "btn btn-warning"style="padding-bottom:10px;">Edit</button>
                 </td>
             </tr>
             @endforeach
         </table>
+        </form>
             <br>
     </center>
 
@@ -119,8 +122,9 @@
                     <td>{{$event->other_source_of_fund}}</td>
                     <td>
                         <button type="submit" name="approve" value="approve_{{$event->id}}" class="btn btn-success" style="padding-bottom:10px;">Approve</button>
-                        <button type="submit" name="edit" value="edit_{{$event->id}}" class= "btn btn-warning"style="padding-bottom:10px;">Edit</button>
-                        <button type="submit" name="action" value="reject_{{$event->id}}" class="btn btn-danger" style="padding-bottom:10px;">Reject</button>
+                        <button type="submit" name="edit" value="edit_{{$event->id}}" class= "btn btn-primary"style="padding-bottom:10px;">Edit</button>
+                        <button type="submit" name="action" value="reject_{{$event->id}}" class="btn btn-warning" style="padding-bottom:10px;">Reject</button>
+                        <button type="submit" name="delete" value="reject_{{$event->id}}" class="btn btn-danger" style="padding-bottom:10px;">Delete</button>
                     </td>
                 </tr>
                 @endforeach
@@ -195,12 +199,7 @@
                 
 
                 <!-- Event details input fields -->
-                <div class="form-group row mb-2">
-                    <label for="id" class="col-sm-4 col-form-label text-left">ID:</label>
-                    <div class="col-sm-8">
-                        <input type="number" id="id" class="id" name="id" required>
-                    </div>
-                </div>
+                
 
                 <div class="form-group row mb-2">
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Event Status:</label>
@@ -208,16 +207,22 @@
                         <div class="col-sm-8">
                             <select class="form-control" id="eventStatus" name="status"  required>
                                 <option value="Standby">Standby</option>
-                                <option value="Rejected">Rejected</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="form-group row mb-2">
-                    <label for="eventOrgname" class="col-sm-4 col-form-label text-left">Organization Name:</label>
+                    <label for="eventOrgname" class="col-sm-4 col-form-label text-left">Organization:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="organization_name" name="organization_name" required>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="organization_name" name="organization_name" onchange="showHideOthers(this);" required>
+                                @foreach($org as $org_name)
+                                <option value="{{$org_name->name}}">{{$org_name->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
+                    
                 </div>
                 
                 <div class="form-group row mb-2">
@@ -270,6 +275,7 @@
                     <label for="eventLocation" class="col-sm-4 col-form-label text-left">Event Location:</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="venue" name="venue" onchange="showHideOthers(this);" required>
+                            <option value="TBA">TBA</option>
                             <option value="SV Hall">SV Hall</option>
                             <option value="ST Quad">ST Quad</option>
                             <option value="Adamson Theatre">Adamson Theatre</option>
@@ -286,7 +292,14 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Partner Organization:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="partner_organization" name="partner_organization" >
+
+                        <select class="form-control" id="partner_organization" name="partner_organization" onchange="showHideOthers(this);">
+                            <option value="None">--None--</option>
+                            @foreach($org as $org_name)
+                            <option value="{{$org_name->name}}">{{$org_name->name}}</option>
+                            @endforeach
+                        </select>
+                        
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -316,7 +329,7 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Sponsored By:</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="sponsored_by" name="sponsored_by" >
+                        <input type="text" class="form-control" id="sponsored_by" name="sponsored_by" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -334,7 +347,7 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Other Source</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="other_source_of_fund" name="other_source_of_fund">
+                        <input type="text" class="form-control" id="other_source_of_fund" name="other_source_of_fund">
                     </div>
                 </div>
 

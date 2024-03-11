@@ -6,10 +6,12 @@
 <main>
     <center>
         <h1>Activity List</h1>
-    
+        <form form method="post" action="/osaemp/activity_approval/event_approve_or_edit" >
+            @csrf
         <table >
             <tr>
                 <th>Event Name</th>
+                <th>Status</th>
                 <th>Organization</th>
                 <th>Event Start Date & time</th>
                 <th>Event End Date & Time</th>
@@ -21,17 +23,18 @@
             
             <tr>
                 <td><a>{{$approve->activity_title}}</a></td>
-                <!-- Other table cells here -->
+                <td><a>{{$approve->status}}</a></td>
                 <td><a>{{$approve->organization_name}}</a></td>
                 <td>{{$approve->activity_start_date}} @ {{$approve->activity_start_time}}</td>
                 <td>{{$approve->activity_end_date}} @ {{$approve->activity_end_date}}</td>
                 <td>{{$approve->venue}}</td>
                 <td>
-                    <a href="{{url('')}}">Edit</a>
+                    <button type="submit" name="edit" value="edit_{{$approve->id}}" class="btn btn-create" style="padding-bottom:10px;">View and Edit</button>
                 </td>
             </tr>
             @endforeach
         </table>
+        </form>
             <br>
     </center>
 </main>
