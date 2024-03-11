@@ -422,11 +422,9 @@
         <!-- Modal Footer -->
         <div class="modal-footer">
           <!-- Close button -->
-              <button type="button" class="btn btn-primary" id="postButton">Post</button>
-         
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <!-- Post button -->
-             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        
+          <button type="button" class="btn btn-primary" id="postButton">Post</button>
         </div>
       </div>
     </div>
@@ -467,6 +465,24 @@ $('#createPostModal').modal('hide');
     function openCreatePostModal() {
         $('#createPostModal').modal('show');
     }
+</script>
+<!-- JavaScript to handle modal buttons -->
+<script>
+    $(document).ready(function() {
+        // Function to handle post button click
+        $("#postButton").click(function() {
+            // Your logic to handle post button click goes here
+            // For example, you can fetch the post content and send it to the server
+            // You can also close the modal after posting if needed
+            $('#createPostModal').modal('hide'); // Close the modal
+        });
+
+        // Function to handle close button click
+        $(".close, [data-dismiss='modal']").click(function() {
+            // Close the modal when the close button is clicked
+            $('#createPostModal').modal('hide');
+        });
+    });
 </script>
 </body>
 </html>
