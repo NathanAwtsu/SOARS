@@ -82,23 +82,32 @@
         <h1 style="padding-top: 40px; padding-bottom: 20px;">
             <i class="fas fa-bullhorn"></i> Announcements
         </h1>
+        <?php if(isset($announcement)): ?>
+            
+        
+        <?php $__currentLoopData = $announcement; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $anncmt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="announcement" style="margin-bottom: 5%; background-color: rgb(181, 181, 181); border-color:black;">
             
                 <div class="announcement-header">
                     <h3 class="announcement-title">
-                        <i class="fa-regular fa-clipboard"></i> Important Announcement
+                        <i class="fa-regular fa-clipboard"></i>Title: <?php echo e($anncmt->title); ?>
+
                     </h3>
-                    <p class="announcement-date">Posted on January 25, 2024</p>
-                    <p class="author">Juan Delacruz</p>
+                    <p class="announcement-date">Posted on <?php echo e($anncmt->created_at); ?></p>
+                    <p class="author"<?php echo e($anncmt->author); ?></p>
                 </div>
                 <div class="announcement-body">
                     <p class="announcement-content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fermentum felis a nulla tempus, vel pellentesque lacus aliquet. Nulla facilisi. Sed non lorem magna.
+                        <?php echo e($anncmt->message); ?>
+
                     </p>
                 </div>
             
             <br><br>
         </div>
+
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
     </div>
         
 

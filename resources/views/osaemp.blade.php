@@ -82,23 +82,30 @@
         <h1 style="padding-top: 40px; padding-bottom: 20px;">
             <i class="fas fa-bullhorn"></i> Announcements
         </h1>
+        @if (isset($announcement))
+            
+        
+        @foreach($announcement as $anncmt)
         <div class="announcement" style="margin-bottom: 5%; background-color: rgb(181, 181, 181); border-color:black;">
             
                 <div class="announcement-header">
                     <h3 class="announcement-title">
-                        <i class="fa-regular fa-clipboard"></i> Important Announcement
+                        <i class="fa-regular fa-clipboard"></i>Title: {{$anncmt->title}}
                     </h3>
-                    <p class="announcement-date">Posted on January 25, 2024</p>
-                    <p class="author">Juan Delacruz</p>
+                    <p class="announcement-date">Posted on {{$anncmt->created_at}}</p>
+                    <p class="author"{{$anncmt->author}}</p>
                 </div>
                 <div class="announcement-body">
                     <p class="announcement-content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fermentum felis a nulla tempus, vel pellentesque lacus aliquet. Nulla facilisi. Sed non lorem magna.
+                        {{$anncmt->message}}
                     </p>
                 </div>
             
             <br><br>
         </div>
+
+        @endforeach
+        @endif
     </div>
         
 

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
+use App\Models\Announcement;
 
 use setasign\Fpdi\Fpdi;
 
@@ -158,12 +159,14 @@ class OsaController extends Controller
         $totalOrg= DB::table('organizations')->get();
         $totalPendingOrg = DB::table('organizations')->where('requirement_status','!=','complete')->get();
         $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
+        $announcement = DB::table('announcements')->get();
         return view('osaemp')
         ->with('totalEvent', $totalEvent)
         ->with('totalMember',$totalMember)
         ->with('totalOrg', $totalOrg)
         ->with('totalPendingOrg', $totalPendingOrg)
-        ->with('activities', $activities);
+        ->with('activities', $activities)
+        ->with('announcement', $announcement);
         
     }
 
