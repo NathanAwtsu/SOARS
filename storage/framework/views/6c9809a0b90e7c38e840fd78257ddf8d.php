@@ -32,8 +32,9 @@
                 <option value="Religious">Religious</option>
              </select><br></br>
             
-             <label for="AcademicCourseBased"><h2>Select if Org is based on Academic Course</h2></label><br>
+             <label for="AcademicCourseBased"><h2>Select, if Org is based on Academic Course</h2></label><br>
              <select id="academic_course_based" name="academic_course_based" onchange="showHideOthers(this);" required>
+                <option value="Not Academic Couse Based">None</option>
                 <option value="ACT">Associate in Computer Technology</option>
                 <option value="BAComm">Bachelor of Arts in Communication</option>
                 <option value="BAPhilo">Bachelor of Arts in Philosophy</option>

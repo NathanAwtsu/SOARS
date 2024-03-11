@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
     <!-- Your main content goes here -->
-    
+    <main style="padding-top: 30px;">
     
         <style>
             .card-table {
@@ -41,8 +41,8 @@
             </a>
             </div>
             <a href="<?php echo e(route('rso_list')); ?>"><div class="card" style="height: 150px; background-color: #81c784;">
-                <h2 style="color: white;">Total Recognized Student Organizations <i class="fa-solid fa-chart-line"></i></h2>
-                <p style="font-size: 30px; color: white;"></p>
+                <h2 style="color: white;">Total Student Organizations <i class="fa-solid fa-chart-line"></i></h2>
+                <p style="font-size: 30px; color: white;"><?php echo e($RSOCount); ?></p>
             </a>
             </div>
             
@@ -69,7 +69,7 @@
                                 <?php endif; ?>
                 </div>
         </div>
-
+    </main>    
     
         
     

@@ -1,25 +1,48 @@
 @extends('navbar.admin_nav')
 @section('content')
+<style>
+    form {
+        text-align: left; /* Align text in the form to the left */
+    }
 
+    form label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    form textarea,
+    form input {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 0px;
+    }
+    
+</style>
 <center>
     
-    <main style="padding-top: 80px;">
+    <main>
        
     <div class="card" style="height: auto; width: 700px;">
         <h2>Organization Information Form</h2> <br><br>
-        <form action="/rso_list/new_organization" method="post" enctype="multipart/form-data">
+        <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
             @csrf
             <label for="OrgName"><h2>Organization Name :</h2></label><br>
-            <textarea id="name" name="name" rows="2" cols="50" required></textarea><br><br>
+            <textarea id="name" name="name" rows="2" cols="4" required></textarea><br><br>
             <label for="OrgName"><h2>Nickame :</h2></label><br>
-            <textarea id="name" name="nickname" rows="2" cols="50" required></textarea><br><br>
+            <textarea id="name" name="nickname" rows="2" cols="4" required></textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
             <textarea id="mission" name="mission" rows="4" cols="50" ></textarea><br><br>
 
             <label for="Vision"><h2>Insert Vision:</h2> </label><br>
             <textarea id="vision" name="vision" rows="4" cols="50" ></textarea><br><br>
 
-            <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
+            <label for="janeContact" style="text-align:left;"> Organization Email:</label>
+            <input type="org_email" id="org_email" name="org_email" ><br><br>
+
+            <label for="janeContact" style="text-align:left;"> Organization Facebook:</label>
+            <input type="org_fb" id="org_fb" name="org_fb" ><br>
+
+            <label for="OrganizationType"><h2>First Select Organization Type</h2></label><br>
              <select id="type_of_organization" name="type_of_organization" onchange="showHideOthers(this);" required>
                 <option value="Academic">Academic</option>
                 <option value="Co-Academic">Co-Academic</option>
@@ -27,6 +50,42 @@
                 <option value="Religious">Religious</option>
              </select><br></br>
             
+             <label for="AcademicCourseBased"><h2>Select, if Org is based on Academic Course</h2></label><br>
+             <select id="academic_course_based" name="academic_course_based" onchange="showHideOthers(this);" required>
+                <option value="Not Academic Couse Based">None</option>
+                <option value="ACT">Associate in Computer Technology</option>
+                <option value="BAComm">Bachelor of Arts in Communication</option>
+                <option value="BAPhilo">Bachelor of Arts in Philosophy</option>
+                <option value="BAPolSci">Bachelor of Arts in Political Science</option>
+                <option value="BEEd">Bachelor of Elementary Education</option>
+                <option value="BPEd">Bachelor of Physical Education</option>
+                <option value="BPE-SWM">Bachelor of Physical Education Major in Sports and Wellness Management</option>
+                <option value="BSA">Bachelor of Science in Accountancy</option>
+                <option value="BSArchi">Bachelor of Science in Architecture</option>
+                <option value="BSBio">Bachelor of Science in Biology</option>
+                <option value="BSBAFM">Bachelor of Science in Business Administration Major in Financial Management</option>
+                <option value="BSBAMM">Bachelor of Science in Business Administration Major in Marketing Management</option>
+                <option value="BSBAOM">Bachelor of Science in Business Administration Major in Operations Management</option>
+                <option value="BSChE">Bachelor of Science in Chemical Engineering</option>
+                <option value="BSCPT">Bachelor of Science in Chemical Process Technology</option>
+                <option value="BSChem">Bachelor of Science in Chemistry</option>
+                <option value="BSCE">Bachelor of Science in Civil Engineering</option>
+                <option value="BSCooE">Bachelor of Science in Computer Engineering</option>
+                <option value="BSCS">Bachelor of Science in Computer Science</option>
+                <option value="BSCA">Bachelor of Science in Customs Administration</option>
+                <option value="BSEE">Bachelor of Science in Electrical Engineering</option>
+                <option value="BSGeo">Bachelor of Science in Geology</option>
+                <option value="BSHM">Bachelor of Science in Hospitality Management</option>
+                <option value="BSIE">Bachelor of Science in Industrial Engineering</option>
+                <option value="BSIS">Bachelor of Science in Information System</option>
+                <option value="BSIT">Bachelor of Science in Information Technology</option>
+                <option value="BSME">Bachelor of Science in Mechanical Engineering</option>
+                <option value="BSMining">Bachelor of Science in Mining Engineering</option>
+                <option value="BSNursing">Bachelor of Science in Nursing</option>
+                <option value="BSPE">Bachelor of Science in Petroleum Engineering</option>
+                <option value="BSPharma">Bachelor of Science in Pharmacy</option>
+                <option value="BSPsych">Bachelor of Science in Psychology</option>
+             </select><br></br>
             <!--Logo-->
             <label for="logoFile"><h3>Logo:</h3></label>
             
@@ -71,7 +130,7 @@
             
 
             <label for="advisersInfoText">
-                <h2>Almost there! Enter Advisers and Officers Information:</h2>
+                <h2>Enter Advisers and Officers Information:</h2>
             </label>
             
             <div id="listOfOfficersContent" class="card mt-4 mb-4" style="height: auto;">
@@ -91,7 +150,7 @@
                                     </label><br><br>
                             </div>
                         </div>
-                    </div>
+                    
                         <div class="col-md-15">
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>AUSG Representative:</h5></label>
@@ -103,7 +162,7 @@
                                     <input type="email" id="ausg_rep_email" name="ausg_rep_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="ausg_rep_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload AUSG Photo</span>
                                         <input type="file" id="ausg_rep_photo" name="ausg_rep_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -135,7 +194,7 @@
                                     <input type="email" id="vp_internal_email" name="vp_internal_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="vp_internal_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload VP Internal Photo</span>
                                         <input type="file" id="vp_internal_photo" name="vp_internal_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -151,7 +210,7 @@
                                     <input type="email" id="vp_external_email" name="vp_external_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="vp_external_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload VP External Photo</span>
                                         <input type="file" id="vp_external_photo" name="vp_external_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -167,7 +226,7 @@
                                     <input type="email" id="secretary_email" name="secretary_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="secretary_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload Secretary Photo</span>
                                         <input type="file" id="secretary_photo" name="secretary_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -183,7 +242,7 @@
                                     <input type="email" id="treasurer_email" name="treasurer_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="treasurer_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload Treasurer Photo</span>
                                         <input type="file" id="treasurer_photo" name="treasurer_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -199,7 +258,7 @@
                                     <input type="email" id="auditor_email" name="auditor_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="auditor_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload Auditor Photo</span>
                                         <input type="file" id="auditor_photo" name="auditor_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -215,21 +274,18 @@
                                     <input type="email" id="pro_email" name="pro_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="pro_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload Pro Photo</span>
                                         <input type="file" id="pro_photo" name="pro_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
                         </div>
-
-                        
-
-
                         <input type="submit" value="Submit">
                         
                     </div>
                 </div>
             </div>
         </form>
+    </div>
     </main>
 </center>
             

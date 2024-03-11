@@ -1,5 +1,23 @@
 @extends('navbar.navbar_osa')
 @section('content')
+<style>
+    form {
+        text-align: left; /* Align text in the form to the left */
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    form textarea,
+    form input {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 0px;
+    }
+    
+</style>
 
 <center>
     
