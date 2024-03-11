@@ -176,7 +176,9 @@ class OsaController extends Controller
     
 
     public function user(){
-        $info=DB::table('users')->where('role','=','2')->where('role','=','3')->where('role','=','4')->get();
+        $info=DB::table('users')->where('role','=','2')->
+        orwhere('role','=','3')->
+        orwhere('role','=','4')->get();
         return view('OSA.userlist')
         ->with('info', $info);
 

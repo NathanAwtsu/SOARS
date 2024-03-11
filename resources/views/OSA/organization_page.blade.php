@@ -21,6 +21,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
+                                <p class="card-text">
+                                    <strong>{{$org->name}}({{$org->nickname}})</strong>
+                                    
+                                    
+                                   
+                                </p>
                                 <img src="/storage/logo/{{$org->logo}}" alt="{{$org->logo}}" class="img-fluid mb-3">
                                 <strong>Academic Course Based:</strong><br><br>
                                     {{$org->academic_course_based}}

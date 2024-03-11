@@ -278,6 +278,7 @@
                                         <span>Upload Pro Photo</span>
                                         <input type="file" id="pro_photo" name="pro_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
+                                    <div id="image_preview"></div>
                             </div>
                         </div>
 
@@ -292,7 +293,8 @@
         </form>
     </main>
 </center>
-            
+
+
 
 <script>
     var officerContainer = document.getElementById('officerContainer');

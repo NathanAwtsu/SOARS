@@ -4,26 +4,33 @@
 
 <main style="overflow-x: hidden;">
     <div class="container">
+
         <div class="row">
-            <div class="col-md-3 mb-3">
+            <div class="col mb-3">
+                <a href="#" class="card" style="height: 130px; background-color: #E7700D; text-decoration: none;" onclick="openCreatePostModal()">
+                    <h2 style="color: white;"><i class="fa-solid fa-bullhorn"></i> Create an Announcement </h2>
+                </a>
+            </div>
+
+            <div class="col mb-3">
                 <a href="<?php echo e(url('/chatify')); ?>" class="card" style="height: 130px; background-color: #e57373; text-decoration: none;">
                     <h2 style="color: white;"><i class="fa-regular fa-message"></i> Messages </h2>
                     
                 </a>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col mb-3">
                 <a href="<?php echo e(url('/osaemp/activities')); ?>" class="card" style="height: 130px; background-color: #81c784; text-decoration: none;">
                     <h2 style="color: white;"><i class="fa-solid fa-chart-line"></i> Activities <?php echo e($totalEvent->count()); ?></h2>
                     
                 </a>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col mb-3">
                 <a href="<?php echo e(url('/osaemp/organization_activation')); ?>" class="card" style="height: 130px; background-color: #64b5f6; text-decoration: none;">
-                    <h2 style="color: white;"><i class="fa-solid fa-sitemap"></i> Organization Activation <?php echo e($totalPendingOrg->count()); ?></h2>
+                    <h2 style="color: white;"><i class="fa-solid fa-sitemap"></i> Org Activation <?php echo e($totalPendingOrg->count()); ?></h2>
                     <p style="font-size: 20px; color: white;"></p>
                 </a>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col mb-3">
                 <a href="<?php echo e(url('/osaemp/userlist')); ?>" class="card" style="height: 130px; background-color: #ffb74d; text-decoration: none;">
                     <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members <?php echo e($totalMember->count()); ?></h2>
                     
@@ -32,13 +39,18 @@
         </div>
     </div>
 
+
+    <div class="container">
+
+    </div>
+
     <div class="container">
         <h1>Calendar of Events</h1>
         <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 30px;"></div>
     </div>
 
     <div class="container">
-        <h2>Activities</h2>
+        <h1>Activities</h1>
         <table class="table">
             <thead>
                 <tr>
@@ -62,12 +74,121 @@
             </tbody>
         </table>
     </div>
-
-    
-
+    <div class="container">
+        <h1 style="padding-top: 40px; padding-bottom: 20px;">
+            <i class="fas fa-bullhorn"></i> Announcements
+        </h1>
+        <div class="announcement" style="margin-bottom: 5%;">
+            
+                <div class="announcement-header">
+                    <h3 class="announcement-title">
+                        <i class="fa-regular fa-clipboard"></i> Important Announcement
+                    </h3>
+                    <p class="announcement-date">Posted on January 25, 2024</p>
+                    <p class="author">Juan Delacruz</p>
+                </div>
+                <div class="announcement-body">
+                    <p class="announcement-content">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fermentum felis a nulla tempus, vel pellentesque lacus aliquet. Nulla facilisi. Sed non lorem magna.
+                    </p>
+                </div>
+            
+            <br><br>
+        </div>
+    </div>
         
 </main>
-  
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="createPostModalLabel">Create an Announcement</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <!-- Modal Body -->
+        <form >
+            <div class="modal-body">
+            <!-- Form to create post -->
+                    <div class="form-group">
+                        <label for="postContent">Title</label>
+                        <textarea class="form-control" id="postContent" rows="1"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="postContent">Post Content</label>
+                        <textarea class="form-control" id="postContent" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userType">Send to</label>
+                        <select class="form-control" id="userType">
+                            <option value="student">Student</option>
+                            <option value="studentLeader">Student Leader</option>
+                            <option value="All">All</option>
+                        </select>
+                    </div>
+                
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+            <!-- Close button -->
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!-- Post button -->
+            <button type="button" class="btn btn-primary" id="postButton">Post</button>
+            
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- JavaScript to handle modal buttons -->
+<script>
+    $(document).ready(function() {
+        // Function to handle post button click
+        $("#postButton").click(function() {
+            // Your logic to handle post button click goes here
+            // For example, you can fetch the post content and send it to the server
+            // You can also close the modal after posting if needed
+            $('#createPostModal').modal('hide'); // Close the modal
+        });
+
+        // Function to handle close button click
+        $(".close, [data-dismiss='modal']").click(function() {
+            // Close the modal when the close button is clicked
+            $('#createPostModal').modal('hide');
+        });
+    });
+</script>
+<script>
+    function openCreatePostModal() {
+        $('#createPostModal').modal('show');
+    }
+</script>  
+
+
         
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -90,6 +211,51 @@
     });
   </script>
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+
+  <style>
+    .announcement {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 1100px;
+    margin: auto;
+    height: 180px;
+    color: black;
+    padding-bottom: 10px;
+    
+    }
+    
+    .announcement-header {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    }
+    
+    .announcement-title {
+    font-size: 24px;
+    margin: 0;
+    color: black;
+    }
+    
+    .announcement-date {
+    color: #666;
+    margin: 5px 0;
+    }
+    
+    .announcement-link {
+        color: black; /* Set the color to black */
+        text-decoration: none; /* Remove underline */
+    }
+    
+    .announcement-content {
+    font-size: 12px;
+    line-height: 1.6;
+    color: black;
+    }
+    </style>
+    
+    
   
 
 

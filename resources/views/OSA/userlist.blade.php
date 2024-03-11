@@ -23,7 +23,9 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Role</th>
+                        <th>Phone</th>
+                        <th>Chat</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -34,7 +36,20 @@
                         <td>{{$inf->id}}</td>
                         <td>{{$inf->name}}</td>
                         <td>{{$inf->email}}</td>
-                        <td>{{$inf->role}}</td>
+                        <td>
+                            @if ($inf->phone_number == null)
+                                Null
+                            @endif
+                            
+                            @if (isset($inf->phone_number))
+                            {{$inf->phone_number}}
+                            @endif
+                        </td>
+                        <td>
+                            <a href="/chatify/{{$inf->id}}" class="btn btn-success" style="padding-bottom:10px;">Chat</a>
+                        </td>
+                        
+
                     </tr>
                     @endforeach
                     <!-- Add more user rows here -->
