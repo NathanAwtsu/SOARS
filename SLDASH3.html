@@ -18,6 +18,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AdymNiLYF8VBsemvfiaoV9POC7vz__Cn-eGnnzPMUmftaXIf637TGrqBw-KPgGLJciSXCtjzmYh7yBoo&currency=USD"></script>
+
 
 
     <style>
@@ -509,6 +511,7 @@ $('#createPostModal').modal('hide');
       <!-- Add your payment form here -->
       <form id="paymentForm">
           <!-- Your payment form fields -->
+          <div id="paypal-button-container"></div>
          
       </form>
   </div>
@@ -546,3 +549,27 @@ $('#createPostModal').modal('hide');
 </script>
 </body>
 </html>
+<script>
+  // Render the PayPal button
+  paypal.Buttons({
+    createOrder: function(data, actions) {
+      // This function sets up the details of the transaction, including the amount and currency.
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '10.00' // Sample amount, change it according to your needs
+          }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      // This function captures the funds from the transaction.
+      return actions.order.capture().then(function(details) {
+        // This function shows a transaction success message to your buyer.
+        alert('Transaction completed by ' + details.payer.name.given_name);
+        // You can redirect the user to a success page or perform other actions here
+      });
+    }
+  }).render('#paypal-button-container');
+</script>
+
