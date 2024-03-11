@@ -1,11 +1,14 @@
 @extends('navbar.navbar_osa')
 @section('content')
 
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
 
 
-<main style="overflow-x: hidden;">
     <div class="container">
-
         <div class="row">
             <div class="col mb-3">
                 <a href="#" class="card" style="height: 130px; background-color: #E7700D; text-decoration: none;" onclick="openCreatePostModal()">
@@ -32,7 +35,7 @@
                 </a>
             </div>
             <div class="col mb-3">
-                <a href="{{url('/osaemp/userlist')}}" class="card" style="height: 130px; background-color: #ffb74d; text-decoration: none;">
+                <a href="{{url('/osaemp/userlist')}}" class="card" style="height: 130px; background-color: #8b00d6; text-decoration: none;">
                     <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members {{$totalMember->count()}}</h2>
                     
                 </a>
@@ -79,34 +82,32 @@
         <h1 style="padding-top: 40px; padding-bottom: 20px;">
             <i class="fas fa-bullhorn"></i> Announcements
         </h1>
-        <div class="announcement" style="margin-bottom: 5%;">
+        @if (isset($announcement))
+            
+        
+        @foreach($announcement as $anncmt)
+        <div class="announcement" style="margin-bottom: 5%; background-color: rgb(181, 181, 181); border-color:black;">
             
                 <div class="announcement-header">
                     <h3 class="announcement-title">
-                        <i class="fa-regular fa-clipboard"></i> Important Announcement
+                        <i class="fa-regular fa-clipboard"></i> Title: {{$anncmt->title}}
                     </h3>
-                    <p class="announcement-date">Posted on January 25, 2024</p>
-                    <p class="author">Juan Delacruz</p>
+                    <p class="announcement-date">Posted on {{$anncmt->created_at}}</p>
+                    <p style="margin-bottom:3px;" class="author">From: {{$anncmt->author}},  {{$anncmt->author_org}}</p>
                 </div>
                 <div class="announcement-body">
                     <p class="announcement-content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fermentum felis a nulla tempus, vel pellentesque lacus aliquet. Nulla facilisi. Sed non lorem magna.
+                        {{$anncmt->message}}
                     </p>
                 </div>
             
             <br><br>
         </div>
+
+        @endforeach
+        @endif
     </div>
         
-</main>
-
-
-
-
-
-
-
-
 
 <div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -121,6 +122,7 @@
         
         <!-- Modal Body -->
         <form action="/osaemp/announcement" method="post">
+            @csrf
             <div class="modal-body">
             <!-- Form to create post -->
                     <div class="form-group">
@@ -134,10 +136,10 @@
                     
                     <div class="form-group">
                         <label for="userType">Send to</label>
-                        <select class="form-control" id="for" name="for">
+                        <select class="form-control" id="recipient" name="recipient">
                             <option value="student">Student</option>
                             <option value="studentLeader">Student Leader</option>
-                            <option value="All">All</option>
+                            <option value="Everyone" selected>Everyone</option>
                         </select>
                     </div>
                 
@@ -147,7 +149,7 @@
             <!-- Close button -->
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <!-- Post button -->
-            <input type="submit" class="btn btn-primary" id="postButton">Post</input>
+            <input type="submit" class="btn btn-primary" id="postButton"></input>
             </div>
         </form>
       </div>
@@ -162,7 +164,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
 <!-- JavaScript to handle modal buttons -->
 <script>
@@ -215,10 +217,11 @@
   <style>
     .announcement {
     background-color: #f0f0f0;
+    border: 1px solid black;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
-    width: 1100px;
+    width: auto;
     margin: auto;
     height: 180px;
     color: black;
@@ -227,9 +230,9 @@
     }
     
     .announcement-header {
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 3px;
+    padding-bottom: 3px;
     }
     
     .announcement-title {
@@ -249,7 +252,7 @@
     }
     
     .announcement-content {
-    font-size: 12px;
+    font-size: 15px;
     line-height: 1.6;
     color: black;
     }

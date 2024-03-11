@@ -8,12 +8,6 @@
                 <h2>User Profile Setup</h2>
                 <form>
                     <div class="form-group"><br>
-                        <img id="preview" src="/photos/icon.jpg" alt="Profile Picture" width="150">
-                        <label for="profilePicture">Profile Picture</label> <br>
-                        <input type="file" class="form-control-file" id="profilePicture" accept="image/*">
-                        
-                    </div>
-                    <div class="form-group"><br>
                         
                             
                         

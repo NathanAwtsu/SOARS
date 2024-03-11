@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('last_name'); 
             $table->string('middle_initial')->nullable(); // Make 'middle_initial' nullable.
             $table->string('first_name'); 
-            $table->unsignedBigInteger('course_id'); // Foreign key
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->unsignedBigInteger('course_id'); // Foreign key
             $table->string('organization1')->nullable();
             $table->string('organization2')->nullable();
             $table->string('password');

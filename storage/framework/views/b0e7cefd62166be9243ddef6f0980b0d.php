@@ -35,7 +35,7 @@
                 </a>
             </div>
             <div class="col mb-3">
-                <a href="<?php echo e(url('/osaemp/userlist')); ?>" class="card" style="height: 130px; background-color: #ffb74d; text-decoration: none;">
+                <a href="<?php echo e(url('/osaemp/userlist')); ?>" class="card" style="height: 130px; background-color: #8b00d6; text-decoration: none;">
                     <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members <?php echo e($totalMember->count()); ?></h2>
                     
                 </a>
@@ -90,11 +90,11 @@
             
                 <div class="announcement-header">
                     <h3 class="announcement-title">
-                        <i class="fa-regular fa-clipboard"></i>Title: <?php echo e($anncmt->title); ?>
+                        <i class="fa-regular fa-clipboard"></i> Title: <?php echo e($anncmt->title); ?>
 
                     </h3>
                     <p class="announcement-date">Posted on <?php echo e($anncmt->created_at); ?></p>
-                    <p class="author"<?php echo e($anncmt->author); ?></p>
+                    <p style="margin-bottom:3px;" class="author">From: <?php echo e($anncmt->author); ?>,  <?php echo e($anncmt->author_org); ?></p>
                 </div>
                 <div class="announcement-body">
                     <p class="announcement-content">
@@ -219,10 +219,11 @@
   <style>
     .announcement {
     background-color: #f0f0f0;
+    border: 1px solid black;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
-    width: 1100px;
+    width: auto;
     margin: auto;
     height: 180px;
     color: black;
@@ -231,9 +232,9 @@
     }
     
     .announcement-header {
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 3px;
+    padding-bottom: 3px;
     }
     
     .announcement-title {
@@ -253,7 +254,7 @@
     }
     
     .announcement-content {
-    font-size: 12px;
+    font-size: 15px;
     line-height: 1.6;
     color: black;
     }
