@@ -30,26 +30,8 @@
             bottom: 40px;
             right: 20px;
         }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            width: 300px; /* Set your desired width */
-            height: 500px; /* Set your desired height */
-        }
+        
+     
         
     .card-img-top {
     max-width: 100%;
@@ -455,8 +437,8 @@
         color: green;
     }
 </style>
-<div class="modal fade" id="attendanceModal" tabindex="-1" role="dialog" aria-labelledby="attendanceModalLabel" aria-hidden="true" style="height: auto ; width: auto;">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="attendanceModal" tabindex="-1" role="dialog" aria-labelledby="attendanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="attendanceModalLabel">Attendance Monitoring</h5>
@@ -464,31 +446,28 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" >
+            <div class="modal-body">
                 <!-- Table for users with attendance options -->
                 <table class="table">
                     <thead>
                         <tr>
                             <th>Name</th>
-                         
                             <th>Attendance</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- User 1 -->
                         <tr>
-                            <td><img src="icon.jpg" alt="User 2 Image" style="max-width: 100px; height: auto;">User 1 Full Name</td>
-                            
+                            <td><img src="icon.jpg" alt="User 1 Image" style="max-width: 100px; height: auto;">User 1 Full Name</td>
                             <td>
                                 <!-- Radio buttons for attendance options for User 1 -->
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="attendanceOption1" id="absentOption1" value="absent">
                                     <label class="form-check-label" for="absentOption1" style="color: red;">Absent</label>
-
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="attendanceOption1" id="presentOption1" value="present">
-                                    <label class="form-check-label present-label" for="presentOption2">Present</label>
+                                    <label class="form-check-label present-label" for="presentOption1">Present</label>
                                 </div>
                             </td>
                         </tr>
@@ -500,8 +479,7 @@
                                 <!-- Radio buttons for attendance options for User 2 -->
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="attendanceOption2" id="absentOption2" value="absent">
-                                    <label class="form-check-label" for="absentOption1" style="color: red;">Absent</label>
-
+                                    <label class="form-check-label" for="absentOption2" style="color: red;">Absent</label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="attendanceOption2" id="presentOption2" value="present">
@@ -521,6 +499,24 @@
         </div>
     </div>
 </div>
+<!-- Event Description Modal -->
+<div class="modal fade" id="eventDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="eventDescriptionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventDescriptionModalLabel">Event Description</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="eventDescriptionModalBody">
+                <!-- Event description will be inserted here dynamically -->
+                <img src="adulogo.png" alt="Event Image" style="max-width: 100%; height: auto;"><br>
+                <p>testing test 1 test 2 test 3</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 
 
             
@@ -635,6 +631,16 @@
           $('#passwordModal').modal('hide'); // Hide the modal after submitting password
       }
   </script>
+
+  <script>
+    function showEventModal(content) {
+        // Set the HTML content in the modal body
+        document.getElementById('eventDescriptionModalBody').innerHTML = content;
+
+        // Show the modal
+        $('#eventDescriptionModal').modal('show');
+    }
+</script>
 
         
     
