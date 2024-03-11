@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Students;
 use App\Models\Osa;
 use App\Models\User;
+use App\Models\Organization;
 use Datatables;
 
 class StudentsController extends Controller
@@ -140,21 +141,26 @@ public function update(Request $request)
         $studentCount = $this->getStudentCount();
         $osaEmpCount = $this->getOsaEmpCount();
         $recentUsers = $this->recentUser();
+        $RSOCount = $this->getRSOCount();
         return view('Admin.admin', [
             'studentCount' => $studentCount,
             'osaEmpCount' => $osaEmpCount,
             'recentUsers' =>$recentUsers,
+            'RSOCount'    =>$RSOCount,
         ]);
     }
 
-    public function recentUser()
+    public function recentUser($perPage = 10)
     {
-        
         $recentUsers = User::orderBy('created_at', 'desc')
-                           ->take(10) // Limit to 10 users, adjust as needed
-                           ->get();
+                        ->paginate($perPage);
 
         return $recentUsers;
+    }
+
+    public function getRSOCount() {
+        $RSOCount = Organization::where('requirement_status', 'complete')->count();
+        return $RSOCount;
     }
     
 }

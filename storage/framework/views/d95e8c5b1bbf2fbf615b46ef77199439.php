@@ -2,7 +2,7 @@
 
 
 
-<main style="padding-left: 250px; overflow-x: hidden;">
+<main style="overflow-x: hidden;">
     <div class="container">
         <div class="row">
             <div class="col-md-3 mb-3">
@@ -33,6 +33,11 @@
     </div>
 
     <div class="container">
+        <h1>Calendar of Events</h1>
+        <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 30px;"></div>
+    </div>
+
+    <div class="container">
         <h2>Activities</h2>
         <table class="table">
             <thead>
@@ -58,115 +63,34 @@
         </table>
     </div>
 
-    <div class="container">
-			<h3>Calendar of Events</h3>
-			<div id='calendar'></div>
-		</div>
+    
 
         
 </main>
   
-        <script>
-        $(document).ready(function () {
-			   
-               var SITEURL = "<?php echo e(url('/')); ?>";
-                 
-               $.ajaxSetup({
-                   headers: {
-                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                   }
-               });
-                 
-               var calendar = $('#calendar').fullCalendar({
-                                   editable: true,
-                                   events: SITEURL + "/osaemp/fullcalendar/activity",
-                                   displayEventTime: false,
-                                   editable: true,
-                                   eventRender: function (event, element, view) {
-                                       if (event.allDay === 'true') {
-                                               event.allDay = true;
-                                       } else {
-                                               event.allDay = false;
-                                       }
-                                   },
-                                   selectable: true,
-                                   selectHelper: true,
-                                   select: function (start, end, allDay) {
-                                       var title = prompt('Event Title:');
-                                       if (title) {
-                                           var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
-                                           var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
-                                           $.ajax({
-                                               url: SITEURL + "/osaemp/fullcalendar/activity",
-                                               data: {
-                                                   title: title,
-                                                   start: start,
-                                                   end: end,
-                                                   type: 'add'
-                                               },
-                                               type: "POST",
-                                               success: function (data) {
-                                                   displayMessage("Event Created Successfully");
-                 
-                                                   calendar.fullCalendar('renderEvent',
-                                                       {
-                                                           id: data.id,
-                                                           title: title,
-                                                           start: start,
-                                                           end: end,
-                                                           allDay: allDay
-                                                       },true);
-                 
-                                                   calendar.fullCalendar('unselect');
-                                               }
-                                           });
-                                       }
-                                   },
-                                   eventDrop: function (event, delta) {
-                                       var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
-                                       var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
-                 
-                                       $.ajax({
-                                           url: SITEURL + '/osaemp/fullcalendar/activity',
-                                           data: {
-                                               title: event.title,
-                                               start: start,
-                                               end: end,
-                                               id: event.id,
-                                               type: 'update'
-                                           },
-                                           type: "POST",
-                                           success: function (response) {
-                                               displayMessage("Event Updated Successfully");
-                                           }
-                                       });
-                                   },
-                                   eventClick: function (event) {
-                                       var deleteMsg = confirm("Do you really want to delete?");
-                                       if (deleteMsg) {
-                                           $.ajax({
-                                               type: "POST",
-                                               url: SITEURL + '/osaemp/fullcalendar/activity',
-                                               data: {
-                                                       id: event.id,
-                                                       type: 'delete'
-                                               },
-                                               success: function (response) {
-                                                   calendar.fullCalendar('removeEvents', event.id);
-                                                   displayMessage("Event Deleted Successfully");
-                                               }
-                                           });
-                                       }
-                                   }
-                
-                               });
-                
-               });
-                
-               function displayMessage(message) {
-                   toastr.success(message, 'Event');
-               }        
-           </script>
+        
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'dayGridMonth,timeGridWeek,timeGridDay',
+          center: 'title',
+          right: 'prev,next today',
+        },
+        events: {
+          url: '/osaemp/dash', // Specify the URL to fetch events data from
+          method: 'GET'
+        }
+        
+      });
+      calendar.render();
+    });
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+  
 
 
 

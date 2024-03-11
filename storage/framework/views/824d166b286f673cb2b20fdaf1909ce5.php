@@ -13,6 +13,8 @@
     <link href="<?php echo e(url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     
     <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="icon" href="<?php echo e(url('/photos/OSA LOGO.png')); ?>">
     <link href="<?php echo e(asset('bootstrap-5.3.2-dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/admingeneral.css')); ?>">
@@ -23,7 +25,7 @@
     
 
     <!-- Scripts -->
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss']); ?>  
+    
 </head>
 <body>
     <!--Sidebar portion-->
@@ -142,9 +144,9 @@
                 </div>
             </nav>
                 <!--End of content-->
-<main style="padding-top: 30px;">         
+         
 <?php echo $__env->yieldContent('content'); ?>
-</main>
+
             
 <?php echo $__env->yieldPushContent('scripts'); ?>
 
