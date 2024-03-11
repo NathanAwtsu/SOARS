@@ -1,11 +1,14 @@
 @extends('navbar.navbar_osa')
 @section('content')
 
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
 
 
-<main style="overflow-x: hidden;">
     <div class="container">
-
         <div class="row">
             <div class="col mb-3">
                 <a href="#" class="card" style="height: 130px; background-color: #E7700D; text-decoration: none;" onclick="openCreatePostModal()">
@@ -79,7 +82,7 @@
         <h1 style="padding-top: 40px; padding-bottom: 20px;">
             <i class="fas fa-bullhorn"></i> Announcements
         </h1>
-        <div class="announcement" style="margin-bottom: 5%;">
+        <div class="announcement" style="margin-bottom: 5%; background-color: rgb(181, 181, 181); border-color:black;">
             
                 <div class="announcement-header">
                     <h3 class="announcement-title">
@@ -98,15 +101,6 @@
         </div>
     </div>
         
-</main>
-
-
-
-
-
-
-
-
 
 <div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -120,24 +114,25 @@
         </div>
         
         <!-- Modal Body -->
-        <form >
+        <form action="/osaemp/announcement" method="post">
+            @csrf
             <div class="modal-body">
             <!-- Form to create post -->
                     <div class="form-group">
-                        <label for="postContent">Title</label>
-                        <textarea class="form-control" id="postContent" rows="1"></textarea>
+                        <label for="title">Title</label>
+                        <textarea id="title" name="title" class="form-control"  rows="1"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="postContent">Post Content</label>
-                        <textarea class="form-control" id="postContent" rows="3"></textarea>
+                        <label for="message">Post Content</label>
+                        <textarea id="message" name="message" class="form-control" rows="3"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="userType">Send to</label>
-                        <select class="form-control" id="userType">
+                        <select class="form-control" id="recipient" name="recipient">
                             <option value="student">Student</option>
                             <option value="studentLeader">Student Leader</option>
-                            <option value="All">All</option>
+                            <option value="Everyone" selected>Everyone</option>
                         </select>
                     </div>
                 
@@ -147,8 +142,7 @@
             <!-- Close button -->
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <!-- Post button -->
-            <button type="button" class="btn btn-primary" id="postButton">Post</button>
-            
+            <input type="submit" class="btn btn-primary" id="postButton"></input>
             </div>
         </form>
       </div>
@@ -163,7 +157,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
 <!-- JavaScript to handle modal buttons -->
 <script>

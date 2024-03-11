@@ -12,6 +12,7 @@ class Announcement extends Model
         'title',
         'message',
         'author',
+        'recipient',
         'author_org',
     ];
 }

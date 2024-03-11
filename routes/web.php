@@ -11,6 +11,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\PaypalController;
 use App\Models\Event;
 
 
@@ -93,6 +95,7 @@ Route::get('/osaemp/organizaiton/{id}',function($id){$orgID = DB::table('organiz
 //Routes for OSA
 //Load the Dashboard Total Number 
 Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
+Route::post('/osaemp/announcement', [AnnouncementController::class, 'osa_create'])->name('osa.announcement');
 //Calendar of activities dashboard
 Route::get('/osaemp/dash', [OsaController::class, 'getEvents'])->name('osa.fullcalendar');
 //Org Page Event

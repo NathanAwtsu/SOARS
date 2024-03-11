@@ -120,21 +120,21 @@
         </div>
         
         <!-- Modal Body -->
-        <form >
+        <form action="/osaemp/announcement" method="post">
             <div class="modal-body">
             <!-- Form to create post -->
                     <div class="form-group">
-                        <label for="postContent">Title</label>
-                        <textarea class="form-control" id="postContent" rows="1"></textarea>
+                        <label for="title">Title</label>
+                        <textarea id="title" name="title" class="form-control"  rows="1"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="postContent">Post Content</label>
-                        <textarea class="form-control" id="postContent" rows="3"></textarea>
+                        <label for="message">Post Content</label>
+                        <textarea id="message" name="message" class="form-control" rows="3"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="userType">Send to</label>
-                        <select class="form-control" id="userType">
+                        <select class="form-control" id="for" name="for">
                             <option value="student">Student</option>
                             <option value="studentLeader">Student Leader</option>
                             <option value="All">All</option>
@@ -147,8 +147,7 @@
             <!-- Close button -->
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <!-- Post button -->
-            <button type="button" class="btn btn-primary" id="postButton">Post</button>
-            
+            <input type="submit" class="btn btn-primary" id="postButton">Post</input>
             </div>
         </form>
       </div>
