@@ -1,17 +1,18 @@
-<?php $__env->startSection('content'); ?>
+@extends('navbar.admin_nav')
+@section('content')
 
 <center>
     
-    <main>
+    <main style="padding-top: 80px;">
        
     <div class="card" style="height: auto; width: 700px;">
         <h2>Organization Information Form</h2> <br><br>
-        <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
-            <?php echo csrf_field(); ?>
+        <form action="/rso_list/new_organization" method="post" enctype="multipart/form-data">
+            @csrf
             <label for="OrgName"><h2>Organization Name :</h2></label><br>
-            <textarea id="name" name="name" rows="2" cols="4" required></textarea><br><br>
+            <textarea id="name" name="name" rows="2" cols="50" required></textarea><br><br>
             <label for="OrgName"><h2>Nickame :</h2></label><br>
-            <textarea id="name" name="nickname" rows="2" cols="4" required></textarea><br><br>
+            <textarea id="name" name="nickname" rows="2" cols="50" required></textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
             <textarea id="mission" name="mission" rows="4" cols="50" ></textarea><br><br>
 
@@ -280,5 +281,4 @@ function confirmSubmission() {
 
 
 
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('navbar.navbar_osa', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\soarsWebProject\resources\views/OSA/organization_new.blade.php ENDPATH**/ ?>
+@endsection

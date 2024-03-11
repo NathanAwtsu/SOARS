@@ -34,12 +34,35 @@ class OrganizationController extends Controller
 
     }
 
+    public function new_org(){
+        $organizationAcademic = DB::table('organizations')->where('type_of_organization','=','Academic')->where('requirement_status','=','complete')->get();
+        $organizationCoAcademic = DB::table('organizations')->where('type_of_organization','=','Co-Academic')->where('requirement_status','=','complete')->get();
+        $organizationSocioCivic = DB::table('organizations')->where('type_of_organization','=','Socio Civic')->where('requirement_status','=','complete')->get();
+        $organizationReligious = DB::table('organizations')->where('type_of_organization','=','Religious')->where('requirement_status','=','complete')->get();
+        $pendings = DB::table('organizations')->where('requirement_status','!=','Complete')->get();
+        
+        return view('student_orgs.rso_list')
+        ->with('organizationAcademic', $organizationAcademic)
+        ->with('organizationCoAcademic', $organizationCoAcademic)
+        ->with('organizationSocioCivic', $organizationSocioCivic)
+        ->with('organizationReligious', $organizationReligious)
+        ->with('pendings', $pendings);
+        
+    }
+
     public function organization_page(Request $request){
     
         $id = $request->route('id');
         $org = Organization::find($id);
 	    return view('OSA.organization_page')->with('org',$org);
 
+    }
+
+    public function rso_page($id)
+    {
+        $orgId = $id;
+        $org = DB::table('organizations')->where('id', '=', $orgId)->get();
+        return view('Admin.rso_page')->with('org', $org);
     }
 
     public function newOrganization(Request $request){
@@ -182,6 +205,14 @@ class OrganizationController extends Controller
         $id = $request->route('id');
         $org = Organization::find($id);
 	    return view('OSA.organization_pending_edit')->with('org',$org);
+        
+    }
+
+    public function org_pending(Request $request){
+        
+        $id = $request->route('id');
+        $org = Organization::find($id);
+	    return view('Admin.org_pending')->with('org',$org);
         
     }
     
@@ -413,6 +444,102 @@ class OrganizationController extends Controller
                 'requirement_status' => 'complete'
             ]);
             return redirect('/osaemp/organization_list')->with('success', 'You have completed the requirements for ' . $org->name);
+        }
+    }
+
+    public function org_pending_save(Request $request, $id)
+    {
+        if ($request->has('edited')) {
+            $orgId = $id;
+            $org = Organization::findOrFail($orgId);
+
+            $fieldsToCheckForNull = [
+                'name', 'nickname', 'type_of_organization', 'mission', 'vision', 'org_email', 'org_fb',
+                'adviser_name', 'adviser_email', 'ausg_rep_studno', 'ausg_rep_name', 'ausg_rep_email',
+                'president_studno', 'president_name', 'president_email', 'vp_internal_studno', 'vp_internal_name',
+                'vp_internal_email', 'vp_external_studno', 'vp_external_name', 'vp_external_email', 'secretary_studno',
+                'secretary_name', 'secretary_email', 'treasurer_studno', 'treasurer_name', 'treasurer_email',
+                'auditor_studno', 'auditor_name', 'auditor_email', 'pro_studno', 'pro_name', 'pro_email'
+            ];
+
+            // Count the total number of fields to be checked
+            $totalFields = count($fieldsToCheckForNull);
+
+            // Initialize the null count
+            $nullCount = 0;
+
+            foreach ($fieldsToCheckForNull as $fieldName) {
+                // Check if the field exists in the request
+                if ($request->has($fieldName)) {
+                    // Increment the null count if the field is null
+                    if (is_null(request($fieldName))) {
+                        $nullCount++;
+                    }
+                } else {
+                    // If the field doesn't exist in the request, consider it null
+                    $nullCount++;
+                }
+            }
+
+            // Calculate the percentage completion
+            $percentage = (($totalFields - $nullCount) / $totalFields) * 100;
+
+
+            // Handle file uploads
+            $imageFields = [
+                'logo' => 'storage/logo/',
+                'consti_and_byLaws' => 'storage/consti_and_byLaws/',
+                'letter_of_intent' => 'storage/letter_of_intent/',
+                'admin_endorsement' => 'storage/admin_endorsement/',
+                'adviser_photo' => 'storage/organization_officer_photo/adviser_photo/',
+                'ausg_rep_photo' => 'storage/organization_officer_photo/ausg_rep_photo/',
+                'president_photo' => 'storage/organization_officer_photo/president_photo/',
+                'vp_internal_photo' => 'storage/organization_officer_photo/vp_internal_photo/',
+                'vp_external_photo' => 'storage/organization_officer_photo/vp_external_photo/',
+                'secretary_photo' => 'storage/organization_officer_photo/secretary_photo/',
+                'treasurer_photo' => 'storage/organization_officer_photo/treasurer_photo/',
+                'auditor_photo' => 'storage/organization_officer_photo/auditor_photo/',
+                'pro_photo' => 'storage/organization_officer_photo/pro_photo/',
+            ];
+
+            foreach ($imageFields as $field => $directory) {
+                if ($request->hasFile($field)) {
+                    $file = $request->file($field);
+                    $fileName = $field . '_' . time() . '.' . $file->getClientOriginalExtension();
+                    $file->move(public_path($directory), $fileName);
+                    $org->$field = $fileName;
+                } elseif (is_null($org->$field)) {
+                    $org->$field = null;
+                    $percentage -= 1;
+                }
+            }
+
+            $org->requirement_status = $percentage;
+            $org->name = $request->input('name');
+            $org->nickname = $request->input('nickname');
+            $org->type_of_organization = $request->input('type_of_organization');
+            $org->mission = $request->input('mission');
+            $org->vision = $request->input('vision');
+            $org->org_email = $request->input('org_email');
+            $org->org_fb = $request->input('org_fb');
+            $org->adviser_name = $request->input('adviser_name');
+            $org->adviser_email = $request->input('adviser_email');
+            // Continue updating other fields...
+
+            // Save the changes to the organization
+            $org->save();
+
+            return redirect('/rso_list')->with('success', 'You have updated ' . $org->name);
+        }
+
+        if ($request->has('complete')) {
+            $orgId = $id;
+            $org = Organization::findOrFail($orgId);
+            $org->update([
+                'requirement_status' => 'complete'
+            ]);
+
+            return redirect('/rso_list')->with('success', 'You have completed the requirements for ' . $org->name);
         }
     }
 
