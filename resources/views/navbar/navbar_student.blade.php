@@ -100,7 +100,7 @@
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
-    width: 1100px;
+    width: auto;
     margin: auto;
     height: 180px;
     color: black;
@@ -147,7 +147,7 @@
                 <div class="container d-flex align-items-center" style="background-color: #0762c4;">
                     <img src="/photos/OSA LOGO.png" alt="" style="max-width: 50px;">
                     
-                    <h1 style="color:white;">SOARS STUDENT LEADER</h1>                    
+                    <h1 style="color:white;">SOARS</h1>                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -164,42 +164,38 @@
                         <ul class="nav flex-column">
 
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{url('/osaemp/user')}}" style="color:white;">
+                                <a class="nav-link active" href="{{url('/student/user')}}" style="color:white;">
                                     <i class="fa-regular fa-circle-user fa-lg" style="margin-right:15px; font-size: 25px;"></i>
                                     {{Auth::user()->name}}
                                 </a>
                             </li>
+                            <i class="fa-solid fa-user-group"></i>
+                            <i class="fa-solid fa-user-group"></i>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/osaemp')}}" style="color:white;">
+                                <a class="nav-link" href="{{url('/student')}}" style="color:white;">
                                     <i class="fa-regular fa-clipboard fa-lg" style="margin-right: 20px; font-size: 25px;"></i>
                                     Dashboard
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/osaemp/reports')}}" style="color:white;">
+                                <a class="nav-link" href="{{url('/chatify')}}" style="color:white;">
+                                    <i class="fa-solid fa-message fa-lg"style="margin-right:20px; font-size: 25px;"></i>
+                                    Messages
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url('/student/announcements/recent')}}" style="color:white;">
                                     <i class="fa-solid fa-clipboard-list fa-lg"style="margin-right:20px; font-size: 25px;"></i>
-                                    Reports
+                                    Announcements
                                 </a>
                             </li>
                 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('/osaemp/activity_approval')}}" style="color:white;">
-                                    <i class="fa-solid fa-clipboard-list fa-lg" style="margin-right:20px; font-size: 25px;"></i>
-                                    Event Manager
-                                </a>
-                            </li>
                 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/osaemp/userlist')}}" style="color:white; padding-left: 15px;">
-                                    <i class="fa-regular fa-address-book fa-lg" style="margin-right:20px; font-size: 25px;"> </i>Manage Users
-                                </a>
-                            </li>
-                
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('/osaemp/organization_list')}}" style="color:white;  padding-left: 15px; ">
+                                <a class="nav-link" href="{{url('/student/org_list')}}" style="color:white;  padding-left: 15px; ">
                                     <div class="d-flex align-items-center" style="margin-left: -4px;">
                                         <i class="fa-solid fa-users fa-lg" style="margin-right: 18px; font-size: 25px;"></i>
-                                        Manage Organization
+                                        Organization List
                                     </div>
                                 </a>
                             </li>

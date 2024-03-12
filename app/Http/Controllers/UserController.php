@@ -10,29 +10,39 @@ use Auth;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        return view('OSA.user');
-    }
+    
 
-    public function update(Request $request)
-    {
-        // Logic to update the user's profile (password, profile picture, contact number)
-
-        // Example: Update password
+    public function osa_update_pass(Request $request){
         $user = Auth::user();
         $user->password = bcrypt($request->input('password'));
         $user->save();
+        return view('OSA.user')->with('success', 'Password Changed');
+    }
 
-        // Example: Update profile picture
-        // (You need to handle file upload logic here)
-
-        // Example: Update contact number and email
-        $user->phone_number = $request->input('contactNumber');
+    public function osa_update_email(Request $request)
+    {
+        
+        $user = Auth::user();
         $user->email = $request->input('email');
         $user->save();
 
-        return redirect()->route('user.index')->with('success', 'Profile updated successfully.');
+        return view('OSA.user')->with('success', 'Profile updated successfully.');
+    }
+
+    public function student_update_email(Request $request){
+        $user = Auth::user();
+        $user->email = $request->input('email');
+        $user->save();
+
+        return view('Student.user_profile')->with('success', 'Profile updated successfully.');
+    }
+    
+    public function student_update_pass(Request $request){
+        $user = Auth::user();
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+        return view('Student.user_profile')->with('success', 'Password Changed');
+
     }
 
     public function info(Request $request){

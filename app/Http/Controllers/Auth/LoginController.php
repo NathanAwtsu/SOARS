@@ -80,10 +80,7 @@ class LoginController extends Controller
                     return redirect('/osaemp');
                     break;
                 case 3:
-                    return redirect('/studentleader');
-                    break;
-                case 4:
-                    return redirect('/member');
+                    return redirect('/student');
                     break;
                 default:
                     Auth::logout();

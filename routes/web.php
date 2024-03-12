@@ -90,6 +90,7 @@ Route::post('/rso_list/new_organization', [OrganizationController::class, 'orgNe
 //End of Admin
 
 //OrganizationController
+Route::middleware(['osaemp'])->group(function () {
 Route::get('/osaemp/organizations-list', [OrganizationController::class, 'orglist'])->name('orglist');
 Route::get('/osaemp/organizaiton/{id}',function($id){$orgID = DB::table('organizations')->where('id','=',$id)->get();
 });
@@ -110,9 +111,9 @@ Route::get('/test', function(){ return view('Student/paypal_experiment');});
 Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
 Route::get('/osaemp/organization_activation', [OsaController::class, 'org_act_list'], function(){return view('OSA/organization_activation');})->name('osaorgact');
 //Organization
-Route::get('/osaemp/user', [UserController::class, 'info'],function (){return view('OSA.user');})->name('osauser');
-Route::get('/osaemp/users', [UserController::class, 'index'])->name('user.index');
-Route::post('/osaemp/users/update', [UserController::class, 'update'])->name('user.update');
+Route::get('/osaemp/user', function (){return view('OSA.user');})->name('osauser');
+Route::post('/osaemp/update_pass', [UserController::class, 'osa_update_pass']);
+Route::post('/osaemp/update_email', [UserController::class, 'osa_update_email'], function (){return view('OSA.user');})->name('user.update');
 Route::get('/osaemp/userlist', [OsaController::class,'user'], function (){return view('OSA/userlist');})->name('osauserlist');
 Route::get('/osaemp/message', function (){return view('OSA/message');})->name('osamessage');
 Route::delete('/osaemp/organization_list/delete/{id}', [OrganizationController::class, 'org_pending_delete']);
@@ -137,23 +138,32 @@ Route::post('/osaemp/activity_approval/edit_save/{id}', [OsaController::class, '
 Route::get('/osaemp/activity_approval', [OsaController::class, 'activity_pending_retrieve'],function(){return view('OSA/approval');})->name('osaactivityapproval');
 Route::get('/osaemp/reports', [OsaController::class, 'eventReport'], function(){ return view('OSA/reports');})->name('osareports');
 Route::get('/generate-certificate/{eventId}', [OsaController::class, 'generate'])->name('generate-certificate');
-
+});
 
 
 //Routes for Student Leader
 Route::get('/studentleader', [StudentOrganizationController::class, 'totalDashboard'], function(){return view('SL.dashboard');})->name('studentleader')->middleware('studentleader');
+//Propose Event
+//Create Announcement
+//
 Route::get('/studentleader/user/{id}', [StudentOrganizationController::class, ''], function(){return view('SL.user');});
 Route::get('/member', function(){return view('member');})->name('member')->middleware('member');
 
 
 
-
+//End of Student Leaders
 
 //Routes for Students
-
-
-
-
+Route::get('/student', [StudentsController::class, 'dashboard'], function(){return view('Student.dashboard');});
+//User Setting
+Route::get('/student/user', function(){return view('Student.user_profile');});
+Route::post('/student/update_pass', [UserController::class, 'student_update_pass']);
+Route::post('/student/update_email', [UserController::class, 'student_update_email']);
+//Calendar of Events for Students
+Route::get('/student/dash', [StudentsController::class, 'getEvents']);
+//Announcements for Students
+Route::get('/student/announcements/recent', [StudentsController::class, 'announcement'], function(){return view('Student.announcements');});
+Route::get('/student/org_list/', [StudentsController::class, 'org_list']);
 
 
 

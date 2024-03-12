@@ -1,4 +1,4 @@
-@extends('navbar.navbar_osa')
+@extends('navbar.navbar_student')
 @section('content')
 
 
@@ -56,14 +56,14 @@ object-fit: cover;
 
 
 
-<main style="padding-top: 3%">
+<main style="padding-top: 8%">
     <div class="container mt-1">
         <div class="row">
             <div class="success">
     
             </div>
             <div class="col-md-6 offset-md-3">
-                <form action="/osaemp/update_email" method="post">
+                <form action="/student/update_email" method="post">
                     @csrf
                     <h2 class="text-center">User Profile Setup</h2>
                     <div class="form-group">
@@ -86,7 +86,7 @@ object-fit: cover;
         </div>
     </div>
 </main>
-<form action="/osaemp/update_pass" method="post">
+<form action="/student/update_pass" method="post">
     @csrf
 <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

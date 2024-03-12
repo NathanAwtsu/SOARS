@@ -27,7 +27,7 @@ class StudentOrganizationController extends Controller
         $totalPendingOrg = DB::table('organizations')->where('requirement_status','!=','complete')->get();
         $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
 
-        return view('SL.dashboard')
+        return view('Student.dashboard')
         ->with('totalEvent', $totalEvent)
         ->with('totalMember',$totalMember)
         ->with('totalOrg', $totalOrg)
@@ -35,6 +35,8 @@ class StudentOrganizationController extends Controller
         ->with('activities', $activities);
         
     }
+
+
 
     public function user(Request $request){
         $id = $request->route('id');
