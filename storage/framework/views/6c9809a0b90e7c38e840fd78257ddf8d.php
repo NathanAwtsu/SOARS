@@ -1,4 +1,22 @@
 <?php $__env->startSection('content'); ?>
+<style>
+    form {
+        text-align: left; /* Align text in the form to the left */
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    form textarea,
+    form input {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 0px;
+    }
+    
+</style>
 
 <center>
     
@@ -259,6 +277,7 @@
                                         <span>Upload Pro Photo</span>
                                         <input type="file" id="pro_photo" name="pro_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
+                                    <div id="image_preview"></div>
                             </div>
                         </div>
 
@@ -273,7 +292,8 @@
         </form>
     </main>
 </center>
-            
+
+
 
 <script>
     var officerContainer = document.getElementById('officerContainer');

@@ -12,9 +12,9 @@ class Student extends Model
         'last_name',
         'middle_initial',
         'first_name',
+        'course_id',
         'email',
         'email_verified_at',
-        'course_id',
         'organization1',
         'organization2',
         'password',
@@ -22,7 +22,6 @@ class Student extends Model
         'org2_member_status',
         'user_roles',
         'phone_number',
-        'course_id',
     ];
 
 }

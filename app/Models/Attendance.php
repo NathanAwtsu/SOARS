@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StudentOrganization extends Model
+class Attendance extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
+        'attendance_id',
+        'event_id',
+        'organization_name',
+        'type_of_activity',
         'student_id',
-        'course',
-        'org1',
-        'org1_member_status',
-        'org2',
-        'org2_member_status',
+        'attendance',
     ];
 }

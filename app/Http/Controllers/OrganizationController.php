@@ -412,6 +412,7 @@ class OrganizationController extends Controller
                 $org->name = $request->input('name');
                 $org->nickname = $request->input('nickname');
                 $org->type_of_organization = $request->input('type_of_organization');
+                $org->requirement_status = $percentage;
                 $org->academic_course_based = $request->input('academic_course_based');
                 $org->mission = $request->input('mission');
                 $org->vision = $request->input('vision');
@@ -497,6 +498,7 @@ class OrganizationController extends Controller
                 $org->name = $request->input('name');
                 $org->nickname = $request->input('nickname');
                 $org->type_of_organization = $request->input('type_of_organization');
+                $org->requirement_status = $request->input('requirement_status');
                 $org->academic_course_based = $request->input('academic_course_based');
                 $org->mission = $request->input('mission');
                 $org->vision = $request->input('vision');

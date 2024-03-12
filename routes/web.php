@@ -11,6 +11,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\PaypalController;
 use App\Models\Event;
 
 
@@ -80,7 +82,7 @@ Route::get('/admin_profile', function(){return view('Admin.admin_profile');})->n
 
 Route::get('/rso_list', [OrganizationController::class, 'new_org'], function(){return view('rso_list');})->name('rso_list');
 Route::get('/rso_list/rso_page/{id}', [OrganizationController::class, 'rso_page']);
-Route::get('/rso_list/new_organization',  function(){return view('Admin.org_list');})->name('org_list');
+Route::get('/rso_list/new_organization', function(){return view('Admin.org_list');})->name('org_list');
 Route::get('/rso_list/pending_edit/{id}', [OrganizationController::class, 'org_pending'], function(){return view('Admin/org_pending');})->name('osaorg_pending_edit');
 Route::post('/rso_list/pending_save/{id}', [OrganizationController::class, 'org_pending_save']);
 //Send a New Org info to the DB
@@ -95,6 +97,7 @@ Route::get('/osaemp/organizaiton/{id}',function($id){$orgID = DB::table('organiz
 //Routes for OSA
 //Load the Dashboard Total Number 
 Route::get('/osaemp', [OsaController::class, 'totalDashboard'], function(){return view('osaemp');})->name('osaemp')->middleware('osaemp');
+Route::post('/osaemp/announcement', [AnnouncementController::class, 'osa_create'])->name('osa.announcement');
 //Calendar of activities dashboard
 Route::get('/osaemp/dash', [OsaController::class, 'getEvents'])->name('osa.fullcalendar');
 //Org Page Event
@@ -103,6 +106,7 @@ Route::get('/osaemp/organization_page/events', [EventController::class, 'getEven
 Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAjax']);
 //Dashboard Routes
 Route::get('/osaemp/dashboard', [OsaController::class, 'totalDashboard'])->name('osadashboard');
+Route::get('/test', function(){ return view('Student/paypal_experiment');});
 Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
 Route::get('/osaemp/organization_activation', [OsaController::class, 'org_act_list'], function(){return view('OSA/organization_activation');})->name('osaorgact');
 //Organization
@@ -140,6 +144,20 @@ Route::get('/generate-certificate/{eventId}', [OsaController::class, 'generate']
 Route::get('/studentleader', [StudentOrganizationController::class, 'totalDashboard'], function(){return view('SL.dashboard');})->name('studentleader')->middleware('studentleader');
 Route::get('/studentleader/user/{id}', [StudentOrganizationController::class, ''], function(){return view('SL.user');});
 Route::get('/member', function(){return view('member');})->name('member')->middleware('member');
+
+
+
+
+
+//Routes for Students
+
+
+
+
+
+
+
+
 //Login Timeout
 Route::get('/soars-timeout?timeout=true');
 //Credential Errors

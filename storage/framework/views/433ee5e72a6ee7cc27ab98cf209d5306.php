@@ -21,7 +21,9 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Role</th>
+                        <th>Phone</th>
+                        <th>Chat</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +34,21 @@
                         <td><?php echo e($inf->id); ?></td>
                         <td><?php echo e($inf->name); ?></td>
                         <td><?php echo e($inf->email); ?></td>
-                        <td><?php echo e($inf->role); ?></td>
+                        <td>
+                            <?php if($inf->phone_number == null): ?>
+                                Null
+                            <?php endif; ?>
+                            
+                            <?php if(isset($inf->phone_number)): ?>
+                            <?php echo e($inf->phone_number); ?>
+
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="/chatify/<?php echo e($inf->id); ?>" class="btn btn-success" style="padding-bottom:10px;">Chat</a>
+                        </td>
+                        
+
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <!-- Add more user rows here -->
