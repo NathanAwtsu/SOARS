@@ -267,4 +267,3 @@
 
 
 @endsection
-@extends('layouts.footer')

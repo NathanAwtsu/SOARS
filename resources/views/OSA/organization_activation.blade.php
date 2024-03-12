@@ -1,4 +1,5 @@
 @extends('navbar.navbar_osa')
+
 @section('content')
 
 <main>
@@ -197,5 +198,4 @@
   
 
 
-@extends('layouts.footer')
 @endsection

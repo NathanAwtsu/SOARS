@@ -180,3 +180,5 @@
     <button type="submit" name="edited" value="{{$event->id}}" class="btn btn-primary btn-block">Done</button>
     @endforeach
 </form>
+
+@endsection

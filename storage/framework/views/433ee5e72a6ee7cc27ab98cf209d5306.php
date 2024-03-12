@@ -21,7 +21,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Phone</th>
+                        
                         <th>Chat</th>
                         
                     </tr>
@@ -34,16 +34,7 @@
                         <td><?php echo e($inf->id); ?></td>
                         <td><?php echo e($inf->name); ?></td>
                         <td><?php echo e($inf->email); ?></td>
-                        <td>
-                            <?php if($inf->phone_number == null): ?>
-                                Null
-                            <?php endif; ?>
-                            
-                            <?php if(isset($inf->phone_number)): ?>
-                            <?php echo e($inf->phone_number); ?>
-
-                            <?php endif; ?>
-                        </td>
+                        
                         <td>
                             <a href="/chatify/<?php echo e($inf->id); ?>" class="btn btn-success" style="padding-bottom:10px;">Chat</a>
                         </td>

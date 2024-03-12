@@ -100,5 +100,5 @@
 </main>
 
 
-@extends('layouts.footer')
+
 @endsection

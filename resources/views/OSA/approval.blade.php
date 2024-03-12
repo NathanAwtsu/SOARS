@@ -459,4 +459,4 @@ function showHideOthers(selectElement) {
 
 
 @endsection
-@extends('layouts.footer')
+
