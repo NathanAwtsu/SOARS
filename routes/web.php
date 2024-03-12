@@ -80,7 +80,7 @@ Route::get('/admin_profile', function(){return view('Admin.admin_profile');})->n
 
 Route::get('/rso_list', [OrganizationController::class, 'new_org'], function(){return view('rso_list');})->name('rso_list');
 Route::get('/rso_list/rso_page/{id}', [OrganizationController::class, 'rso_page']);
-Route::get('/rso_list/new_organization',  function(){return view('Admin.org_list');})->name('org_list');
+Route::get('/rso_list/new_organization', function(){return view('Admin.org_list');})->name('org_list');
 Route::get('/rso_list/pending_edit/{id}', [OrganizationController::class, 'org_pending'], function(){return view('Admin/org_pending');})->name('osaorg_pending_edit');
 Route::post('/rso_list/pending_save/{id}', [OrganizationController::class, 'org_pending_save']);
 //Send a New Org info to the DB
@@ -104,6 +104,7 @@ Route::get('/osaemp/organization_page/events', [EventController::class, 'getEven
 Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAjax']);
 //Dashboard Routes
 Route::get('/osaemp/dashboard', [OsaController::class, 'totalDashboard'])->name('osadashboard');
+Route::get('/test', function(){ return view('Student/paypal_experiment');});
 Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
 Route::get('/osaemp/organization_activation', [OsaController::class, 'org_act_list'], function(){return view('OSA/organization_activation');})->name('osaorgact');
 //Organization
@@ -141,6 +142,20 @@ Route::get('/generate-certificate/{eventId}', [OsaController::class, 'generate']
 Route::get('/studentleader', [StudentOrganizationController::class, 'totalDashboard'], function(){return view('SL.dashboard');})->name('studentleader')->middleware('studentleader');
 Route::get('/studentleader/user/{id}', [StudentOrganizationController::class, ''], function(){return view('SL.user');});
 Route::get('/member', function(){return view('member');})->name('member')->middleware('member');
+
+
+
+
+
+//Routes for Students
+
+
+
+
+
+
+
+
 //Login Timeout
 Route::get('/soars-timeout?timeout=true');
 //Credential Errors
