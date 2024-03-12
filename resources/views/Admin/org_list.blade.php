@@ -24,7 +24,7 @@
        
     <div class="card" style="height: auto; width: 700px;">
         <h2>Organization Information Form</h2> <br><br>
-        <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
+        <form action="/rso_list/new_organization" method="post" enctype="multipart/form-data">
             @csrf
             <label for="OrgName"><h2>Organization Name :</h2></label><br>
             <textarea id="name" name="name" rows="2" cols="4" required></textarea><br><br>

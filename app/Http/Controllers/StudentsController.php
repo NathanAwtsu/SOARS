@@ -14,34 +14,56 @@ use Datatables;
 class StudentsController extends Controller
 {
     public function studlist()
-    {
-        if(request()->ajax()) {
-            return datatables()->of(Students::select('*'))
+{
+    $org = DB::table('organizations')
+        ->where('requirement_status', '=', 'complete')
+        ->get();
+
+    if (request()->ajax()) {
+        return datatables()->of(Students::select('*'))
             ->addColumn('action', 'student-action')
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
-        }
-
-        return view ('student-list');
     }
+
+    return view('student-list', compact('org'));
+}
+
+public function getOrganizations(Request $request)
+{
+    $courseId = $request->course_id;
+    $organizations = Organization::where('academic_course_based', $courseId)->get();
+    return response()->json($organizations);
+}
+
+
 
     public function store(Request $request)
     {
+        $courseId = $request->course_id;
+
+        $organization = Organization::where('academic_course_based', $courseId)->first();
+
+        if ($organization) {
+            $studentData['organization1'] = $organization->name; // Store organization name
+        } else {
+            
+            return response()->json(['message' => 'No organization found for the provided academic course'], 400);
+        }
+
         $datetime = now();
         $studentId = $request->student_id;
         $studentData = [
             'last_name' => $request->last_name,
             'middle_initial' => $request->middle_initial,
             'first_name' => $request->first_name,
+            'course_id' => $request->course_id,
             'email' => $request->email,
             'organization1' => $request->organization1,
             'organization2' => $request->organization2,
-            'organization3' => $request->organization3,
             'org1_member_status' => $request->org1_member_status,
             'org2_member_status' => $request->org2_member_status,
-            'org3_member_status' => $request->org3_member_status,
-            'user_roles' => $request->user_roles,
             'phone_number' => $request->phone_number,
         ];
 
@@ -56,7 +78,7 @@ class StudentsController extends Controller
         );
 
         $fname= $request->first_name;
-        $mname= $request->middle_inital;
+        $mname= $request->middle_initial;
         $lname= $request->last_name;
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_';
         $randomString = Str::random(10);
@@ -64,7 +86,7 @@ class StudentsController extends Controller
         $name = $fname.' '.$mname.' '.$lname;
         DB::table('users')->insert([
             'id' => $studentId,
-            'role' => '4',
+            'role' => '3',
             'name' => $name,
             'email' => $request->email,
             'email_verified_at' => $datetime,
@@ -75,11 +97,7 @@ class StudentsController extends Controller
             'updated_at' =>$datetime,
         ]);
 
-    $student = Students::where('student_id', $studentId)->first();
-
-    $responseText = ($student) ? 'Student information updated successfully' : 'Failed to update student information';
-
-    return response()->make($responseText);
+        return response()->json(['message' => 'Student information saved successfully']);
 }
 
 
@@ -98,14 +116,12 @@ public function update(Request $request)
         'last_name' => $request->last_name,
         'middle_initial' => $request->middle_initial,
         'first_name' => $request->first_name,
+        'course_id' => $request->course_id,
         'email' => $request->email,
         'organization1' => $request->organization1,
         'organization2' => $request->organization2,
-        'organization3' => $request->organization3,
         'org1_member_status' => $request->org1_member_status,
         'org2_member_status' => $request->org2_member_status,
-        'org3_member_status' => $request->org3_member_status,
-        'user_roles' => $request->user_roles,
         'phone_number' => $request->phone_number,
     ];
 
@@ -116,7 +132,7 @@ public function update(Request $request)
 
     DB::table('students')->where('student_id', $studentId)->update($studentData);
 
-    return response()->make(['message' => 'Student information updated successfully']);
+    return response()->json(['message' => 'Student information updated successfully']);
 }
 
     public function delete(Request $request)

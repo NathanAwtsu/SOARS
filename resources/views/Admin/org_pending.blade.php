@@ -28,7 +28,7 @@
             <h1>Organization Information Form</h1> <br><br>
         </center>
         
-        <form action="/osaemp/organization_list/pending_edit_save/{{$org->id}}" method="POST" enctype="multipart/form-data" style="text-align:start;">
+        <form action="/rso_list/pending_save/{{$org->id}}" method="POST" enctype="multipart/form-data" style="text-align:start;">
             @csrf
             
             

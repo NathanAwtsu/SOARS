@@ -64,6 +64,8 @@ Route::get('/student-list', [StudentsController::class, 'studlist'])->name('stud
 Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentsController::class, 'delete']);
+Route::get('get-organizations', [StudentsController::class, 'getOrganizations'])->name('getOrganizations');
+
 //OsaEmpController
 Route::get('osa_list', [OsaEmpController::class, 'osalist'])->name('osalist');
 Route::post('stores', [OsaEmpController::class, 'stores']);
@@ -82,7 +84,7 @@ Route::get('/rso_list/new_organization',  function(){return view('Admin.org_list
 Route::get('/rso_list/pending_edit/{id}', [OrganizationController::class, 'org_pending'], function(){return view('Admin/org_pending');})->name('osaorg_pending_edit');
 Route::post('/rso_list/pending_save/{id}', [OrganizationController::class, 'org_pending_save']);
 //Send a New Org info to the DB
-Route::post('/osaemp/organization_list/new_organization', [OrganizationController::class, 'newOrganization']);
+Route::post('/rso_list/new_organization', [OrganizationController::class, 'orgNew']);
 //End of Admin
 
 //OrganizationController
