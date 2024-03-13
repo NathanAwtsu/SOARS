@@ -1,13 +1,65 @@
 <?php $__env->startSection('content'); ?>
 
-
 <main>
+    <?php if(session('error')): ?>
+            <div class="alert alert-danger">
+                <?php echo e(session('error')); ?>
+
+            </div>
+        <?php endif; ?>
+
+        <?php if(session('success')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('success')); ?>
+
+            </div>
+        <?php endif; ?>
     <div class="container" >
         <div class="container-event" style="padding: 10px;">
             <h1 style="text-align: start;">Create an event</h1>
             <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal" >Create an Event</button>
         </div>
     </div>
+
+    <div class="container" style="margin-top: 20px;">
+        <h1 style="text-align: start;">Calendar of Events</h1>
+        <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 100px; margin-bottom:100px;"></div>
+    </div>
+
+    <center>
+        <h1>Activity List</h1>
+        <form form method="post" action="/osaemp/activity_approval/event_approve_or_edit" >
+            <?php echo csrf_field(); ?>
+        <table >
+            <tr>
+                <th>Event Name</th>
+                <th>Status</th>
+                <th>Organization</th>
+                <th>Event Start Date & time</th>
+                <th>Event End Date & Time</th>
+                <th>Venue</th>
+                <th>Button</th>
+            </tr>
+            <?php $__currentLoopData = $approved; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $approve): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                
+            
+            <tr>
+                <td><a><?php echo e($approve->activity_title); ?></a></td>
+                <td><a><?php echo e($approve->status); ?></a></td>
+                <td><a><?php echo e($approve->organization_name); ?></a></td>
+                <td><?php echo e($approve->activity_start_date); ?> @ <?php echo e($approve->activity_start_time); ?></td>
+                <td><?php echo e($approve->activity_end_date); ?> @ <?php echo e($approve->activity_end_date); ?></td>
+                <td><?php echo e($approve->venue); ?></td>
+                <td>
+                    <button type="submit" name="edit" value="edit_<?php echo e($approve->id); ?>" class= "btn btn-warning"style="padding-bottom:10px;">Edit</button>
+                </td>
+            </tr>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </table>
+        </form>
+            <br>
+    </center>
+
     <div class="container">
         <h1 style="text-align: start;">Pending Events</h1>
     </div>
@@ -70,8 +122,9 @@
                     <td><?php echo e($event->other_source_of_fund); ?></td>
                     <td>
                         <button type="submit" name="approve" value="approve_<?php echo e($event->id); ?>" class="btn btn-success" style="padding-bottom:10px;">Approve</button>
-                        <button type="submit" name="edit" value="edit_<?php echo e($event->id); ?>" class= "btn btn-warning"style="padding-bottom:10px;">Edit</button>
-                        <button type="submit" name="action" value="reject_<?php echo e($event->id); ?>" class="btn btn-danger" style="padding-bottom:10px;">Reject</button>
+                        <button type="submit" name="edit" value="edit_<?php echo e($event->id); ?>" class= "btn btn-primary"style="padding-bottom:10px;">Edit</button>
+                        <button type="submit" name="action" value="reject_<?php echo e($event->id); ?>" class="btn btn-warning" style="padding-bottom:10px;">Reject</button>
+                        <button type="submit" name="delete" value="reject_<?php echo e($event->id); ?>" class="btn btn-danger" style="padding-bottom:10px;">Delete</button>
                     </td>
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -134,7 +187,7 @@
 
 <!-- Create Event Modal -->
 <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
+<div class="modal-dialog " role="document">
     <div class="modal-content">
         <div class="modal-header">
             <h2 class="modal-title" id="createEventModalLabel">Create an Event</h2>
@@ -146,29 +199,30 @@
                 
 
                 <!-- Event details input fields -->
-                <div class="form-group row mb-2">
-                    <label for="id" class="col-sm-4 col-form-label text-left">ID:</label>
-                    <div class="col-sm-8">
-                        <input type="number" id="id" class="id" name="id" required>
-                    </div>
-                </div>
+                
 
                 <div class="form-group row mb-2">
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Event Status:</label>
                     <div class="col-sm-8">
-                        <div class="col-sm-8">
+                        <div class="col-sm-11">
                             <select class="form-control" id="eventStatus" name="status"  required>
                                 <option value="Standby">Standby</option>
-                                <option value="Rejected">Rejected</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="form-group row mb-2">
-                    <label for="eventOrgname" class="col-sm-4 col-form-label text-left">Organization Name:</label>
+                    <label for="eventOrgname" class="col-sm-4 col-form-label text-left">Organization:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="organization_name" name="organization_name" required>
+                        <div class="col-sm-11">
+                            <select class="form-control" id="organization_name" name="organization_name" onchange="showHideOthers(this);" required>
+                                <?php $__currentLoopData = $org; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $org_name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($org_name->name); ?>"><?php echo e($org_name->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                        </div>
                     </div>
+                    
                 </div>
                 
                 <div class="form-group row mb-2">
@@ -181,7 +235,7 @@
                 <div class="form-group row mb-2">
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Activity Type: </label>
                     <div class="col-sm-8">
-                        <div class="col-sm-8">
+                        <div class="col-sm-11">
                             <select class="form-control" id="type_of_activity" name="type_of_activity" onchange="showHideOthers(this);" required>
                                 <option value="Organizational related">Organizational related</option>
                                 <option value="Environmental">Environmental</option>
@@ -193,34 +247,39 @@
                     </div>
                 </div>
 
-                <div class="form-group row mb-2">
-                    <label for="eventDate" class="col-sm-4 col-form-label text-left">Start of Event Date:</label>
-                    <div class="col-sm-8">
-                        <input type="date" class="form-control" id="activity_start_date" name="activity_start_date" required>
-                    </div>
+                <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="eventDate" class="col-form-label text-left">Start of Event Date:</label>
+                                <input type="date" class="form-control" id="activity_start_date" name="activity_start_date" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="eventDate" class="col-form-label text-left">End of Event Date:</label>
+                                <input type="date" class="form-control" id="activity_end_date" name="activity_end_date" required>
+                            </div>
+                        </div>
                 </div>
-                <div class="form-group row mb-2">
-                    <label for="eventDate" class="col-sm-4 col-form-label text-left">End of Event Date:</label>
-                    <div class="col-sm-8">
-                        <input type="date" class="form-control" id="activity_end_date" name="activity_end_date" required>
+                <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="eventTime" class="col-form-label text-left">Start of Event Time:</label>
+                                <input type="time" class="form-control" id="activity_start_time" name="activity_start_time" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="eventTime" class="col-form-label text-left">End of Event Time:</label>
+                                <input type="time" class="form-control" id="activity_end_time" name="activity_end_time" required>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row mb-2">
-                    <label for="eventTime" class="col-sm-4 col-form-label text-left">Start of Event Time:</label>
-                    <div class="col-sm-8">
-                        <input type="time" class="form-control" id="activity_end_time" name="activity_start_time" required>
-                    </div>
-                </div>
-                <div class="form-group row mb-2">
-                    <label for="eventTime" class="col-sm-4 col-form-label text-left">End of Event Time:</label>
-                    <div class="col-sm-8">
-                        <input type="time" class="form-control" id="activity_end_time" name="activity_end_time" required>
-                    </div>
-                </div>
                 <div class="form-group row mb-2">
                     <label for="eventLocation" class="col-sm-4 col-form-label text-left">Event Location:</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="venue" name="venue" onchange="showHideOthers(this);" required>
+                            <option value="TBA">TBA</option>
                             <option value="SV Hall">SV Hall</option>
                             <option value="ST Quad">ST Quad</option>
                             <option value="Adamson Theatre">Adamson Theatre</option>
@@ -231,37 +290,44 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Participants:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="participants" name="participants" >
+                        <input type="number" class="form-control" id="participants" name="participants" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Partner Organization:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="partner_organization" name="partner_organization" >
+
+                        <select class="form-control" id="partner_organization" name="partner_organization" onchange="showHideOthers(this);">
+                            <option value="None">--None--</option>
+                            <?php $__currentLoopData = $org; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $org_name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($org_name->name); ?>"><?php echo e($org_name->name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                        
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Organization fund:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="organization_fund" name="organization_fund">
+                        <input type="number" class="form-control" id="organization_fund" name="organization_fund">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Solidarity Share:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="solidarity_share" name="solidarity_share">
+                        <input type="number" class="form-control" id="solidarity_share" name="solidarity_share">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Registration Fee:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="registration_fee" name="registration_fee">
+                        <input type="number" class="form-control" id="registration_fee" name="registration_fee">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">AUSG Subsidy:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="AUSG_subsidy" name="AUSG_subsidy">
+                        <input type="number" class="form-control" id="AUSG_subsidy" name="AUSG_subsidy">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -273,13 +339,19 @@
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Ticket Selling:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="ticket_selling" name="ticket_selling" >
+                        <input type="number" class="form-control" id="ticket_selling" name="ticket_selling" >
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Ticket Control #:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="ticket_control_number" name="ticket_control_number" >
+                        <input type="number" class="form-control" id="ticket_control_number" name="ticket_control_number" >
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventDate" class="col-sm-4 col-form-label text-left">Other Source</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="other_source_of_fund" name="other_source_of_fund">
                     </div>
                 </div>
 
@@ -292,10 +364,8 @@
 </div>
 </div>
 
-<div class="container" style="margin-top: 100px;">
-    <h1>Calendar of Events</h1>
-    <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 100px; margin-bottom:100px;"></div>
-</div>
+
+
 <!------
 
 <div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalLabel" aria-hidden="true">
@@ -395,5 +465,4 @@ function showHideOthers(selectElement) {
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('layouts.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('navbar.navbar_osa', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\soarsWebProject\resources\views/OSA/approval.blade.php ENDPATH**/ ?>

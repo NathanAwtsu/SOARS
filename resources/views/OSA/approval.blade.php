@@ -187,7 +187,7 @@
 
 <!-- Create Event Modal -->
 <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
+<div class="modal-dialog " role="document">
     <div class="modal-content">
         <div class="modal-header">
             <h2 class="modal-title" id="createEventModalLabel">Create an Event</h2>
@@ -204,7 +204,7 @@
                 <div class="form-group row mb-2">
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Event Status:</label>
                     <div class="col-sm-8">
-                        <div class="col-sm-8">
+                        <div class="col-sm-11">
                             <select class="form-control" id="eventStatus" name="status"  required>
                                 <option value="Standby">Standby</option>
                             </select>
@@ -214,7 +214,7 @@
                 <div class="form-group row mb-2">
                     <label for="eventOrgname" class="col-sm-4 col-form-label text-left">Organization:</label>
                     <div class="col-sm-8">
-                        <div class="col-sm-8">
+                        <div class="col-sm-11">
                             <select class="form-control" id="organization_name" name="organization_name" onchange="showHideOthers(this);" required>
                                 @foreach($org as $org_name)
                                 <option value="{{$org_name->name}}">{{$org_name->name}}</option>
@@ -235,7 +235,7 @@
                 <div class="form-group row mb-2">
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Activity Type: </label>
                     <div class="col-sm-8">
-                        <div class="col-sm-8">
+                        <div class="col-sm-11">
                             <select class="form-control" id="type_of_activity" name="type_of_activity" onchange="showHideOthers(this);" required>
                                 <option value="Organizational related">Organizational related</option>
                                 <option value="Environmental">Environmental</option>
@@ -247,30 +247,34 @@
                     </div>
                 </div>
 
-                <div class="form-group row mb-2">
-                    <label for="eventDate" class="col-sm-4 col-form-label text-left">Start of Event Date:</label>
-                    <div class="col-sm-8">
-                        <input type="date" class="form-control" id="activity_start_date" name="activity_start_date" required>
-                    </div>
+                <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="eventDate" class="col-form-label text-left">Start of Event Date:</label>
+                                <input type="date" class="form-control" id="activity_start_date" name="activity_start_date" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="eventDate" class="col-form-label text-left">End of Event Date:</label>
+                                <input type="date" class="form-control" id="activity_end_date" name="activity_end_date" required>
+                            </div>
+                        </div>
                 </div>
-                <div class="form-group row mb-2">
-                    <label for="eventDate" class="col-sm-4 col-form-label text-left">End of Event Date:</label>
-                    <div class="col-sm-8">
-                        <input type="date" class="form-control" id="activity_end_date" name="activity_end_date" required>
+                <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="eventTime" class="col-form-label text-left">Start of Event Time:</label>
+                                <input type="time" class="form-control" id="activity_start_time" name="activity_start_time" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="eventTime" class="col-form-label text-left">End of Event Time:</label>
+                                <input type="time" class="form-control" id="activity_end_time" name="activity_end_time" required>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row mb-2">
-                    <label for="eventTime" class="col-sm-4 col-form-label text-left">Start of Event Time:</label>
-                    <div class="col-sm-8">
-                        <input type="time" class="form-control" id="activity_end_time" name="activity_start_time" required>
-                    </div>
-                </div>
-                <div class="form-group row mb-2">
-                    <label for="eventTime" class="col-sm-4 col-form-label text-left">End of Event Time:</label>
-                    <div class="col-sm-8">
-                        <input type="time" class="form-control" id="activity_end_time" name="activity_end_time" required>
-                    </div>
-                </div>
                 <div class="form-group row mb-2">
                     <label for="eventLocation" class="col-sm-4 col-form-label text-left">Event Location:</label>
                     <div class="col-sm-8">

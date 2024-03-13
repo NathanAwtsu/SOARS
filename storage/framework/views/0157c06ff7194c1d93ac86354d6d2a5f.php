@@ -1,4 +1,22 @@
 <?php $__env->startSection('content'); ?>
+<style>
+    form {
+        text-align: left; /* Align text in the form to the left */
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    form textarea,
+    form input {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 0px;
+    }
+    
+</style>
 
 <center>
     
@@ -8,9 +26,10 @@
         <h2>Organization Information Form</h2> <br><br>
         <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
-            <label for="OrgName"><h2>Organization Name :</h2></label><br>
+            <h4>All fields with (<span style="color: red;">*</span>) are required for initial submission.</h4><br>
+            <label for="OrgName"><h2><span style="color: red;">*</span>Organization Name :</h2></label><br>
             <textarea id="name" name="name" rows="2" cols="4" required></textarea><br><br>
-            <label for="OrgName"><h2>Nickame :</h2></label><br>
+            <label for="OrgName"><h2><span style="color: red;">*</span>Nickame :</h2></label><br>
             <textarea id="name" name="nickname" rows="2" cols="4" required></textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
             <textarea id="mission" name="mission" rows="4" cols="50" ></textarea><br><br>
@@ -18,7 +37,13 @@
             <label for="Vision"><h2>Insert Vision:</h2> </label><br>
             <textarea id="vision" name="vision" rows="4" cols="50" ></textarea><br><br>
 
-            <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
+            <label for="janeContact" style="text-align:left;"> Organization Email:</label>
+            <input type="org_email" id="org_email" name="org_email" ><br>
+
+            <label for="janeContact" style="text-align:left;"> Organization Facebook:</label>
+            <input type="org_fb" id="org_fb" name="org_fb" ><br>
+
+            <label for="OrganizationType"><h2>First Select Organization Type</h2></label><br>
              <select id="type_of_organization" name="type_of_organization" onchange="showHideOthers(this);" required>
                 <option value="Academic">Academic</option>
                 <option value="Co-Academic">Co-Academic</option>
@@ -26,6 +51,42 @@
                 <option value="Religious">Religious</option>
              </select><br></br>
             
+             <label for="AcademicCourseBased"><h2>Select, if Org is based on Academic Course</h2></label><br>
+             <select id="academic_course_based" name="academic_course_based" onchange="showHideOthers(this);" required>
+                <option value="Not Academic Couse Based">None</option>
+                <option value="ACT">Associate in Computer Technology</option>
+                <option value="BAComm">Bachelor of Arts in Communication</option>
+                <option value="BAPhilo">Bachelor of Arts in Philosophy</option>
+                <option value="BAPolSci">Bachelor of Arts in Political Science</option>
+                <option value="BEEd">Bachelor of Elementary Education</option>
+                <option value="BPEd">Bachelor of Physical Education</option>
+                <option value="BPE-SWM">Bachelor of Physical Education Major in Sports and Wellness Management</option>
+                <option value="BSA">Bachelor of Science in Accountancy</option>
+                <option value="BSArchi">Bachelor of Science in Architecture</option>
+                <option value="BSBio">Bachelor of Science in Biology</option>
+                <option value="BSBAFM">Bachelor of Science in Business Administration Major in Financial Management</option>
+                <option value="BSBAMM">Bachelor of Science in Business Administration Major in Marketing Management</option>
+                <option value="BSBAOM">Bachelor of Science in Business Administration Major in Operations Management</option>
+                <option value="BSChE">Bachelor of Science in Chemical Engineering</option>
+                <option value="BSCPT">Bachelor of Science in Chemical Process Technology</option>
+                <option value="BSChem">Bachelor of Science in Chemistry</option>
+                <option value="BSCE">Bachelor of Science in Civil Engineering</option>
+                <option value="BSCooE">Bachelor of Science in Computer Engineering</option>
+                <option value="BSCS">Bachelor of Science in Computer Science</option>
+                <option value="BSCA">Bachelor of Science in Customs Administration</option>
+                <option value="BSEE">Bachelor of Science in Electrical Engineering</option>
+                <option value="BSGeo">Bachelor of Science in Geology</option>
+                <option value="BSHM">Bachelor of Science in Hospitality Management</option>
+                <option value="BSIE">Bachelor of Science in Industrial Engineering</option>
+                <option value="BSIS">Bachelor of Science in Information System</option>
+                <option value="BSIT">Bachelor of Science in Information Technology</option>
+                <option value="BSME">Bachelor of Science in Mechanical Engineering</option>
+                <option value="BSMining">Bachelor of Science in Mining Engineering</option>
+                <option value="BSNursing">Bachelor of Science in Nursing</option>
+                <option value="BSPE">Bachelor of Science in Petroleum Engineering</option>
+                <option value="BSPharma">Bachelor of Science in Pharmacy</option>
+                <option value="BSPsych">Bachelor of Science in Psychology</option>
+             </select><br></br>
             <!--Logo-->
             <label for="logoFile"><h3>Logo:</h3></label>
             
@@ -70,7 +131,7 @@
             
 
             <label for="advisersInfoText">
-                <h2>Almost there! Enter Advisers and Officers Information:</h2>
+                <h2>Enter Advisers and Officers Information:</h2>
             </label>
             
             <div id="listOfOfficersContent" class="card mt-4 mb-4" style="height: auto;">
@@ -78,11 +139,11 @@
                     <div class="row">
                         <div class="col-md-15">
                             <div class="officer-card">
-                                    <label for="janePosition" style="text-align:left;" ><h2>Adviser:</h2></label>
-                                    <label for="janeName" style="text-align:left;">Name:</label>
-                                    <input type="text" id="adviser_name" name="adviser_name"><br>
-                                    <label for="janeContact" style="text-align:left;">Email:</label>
-                                    <input type="text" id="adviser_name" name="adviser_email" ><br>
+                                    <label for="janePosition" style="text-align:left;" ><h2><span style="color: red;">*</span>Adviser:</h2></label>
+                                    <label for="janeName" style="text-align:left;"><span style="color: red;">*</span>Name:</label>
+                                    <input type="text" id="adviser_name" name="adviser_name" required><br>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Email:</label>
+                                    <input type="text" id="adviser_name" name="adviser_email" required><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="adviser_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
                                         <span>Upload Adviser Photo</span>
@@ -102,19 +163,19 @@
                                     <input type="email" id="ausg_rep_email" name="ausg_rep_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="ausg_rep_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload AUSG Photo</span>
                                         <input type="file" id="ausg_rep_photo" name="ausg_rep_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
                         </div>
                         <div class="col-md-15">
                             <div class="officer-card">
-                                    <label for="janePosition" style="text-align:left;"><h5>President:</h5></label>
-                                    <label for="president_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="president_studno" name="president_studno" maxlength="9"><br>
-                                    <label for="janeContact" style="text-align:left;">Name:</label>
+                                    <label for="janePosition" style="text-align:left;"><h5><span style="color: red;">*</span>President:</h5></label>
+                                    <label for="president_studno" style="text-align:left;"><span style="color: red;">*</span>Student No:</label>
+                                    <input type="number" id="president_studno" name="president_studno" maxlength="9" required><br>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;" required>*</span>Name:</label>
                                     <input type="text" id="president_name" name="president_name" ><br>
-                                    <label for="janeContact" style="text-align:left;">Email:</label>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;" required>*</span>Email:</label>
                                     <input type="email" id="president_email" name="president_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
@@ -134,7 +195,7 @@
                                     <input type="email" id="vp_internal_email" name="vp_internal_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="vp_internal_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload VP Internal Photo</span>
                                         <input type="file" id="vp_internal_photo" name="vp_internal_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -150,7 +211,7 @@
                                     <input type="email" id="vp_external_email" name="vp_external_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="vp_external_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload VP External Photo</span>
                                         <input type="file" id="vp_external_photo" name="vp_external_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -166,7 +227,7 @@
                                     <input type="email" id="secretary_email" name="secretary_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="secretary_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload Secretary Photo</span>
                                         <input type="file" id="secretary_photo" name="secretary_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -182,7 +243,7 @@
                                     <input type="email" id="treasurer_email" name="treasurer_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="treasurer_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload Treasurer Photo</span>
                                         <input type="file" id="treasurer_photo" name="treasurer_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -198,7 +259,7 @@
                                     <input type="email" id="auditor_email" name="auditor_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="auditor_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload Auditor Photo</span>
                                         <input type="file" id="auditor_photo" name="auditor_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                             </div>
@@ -214,9 +275,10 @@
                                     <input type="email" id="pro_email" name="pro_email" ><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="pro_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Adviser Photo</span>
+                                        <span>Upload Pro Photo</span>
                                         <input type="file" id="pro_photo" name="pro_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
+                                    <div id="image_preview"></div>
                             </div>
                         </div>
 
@@ -231,7 +293,8 @@
         </form>
     </main>
 </center>
-            
+
+
 
 <script>
     var officerContainer = document.getElementById('officerContainer');

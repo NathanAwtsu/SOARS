@@ -31,18 +31,18 @@
                 
             
             <a href="{{ route('studlist') }}">
-            <div class="card" style="height: 150px; background-color: #64b5f6;">
+            <div class="card" style="height: 150px; background-color: #1565c0;">
                 <h2 style="color: white;">Total Students <i class="fa-solid fa-users fa-lg"></i></h2>
                     <p style="font-size: 30px; color: white;">{{ $studentCount }}</p>
             </a>
             </div>
             <a href="{{ route('osalist') }}">
-            <div class="card" style="height: 150px; background-color: #64b5f6;">
+            <div class="card" style="height: 150px; background-color: #4caf50;">
                 <h4 style="color: white;">OSA Employees <i class="fa-solid fa-users fa-lg"></i></h4>
                     <p style="font-size: 30px; color: white;">{{ $osaEmpCount }}</p>
             </a>
             </div>
-            <a href="{{ route('rso_list') }}"><div class="card" style="height: 150px; background-color: #81c784;">
+            <a href="{{ route('rso_list') }}"><div class="card" style="height: 150px; background-color: #ffc107;">
                 <h2 style="color: white;">Total Student Organizations <i class="fa-solid fa-chart-line"></i></h2>
                 <p style="font-size: 30px; color: white;">{{ $RSOCount }}</p>
             </a>

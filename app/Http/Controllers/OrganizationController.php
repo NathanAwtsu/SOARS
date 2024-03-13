@@ -654,6 +654,20 @@ class OrganizationController extends Controller
             return redirect('/rso_list')->with('success', 'You have updated ' . $org->name);
         }
 
+        if ($request->has('cancel')){
+            $orgId = $id;
+            $org = Organization::findOrFail($orgId);
+            return redirect('/rso_list');
+
+        }
+
+        if ($request->has('org_page')){
+            $orgId = $id;
+            $org = Organization::findOrFail($orgId);
+            return redirect('/rso_list/rso_page/'.$orgId);
+
+        }
+
         if ($request->has('complete')) {
             $orgId = $id;
             $org = Organization::findOrFail($orgId);

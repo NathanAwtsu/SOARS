@@ -96,10 +96,7 @@ class StudentsController extends Controller
 
             $organization = Organization::where('academic_course_based', $courseId)->first();
 
-            if ($organization) {
-                $studentData['organization1'] = $organization->name; // Store organization name
-            } else {
-                
+            if (!$organization) {
                 return response()->json(['message' => 'No organization found for the provided academic course'], 400);
             }
 
@@ -111,7 +108,7 @@ class StudentsController extends Controller
                 'first_name' => $request->first_name,
                 'course_id' => $request->course_id,
                 'email' => $request->email,
-                'organization1' => $request->organization1,
+                'organization1' => $organization->name,
                 'organization2' => $request->organization2,
                 'org1_member_status' => $request->org1_member_status,
                 'org2_member_status' => $request->org2_member_status,
@@ -141,7 +138,7 @@ class StudentsController extends Controller
                 'name' => $name,
                 'email' => $request->email,
                 'email_verified_at' => $datetime,
-                'phone_number' => $request->phone_number,
+                //'phone_number' => $request->phone_number,
                 'password' => Hash::make($request->password),
                 'remember_token'=> $randomString,
                 'created_at'=>$datetime,

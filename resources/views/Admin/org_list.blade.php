@@ -20,15 +20,16 @@
 </style>
 <center>
     
-    <main>
+    <main style="padding-top: 80px;">
        
     <div class="card" style="height: auto; width: 700px;">
         <h2>Organization Information Form</h2> <br><br>
         <form action="/rso_list/new_organization" method="post" enctype="multipart/form-data">
             @csrf
-            <label for="OrgName"><h2>Organization Name :</h2></label><br>
+            <h4>All fields with (<span style="color: red;">*</span>) are required for initial submission.</h4><br>
+            <label for="OrgName"><h2><span style="color: red;">*</span>Organization Name :</h2></label><br>
             <textarea id="name" name="name" rows="2" cols="4" required></textarea><br><br>
-            <label for="OrgName"><h2>Nickame :</h2></label><br>
+            <label for="OrgName"><h2><span style="color: red;">*</span>Nickame :</h2></label><br>
             <textarea id="name" name="nickname" rows="2" cols="4" required></textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
             <textarea id="mission" name="mission" rows="4" cols="50" ></textarea><br><br>
@@ -138,11 +139,11 @@
                     <div class="row">
                         <div class="col-md-15">
                             <div class="officer-card">
-                                    <label for="janePosition" style="text-align:left;" ><h2>Adviser:</h2></label>
-                                    <label for="janeName" style="text-align:left;">Name:</label>
-                                    <input type="text" id="adviser_name" name="adviser_name"><br>
-                                    <label for="janeContact" style="text-align:left;">Email:</label>
-                                    <input type="text" id="adviser_name" name="adviser_email" ><br>
+                                    <label for="janePosition" style="text-align:left;" ><h2><span style="color: red;">*</span>Adviser:</h2></label>
+                                    <label for="janeName" style="text-align:left;"><span style="color: red;">*</span>Name:</label>
+                                    <input type="text" id="adviser_name" name="adviser_name"required><br>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Email:</label>
+                                    <input type="text" id="adviser_name" name="adviser_email" required><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="adviser_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
                                         <span>Upload Adviser Photo</span>
@@ -169,13 +170,13 @@
                         </div>
                         <div class="col-md-15">
                             <div class="officer-card">
-                                    <label for="janePosition" style="text-align:left;"><h5>President:</h5></label>
-                                    <label for="president_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="president_studno" name="president_studno" maxlength="9"><br>
-                                    <label for="janeContact" style="text-align:left;">Name:</label>
-                                    <input type="text" id="president_name" name="president_name" ><br>
-                                    <label for="janeContact" style="text-align:left;">Email:</label>
-                                    <input type="email" id="president_email" name="president_email" ><br>
+                                    <label for="janePosition" style="text-align:left;"><h5><span style="color: red;">*</span>President:</h5></label>
+                                    <label for="president_studno" style="text-align:left;"><span style="color: red;">*</span>Student No:</label>
+                                    <input type="number" id="president_studno" name="president_studno" maxlength="9" required><br>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Name:</label>
+                                    <input type="text" id="president_name" name="president_name" required><br>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Email:</label>
+                                    <input type="email" id="president_email" name="president_email" required><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
                                         <span>Upload President Photo</span>

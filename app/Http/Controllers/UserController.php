@@ -50,4 +50,21 @@ class UserController extends Controller
         $userInfo = DB::table('users')->where('id','=', $user)->get();
         return view('OSA.user')->with('userInfo', $userInfo);
     }
+
+    public function admin_update_pass(Request $request){
+        $user = Auth::user();
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+        return view('Admin.admin_profile')->with('success', 'Password Changed');
+    }
+
+    public function admin_update_email(Request $request)
+    {
+        
+        $user = Auth::user();
+        $user->email = $request->input('email');
+        $user->save();
+
+        return view('Admin.admin_profile')->with('success', 'Profile updated successfully.');
+    }
 }

@@ -61,14 +61,14 @@ Route::middleware(['admin'])->group(function () {
 Route::get('/admin', [StudentsController::class, 'showDashboard'])->name('admin');
 
 
-//StudentController
+//Student Creation
 Route::get('/student-list', [StudentsController::class, 'studlist'])->name('studlist');
 Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentsController::class, 'delete']);
 Route::get('get-organizations', [StudentsController::class, 'getOrganizations'])->name('getOrganizations');
 
-//OsaEmpController
+//OsaEmployee Creation
 Route::get('osa_list', [OsaEmpController::class, 'osalist'])->name('osalist');
 Route::post('stores', [OsaEmpController::class, 'stores']);
 Route::post('edits', [OsaEmpController::class, 'edits']);
@@ -78,8 +78,10 @@ Route::get('/audit_log', function () {return view('Admin.audit_log');})->name('a
 //Route::get('/rso_list', [StudentOrganizationController::class, 'showRSOlist'])->name('rso_list');
 Route::get('/rso_detail', [StudentOrganizationController::class, 'showRSODetail'])->name('rso_detail');
 Route::get('/admin_profile', function(){return view('Admin.admin_profile');})->name('admin_profile');
+Route::post('/admin_profile/update_pass', [UserController::class, 'admin_update_pass']);
+Route::post('/admin/update_email', [UserController::class, 'admin_update_email'], function (){return view('Admin.admin_profile');})->name('admin.update');
 
-
+//Org Creation
 Route::get('/rso_list', [OrganizationController::class, 'new_org'], function(){return view('rso_list');})->name('rso_list');
 Route::get('/rso_list/rso_page/{id}', [OrganizationController::class, 'rso_page']);
 Route::get('/rso_list/new_organization', function(){return view('Admin.org_list');})->name('org_list');

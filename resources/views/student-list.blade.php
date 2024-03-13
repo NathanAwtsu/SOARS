@@ -135,23 +135,25 @@
                         <div class="form-group">
                             <label for="email" class="col-sm-4 control-label"><span style="color: red;">*</span>Email</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter the email in the end @adamson.edu.ph" required 
+                                pattern=".*@adamson\.edu\.ph$" 
+                                title="Please enter a valid email address ending with @adamson.edu.ph">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="organization1" name="organization1">
+                                    <option value="">Select Organization</option>
+                                    <!-- Organizations will be dynamically populated here -->
+                                </select>
                             </div>
                         </div>
 
-<div class="form-group">
-    <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
-    <div class="col-sm-8">
-        <select class="form-control" id="organization1" name="organization1">
-            <option value="">Select Organization</option>
-            <!-- Organizations will be dynamically populated here -->
-        </select>
-    </div>
-</div>
 
 
 
-                
 
                 
                 </div>

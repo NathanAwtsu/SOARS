@@ -21,7 +21,7 @@
 
 <center>
     
-    <main>
+    <main style="padding-top: 80px;">
        
     <div class="card" style="height: auto; width: 700px;">
         <center>
