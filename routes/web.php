@@ -164,6 +164,7 @@ Route::get('/student/dash', [StudentsController::class, 'getEvents']);
 //Announcements for Students
 Route::get('/student/announcements/recent', [StudentsController::class, 'announcement'], function(){return view('Student.announcements');});
 Route::get('/student/org_list/', [StudentsController::class, 'org_list']);
+Route::get('/student/organization_list/organization_page/{id}', [OrganizationController::class, 'student_organization_page']);
 
 
 

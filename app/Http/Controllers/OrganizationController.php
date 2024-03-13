@@ -34,6 +34,21 @@ class OrganizationController extends Controller
 
     }
 
+    public function student_organization(){
+        $organizationAcademic = DB::table('organizations')->where('type_of_organization','=','Academic')->where('requirement_status','=','complete')->get();
+        $organizationCoAcademic = DB::table('organizations')->where('type_of_organization','=','Co-Academic')->where('requirement_status','=','complete')->get();
+        $organizationSocioCivic = DB::table('organizations')->where('type_of_organization','=','Socio Civic')->where('requirement_status','=','complete')->get();
+        $organizationReligious = DB::table('organizations')->where('type_of_organization','=','Religious')->where('requirement_status','=','complete')->get();
+
+        
+        return view('OSA.organization_list')
+        ->with('organizationAcademic', $organizationAcademic)
+        ->with('organizationCoAcademic', $organizationCoAcademic)
+        ->with('organizationSocioCivic', $organizationSocioCivic)
+        ->with('organizationReligious', $organizationReligious);
+        
+    }
+
     public function new_org(){
         $organizationAcademic = DB::table('organizations')->where('type_of_organization','=','Academic')->where('requirement_status','=','complete')->get();
         $organizationCoAcademic = DB::table('organizations')->where('type_of_organization','=','Co-Academic')->where('requirement_status','=','complete')->get();
@@ -55,6 +70,31 @@ class OrganizationController extends Controller
         $id = $request->route('id');
         $org = Organization::find($id);
 	    return view('OSA.organization_page')->with('org',$org);
+
+    }
+
+    public function student_organization_page(Request $request){
+    
+        $id = $request->route('id');
+        $org = Organization::find($id);
+        $useId = Auth::user();
+        $userId = $useId->id;
+        $stud_course= DB::table('students')->select('course_id')->where('student_id','=',$userId)->get();
+        $student_pos = DB::table('student_organizations')->select('org1_member_status')->get();
+        $org = DB::table('organizations')->where('academic_course_based', '=', $stud_course)->get();
+
+        if($student_pos = "Member"){
+
+        }
+        if($student_pos != "Member" && $student_pos != "President"){
+
+        }
+        if($student_pos = "President"){
+
+        }
+
+
+	    return view('Student.org1_page_member')->with('org',$org);
 
     }
 
