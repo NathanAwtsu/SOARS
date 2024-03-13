@@ -10,11 +10,11 @@ class StudentOrganization extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_id',
+        'studentId',
         'course',
         'org1',
-        'org1_member_status',
+        'org1_memberstatus',
         'org2',
-        'org2_member_status',
+        'org2_memberstatus',
     ];
 }

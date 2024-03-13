@@ -139,19 +139,20 @@
                             </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" id="organization1" name="organization1">
-                                    <option value="">Select Organization</option>
-                                    <!-- Organizations will be dynamically populated here -->
-                                </select>
-                            </div>
-                        </div>
+<div class="form-group">
+    <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
+    <div class="col-sm-8">
+        <select class="form-control" id="organization1" name="organization1">
+            <option value="">Select Organization</option>
+            <!-- Organizations will be dynamically populated here -->
+        </select>
+    </div>
+</div>
 
 
 
 
+                
 
                 
                 </div>
@@ -331,28 +332,45 @@
 
 
 // For submitting the form for adding or updating
-$('#studentForm').submit(function(event){
-    event.preventDefault();
-    var actionUrl = "<?php echo e(isset($student) ? url('update') : url('store')); ?>"; // Determine action based on the presence of $student
+// Function to handle form submission
+function submitForm() {
+        var actionUrl = "<?php echo e(isset($student) ? url('update') : url('store')); ?>";
+        
+        $.ajax({
+            type: 'POST',
+            url: actionUrl,
+            data: new FormData($('#studentForm')[0]),
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                console.log(response.message);
+                $('#studentModal').modal('hide'); // Close the modal
+                $('#student-list').DataTable().ajax.reload(); // Reload the DataTable
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                // Handle error or log the details for troubleshooting
+            }
+        }).done(function() {
+        $('#student-list').DataTable().ajax.reload(); // Reload the DataTable after modal is closed
+    });
+    }
 
-    $.ajax({
-        type:'POST',
-        url: actionUrl,
-        data: new FormData(this),
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            console.log(response.message);
-            $('#studentModal').modal('hide');
-            $('#student-list').DataTable().ajax.reload(); // Reload the DataTable
-        },
-        error: function(xhr, status, error){ 
-            console.log(xhr.responseText);
-            // Handle error or log the details for troubleshooting
+    
+    $('#btn-save').on('click', function(event) {
+        event.preventDefault();
+        submitForm(); 
+    });
+
+    
+    $('#studentForm').on('keypress', function(event) {
+        if (event.which === 13) { // Check if Enter key is pressed
+            event.preventDefault();
+            submitForm(); 
         }
     });
-});
+
 
 </script>
 

@@ -92,6 +92,7 @@ class StudentsController extends Controller
 
         public function store(Request $request)
         {
+            
             $courseId = $request->course_id;
 
             $organization = Organization::where('academic_course_based', $courseId)->first();
@@ -125,6 +126,15 @@ class StudentsController extends Controller
                 $studentData
             );
 
+            DB::table('student_organizations')->insert([
+                'studentId' => $studentId,
+                'course' => $request->course_id,
+                'org1' => $organization->name,
+                'org1_memberstatus' => $request->org1_member_status,
+                'org2' => $request->organization2,
+                'org2_memberstatus' => $request->org2_member_status,
+            ]);
+
             $fname= $request->first_name;
             $mname= $request->middle_initial;
             $lname= $request->last_name;
@@ -152,6 +162,7 @@ class StudentsController extends Controller
         public function edit(Request $request)
         {
             $student = DB::table('students')->where('student_id', $request->student_id)->first();
+            $studentOrg = DB::table('student_organizations')->where('studentId', $request->student_id)->first();
 
         return response()->json($student);
     }
@@ -180,6 +191,16 @@ class StudentsController extends Controller
 
         DB::table('students')->where('student_id', $studentId)->update($studentData);
 
+        $studentOrgData = [
+            'course' => $request->course_id,
+            'org1' => $request->organization1,
+            'org1_memberstatus' => $request->org1_member_status,
+            'org2' => $request->organization2,
+            'org2_memberstatus' => $request->org2_member_status,
+        ];
+        // Update student organization information
+        DB::table('student_organizations')->where('studentId', $studentId)->update($studentOrgData);
+
         return response()->json(['message' => 'Student information updated successfully']);
     }
 
@@ -187,7 +208,8 @@ class StudentsController extends Controller
         {
             $student = DB::table('students')->where('student_id', $request->student_id)->delete();
             DB::table('users')->where('id', $request->student_id)->delete();
-            return response()->make('Student deleted successfully');
+            DB::table('student_organizations')->where('studentId', $request->student_id)->delete();
+            return response()->json(['message' => 'Student information deleted successfully']);
 
         }
 
