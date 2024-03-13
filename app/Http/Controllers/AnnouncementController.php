@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
+use App\Models\Students;
 use App\Models\Announcement;
 
 class AnnouncementController extends Controller
@@ -30,6 +31,38 @@ class AnnouncementController extends Controller
         $announcement->save();
 
         return redirect()->route('osaemp')->with('success', 'You have Created an Announcement named: '.$announcement->title);
+
+    }
+
+    public function sl1_create(){
+    
+        $announcement = new Announcement();
+
+        $user = Auth::user();
+        $userId = $user->id;
+        // Student No
+
+        // Retrieve the student record
+        $student = DB::table('students')->where('student_id','=' ,$userId)->first();
+        $studentId = $student->student_id;
+        
+        $student_org = DB::table('student_organizations')->where('student_id', '=', $studentId)->first(); // Use first() to get a single object
+        $student_pos = $student_org->org1_member_status;
+        $courseId = $student_org->course;
+        $org_group = $student_org->org1;
+
+        
+        $author = $user->name;
+
+
+        $announcement->title = request('title');
+        $announcement->message= request('message');
+        $announcement->author= $author;
+        $announcement->recipient= request('recipient');
+        $announcement->author_org= $org_group;
+        $announcement->save();
+
+        return redirect()->route('student_leader_page');
 
     }
 }

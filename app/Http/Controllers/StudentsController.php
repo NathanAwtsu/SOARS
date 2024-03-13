@@ -21,8 +21,22 @@ class StudentsController extends Controller
 {
 
     public function dashboard(){
+        $user = Auth::user();
+        $userId = $user->id; //Student No
+        $student = DB::table('students')->where('student_id','=' ,$userId)->first(); //Select Row from Student
+        $studentId = $student->student_id; //Student Id from Students Table
+        $student_org = DB::table('student_organizations')
+        ->where('student_id', '=', $studentId)->first(); //Select Row from student_organization if student_id match
+        $student_pos = $student_org->org1_member_status; //Select org Status 1
+        $courseId = $student_org->course; //Select student Course from Student_organization
+        $orgsByCourse = DB::table('organizations')
+        ->where('academic_course_based','=',$courseId)->first(); //Select Row from organization if academic_course match with student course
+        $org = $orgsByCourse->name; //Select Org Name
 
-        return view('Student.dashboard');
+        $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get(); //Select Row of Data from announcements where recipient is from the org
+
+        return view('Student.dashboard')
+        ->with('announcement1', $announcement1);
     }
 
     public function getEvents(){

@@ -10,7 +10,9 @@
         <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 30px;">
         </div>
     </div>
-
+    @foreach ( $announcement1 as $announce )
+      
+    
     <div class="container">
             <h1 style="padding-left:20px; padding-top: 5%; padding-bottom: 2.5%;">
                 <i class="fas fa-bullhorn"></i> Announcements
@@ -19,19 +21,20 @@
                 
                     <div class="announcement-header">
                         <h3 class="announcement-title">
-                            <i class="fa-regular fa-clipboard"></i> Title:
+                            <i class="fa-regular fa-clipboard"></i> Title: {{$announce->title}}
                         </h3>
-                        <p class="announcement-date">Posted on January 25, 2024</p>
-                        <p class="author">Author</p>
+                        <p class="announcement-date">Posted on {{$announce->created_at}}</p>
+                        <p class="author">Author: {{$announce->author}}. {{$announce->author_org}}</p>
                     </div>
                     <div class="announcement-body">
                         <p class="announcement-content">
-                        Message
+                        {{$announce->message}}
                         </p>
                     </div>
                 
             </div>
     </div>
+    @endforeach
 </main>
 
 
