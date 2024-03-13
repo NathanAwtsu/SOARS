@@ -9,7 +9,7 @@
             <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
             <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
             <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
-            <a href="{{url('/osaemp/organization_list/organization_edit/'.$org->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
+            <a href="{{url('/osaemp/organization_list/organization_edit/'.$orgsByCourse->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
         </div> <br>
         
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -22,24 +22,24 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <p class="card-text">
-                                    <strong>{{$org->name}}({{$org->nickname}})</strong>
+                                    <strong>{{$orgsByCourse->name}}({{$orgsByCourse->nickname}})</strong>
                                     
                                     
                                    
                                 </p>
-                                <img src="/storage/logo/{{$org->logo}}" alt="{{$org->logo}}" class="img-fluid mb-3">
+                                <img src="/storage/logo/{{$orgsByCourse->logo}}" alt="{{$orgsByCourse->logo}}" class="img-fluid mb-3">
                                 <strong>Academic Course Based:</strong><br><br>
-                                    {{$org->academic_course_based}}
+                                    {{$orgsByCourse->academic_course_based}}
                                 <br>
                             </div>
                             <div class="col-md-8">
                                 <h4 class="card-title">Vision and Mission</h4>
                                 <p class="card-text">
                                     <strong>Vision</strong><br><br>
-                                    {{$org->vision}}
+                                    {{$orgsByCourse->vision}}
                                     <br><br>
                                     <strong>Mission</strong><br><br>
-                                    {{$org->mission}}
+                                    {{$orgsByCourse->mission}}
                                 </p>
                             </div>
                         </div>
@@ -53,9 +53,9 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/adviser_photo/{{$org->adviser_photo}}" alt="{{$org->adviser_photo}}" class="img-fluid" width="100"><br>
-                                <p class="officer-name">{{$org->adviser_name}}</p>
-                                <a href="mailto: {{$org->adviser_email}}" class="officer-email">{{$org->adviser_email}}</a>
+                                <img src="/storage/organization_officer_photo/adviser_photo/{{$orgsByCourse->adviser_photo}}" alt="{{$orgsByCourse->adviser_photo}}" class="img-fluid" width="100"><br>
+                                <p class="officer-name">{{$orgsByCourse->adviser_name}}</p>
+                                <a href="mailto: {{$orgsByCourse->adviser_email}}" class="officer-email">{{$orgsByCourse->adviser_email}}</a>
                                 <p class="officer-position">Adviser</p>
                                 
                                 
@@ -64,10 +64,10 @@
             
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/ausg_rep_photo/{{$org->ausg_rep_photo}}" alt="{{$org->ausg_rep_photo}}" class="img-fluid" width="100">
+                                <img src="/storage/organization_officer_photo/ausg_rep_photo/{{$orgsByCourse->ausg_rep_photo}}" alt="{{$orgsByCourse->ausg_rep_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$org->ausg_rep_studno}}">{{$org->ausg_rep_name}}</a><br>
-                                <a href="mailto: {{$org->ausg_rep_email}}" class="officer-email">{{$org->ausg_rep_email}}</a>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->ausg_rep_studno}}">{{$orgsByCourse->ausg_rep_name}}</a><br>
+                                <a href="mailto: {{$orgsByCourse->ausg_rep_email}}" class="officer-email">{{$orgsByCourse->ausg_rep_email}}</a>
                                 <p class="officer-position">AUSG Representative </p>
                                 
                             </div>
@@ -75,10 +75,10 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/president_photo/{{$org->president_photo}}" alt="{{$org->president_name}}" class="img-fluid" width="100">
+                                <img src="/storage/organization_officer_photo/president_photo/{{$orgsByCourse->president_photo}}" alt="{{$orgsByCourse->president_name}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$org->president_studno}}">{{$org->president_name}}</a>
-                                <a href="mailto: {{$org->president_email}}" class="officer-email">{{$org->president_email}}</a><br>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->president_studno}}">{{$orgsByCourse->president_name}}</a>
+                                <a href="mailto: {{$orgsByCourse->president_email}}" class="officer-email">{{$orgsByCourse->president_email}}</a><br>
                                 <p class="officer-position">President </p>
                                 
                             </div>
@@ -86,10 +86,10 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/vp_internal_photo/{{$org->vp_internal_photo}}" alt="{{$org->vp_internal_name}}" class="img-fluid" width="100">
+                                <img src="/storage/organization_officer_photo/vp_internal_photo/{{$orgsByCourse->vp_internal_photo}}" alt="{{$ororgsByCourseg->vp_internal_name}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$org->vp_internal_studno}}">{{$org->vp_internal_name}}</a>
-                                <a href="mailto: {{$org->vp_internal_email}}" class="officer-email">{{$org->vp_internal_email}}</a><br>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->vp_internal_studno}}">{{$orgsByCourse->vp_internal_name}}</a>
+                                <a href="mailto: {{$orgsByCourse->vp_internal_email}}" class="officer-email">{{$orgsByCourse->vp_internal_email}}</a><br>
                                 <p class="officer-position">Vice President for Internal Affairs </p>
                                 
                             </div>
@@ -97,10 +97,10 @@
             
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/vp_external_photo/{{$org->vp_external_photo}}" alt="{{$org->vp_external_photo}}" class="img-fluid" width="100">
+                                <img src="/storage/organization_officer_photo/vp_external_photo/{{$orgsByCourse->vp_external_photo}}" alt="{{$orgsByCourse->vp_external_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$org->vp_external_studno}}">{{$org->vp_external_name}}</a>
-                                <a href="mailto: {{$org->vp_external_email}}" class="officer-email">{{$org->vp_external_email}}</a><br>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->vp_external_studno}}">{{$orgsByCourse->vp_external_name}}</a>
+                                <a href="mailto: {{$orgsByCourse->vp_external_email}}" class="officer-email">{{$orgsByCourse->vp_external_email}}</a><br>
                                 <p class="officer-position">Vice President for External Affairs</p>
                                 
                             </div>
@@ -108,10 +108,10 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/secretary_photo/{{$org->secretary_photo}}" alt="{{$org->secretary_photo}}" class="img-fluid" width="100">
+                                <img src="/storage/organization_officer_photo/secretary_photo/{{$orgsByCourse->secretary_photo}}" alt="{{$orgsByCourse->secretary_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$org->secretary_studno}}">{{$org->secretary_name}}</a>
-                                <a href="mailto: {{$org->secretary_email}}" class="officer-email">{{$org->secretary_email}}</a><br>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->secretary_studno}}">{{$orgsByCourse->secretary_name}}</a>
+                                <a href="mailto: {{$orgsByCourse->secretary_email}}" class="officer-email">{{$orgsByCourse->secretary_email}}</a><br>
                                 <p class="officer-position">Secretary </p>
                                 
                             </div>
@@ -119,10 +119,10 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/treasurer_photo/{{$org->treasurer_photo}}" alt="{{$org->treasurer_photo}}" class="img-fluid" width="100">
+                                <img src="/storage/organization_officer_photo/treasurer_photo/{{$orgsByCourse->treasurer_photo}}" alt="{{$orgsByCourse->treasurer_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$org->treasurer_studno}}">{{$org->treasurer_name}}</a>
-                                <a href="mailto: {{$org->treasurer_email}}" class="officer-email">{{$org->treasurer_email}}</a><br>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->treasurer_studno}}">{{$orgsByCourse->treasurer_name}}</a>
+                                <a href="mailto: {{$orgsByCourse->treasurer_email}}" class="officer-email">{{$orgsByCourse->treasurer_email}}</a><br>
                                 <p class="officer-position">Treasurer</p>
                                 
                             </div>
@@ -130,10 +130,10 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/auditor_photo/{{$org->auditor_photo}}" alt="{{$org->auditor_photo}}" class="img-fluid" width="100">
+                                <img src="/storage/organization_officer_photo/auditor_photo/{{$orgsByCourse->auditor_photo}}" alt="{{$orgsByCourse->auditor_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$org->auditor_studno}}">{{$org->auditor_name}}</a>
-                                <a href="mailto: {{$org->auditor_email}}" class="officer-email">{{$org->auditor_email}}</a><br>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->auditor_studno}}">{{$orgsByCourse->auditor_name}}</a>
+                                <a href="mailto: {{$orgsByCourse->auditor_email}}" class="officer-email">{{$orgsByCourse->auditor_email}}</a><br>
                                 <p class="officer-position">Auditor</p>
                                 
                             </div>
@@ -141,10 +141,10 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/pro_photo/{{$org->pro_photo}}" alt="{{$org->pro_photo}}" class="img-fluid" width="100">
+                                <img src="/storage/organization_officer_photo/pro_photo/{{$orgsByCourse->pro_photo}}" alt="{{$orgsByCourse->pro_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$org->pro_studno}}">{{$org->pro_name}}</a>
-                                <a href="mailto: {{$org->pro_email}}" class="officer-email">{{$org->pro_email}}</a><br>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->pro_studno}}">{{$orgsByCourse->pro_name}}</a>
+                                <a href="mailto: {{$orgsByCourse->pro_email}}" class="officer-email">{{$orgsByCourse->pro_email}}</a><br>
                                 <p class="officer-position">PRO</p>
                                 
                             </div>
@@ -158,8 +158,8 @@
                 <div class="card-body" style="text-align: start;">
                     <h4 class="card-title">Contact Us</h4>
                     For inquiries and further information, please feel free to contact us:<br>
-                    Email: <a href=" mailto: {{$org->org_email}}">{{$org->org_email}}</a><br>
-                    FB: <a href="{{$org->org_fb}}" target="_blank">{{$org->org_fb}}</a><br>
+                    Email: <a href=" mailto: {{$orgsByCourse->org_email}}">{{$orgsByCourse->org_email}}</a><br>
+                    FB: <a href="{{$orgsByCourse->org_fb}}" target="_blank">{{$orgsByCourse->org_fb}}</a><br>
 
                     <H2 style="text-align: start;">Facebook Page:</H2><br>
                     <div id="fb-root">
@@ -167,10 +167,10 @@
                     </div>
                     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="z2ywPdxc"></script>
                     <div class="row mt-3">
-                        <div class="fb-page" data-href="{{$org->org_fb}}" data-tabs="timeline" 
+                        <div class="fb-page" data-href="{{$orgsByCourse->org_fb}}" data-tabs="timeline" 
                         data-width="500" data-height="" data-small-header="true" data-adapt-container-width="false" 
-                        data-hide-cover="true" data-show-facepile="true"><blockquote cite="{{$org->org_fb}}" 
-                        class="fb-xfbml-parse-ignore"><a href="{{$org->org_fb}}">{{$org->name}}</a></blockquote></div>
+                        data-hide-cover="true" data-show-facepile="true"><blockquote cite="{{$orgsByCourse->org_fb}}" 
+                        class="fb-xfbml-parse-ignore"><a href="{{$orgsByCourse->org_fb}}">{{$orgsByCourse->name}}</a></blockquote></div>
                     </div>
                 </div>
             </div>
@@ -193,15 +193,15 @@
                             <center>
                             <!-- Details for Constitutional Bylaws -->
                             <h2 class="mb-3">Constitutional Bylaws</h2>
-                            <iframe src="/storage/consti_and_bylaws/{{$org->consti_and_byLaws}}" width="100%" height="600px"></iframe>
+                            <iframe src="/storage/consti_and_bylaws/{{$orgsByCourse->consti_and_byLaws}}" width="100%" height="600px"></iframe>
             
                             <!-- Details for Letter of Intent -->
                             <h2 class="mt-4 mb-3">Letter of Intent</h2>
-                            <iframe name="letter_of_intent" src="/storage/letter_of_intent/{{$org->letter_of_intent}}" width="100%" height="600px"></iframe>
+                            <iframe name="letter_of_intent" src="/storage/letter_of_intent/{{$orgsByCourse->letter_of_intent}}" width="100%" height="600px"></iframe>
             
                             <!-- Details for Adviser Endorsement -->
                             <h2 class="mt-4 mb-3">Adviser Endorsement</h2>
-                            <iframe src="/storage/admin_endorsement/{{$org->admin_endorsement}}" width="100%" height="600px"></iframe>
+                            <iframe src="/storage/admin_endorsement/{{$orgsByCourse->admin_endorsement}}" width="100%" height="600px"></iframe>
                             </center>
                         </div>
                         
@@ -259,7 +259,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
-      var org_id = {{$org->id}};
+      var org_id = {{$orgsByCourse->id}};
       var calendar = new FullCalendar.Calendar(calendarEl, {
         
         initialView: 'dayGridMonth',

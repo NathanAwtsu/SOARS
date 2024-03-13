@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Events\ChatifyEvent;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
+use App\Models\Student;
 use Datatables;
+use Auth;
 
 class OrganizationController extends Controller
 {
@@ -74,28 +74,47 @@ class OrganizationController extends Controller
     }
 
     public function student_organization_page(Request $request){
+        
+        $user = Auth::user();
+        $userId = $user->id;
+        // Student No
+
+        // Retrieve the student record
+        $student = DB::table('students')->where('student_id','=' ,$userId)->first();
+        $studentId = $student->student_id;
+        
+        $student_org = DB::table('student_organizations')->where('student_id', '=', $studentId)->first(); // Use first() to get a single object
+        $student_pos = $student_org->org1_member_status;
+        $courseId = $student_org->course;
+        
+        
+        $orgsByCourse = DB::table('organizations')->where('academic_course_based','=',$courseId)->first();
+        $org = $orgsByCourse->name;
+
+        if($student_org = "Member"){
+            //return view ('Student.org1_page_sl')->with('orgsByCourse', $orgsByCourse);
+
+            $totalEvent = DB::table('events')->get();
+            $totalMember = DB::table('students')->get();
+            $totalOrg= DB::table('organizations')->get();
+            $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
+            $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
+            return view ('Student.org1_page_sl')
+            ->with('totalEvent', $totalEvent)
+            ->with('totalMember',$totalMember)
+            ->with('totalOrg', $totalOrg)
+            ->with('activities', $activities)
+            ->with('announcement1', $announcement1)
+            ->with('orgsByCourse', $orgsByCourse);
+        }
+        elseif($student_org !="Member" && $student_org != "President" && $student_org != null){
+
+        }
+        elseif($student_org = "President"){
+            return view ('Student.org1_page_president')->with('orgsByCourse', $orgsByCourse);
+        }
+        
     
-        $id = $request->route('id');
-        $org = Organization::find($id);
-        $useId = Auth::user();
-        $userId = $useId->id;
-        $stud_course= DB::table('students')->select('course_id')->where('student_id','=',$userId)->get();
-        $student_pos = DB::table('student_organizations')->select('org1_member_status')->get();
-        $org = DB::table('organizations')->where('academic_course_based', '=', $stud_course)->get();
-
-        if($student_pos = "Member"){
-
-        }
-        if($student_pos != "Member" && $student_pos != "President"){
-
-        }
-        if($student_pos = "President"){
-
-        }
-
-
-	    return view('Student.org1_page_member')->with('org',$org);
-
     }
 
     public function rso_page($id)
