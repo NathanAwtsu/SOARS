@@ -29,14 +29,12 @@
                 <th>Last Name</th>
                 <th>Middle Initial</th>
                 <th>First Name</th>
+                <th>Course ID</th>
                 <th>Email</th>
                 <th>Organization 1</th>
                 <th>Organization 2</th>
-                <th>Organization 3</th>
                 <th>Org 1 Membership Status</th>
                 <th>Org 2 Membership Status</th>
-                <th>Org 3 Membership Status</th>
-                <th>Roles</th>
                 <th>Phone Number</th>
                 <th>Action</th>
             </tr>
@@ -62,46 +60,102 @@
                 <input type="hidden" name="id" id="id">
 
                         <div class="form-group">
-                            <label for="student_id" class="col-sm-4 control-label">Student ID</label>
+                            <label for="student_id" class="col-sm-4 control-label"><span style="color: red;">*</span>Student ID</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="student_id" name="student_id" placeholder="Enter Student ID" required maxlength="9">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="last_name" class="col-sm-4 control-label">Last Name</label>
+                            <label for="last_name" class="col-sm-4 control-label"><span style="color: red;">*</span>Last Name</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="middle_initial" class="col-sm-4 control-label">Middle Initial</label>
+                            <label for="middle_initial" class="col-sm-4 control-label"><span style="color: red;">*</span>Middle Initial</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="middle_initial" name="middle_initial" placeholder="Enter Middle Initial">
+                                <input type="text" class="form-control" id="middle_initial" name="middle_initial" placeholder="Enter Middle Initial(put NA if none)">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="first_name" class="col-sm-4 control-label">First Name</label>
+                            <label for="first_name" class="col-sm-4 control-label"><span style="color: red;">*</span>First Name</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" required>
                             </div>
                         </div>
 
-                <div class="form-group">
-                    <label for="email" class="col-sm-4 control-label">Email</label>
-                    <div class="col-sm-8">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="course_id" class="col-sm-4 control-label"><span style="color: red;">*</span>Course ID</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="course_id" name="course_id" required>
+                                    <option value="">Select Course</option>
+                                    <option value="academic_course_based">Not Academic Course Based</option>
+                                    <option value="ACT">Associate in Computer Technology</option>
+                                    <option value="BAComm">Bachelor of Arts in Communication</option>
+                                    <option value="BAPhilo">Bachelor of Arts in Philosophy</option>
+                                    <option value="BAPolSci">Bachelor of Arts in Political Science</option>
+                                    <option value="BEEd">Bachelor of Elementary Education</option>
+                                    <option value="BPEd">Bachelor of Physical Education</option>
+                                    <option value="BPE-SWM">Bachelor of Physical Education Major in Sports and Wellness Management</option>
+                                    <option value="BSA">Bachelor of Science in Accountancy</option>
+                                    <option value="BSArchi">Bachelor of Science in Architecture</option>
+                                    <option value="BSBio">Bachelor of Science in Biology</option>
+                                    <option value="BSBAFM">Bachelor of Science in Business Administration Major in Financial Management</option>
+                                    <option value="BSBAMM">Bachelor of Science in Business Administration Major in Marketing Management</option>
+                                    <option value="BSBAOM">Bachelor of Science in Business Administration Major in Operations Management</option>
+                                    <option value="BSChE">Bachelor of Science in Chemical Engineering</option>
+                                    <option value="BSCPT">Bachelor of Science in Chemical Process Technology</option>
+                                    <option value="BSChem">Bachelor of Science in Chemistry</option>
+                                    <option value="BSCE">Bachelor of Science in Civil Engineering</option>
+                                    <option value="BSCooE">Bachelor of Science in Computer Engineering</option>
+                                    <option value="BSCS">Bachelor of Science in Computer Science</option>
+                                    <option value="BSCA">Bachelor of Science in Customs Administration</option>
+                                    <option value="BSEE">Bachelor of Science in Electrical Engineering</option>
+                                    <option value="BSGeo">Bachelor of Science in Geology</option>
+                                    <option value="BSHM">Bachelor of Science in Hospitality Management</option>
+                                    <option value="BSIE">Bachelor of Science in Industrial Engineering</option>
+                                    <option value="BSIS">Bachelor of Science in Information System</option>
+                                    <option value="BSIT">Bachelor of Science in Information Technology</option>
+                                    <option value="BSME">Bachelor of Science in Mechanical Engineering</option>
+                                    <option value="BSMining">Bachelor of Science in Mining Engineering</option>
+                                    <option value="BSNursing">Bachelor of Science in Nursing</option>
+                                    <option value="BSPE">Bachelor of Science in Petroleum Engineering</option>
+                                    <option value="BSPharma">Bachelor of Science in Pharmacy</option>
+                                    <option value="BSPsych">Bachelor of Science in Psychology</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="email" class="col-sm-4 control-label"><span style="color: red;">*</span>Email</label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+                            </div>
+                        </div>
+
+<div class="form-group">
+    <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
+    <div class="col-sm-8">
+        <select class="form-control" id="organization1" name="organization1">
+            <option value="">Select Organization</option>
+            <!-- Organizations will be dynamically populated here -->
+        </select>
+    </div>
+</div>
+
+
+
+                
+
+                
                 </div>
 
-                <div class="form-group">
-                    <label for="organization1" class="col-sm-4 control-label">Organization 1</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="organization1" name="organization1" placeholder="Enter Organization (required)" required>
-                    </div>
-                </div>
+                <!--Second Column-->
+                <div class="col-md-6">
 
                 <div class="form-group">
                     <label for="organization2" class="col-sm-4 control-label">Organization 2</label>
@@ -110,20 +164,8 @@
                     </div>
                 </div>
 
-                
-                </div>
-
-                <!--Second Column-->
-                <div class="col-md-6">
                 <div class="form-group">
-                    <label for="organization3" class="col-sm-4 control-label">Organization 3</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="organization3" name="organization3" placeholder="Enter Organization (optional)">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="col-sm-4 control-label">Password</label>
+                    <label for="password" class="col-sm-4 control-label"><span style="color: red;">*</span>Password</label>
                     <div class="col-sm-8">
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
                     </div>
@@ -131,7 +173,7 @@
 
 
                 <div class="form-group">
-                    <label for="org1_member_status" class="col-sm control-label">Org 1 Membership Status</label>
+                    <label for="org1_member_status" class="col-sm control-label"><span style="color: red;">*</span>Org 1 Membership Status</label>
                     <div class="col-sm-8">
                         <select class="form-select" id="org1_member_status" name="org1_member_status" required>
                             <option value="" disabled selected>Choose Status</option>
@@ -144,29 +186,11 @@
                 <div class="form-group">
                     <label for="org2_member_status" class="col-sm control-label">Org 2 Membership Status</label>
                     <div class="col-sm-8">
-                        <select class="form-select" id="org1_member_status" name="org1_member_status">
+                        <select class="form-select" id="org2_member_status" name="org2_member_status">
                             <option value="" disabled selected>Choose Status</option>
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
                         </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="org3_member_status" class="col-sm control-label">Org 3 Membership Status</label>
-                    <div class="col-sm-8">
-                        <select class="form-select" id="org1_member_status" name="org1_member_status">
-                            <option value="" disabled selected>Choose Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="user_roles" class="col-sm-4 control-label">Roles</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="user_roles" name="user_roles" placeholder="Enter Roles" required>
                     </div>
                 </div>
 
@@ -207,14 +231,12 @@
                 {data: 'last_name', name: 'last_name'},
                 {data: 'middle_initial', name: 'middle_initial'},
                 {data: 'first_name', name: 'first_name'},
+                {data: 'course_id', name: 'course_id'},
                 {data: 'email', name: 'email'},
                 {data: 'organization1', name: 'organization1'},
                 {data: 'organization2', name: 'organization2'},
-                {data: 'organization3', name: 'organization3'},
                 {data: 'org1_member_status', name: 'org1_member_status'},
                 {data: 'org2_member_status', name: 'org2_member_status'},
-                {data: 'org3_member_status', name: 'org3_member_status'},
-                {data: 'user_roles', name: 'user_roles'},
                 {data: 'phone_number', name: 'phone_number'},
                 {data: 'action', name: 'action', orderable: false},
             ],
@@ -222,6 +244,28 @@
         });
 
     });
+
+     // Function to populate Organization 1 dropdown based on the selected course ID
+        $('#course_id').change(function() {
+            var courseId = $(this).val();
+            if (courseId) {
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo e(route('getOrganizations')); ?>",
+                    data: {course_id: courseId},
+                    success: function(data) {
+                        $('#organization1').empty();
+                        $('#organization1').append('<option value="">Select Organization</option>');
+                        $.each(data, function(key, value) {
+                            $('#organization1').append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#organization1').empty();
+            }
+        });
+
 
     //for updating students info
     function editF(id){
@@ -238,14 +282,12 @@
                 $('#last_name').val(res.last_name);
                 $('#middle_initial').val(res.middle_initial);
                 $('#first_name').val(res.first_name);
+                $('#course_id').val(res.course_id);
                 $('#email').val(res.email);
                 $('#organization1').val(res.organization1);
                 $('#organization2').val(res.organization2);
-                $('#organization3').val(res.organization3);
                 $('#org1_member_status').val(res.org1_member_status);
                 $('#org2_member_status').val(res.org2_member_status);
-                $('#org3_member_status').val(res.org3_member_status);
-                $('#user_roles').val(res.user_roles);
                 $('#phone_number').val(res.phone_number);
 
                 if (res.password) {
