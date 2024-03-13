@@ -84,7 +84,7 @@ class OrganizationController extends Controller
         $studentId = $student->student_id;
         
         $student_org = DB::table('student_organizations')->where('student_id', '=', $studentId)->first(); // Use first() to get a single object
-        $student_pos = $student_org->org1_member_status;
+        $student_pos = $student_org->org1_memberstatus;
         $courseId = $student_org->course;
         
         
@@ -384,6 +384,14 @@ class OrganizationController extends Controller
         $id = $request->route('id');
         $org = Organization::find($id);
 	    return view('OSA.organization_pending_edit')->with('org',$org);
+        
+    }
+
+    public function org_pending_edit_student_view(Request $request, $id){
+        
+        $id = $request->route('id');
+        $org = Organization::find($id);
+	    return view('Student.organization_pending_edit')->with('org',$org);
         
     }
 

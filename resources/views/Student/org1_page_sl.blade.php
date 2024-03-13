@@ -62,7 +62,7 @@
                                         </h3>
                                         <p class="announcement-date">Posted on {{$announce->created_at}}</p>
                                         <p class="author">Author: {{$announce->author}}.</p>
-                                        <p class="author">Organization: {{$announce->author_org}}</p>
+                                        <p class="org">Organization: {{$announce->author_org}}</p>
                                     </div>
                                     <div class="announcement-body">
                                         <p class="announcement-content">

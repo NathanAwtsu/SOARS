@@ -109,7 +109,7 @@ Route::get('/osaemp/organization_page/events', [EventController::class, 'getEven
 Route::post('/osaemp/fullcalendar/activity', [OsaController::class, 'calendarAjax']);
 //Dashboard Routes
 Route::get('/osaemp/dashboard', [OsaController::class, 'totalDashboard'])->name('osadashboard');
-Route::get('/test', function(){ return view('Student/paypal_experiment');});
+
 Route::get('/osaemp/activities', [OsaController::class, 'dashboard_Activities'], function(){return view('OSA/activity');})->name('osaactivity');
 Route::get('/osaemp/organization_activation', [OsaController::class, 'org_act_list'], function(){return view('OSA/organization_activation');})->name('osaorgact');
 //Organization
@@ -154,8 +154,9 @@ Route::get('/member', function(){return view('member');})->name('member')->middl
 
 
 //End of Student Leaders
-
+Route::get('/test', function(){ return view('Student/paypal_experiment');});
 //Routes for Students
+
 Route::get('/student', [StudentsController::class, 'dashboard'], function(){return view('Student.dashboard');});
 //User Setting
 Route::get('/student/user', function(){return view('Student.user_profile');});
@@ -169,7 +170,8 @@ Route::get('/student/org_list/', [StudentsController::class, 'org_list']);
 Route::get('/student/org1_page/', [OrganizationController::class, 'student_organization_page'])->name('student_leader_page');
 //Create Annoucements
 Route::post('/student/announcement/create', [AnnouncementController::class, 'sl1_create']);
-
+//Student Leader Edit Organization Page
+Route::get('/student/organization_list/organization_edit/{id}', [OrganizationController::class, 'org_pending_edit_student_view']);
 
 
 //Login Timeout
