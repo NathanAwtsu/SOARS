@@ -26,8 +26,8 @@ class StudentsController extends Controller
         $student = DB::table('students')->where('student_id','=' ,$userId)->first(); //Select Row from Student
         $studentId = $student->student_id; //Student Id from Students Table
         $student_org = DB::table('student_organizations')
-        ->where('student_id', '=', $studentId)->first(); //Select Row from student_organization if student_id match
-        $student_pos = $student_org->org1_member_status; //Select org Status 1
+        ->where('studentid', '=', $studentId)->first(); //Select Row from student_organization if student_id match
+        $student_pos = $student_org->org1_memberstatus; //Select org Status 1
         $courseId = $student_org->course; //Select student Course from Student_organization
         $orgsByCourse = DB::table('organizations')
         ->where('academic_course_based','=',$courseId)->first(); //Select Row from organization if academic_course match with student course
@@ -262,5 +262,79 @@ class StudentsController extends Controller
             $RSOCount = Organization::where('requirement_status', 'complete')->count();
             return $RSOCount;
         }
+
+        public function sl_activity_proposal(){
+            $user = Auth::user();
+            $userId = $user->id; //Student No
+            $student = DB::table('students')->where('student_id','=' ,$userId)->first(); //Select Row from Student
+            $studentId = $student->student_id; //Student Id from Students Table
+            $student_org = DB::table('student_organizations')
+            ->where('studentid', '=', $studentId)->first(); //Select Row from student_organization if student_id match
+            $student_pos = $student_org->org1_memberstatus; //Select org Status 1
+            $courseId = $student_org->course; //Select student Course from Student_organization
+            $orgsByCourse = DB::table('organizations')
+            ->where('academic_course_based','=',$courseId)->first(); //Select Row from organization if academic_course match with student course
+            $org = $orgsByCourse->name; //Select Org Name
+
+
+            $orgs = DB::table('organizations')->get();
+            $approved = DB::table('events')->whereIn('status', ['Approved', 'On Hold', 'Done'])->where('organization_name', '=',$org)->get();
+            $activity = DB::table('events')->where('organization_name','=', $org)->where('status','=','Stand By')->get();
+            
+            
+            return view('Student.activity_proposal')
+            ->with('approved', $approved)
+            ->with('orgsByCourse',$orgsByCourse)
+            ->with('orgs', $orgs)
+            ->with('activity', $activity);
+        }
+
+        public function store_events(){
+            $event = new Event();
+
+            // Assign values to the properties of the model instance
+            $event->status = request('status');
+            $event->organization_name = request('organization_name');
+            $event->activity_title = request('activity_title');
+            $event->type_of_activity = request('type_of_activity');
+            $event->activity_start_date = request('activity_start_date');
+            $event->activity_end_date = request('activity_end_date');
+            $event->activity_start_time = request('activity_start_time');
+            $event->activity_end_time = request('activity_end_time');
+            $event->venue = request('venue');
+            $event->participants = request('participants');
+            $event->partner_organization = request('partner_organization');
+            $event->organization_fund = request('organization_fund');
+            $event->solidarity_share = request('solidarity_share');
+            $event->registration_fee = request('registration_fee');
+            $event->AUSG_subsidy = request('AUSG_subsidy');
+            $event->sponsored_by = request('sponsored_by');
+            $event->ticket_selling = request('ticket_selling');
+            $event->ticket_control_number = request('ticket_control_number');
+            $event->other_source_of_fund = request('other_source_of_fund');
+
+            // Save the model instance to the database
+            $event->save();
+
+            return redirect('/student/propose_activity')->with('success', 'You have created an Event');
+
+        }
+
+        public function event_done(){
+            try {
+                if ($request->has('done')) {
+                    $edit = $request->input('done');
+                    $eventId = substr($edit, strpos($edit, '_') + 1);
+                    $eventData = ['status' => 'Done'];
+                    DB::table('events')->where('id', $eventId)->update($eventData);
+                } 
+                
+        
+                return redirect()->back()->with('success', 'Event action performed successfully.');
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'An error occurred while processing the request.');
+            }
+        }
+
     
 }

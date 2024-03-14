@@ -46,8 +46,8 @@ class AnnouncementController extends Controller
         $student = DB::table('students')->where('student_id','=' ,$userId)->first();
         $studentId = $student->student_id;
         
-        $student_org = DB::table('student_organizations')->where('student_id', '=', $studentId)->first(); // Use first() to get a single object
-        $student_pos = $student_org->org1_member_status;
+        $student_org = DB::table('student_organizations')->where('studentid', '=', $studentId)->first(); // Use first() to get a single object
+        $student_pos = $student_org->org1_memberstatus;
         $courseId = $student_org->course;
         $org_group = $student_org->org1;
 

@@ -170,7 +170,7 @@
                                 </a>
                             </li>
                             
-                            <i class="fa-solid fa-user-group"></i>
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('/student/org1_page/')}}" style="color:white;">
                                     <i class="fa-regular fa-clipboard fa-lg" style="margin-right: 20px; font-size: 25px;"></i>

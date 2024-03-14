@@ -1,8 +1,22 @@
 @extends('navbar.navbar_student')
 @section('content')
+@if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
 <main class="container mt-4" style="margin-right: 740px !important;">
 
+    <div class="success">
+
+    </div>
     <div class="container" style="margin-left:7%; margin-top:8%;">
         <div class="row">
             <div class="col mb-3">
@@ -18,18 +32,13 @@
                 </a>
             </div>
             <div class="col mb-3">
-                <a href="{{url('/osaemp/activities')}}" class="card" style="height: 130px; background-color: #81c784; text-decoration: none;">
+                <a href="{{url('/student/propose_activity')}}" class="card" style="height: 130px; background-color: #81c784; text-decoration: none;">
                     <h2 style="color: white;"><i class="fa-solid fa-chart-line"></i> Activities {{$totalEvent->count()}}</h2>
                     
                 </a>
             </div>
             
-            <div class="col mb-3">
-                <a href="{{url('/osaemp/userlist')}}" class="card" style="height: 130px; background-color: #8b00d6; text-decoration: none;">
-                    <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members {{$totalMember->count()}}</h2>
-                    
-                </a>
-            </div>
+            
         </div>
     </div>
     
@@ -40,14 +49,14 @@
             <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
             <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
             <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
-            <a href="{{url('/osaemp/organization_list/organization_edit/'.$orgsByCourse->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
+            <a href="{{url('/student/organization_edit/'.$orgsByCourse->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
         </div> <br>
         
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="container mt-4">
                 
                 <!-- ... other content ... -->
-
+                @if ($announcement1 != null)
                 <div id="announcement" class="card mt-4" style="height: auto; text-align:left;">
                     @foreach ( $announcement1 as $announce )
                     <div class="container">
@@ -65,16 +74,15 @@
                                         <p class="org">Organization: {{$announce->author_org}}</p>
                                     </div>
                                     <div class="announcement-body">
-                                        <p class="announcement-content">
-                                        {{$announce->message}}
-                                        </p>
+                                        <p class="announcement-content">{{$announce->message}}</p>
+                                        
                                     </div>
                                 
                             </div>
                     </div>
                     @endforeach
                 </div>
-        
+                @endif
                 <div id="missionVisionContent" class="card mt-1" style="height: 500px;">
                     <div class="card-body">
                         <div class="row">
@@ -411,7 +419,6 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
-      var org_id = {{$orgsByCourse->id}};
       var calendar = new FullCalendar.Calendar(calendarEl, {
         
         initialView: 'dayGridMonth',
@@ -421,7 +428,7 @@
           right: 'prev,next today',
         },
         events: {
-          url: '/org_page/event/' + org_id, // Specify the URL to fetch events data from
+          url: '/student/dash', // Specify the URL to fetch events data from
           method: 'GET'
         }
         

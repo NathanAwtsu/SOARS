@@ -158,6 +158,8 @@ Route::get('/test', function(){ return view('Student/paypal_experiment');});
 //Routes for Students
 
 Route::get('/student', [StudentsController::class, 'dashboard'], function(){return view('Student.dashboard');});
+//Calendar for Student Organization
+Route::get('/student/org_page/event/{id}', [EventController::class, 'getEventsOrgpage']);
 //User Setting
 Route::get('/student/user', function(){return view('Student.user_profile');});
 Route::post('/student/update_pass', [UserController::class, 'student_update_pass']);
@@ -170,6 +172,15 @@ Route::get('/student/org_list/', [StudentsController::class, 'org_list']);
 Route::get('/student/org1_page/', [OrganizationController::class, 'student_organization_page'])->name('student_leader_page');
 //Create Annoucements
 Route::post('/student/announcement/create', [AnnouncementController::class, 'sl1_create']);
+//Propose Activities
+Route::get('/student/propose_activity', [StudentsController::class, 'sl_activity_proposal'], function(){return view('Student.activity_proposal');});
+Route::post('/student/activity_proposal', [StudentsController::class, 'store_events']);
+Route::post('/student/activity_approval/done', [StudentsController::class, 'event_done']);;
+//Organization Edit
+Route::get('/student/organization_edit/{id}', [OrganizationController::class, 'student_org_edit_view']);
+Route::post('/student/organization_save/{id}', [OrganizationController::class, 'student_org_edit_save']);
+
+
 //Student Leader Edit Organization Page
 Route::get('/student/organization_list/organization_edit/{id}', [OrganizationController::class, 'org_pending_edit_student_view']);
 

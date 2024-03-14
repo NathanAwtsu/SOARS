@@ -1,35 +1,34 @@
-<?php $__env->startSection('content'); ?>
+@extends('navbar.navbar_student')
+
+@section('content')
 
 <main>
-    <?php if(session('error')): ?>
+    @if (session('error'))
             <div class="alert alert-danger">
-                <?php echo e(session('error')); ?>
-
+                {{ session('error') }}
             </div>
-        <?php endif; ?>
+        @endif
 
-        <?php if(session('success')): ?>
+        @if (session('success'))
             <div class="alert alert-success">
-                <?php echo e(session('success')); ?>
-
+                {{ session('success') }}
             </div>
-        <?php endif; ?>
-    <div class="container" >
+        @endif
+    <div class="container" style="padding-top:8%;" >
         <div class="container-event" style="padding: 10px;">
-            <h1 style="text-align: start;">Create an event</h1>
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal" >Create an Event</button>
+            <h1 style="text-align: start;">Prospose an event</h1>
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createEventModal" >Propose an Event</button>
         </div>
     </div>
 
     <div class="container" style="margin-top: 20px;">
         <h1 style="text-align: start;">Calendar of Events</h1>
-        <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 100px; margin-bottom:100px;"></div>
+        <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 100px; margin-bottom:70px;"></div>
     </div>
-
-    <center>
+    <div class="container">
         <h1>Activity List</h1>
-        <form form method="post" action="/osaemp/activity_approval/event_approve_or_edit" >
-            <?php echo csrf_field(); ?>
+        <form form method="post" action="/student/activity_approval/done" >
+            @csrf
         <table >
             <tr>
                 <th>Event Name</th>
@@ -38,102 +37,98 @@
                 <th>Event Start Date & time</th>
                 <th>Event End Date & Time</th>
                 <th>Venue</th>
-                <th>Button</th>
+                
             </tr>
-            <?php $__currentLoopData = $approved; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $approve): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            @foreach ($approved as $approve)
                 
             
             <tr>
-                <td><a><?php echo e($approve->activity_title); ?></a></td>
-                <td><a><?php echo e($approve->status); ?></a></td>
-                <td><a><?php echo e($approve->organization_name); ?></a></td>
-                <td><?php echo e($approve->activity_start_date); ?> @ <?php echo e($approve->activity_start_time); ?></td>
-                <td><?php echo e($approve->activity_end_date); ?> @ <?php echo e($approve->activity_end_date); ?></td>
-                <td><?php echo e($approve->venue); ?></td>
-                <td>
-                    <button type="submit" name="edit" value="edit_<?php echo e($approve->id); ?>" class= "btn btn-warning"style="padding-bottom:10px;">Edit</button>
-                </td>
+                <td><a>{{$approve->activity_title}}</a></td>
+                <td><a>{{$approve->status}}</a></td>
+                <td><a>{{$approve->organization_name}}</a></td>
+                <td>{{$approve->activity_start_date}} @ {{$approve->activity_start_time}}</td>
+                <td>{{$approve->activity_end_date}} @ {{$approve->activity_end_date}}</td>
+                <td>{{$approve->venue}}</td>
+                
             </tr>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            @endforeach
         </table>
         </form>
             <br>
-    </center>
+    </div>
 
     <div class="container">
         <h1 style="text-align: start;">Pending Events</h1>
     </div>
     <center>
-    <div class="table-responsive" style="margin: 0px 110px 0px 110px;">
-    <div class="container-tbl-up" style="padding: 0px 0px !important; " >
-        <form method="post" action="/osaemp/activity_approval/event_approve_or_edit" >
-            <?php echo csrf_field(); ?>
-            
-            <table class="table table-bordered table-center" style="padding:0px 50px 0px 50px;"> <br>
-           </thead>
-            <thead>
+        <div class="table-responsive" style="margin: 0px 110px 0px 110px;">
+        <div class="container-tbl-up" style="padding: 0px 0px !important; " >
+            <form method="post" action="/osaemp/activity_approval/event_approve_or_edit" >
+                @csrf
                 
-                <tr>
-                    <th>ID</th>
-                    <th>Status</th>
-                    <th>Org</th>
-                    <th>Activity Title</th>
-                    <th>Type of Activity</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Venue</th>
-                    <th>Participants</th>
-                    <th>Partner Org</th>
-                    <th>Org Fund</th>
-                    <th>Solidarity Share</th>
-                    <th>Registration Fee</th>
-                    <th>AUSG Subsidy</th>
-                    <th>Sponsored By</th>
-                    <th>Ticket Selling</th>
-                    <th>Ticket No.</th>
-                    <th>Other Source</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $__currentLoopData = $activity; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr>
-                    <td><?php echo e($event->id); ?></td>
-                    <td><?php echo e($event->status); ?></td>
-                    <td><?php echo e($event->organization_name); ?></td>
-                    <td><?php echo e($event->activity_title); ?></td>
-                    <td><?php echo e($event->type_of_activity); ?></td>
-                    <td><?php echo e($event->activity_start_date); ?></td>
-                    <td><?php echo e($event->activity_end_date); ?></td>
-                    <td><?php echo e($event->activity_start_time); ?></td>
-                    <td><?php echo e($event->activity_end_time); ?></td>
-                    <td><?php echo e($event->venue); ?></td>
-                    <td><?php echo e($event->participants); ?></td>
-                    <td><?php echo e($event->partner_organization); ?></td>
-                    <td><?php echo e($event->organization_fund); ?></td>
-                    <td><?php echo e($event->solidarity_share); ?></td>
-                    <td><?php echo e($event->registration_fee); ?></td>
-                    <td><?php echo e($event->AUSG_subsidy); ?></td>
-                    <td><?php echo e($event->sponsored_by); ?></td>
-                    <td><?php echo e($event->ticket_selling); ?></td>
-                    <td><?php echo e($event->ticket_control_number); ?></td>
-                    <td><?php echo e($event->other_source_of_fund); ?></td>
-                    <td>
-                        <button type="submit" name="approve" value="approve_<?php echo e($event->id); ?>" class="btn btn-success" style="padding-bottom:10px;">Approve</button>
-                        <button type="submit" name="edit" value="edit_<?php echo e($event->id); ?>" class= "btn btn-primary"style="padding-bottom:10px;">Edit</button>
-                        <button type="submit" name="action" value="reject_<?php echo e($event->id); ?>" class="btn btn-warning" style="padding-bottom:10px;">Reject</button>
-                        <button type="submit" name="delete" value="reject_<?php echo e($event->id); ?>" class="btn btn-danger" style="padding-bottom:10px;">Delete</button>
-                    </td>
-                </tr>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </tbody> 
-            </table>
-        </form>
-    </div>
-    </div>
-    </center>
+                <table class="table table-bordered table-center" style="padding:0px 50px 0px 50px;"> <br>
+               </thead>
+                <thead>
+                    
+                    <tr>
+                        <th>ID</th>
+                        <th>Status</th>
+                        <th>Org</th>
+                        <th>Activity Title</th>
+                        <th>Type of Activity</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Venue</th>
+                        <th>Participants</th>
+                        <th>Partner Org</th>
+                        <th>Org Fund</th>
+                        <th>Solidarity Share</th>
+                        <th>Registration Fee</th>
+                        <th>AUSG Subsidy</th>
+                        <th>Sponsored By</th>
+                        <th>Ticket Selling</th>
+                        <th>Ticket No.</th>
+                        <th>Other Source</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($activity as $key => $event)
+                    <tr>
+                        <td>{{$event->id}}</td>
+                        <td>{{$event->status}}</td>
+                        <td>{{$event->organization_name}}</td>
+                        <td>{{$event->activity_title}}</td>
+                        <td>{{$event->type_of_activity}}</td>
+                        <td>{{$event->activity_start_date}}</td>
+                        <td>{{$event->activity_end_date}}</td>
+                        <td>{{$event->activity_start_time}}</td>
+                        <td>{{$event->activity_end_time}}</td>
+                        <td>{{$event->venue}}</td>
+                        <td>{{$event->participants}}</td>
+                        <td>{{$event->partner_organization}}</td>
+                        <td>{{$event->organization_fund}}</td>
+                        <td>{{$event->solidarity_share}}</td>
+                        <td>{{$event->registration_fee}}</td>
+                        <td>{{$event->AUSG_subsidy}}</td>
+                        <td>{{$event->sponsored_by}}</td>
+                        <td>{{$event->ticket_selling}}</td>
+                        <td>{{$event->ticket_control_number}}</td>
+                        <td>{{$event->other_source_of_fund}}</td>
+                        <td>
+                            <button type="submit" name="edit" value="edit_{{$event->id}}" class= "btn btn-primary"style="padding-bottom:10px;">Edit</button>
+                            <button type="submit" name="delete" value="reject_{{$event->id}}" class="btn btn-danger" style="padding-bottom:10px;">Delete</button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody> 
+                </table>
+            </form>
+        </div>
+        </div>
+        </center>
                 
                 
 </main>
@@ -194,13 +189,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form style="max-width: 400px; margin: auto;" method="post" action="/osaemp/activity_approval">
-                <?php echo csrf_field(); ?>
-                
-
+            <form style="max-width: 400px; margin: auto;" method="post" action="/student/activity_proposal">
+                @csrf
                 <!-- Event details input fields -->
-                
-
                 <div class="form-group row mb-2">
                     <label for="eventName" class="col-sm-4 col-form-label text-left">Event Status:</label>
                     <div class="col-sm-8">
@@ -216,9 +207,7 @@
                     <div class="col-sm-8">
                         <div class="col-sm-11">
                             <select class="form-control" id="organization_name" name="organization_name" onchange="showHideOthers(this);" required>
-                                <?php $__currentLoopData = $org; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $org_name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($org_name->name); ?>"><?php echo e($org_name->name); ?></option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <option value="{{$orgsByCourse->name}}">{{$orgsByCourse->name}}</option>
                             </select>
                         </div>
                     </div>
@@ -299,9 +288,9 @@
 
                         <select class="form-control" id="partner_organization" name="partner_organization" onchange="showHideOthers(this);">
                             <option value="None">--None--</option>
-                            <?php $__currentLoopData = $org; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $org_name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($org_name->name); ?>"><?php echo e($org_name->name); ?></option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            @foreach($orgs as $org_name)
+                            <option value="{{$org_name->name}}">{{$org_name->name}}</option>
+                            @endforeach
                         </select>
                         
                     </div>
@@ -437,6 +426,7 @@ function showHideOthers(selectElement) {
 <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
+      var org_id = {{$orgsByCourse->id}};
       var calendar = new FullCalendar.Calendar(calendarEl, {
         
         initialView: 'dayGridMonth',
@@ -446,7 +436,7 @@ function showHideOthers(selectElement) {
           right: 'prev,next today',
         },
         events: {
-          url: '/osaemp/dash', // Specify the URL to fetch events data from
+          url: '/student/org_page/event/' + org_id, // Specify the URL to fetch events data from
           method: 'GET'
         }
         
@@ -462,7 +452,5 @@ function showHideOthers(selectElement) {
 
 
 
-<?php $__env->stopSection(); ?>
+@endsection
 
-
-<?php echo $__env->make('navbar.navbar_osa', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\SOARS Github\SOARS\resources\views/OSA/approval.blade.php ENDPATH**/ ?>
