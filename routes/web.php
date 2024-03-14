@@ -176,6 +176,9 @@ Route::post('/student/announcement/create', [AnnouncementController::class, 'sl1
 Route::get('/student/propose_activity', [StudentsController::class, 'sl_activity_proposal'], function(){return view('Student.activity_proposal');});
 Route::post('/student/activity_proposal', [StudentsController::class, 'store_events']);
 Route::post('/student/activity_approval/done', [StudentsController::class, 'event_done']);;
+//Org1 Member List
+Route::get('/student/member_list', [StudentsController::class, 'members']);
+
 //Organization Edit
 Route::get('/student/organization_edit/{id}', [OrganizationController::class, 'student_org_edit_view']);
 Route::post('/student/organization_save/{id}', [OrganizationController::class, 'student_org_edit_save']);

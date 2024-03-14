@@ -336,5 +336,26 @@ class StudentsController extends Controller
             }
         }
 
+        public function members(){ 
+
+            $user = Auth::user();
+            $userId = $user->id; //Student No
+            $student = DB::table('students')->where('student_id','=' ,$userId)->first(); //Select Row from Student
+            $studentId = $student->student_id; //Student Id from Students Table
+            $student_org = DB::table('student_organizations')
+            ->where('studentid', '=', $studentId)->first(); //Select Row from student_organization if student_id match
+            $student_pos = $student_org->org1_memberstatus; //Select org Status 1
+            $courseId = $student_org->course; //Select student Course from Student_organization
+            $orgsByCourse = DB::table('organizations')
+            ->where('academic_course_based','=',$courseId)->first(); //Select Row from organization if academic_course match with student course
+            $org = $orgsByCourse->name; //Select Org Name
+
+
+            $info=DB::table('students')->where('course_id','=',$courseId)->get();
+            return view('Student.org1_member_list')
+            ->with('info', $info);
+        }
+
+
     
 }

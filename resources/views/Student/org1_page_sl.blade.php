@@ -38,7 +38,12 @@
                 </a>
             </div>
             
-            
+            <div class="col mb-3">
+                <a href="{{url('/student/member_list')}}" class="card" style="height: 130px; background-color: #8b00d6; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members {{$totalMember->count()}}</h2>
+                    
+                </a>
+            </div>
         </div>
     </div>
     
