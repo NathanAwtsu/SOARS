@@ -92,8 +92,26 @@ class OrganizationController extends Controller
         $org = $orgsByCourse->name;
 
         if($student_org = "Member"){
-            //return view ('Student.org1_page_sl')->with('orgsByCourse', $orgsByCourse);
+            /*$announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
+            return view ('Student.org1_page_member')->with('orgsByCourse', $orgsByCourse)
+            ->with('announcement1', $announcement1);*/
 
+            $totalEvent = DB::table('events')->get();
+            $totalMember = DB::table('students')->get();
+            $totalOrg= DB::table('organizations')->get();
+            $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
+            $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
+            return view ('Student.org1_page_president')
+            ->with('totalEvent', $totalEvent)
+            ->with('totalMember',$totalMember)
+            ->with('totalOrg', $totalOrg)
+            ->with('activities', $activities)
+            ->with('announcement1', $announcement1)
+            ->with('orgsByCourse', $orgsByCourse);
+
+            
+        }
+        elseif($student_org !="Member" && $student_org != "President" && $student_org != null){
             $totalEvent = DB::table('events')->get();
             $totalMember = DB::table('students')->get();
             $totalOrg= DB::table('organizations')->get();
@@ -106,8 +124,6 @@ class OrganizationController extends Controller
             ->with('activities', $activities)
             ->with('announcement1', $announcement1)
             ->with('orgsByCourse', $orgsByCourse);
-        }
-        elseif($student_org !="Member" && $student_org != "President" && $student_org != null){
 
         }
         elseif($student_org = "President"){
@@ -860,6 +876,72 @@ class OrganizationController extends Controller
 
         }
     }
+
+    public function president_org_edit_view(Request $request, $id){
+        $id = $request->route('id');
+        $org = Organization::find($id);
+	    return view('Student.organization_edit_president')->with('org',$org);
+        
+    }
+
+    public function president_org_edit_save(Request $request, $id){
+        if ($request->has('edited') ) {
+            $orgId = $id;
+            $org = Organization::findOrFail($orgId);
+             if($org->requirement_status == 'complete'){
+
+                // Handle file uploads
+                $imageFields = [
+                    'logo' => 'storage/logo/',
+                    'consti_and_byLaws' => 'storage/consti_and_byLaws/',
+                    'letter_of_intent' => 'storage/letter_of_intent/',
+                    'admin_endorsement' => 'storage/admin_endorsement/',
+                    
+                ];
+
+                foreach ($imageFields as $field => $directory) {
+                    if ($request->hasFile($field)) {
+                        if ($org->$field) {
+                            $oldFilePath = public_path($directory . $org->$field);
+                            if (file_exists($oldFilePath)) {
+                                unlink($oldFilePath);
+                            }
+                        }
+                        $file = $request->file($field);
+                        $fileName = $field . '_' . time() . '.' . $file->getClientOriginalExtension();
+                        $file->move(public_path($directory), $fileName);
+                        $org->$field = $fileName;
+                    } elseif (is_null($org->$field)) {
+                        $org->$field = null;
+                        $percentage -= 1;
+                    }
+                }
+
+                $org->name = $request->input('name');
+                $org->nickname = $request->input('nickname');
+                $org->type_of_organization = $request->input('type_of_organization');
+                $org->requirement_status = $request->input('requirement_status');
+                $org->academic_course_based = $request->input('academic_course_based');
+                $org->mission = $request->input('mission');
+                $org->vision = $request->input('vision');
+                $org->org_email = $request->input('org_email');
+                $org->org_fb = $request->input('org_fb');
+                
+                
+                $org->save();
+
+                return view('Student.org1_page_president')->with('success', 'You have updated ' . $org->name);
+            }
+        }
+
+        if ($request->has('org_page')){
+            $orgId = $id;
+            $org = Organization::findOrFail($orgId);
+            return view('Student.org1_page_president');
+
+        }
+    }
+    
 
     
 }

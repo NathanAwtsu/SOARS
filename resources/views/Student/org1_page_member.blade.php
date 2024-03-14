@@ -275,7 +275,6 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
-      var org_id = {{$orgsByCourse->id}};
       var calendar = new FullCalendar.Calendar(calendarEl, {
         
         initialView: 'dayGridMonth',
@@ -285,7 +284,7 @@
           right: 'prev,next today',
         },
         events: {
-          url: '/org_page/event/' + org_id, // Specify the URL to fetch events data from
+          url: '/student/dash', // Specify the URL to fetch events data from
           method: 'GET'
         }
         

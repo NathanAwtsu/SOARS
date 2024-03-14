@@ -182,7 +182,8 @@ Route::get('/student/member_list', [StudentsController::class, 'members']);
 //Organization Edit
 Route::get('/student/organization_edit/{id}', [OrganizationController::class, 'student_org_edit_view']);
 Route::post('/student/organization_save/{id}', [OrganizationController::class, 'student_org_edit_save']);
-
+Route::get('/president/organization_edit/{id}', [OrganizationController::class, 'president_org_edit_view']);
+Route::post('/president/oganization_save/{id}', [OrganizationController::class, 'president_org_edit_save']);
 
 //Student Leader Edit Organization Page
 Route::get('/student/organization_list/organization_edit/{id}', [OrganizationController::class, 'org_pending_edit_student_view']);
