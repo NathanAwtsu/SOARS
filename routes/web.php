@@ -183,10 +183,13 @@ Route::get('/student/member_list', [StudentsController::class, 'members']);
 Route::get('/student/organization_edit/{id}', [OrganizationController::class, 'student_org_edit_view']);
 Route::post('/student/organization_save/{id}', [OrganizationController::class, 'student_org_edit_save']);
 Route::get('/president/organization_edit/{id}', [OrganizationController::class, 'president_org_edit_view']);
-Route::post('/president/oganization_save/{id}', [OrganizationController::class, 'president_org_edit_save']);
+Route::post('/president/organization_save/{id}', [OrganizationController::class, 'president_org_edit_save']);
+
+//Register Button
+Route::post('/register/organization/{id}', [OrganizationController::class, 'register']);
 
 //Student Leader Edit Organization Page
-Route::get('/student/organization_list/organization_edit/{id}', [OrganizationController::class, 'org_pending_edit_student_view']);
+Route::get('/student/organization_list/organization_page/{id}', [OrganizationController::class, 'org_pending_edit_student_view']);
 
 
 //Login Timeout

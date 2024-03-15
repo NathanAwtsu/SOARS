@@ -407,7 +407,7 @@ class OrganizationController extends Controller
         
         $id = $request->route('id');
         $org = Organization::find($id);
-	    return view('Student.organization_pending_edit')->with('org',$org);
+	    return view('Student.organization_page')->with('org',$org);
         
     }
 
@@ -888,7 +888,7 @@ class OrganizationController extends Controller
         if ($request->has('edited') ) {
             $orgId = $id;
             $org = Organization::findOrFail($orgId);
-             if($org->requirement_status == 'complete'){
+            if($org->requirement_status == 'complete'){
 
                 // Handle file uploads
                 $imageFields = [
@@ -896,7 +896,15 @@ class OrganizationController extends Controller
                     'consti_and_byLaws' => 'storage/consti_and_byLaws/',
                     'letter_of_intent' => 'storage/letter_of_intent/',
                     'admin_endorsement' => 'storage/admin_endorsement/',
-                    
+                    'adviser_photo' => 'storage/organization_officer_photo/adviser_photo/',
+                    'ausg_rep_photo' => 'storage/organization_officer_photo/ausg_rep_photo/',
+                    'president_photo' => 'storage/organization_officer_photo/president_photo/',
+                    'vp_internal_photo' => 'storage/organization_officer_photo/vp_internal_photo/',
+                    'vp_external_photo' => 'storage/organization_officer_photo/vp_external_photo/',
+                    'secretary_photo' => 'storage/organization_officer_photo/secretary_photo/',
+                    'treasurer_photo' => 'storage/organization_officer_photo/treasurer_photo/',
+                    'auditor_photo' => 'storage/organization_officer_photo/auditor_photo/',
+                    'pro_photo' => 'storage/organization_officer_photo/pro_photo/',
                 ];
 
                 foreach ($imageFields as $field => $directory) {
@@ -920,25 +928,90 @@ class OrganizationController extends Controller
                 $org->name = $request->input('name');
                 $org->nickname = $request->input('nickname');
                 $org->type_of_organization = $request->input('type_of_organization');
-                $org->requirement_status = $request->input('requirement_status');
+                $org->requirement_status = 'complete';
                 $org->academic_course_based = $request->input('academic_course_based');
                 $org->mission = $request->input('mission');
                 $org->vision = $request->input('vision');
                 $org->org_email = $request->input('org_email');
                 $org->org_fb = $request->input('org_fb');
-                
-                
+                $org->adviser_name = $request->input('adviser_name');
+                $org->adviser_email = $request->input('adviser_email');
+                $org->ausg_rep_studno = $request->input('ausg_rep_studno');
+                $org->ausg_rep_name = $request->input('ausg_rep_name');
+                $org->ausg_rep_email = $request->input('ausg_rep_email');
+                //President
+                $org->president_studno = $request->input('president_studno');
+                $org->president_name = $request->input('president_name');
+                $org->president_email = $request->input('president_email');
+                //VPI
+                $org->vp_internal_studno = $request->input('vp_internal_studno');
+                $org->vp_internal_name = $request->input('vp_internal_name');
+                $org->vp_internal_email = $request->input('vp_internal_email');
+                //VPE
+                $org->vp_external_studno = $request->input('vp_external_studno');
+                $org->vp_external_name = $request->input('vp_external_name');
+                $org->vp_external_email = $request->input('vp_external_email');
+                //Sec
+                $org->secretary_studno = $request->input('secretary_studno');
+                $org->secretary_name = $request->input('secretary_name');
+                $org->secretary_email = $request->input('secretary_email');
+                //Tres
+                $org->treasurer_studno = $request->input('treasurer_studno');
+                $org->treasurer_name = $request->input('treasurer_name');
+                $org->treasurer_email = $request->input('treasurer_email');
+                //Audit
+                $org->auditor_studno = $request->input('auditor_studno');
+                $org->auditor_name = $request->input('auditor_name');
+                $org->auditor_email = $request->input('auditor_email');
+                //PRO
+                $org->pro_studno = $request->input('pro_studno');
+                $org->pro_name = $request->input('pro_name');
+                $org->pro_email = $request->input('pro_email');
+                // Save the changes to the organization
                 $org->save();
+                
 
-                return view('Student.org1_page_president')->with('success', 'You have updated ' . $org->name);
+                return Redirect('/student/org1_page')->with('success', 'You have updated ' . $org->name);
+
             }
         }
 
         if ($request->has('org_page')){
             $orgId = $id;
             $org = Organization::findOrFail($orgId);
-            return view('Student.org1_page_president');
+            return redirect('Student.org1_page_president');
 
+        }
+    }
+
+
+    public function register($id, Request $request){
+        $user = Auth::user();
+        $userId = $user->id;
+        // Student No
+
+        // Retrieve the student record
+        $student = DB::table('students')->where('student_id','=' ,$userId)->first();
+        $studentId = $student->student_id;
+        
+        $student_org = DB::table('student_organizations')->where('studentid', '=', $studentId)->first(); // Use first() to get a single object
+        $student_pos = $student_org->org1_memberstatus;
+        $courseId = $student_org->course;
+        
+        $id = $request->route('id');
+        $org = Organization::find($id);
+        $orgname = $org->name;
+
+        if(($student_org->org2 == null && $student_org->org2_memberstatus == null) && ($student->organization2 ==null && $student->org2_member_status==null)){
+            DB::table('student_organizations')->where('studentId',$userId)->update(['org2' => $orgname, 'org2_memberstatus' => 'Applying Member']);
+            DB::table('students')->where('student_id',$userId)->update(['organization2'=> $orgname, 'org2_member_status'=>'Applying Member']);
+            return redirect()->back()->with('success', 'You are now a Member, please pay a sum of 100 Pesos');
+        }
+        elseif(($student_org->org2 != null && ($student_org->org2_memberstatus == 'Member' || $student_org->org2_memberstatus == 'Applying Member' ||
+        $student_org->org2_memberstatus == 'President' || $student_org->org2_memberstatus == 'SL'))
+         && ($student->organization2 != null && ($student->org2_member_status == 'Member' || $student->org2_member_status == 'Applying Member' ||
+         $student->org2_member_status == 'President' || $student->org2_member_status == 'SL'))){
+            return redirect()->back()->with('error', 'You are already a Member please Pay');
         }
     }
     

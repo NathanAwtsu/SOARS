@@ -460,7 +460,7 @@
                         </div>
                         <br><br>
                         <div class="container">
-                    <button type="submit" name="edited" value="{{$org->id}}" style="background-color: #007bff; color: #fff; margin-right:550px; margin-bottom: 10px;padding: 10px 15px; border-radius: 5px; cursor: pointer;">Save</button><br>
+                    <button type="submit" name="edited" id="edited" value="{{$org->id}}" style="background-color: #007bff; color: #fff; margin-right:550px; margin-bottom: 10px;padding: 10px 15px; border-radius: 5px; cursor: pointer;">Save</button><br>
                             @if ($org->requirement_status == 'complete')
                             <button type="submit" name="org_page" style="background-color: #7e7e7e; color: #fff; padding: 10px 15px; border-radius: 5px; cursor: pointer;margin-right:450px;">Go Back</button>
                             @endif

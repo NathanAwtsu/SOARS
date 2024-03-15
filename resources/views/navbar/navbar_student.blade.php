@@ -174,10 +174,14 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('/student/org1_page/')}}" style="color:white;">
                                     <i class="fa-regular fa-clipboard fa-lg" style="margin-right: 20px; font-size: 25px;"></i>
-                                    Organization 1
+                                    @php
+                                        $org = \App\Models\StudentOrganization::where('studentId', Auth::user()->id)->first();
+                                        echo $org->org1;
+                                    @endphp
                                 </a>
                             </li>
 
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('/student')}}" style="color:white;">
                                     <i class="fa-regular fa-clipboard fa-lg" style="margin-right: 20px; font-size: 25px;"></i>
