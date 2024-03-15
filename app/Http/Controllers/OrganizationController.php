@@ -475,7 +475,7 @@ class OrganizationController extends Controller
         
     }
 
-    public function org_pending(Request $request){
+    public function org_pending(Request $request, $id){
         
         $id = $request->route('id');
         $org = Organization::find($id);
