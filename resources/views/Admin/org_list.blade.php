@@ -171,8 +171,8 @@
                         <div class="col-md-15">
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5><span style="color: red;">*</span>President:</h5></label>
-                                    <label for="president_studno" style="text-align:left;"><span style="color: red;">*</span>Student No:</label>
-                                    <input type="number" id="president_studno" name="president_studno" maxlength="9" required><br>
+                                    <label for="president_studno" style="text-align:left;">Student No:</label>
+                                    <input type="number" id="president_studno" name="president_studno" maxlength="9"><br>
                                     <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Name:</label>
                                     <input type="text" id="president_name" name="president_name" required><br>
                                     <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Email:</label>
@@ -331,6 +331,37 @@ function confirmSubmission() {
         document.forms[0].submit(); // Assuming the form is the first form in your document
     }
 }
+</script>
+<script>
+                    document.getElementById('type_of_organization').addEventListener('change', function() {
+                        var selectedValue = this.value;
+                        var requiredInputs = document.querySelectorAll('input[required], textarea[required]');
+
+                        // If "Academic" option is selected, make specific fields nullable
+                        if (selectedValue === 'Academic') {
+                            // Add IDs to the fields you want to make nullable
+                            var nullableFields = ['president_studno', 
+                                                'vp_internal_studno', 
+                                                'vp_external_studno', 
+                                                'secretary_studno', 
+                                                'treasurer_studno', 
+                                                'auditor_studno', 
+                                                'pro_studno', 
+                                                'ausg_rep_studno'];
+
+                            requiredInputs.forEach(function(input) {
+                                // Check if the input's ID is in the list of nullable fields
+                                if (nullableFields.includes(input.id)) {
+                                    input.removeAttribute('required'); // Remove the required attribute
+                                }
+                            });
+                        } else {
+                            // If another option is selected, ensure all required fields are required
+                            requiredInputs.forEach(function(input) {
+                                input.setAttribute('required', 'required'); // Add the required attribute back
+                            });
+                        }
+                    });
 </script>
 
 

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
-use App\Models\Student;
+use App\Models\Students;
 use Datatables;
 use Auth;
 
@@ -73,6 +73,13 @@ class OrganizationController extends Controller
 
     }
 
+    public function rso_page(Request $request, $id)
+    {
+        $id = $request->route('id');
+        $org = Organization::find($id);
+        return view('Admin.rso_page')->with('org', $org);
+    }
+
     public function student_organization_page(Request $request){
         
         $user = Auth::user();
@@ -83,8 +90,8 @@ class OrganizationController extends Controller
         $student = DB::table('students')->where('student_id','=' ,$userId)->first();
         $studentId = $student->student_id;
         
-        $student_org = DB::table('student_organizations')->where('student_id', '=', $studentId)->first(); // Use first() to get a single object
-        $student_pos = $student_org->org1_member_status;
+        $student_org = DB::table('student_organizations')->where('studentId', '=', $studentId)->first(); // Use first() to get a single object
+        $student_pos = $student_org->org1_memberstatus;
         $courseId = $student_org->course;
         
         
@@ -117,12 +124,6 @@ class OrganizationController extends Controller
     
     }
 
-    public function rso_page($id)
-    {
-        $orgId = $id;
-        $org = DB::table('organizations')->where('id', '=', $orgId)->get();
-        return view('Admin.rso_page')->with('org', $org);
-    }
 
     public function newOrganization(Request $request){
 
@@ -172,6 +173,25 @@ class OrganizationController extends Controller
         }
     
         $total = ($nullCount / 41) * 100;
+
+         // Determine which fields should be nullable based on the selected organization type
+        $nullableFields = [
+            'president_studno',
+            'vp_internal_studno',
+            'vp_external_studno',
+            'secretary_studno',
+            'treasurer_studno',
+            'auditor_studno',
+            'pro_studno',
+            'ausg_rep_studno'
+        ];
+
+        foreach ($nullableFields as $field) {
+            // If the organization type is "Academic", set nullable fields to null
+            if (request('type_of_organization') === 'Academic') {
+                $request[$field] = null;
+            }
+        }
     
         $logoPath = $this->handleFileUpload($request, 'logo', 'storage/logo/');
         $constiPath = $this->handleFileUpload($request, 'consti_and_byLaws', 'storage/consti_and_byLaws/');
@@ -363,6 +383,49 @@ class OrganizationController extends Controller
         return redirect('/rso_list')
             ->with('success', 'You have started to create a New Organization');
     }
+
+    // Method to update org1_member_status for a specific position
+    private function updateStudentRoles(Request $request)
+    {
+        
+        $officerPositions = [
+            'President' => 'president_studno',
+            'Student Leader' => ['ausg_rep_studno', 'vp_internal_studno', 'vp_external_studno', 'secretary_studno', 'treasurer_studno', 'auditor_studno', 'pro_studno'],
+        ];
+    
+        // Loop through each officer position and update the student role
+        foreach ($officerPositions as $position => $fields) {
+            // Check if the field is an array (for Student Leader) or a string (for President)
+            $field = is_array($fields) ? $fields : [$fields];
+            
+            foreach ($field as $inputField) {
+                $studentNo = $request->input($inputField);
+                
+                if ($studentNo) {
+                    // Validate student number format
+                    if (!preg_match('/^\d{9}$/', $studentNo)) {
+                        // Invalid student number format
+                        return redirect()->back()->with('error', 'Invalid student number format.');
+                    }
+                    
+                    // Find the student by their student number
+                    $student = Students::where('student_id', $studentNo)->first();
+                    
+                    if (!$student) {
+                        // Student not found
+                        return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' not found.');
+                    }
+                    
+                    // Update the student's role
+                    $student->org1_member_status = $position;
+                    $student->save();
+                }
+            }
+        }
+    
+        return redirect()->back()->with('success', 'Student roles updated successfully.');
+    }
+
     
     private function handleFileUpload($request, $fileField, $directory)
     {
@@ -383,11 +446,12 @@ class OrganizationController extends Controller
         
         $id = $request->route('id');
         $org = Organization::find($id);
+        $this->updateStudentRoles($request);
 	    return view('OSA.organization_pending_edit')->with('org',$org);
         
     }
 
-    public function org_pending(Request $request){
+    public function org_pending(Request $request, $id){
         
         $id = $request->route('id');
         $org = Organization::find($id);
@@ -397,6 +461,7 @@ class OrganizationController extends Controller
     
     public function org_pending_edit_save(Request $request, $id)
     {
+        $this->updateStudentRoles($request);
         if ($request->has('edited') ) {
             $orgId = $id;
             $org = Organization::findOrFail($orgId);
@@ -705,7 +770,38 @@ class OrganizationController extends Controller
             $org->org_fb = $request->input('org_fb');
             $org->adviser_name = $request->input('adviser_name');
             $org->adviser_email = $request->input('adviser_email');
-            // Continue updating other fields...
+            // AUSG Rep
+            $org->ausg_rep_name = $request->input('ausg_rep_name');
+            $org->ausg_rep_email = $request->input('ausg_rep_email');
+            //President
+            
+            $org->president_name = $request->input('president_name');
+            $org->president_email = $request->input('president_email');
+            //VPI
+            
+            $org->vp_internal_name = $request->input('vp_internal_name');
+            $org->vp_internal_email = $request->input('vp_internal_email');
+            //VPE
+            
+            $org->vp_external_name = $request->input('vp_external_name');
+            $org->vp_external_email = $request->input('vp_external_email');
+            //Sec
+            
+            $org->secretary_name = $request->input('secretary_name');
+            $org->secretary_email = $request->input('secretary_email');
+            //Tres
+            
+            $org->treasurer_name = $request->input('treasurer_name');
+            $org->treasurer_email = $request->input('treasurer_email');
+            //Audit
+            
+            $org->auditor_name = $request->input('auditor_name');
+            $org->auditor_email = $request->input('auditor_email');
+            //PRO
+            
+            $org->pro_name = $request->input('pro_name');
+            $org->pro_email = $request->input('pro_email');
+            // Save the changes to the organization
 
             // Save the changes to the organization
             $org->save();
@@ -713,6 +809,37 @@ class OrganizationController extends Controller
             return redirect('/rso_list')->with('success', 'You have updated ' . $org->name);
         }
 
+        if ($request->has('type_of_organization_change')) {
+            $selectedType = $request->input('type_of_organization');
+    
+            // Logic to determine which fields are required based on the selected organization type
+            if ($selectedType === 'Academic') {
+                $nullableFields = [
+                    'president_studno',
+                    'vp_internal_studno',
+                    'vp_external_studno',
+                    'secretary_studno',
+                    'treasurer_studno',
+                    'auditor_studno',
+                    'pro_studno',
+                    'ausg_rep_studno'
+                ];
+    
+                // Remove the required attribute from nullable fields
+                foreach ($nullableFields as $fieldName) {
+                    $org->$fieldName = null; 
+                     
+                }
+            } else {
+                // Add the required attribute to all fields
+                
+            }
+            
+            $org->save();
+            // Redirect back to the organization page
+            return redirect('/rso_list/rso_page/'.$orgId);
+        }
+            
         if ($request->has('cancel')){
             $orgId = $id;
             $org = Organization::findOrFail($orgId);

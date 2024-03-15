@@ -21,7 +21,9 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Role</th>
+                        
+                        <th>Chat</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +34,12 @@
                         <td><?php echo e($inf->id); ?></td>
                         <td><?php echo e($inf->name); ?></td>
                         <td><?php echo e($inf->email); ?></td>
-                        <td><?php echo e($inf->role); ?></td>
+                        
+                        <td>
+                            <a href="/chatify/<?php echo e($inf->id); ?>" class="btn btn-success" style="padding-bottom:10px;">Chat</a>
+                        </td>
+                        
+
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <!-- Add more user rows here -->

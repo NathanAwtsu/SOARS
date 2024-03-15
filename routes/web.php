@@ -84,6 +84,7 @@ Route::post('/admin/update_email', [UserController::class, 'admin_update_email']
 //Org Creation
 Route::get('/rso_list', [OrganizationController::class, 'new_org'], function(){return view('rso_list');})->name('rso_list');
 Route::get('/rso_list/rso_page/{id}', [OrganizationController::class, 'rso_page']);
+Route::get('/rso_list/rso_page/org_edit/{id}', [OrganizationController::class, 'org_pending']);
 Route::get('/rso_list/new_organization', function(){return view('Admin.org_list');})->name('org_list');
 Route::get('/rso_list/pending_edit/{id}', [OrganizationController::class, 'org_pending'], function(){return view('Admin/org_pending');})->name('osaorg_pending_edit');
 Route::post('/rso_list/pending_save/{id}', [OrganizationController::class, 'org_pending_save']);
