@@ -39,4 +39,23 @@ class EventController extends Controller
     
         return response()->json($formattedEvents); // Return the formatted events as JSON response
     }
+
+    public function getEventsOrgpage($id){
+        $org = Organization::findOrFail($id);
+        $events = Event::where('organization_name', $org->name)->get(); // Add get() to execute the query
+        
+        // Format events as required by FullCalendar
+        $formattedEvents = $events->map(function ($event) {
+            $startDateTime = $event->activity_start_date . 'T' . $event->activity_start_time;
+            $endDateTime = $event->activity_end_date . 'T' . $event->activity_end_time;
+    
+            return [
+                'title' => $event->activity_title,
+                'start' => $startDateTime,
+                'end' => $endDateTime,
+            ];
+        });
+    
+        return response()->json($formattedEvents); // Return the formatted events as JSON response
+    }
 }

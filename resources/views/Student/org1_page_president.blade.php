@@ -1,35 +1,103 @@
 @extends('navbar.navbar_student')
 @section('content')
+@if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
 <main class="container mt-4" style="margin-right: 740px !important;">
+
+    <div class="success">
+
+    </div>
+    <div class="container" style="margin-left:7%; margin-top:8%;">
+        <div class="row">
+            <div class="col mb-3">
+                <a href="#" class="card" style="height: 130px; background-color: #E7700D; text-decoration: none;" onclick="openCreatePostModal()">
+                    <h2 style="color: white;"><i class="fa-solid fa-bullhorn"></i> Create an Announcement </h2>
+                </a>
+            </div>
+
+            <div class="col mb-3">
+                <a href="{{url('/chatify')}}" class="card" style="height: 130px; background-color: #e57373; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-regular fa-message"></i> Messages </h2>
+                    
+                </a>
+            </div>
+            <div class="col mb-3">
+                <a href="{{url('/student/propose_activity')}}" class="card" style="height: 130px; background-color: #81c784; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-solid fa-chart-line"></i> Activities {{$totalEvent->count()}}</h2>
+                    
+                </a>
+            </div>
+            
+            <div class="col mb-3">
+                <a href="{{url('/student/member_list')}}" class="card" style="height: 130px; background-color: #8b00d6; text-decoration: none;">
+                    <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members {{$totalMember->count()}}</h2>
+                    
+                </a>
+            </div>
+        </div>
+    </div>
     
-        <div class="btn-group mb-4" role="group" aria-label="Basic example" style="margin-left:35px;">
+        <div class="btn-group mb-4" role="group" aria-label="Basic example" style="margin-left:35px; margin-top:2%;">
             <button type="button" style="margin-left: 230px;" class="btn btn-primary" onclick="showMissionVision()">Mission and Vision</button>
+            <button type="button" class="btn btn-primary" onclick="showAnnouncement()">Announcements</button>
             <button type="button" class="btn btn-primary" onclick="showListOfOfficers()">List of Officers</button>
             <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
             <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
             <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
-            <a href="{{url('/osaemp/organization_list/organization_edit/'.$orgsByCourse->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
+            <a href="{{url('/president/organization_edit/'.$orgsByCourse->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
         </div> <br>
         
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="container mt-4">
                 
                 <!-- ... other content ... -->
-        
+                @if ($announcement1 != null)
+                <div id="announcement" class="card mt-4" style="height: auto; text-align:left;">
+                    @foreach ( $announcement1 as $announce )
+                    <div class="container">
+                            <h1 style="padding-left:20px; padding-top: 5%; padding-bottom: 2.5%;">
+                                <i class="fas fa-bullhorn"></i> Announcements
+                            </h1>
+                            <div class="announcement" style="margin-bottom:5%;">
+                                
+                                    <div class="announcement-header">
+                                        <h3 class="announcement-title">
+                                            <i class="fa-regular fa-clipboard"></i> Title: {{$announce->title}}
+                                        </h3>
+                                        <p class="announcement-date">Posted on {{$announce->created_at}}</p>
+                                        <p class="author">Author: {{$announce->author}}.</p>
+                                        <p class="org">Organization: {{$announce->author_org}}</p>
+                                    </div>
+                                    <div class="announcement-body">
+                                        <p class="announcement-content">{{$announce->message}}</p>
+                                        
+                                    </div>
+                                
+                            </div>
+                    </div>
+                    @endforeach
+                </div>
+                @endif
                 <div id="missionVisionContent" class="card mt-1" style="height: 500px;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
                                 <p class="card-text">
                                     <strong>{{$orgsByCourse->name}}({{$orgsByCourse->nickname}})</strong>
-                                    
-                                    
-                                   
                                 </p>
                                 <img src="/storage/logo/{{$orgsByCourse->logo}}" alt="{{$orgsByCourse->logo}}" class="img-fluid mb-3">
-                                <strong>Academic Course Based:</strong><br><br>
-                                    {{$orgsByCourse->academic_course_based}}
+                                <strong>Academic Course Based: {{$orgsByCourse->academic_course_based}}</strong><br><br>
+                                    
                                 <br>
                             </div>
                             <div class="col-md-8">
@@ -67,7 +135,7 @@
                                 <img src="/storage/organization_officer_photo/ausg_rep_photo/{{$orgsByCourse->ausg_rep_photo}}" alt="{{$orgsByCourse->ausg_rep_photo}}" class="img-fluid" width="100">
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$orgsByCourse->ausg_rep_studno}}">{{$orgsByCourse->ausg_rep_name}}</a><br>
-                                <a href="mailto: {{$orgsByCourse->ausg_rep_email}}" class="officer-email">{{$orgsByCourse->ausg_rep_email}}</a>
+                                <a href="mailto: {{$orgsByCourse->ausg_rep_email}}" class="officer-email">{{$orgsByCourse->ausg_rep_email}}</a><br>
                                 <p class="officer-position">AUSG Representative </p>
                                 
                             </div>
@@ -77,7 +145,7 @@
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/president_photo/{{$orgsByCourse->president_photo}}" alt="{{$orgsByCourse->president_name}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->president_studno}}">{{$orgsByCourse->president_name}}</a>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->president_studno}}">{{$orgsByCourse->president_name}}</a><br>
                                 <a href="mailto: {{$orgsByCourse->president_email}}" class="officer-email">{{$orgsByCourse->president_email}}</a><br>
                                 <p class="officer-position">President </p>
                                 
@@ -86,9 +154,9 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/vp_internal_photo/{{$orgsByCourse->vp_internal_photo}}" alt="{{$ororgsByCourseg->vp_internal_name}}" class="img-fluid" width="100">
+                                <img src="/storage/organization_officer_photo/vp_internal_photo/{{$orgsByCourse->vp_internal_photo}}" alt="{{$orgsByCourse->vp_internal_name}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->vp_internal_studno}}">{{$orgsByCourse->vp_internal_name}}</a>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->vp_internal_studno}}">{{$orgsByCourse->vp_internal_name}}</a><br>
                                 <a href="mailto: {{$orgsByCourse->vp_internal_email}}" class="officer-email">{{$orgsByCourse->vp_internal_email}}</a><br>
                                 <p class="officer-position">Vice President for Internal Affairs </p>
                                 
@@ -99,7 +167,7 @@
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/vp_external_photo/{{$orgsByCourse->vp_external_photo}}" alt="{{$orgsByCourse->vp_external_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->vp_external_studno}}">{{$orgsByCourse->vp_external_name}}</a>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->vp_external_studno}}">{{$orgsByCourse->vp_external_name}}</a><br>
                                 <a href="mailto: {{$orgsByCourse->vp_external_email}}" class="officer-email">{{$orgsByCourse->vp_external_email}}</a><br>
                                 <p class="officer-position">Vice President for External Affairs</p>
                                 
@@ -110,7 +178,7 @@
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/secretary_photo/{{$orgsByCourse->secretary_photo}}" alt="{{$orgsByCourse->secretary_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->secretary_studno}}">{{$orgsByCourse->secretary_name}}</a>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->secretary_studno}}">{{$orgsByCourse->secretary_name}}</a><br>
                                 <a href="mailto: {{$orgsByCourse->secretary_email}}" class="officer-email">{{$orgsByCourse->secretary_email}}</a><br>
                                 <p class="officer-position">Secretary </p>
                                 
@@ -121,7 +189,7 @@
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/treasurer_photo/{{$orgsByCourse->treasurer_photo}}" alt="{{$orgsByCourse->treasurer_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->treasurer_studno}}">{{$orgsByCourse->treasurer_name}}</a>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->treasurer_studno}}">{{$orgsByCourse->treasurer_name}}</a><br>
                                 <a href="mailto: {{$orgsByCourse->treasurer_email}}" class="officer-email">{{$orgsByCourse->treasurer_email}}</a><br>
                                 <p class="officer-position">Treasurer</p>
                                 
@@ -132,7 +200,7 @@
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/auditor_photo/{{$orgsByCourse->auditor_photo}}" alt="{{$orgsByCourse->auditor_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->auditor_studno}}">{{$orgsByCourse->auditor_name}}</a>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->auditor_studno}}">{{$orgsByCourse->auditor_name}}</a><br>
                                 <a href="mailto: {{$orgsByCourse->auditor_email}}" class="officer-email">{{$orgsByCourse->auditor_email}}</a><br>
                                 <p class="officer-position">Auditor</p>
                                 
@@ -143,7 +211,7 @@
                             <div class="officer-card">
                                 <img src="/storage/organization_officer_photo/pro_photo/{{$orgsByCourse->pro_photo}}" alt="{{$orgsByCourse->pro_photo}}" class="img-fluid" width="100">
                                 <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->pro_studno}}">{{$orgsByCourse->pro_name}}</a>
+                                <a class="officer-name" href="/chatify/{{$orgsByCourse->pro_studno}}">{{$orgsByCourse->pro_name}}</a><br>
                                 <a href="mailto: {{$orgsByCourse->pro_email}}" class="officer-email">{{$orgsByCourse->pro_email}}</a><br>
                                 <p class="officer-position">PRO</p>
                                 
@@ -212,6 +280,88 @@
     </div>            
 </main>
 
+
+<div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="createPostModalLabel">Create an Announcement</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <!-- Modal Body -->
+        <form action="/student/announcement/create" method="post">
+            @csrf
+            <div class="modal-body">
+            <!-- Form to create post -->
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <textarea id="title" name="title" class="form-control"  rows="1"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Post Content</label>
+                        <textarea id="message" name="message" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userType">Send to</label>
+                        <select class="form-control" id="recipient" name="recipient">
+                            <option value="{{$orgsByCourse->name}}">{{$orgsByCourse->name}}</option>
+                        </select>
+                    </div>
+                
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+            <!-- Close button -->
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!-- Post button -->
+            <input type="submit" class="btn btn-primary" id="postButton"></input>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap CSS -->
+
+
+<!-- JavaScript to handle modal buttons -->
+<script>
+    $(document).ready(function() {
+        // Function to handle post button click
+        $("#postButton").click(function() {
+            // Your logic to handle post button click goes here
+            // For example, you can fetch the post content and send it to the server
+            // You can also close the modal after posting if needed
+            $('#createPostModal').modal('hide'); // Close the modal
+        });
+
+        // Function to handle close button click
+        $(".close, [data-dismiss='modal']").click(function() {
+            // Close the modal when the close button is clicked
+            $('#createPostModal').modal('hide');
+        });
+    });
+</script>
+<script>
+    function openCreatePostModal() {
+        $('#createPostModal').modal('show');
+    }
+</script>  
+
+
+
  <!-- Bootstrap JS and Popper.js -->
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -220,14 +370,26 @@
  <script>
      function showMissionVision() {
          document.getElementById('missionVisionContent').style.display = 'block';
+         document.getElementById('announcement').style.display = 'none';
          document.getElementById('listOfOfficersContent').style.display = 'none';
          document.getElementById('ContactUs').style.display = 'none';
          document.getElementById('Events').style.display = 'none';
          document.getElementById('MoreInfo').style.display = 'none';
      }
 
+     function showAnnouncement() {
+        
+        document.getElementById('missionVisionContent').style.display = 'none';
+        document.getElementById('announcement').style.display = 'block';
+        document.getElementById('listOfOfficersContent').style.display = 'none';
+        document.getElementById('ContactUs').style.display = 'none';
+        document.getElementById('Events').style.display = 'none';
+        document.getElementById('MoreInfo').style.display = 'none';
+     }
+
      function showListOfOfficers() {
          document.getElementById('missionVisionContent').style.display = 'none';
+         document.getElementById('announcement').style.display = 'none';
          document.getElementById('listOfOfficersContent').style.display = 'block';
          document.getElementById('ContactUs').style.display = 'none';
          document.getElementById('Events').style.display = 'none';
@@ -235,6 +397,7 @@
      }
      function showContactUs() {
          document.getElementById('missionVisionContent').style.display = 'none';
+         document.getElementById('announcement').style.display = 'none';
          document.getElementById('listOfOfficersContent').style.display = 'none';
          document.getElementById('ContactUs').style.display = 'block';
          document.getElementById('Events').style.display = 'none';
@@ -242,6 +405,7 @@
      }
      function showEvents() {
          document.getElementById('missionVisionContent').style.display = 'none';
+         document.getElementById('announcement').style.display = 'none';
          document.getElementById('listOfOfficersContent').style.display = 'none';
          document.getElementById('ContactUs').style.display = 'none';
          document.getElementById('Events').style.display = 'block';
@@ -249,6 +413,7 @@
      }
      function showMoreInfo() {
          document.getElementById('missionVisionContent').style.display = 'none';
+         document.getElementById('announcement').style.display = 'none';
          document.getElementById('listOfOfficersContent').style.display = 'none';
          document.getElementById('ContactUs').style.display = 'none';
          document.getElementById('Events').style.display = 'none';
@@ -259,7 +424,6 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
-      var org_id = {{$orgsByCourse->id}};
       var calendar = new FullCalendar.Calendar(calendarEl, {
         
         initialView: 'dayGridMonth',
@@ -269,7 +433,7 @@
           right: 'prev,next today',
         },
         events: {
-          url: '/org_page/event/' + org_id, // Specify the URL to fetch events data from
+          url: '/student/dash', // Specify the URL to fetch events data from
           method: 'GET'
         }
         
