@@ -51,8 +51,9 @@ Route::get('/soar/session_expired', function () {return view('session_expired');
 Auth::routes();
 
 //Static RSO Pages
-
-
+Route::get('/terms_and_agreement', function () {return view('terms_and_agreement');})->name('terms_and_agreement');
+Route::post('/update-data-privacy', [UserController::class, "updateDataPrivacy"])->name('update_dataPrivacy');
+//For TERMS AND AGREEMENT
 //CourseController
 
 //Admin
