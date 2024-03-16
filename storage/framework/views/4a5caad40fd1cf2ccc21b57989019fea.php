@@ -61,10 +61,10 @@
                             <img src="/storage/logo/<?php echo e($orgAcads->logo); ?>" alt="<?php echo e($orgAcads->logo); ?>" style="max-width: 200px;">
                             <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                                 <a href="<?php echo e(url('/rso_list/rso_page/'.$orgAcads->id)); ?>" style="text-decoration: none; display: block;">
-                                    <h1 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; text-shadow: -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
+                                    <h3 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; text-shadow: -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
                                         <?php echo e($orgAcads->name); ?><br>
                                         
-                                    </h1>
+                                    </h3>
                                 </a>
                             </div>
                             

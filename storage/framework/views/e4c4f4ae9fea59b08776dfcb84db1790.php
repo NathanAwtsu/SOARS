@@ -139,15 +139,15 @@
                             </div>
                         </div>
                         
-<div class="form-group">
-    <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
-    <div class="col-sm-8">
-        <select class="form-control" id="organization1" name="organization1">
-            <option value="">Select Organization</option>
-            <!-- Organizations will be dynamically populated here -->
-        </select>
-    </div>
-</div>
+                        <div class="form-group">
+                            <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="organization1" name="organization1">
+                                    <option value="">Select Organization</option>
+                                    <!-- Organizations will be dynamically populated here -->
+                                </select>
+                            </div>
+                        </div>
 
 
 
@@ -180,8 +180,8 @@
                     <div class="col-sm-8">
                         <select class="form-select" id="org1_member_status" name="org1_member_status" required>
                             <option value="" disabled selected>Choose Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option value="Member">Member</option>
+                            <option value="President">President</option>
                         </select>
                     </div>
                 </div>
@@ -337,6 +337,7 @@ function submitForm() {
         var actionUrl = "<?php echo e(isset($student) ? url('update') : url('store')); ?>";
         var formData = new FormData($('#studentForm')[0]);
         formData.append('org1_member_status', $('#org1_member_status').val()); // Add org1_member_status value
+        formData.append('student_id', $('#student_id').val());
 
         $.ajax({
             type: 'POST',

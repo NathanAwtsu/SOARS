@@ -38,7 +38,7 @@
                         <td>{{$inf->email}}</td>
                         <td>{{$inf->org1_member_status}}</td>
                         <td>
-                            <a href="/chatify/{{$inf->student_id}}" class="btn btn-success" style="padding-bottom:10px;">Chat</a>
+                            <a href="/chatify/{{$inf->student_id}}" class="btn btn-success" style="padding-bottom:10px;"><i class="fa-solid fa-comments"></i></a>
                         </td>
                         
 

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Osa;
-USE App\Models\User;
+use App\Models\User;
 use Datatables;
 
 class OsaEmpController extends Controller
@@ -35,7 +35,7 @@ class OsaEmpController extends Controller
             'middle_initial' => $request->middle_initial,
             'first_name' => $request->first_name,
             'email' => $request->email,
-            'email_verified_at' => $request->$datetime,
+            'email_verified_at' => $datetime,
             'password' => Hash::make($request->password),
             'phone_number' => $request->phone_number,
         ];
@@ -52,7 +52,7 @@ class OsaEmpController extends Controller
             $employeeData
         );
         $fname= $request->first_name;
-        $mname= $request->middle_inital;
+        $mname= $request->middle_initial;
         $lname= $request->last_name;
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_';
         $randomString = Str::random(10);
@@ -64,19 +64,14 @@ class OsaEmpController extends Controller
             'name' => $name,
             'email' => $request->email,
             'email_verified_at' => $datetime,
-            'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password),
             'remember_token'=> $randomString,
             'created_at'=>$datetime,
             'updated_at' =>$datetime,
-        ]);
+            ]);
         
         
-        $employee = Osa::where('employee_id', $employeeId)->first();
-
-        $responseText = ($employee) ? 'Employee information updated successfully' : 'Failed to update employee information';
-
-        return response()->make($responseText);
+            return response()->json('Employee information saved successfully');
     }
 
     public function edits(Request $request)
