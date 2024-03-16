@@ -14,7 +14,7 @@
 
     <form action="{{route('payment')}}" method="POST">
         @csrf
-        <input type="hidden" name="amount" value="200">
+        <input type="hidden" name="amount" value="100">
         <button type="submit"></button>
     </form>
     <script>
