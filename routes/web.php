@@ -136,11 +136,15 @@ Route::post('/osaemp/activity_approval', [OsaController::class, 'store']);
 Route::post('/osaemp/activity_approval/event_approve_or_edit', [OsaController::class, 'event_Approve_or_edit']);
 Route::get('/osaemp/activity_approval/edit_pending_activity/{id}', [OsaController::class, 'edit_pending_activity'])->name('edit_pending_activity');
 Route::post('/osaemp/activity_approval/edit_save/{id}', [OsaController::class, 'edit_save_pending_activity']);
+
+Route::post('open_registration', [OsaController::class, 'openRegistration']);
 //End of Routes for OSA
 
 //Retrieve the list of Activity to be Approved
 Route::get('/osaemp/activity_approval', [OsaController::class, 'activity_pending_retrieve'],function(){return view('OSA/approval');})->name('osaactivityapproval');
-Route::get('/osaemp/reports', [OsaController::class, 'eventReport'], function(){ return view('OSA/reports');})->name('osareports');
+Route::get('/osaemp/reports', [OsaController::class, 'eventAndpaypalreports'], function(){ return view('OSA/reports');})->name('osareports');
+Route::post('/osaemp/open_registration', [OsaController::class, 'openRegistration']);
+Route::post('/osaemp/close_registration', [OsaController::class, 'closeRegistration']);
 Route::get('/generate-certificate/{eventId}', [OsaController::class, 'generate'])->name('generate-certificate');
 });
 
@@ -158,8 +162,10 @@ Route::get('/member', function(){return view('member');})->name('member')->middl
 //End of Student Leaders
 
 //Paypal Experiment
-Route::get('/test', function(){ return view('Student/paypal_experiment');});
-
+Route::get('/osaemp/test', function(){return view('Student/paypal_experiment');});
+Route::post('pay', [PaypalController::class, 'pay'])->name('payment');
+Route::get('success', [PaypalController::class, 'success']);
+Route::get('error', [PaypalController::class, 'error']);
 
 
 
@@ -177,6 +183,7 @@ Route::get('/student/dash', [StudentsController::class, 'getEvents']);
 Route::get('/student/announcements/recent', [StudentsController::class, 'announcement'], function(){return view('Student.announcements');});
 Route::get('/student/org_list/', [StudentsController::class, 'org_list']);
 Route::get('/student/org1_page/', [OrganizationController::class, 'student_organization_page'])->name('student_leader_page');
+Route::get('/student/org2_page/', [OrganizationController::class, 'student_organization_page2']);
 
 //Create Annoucements
 Route::post('/student/announcement/create', [AnnouncementController::class, 'sl1_create']);

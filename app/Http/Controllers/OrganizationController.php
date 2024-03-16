@@ -11,11 +11,14 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
 use App\Models\Students;
+use App\Models\Payment;
+use Omnipay\Omnipay;
 use Datatables;
 use Auth;
 
 class OrganizationController extends Controller
-{
+{  
+    private $gateway;
     
     public function organization(){
         $organizationAcademic = DB::table('organizations')->where('type_of_organization','=','Academic')->where('requirement_status','=','complete')->get();
@@ -97,6 +100,65 @@ class OrganizationController extends Controller
         
         $orgsByCourse = DB::table('organizations')->where('academic_course_based','=',$courseId)->first();
         $org = $orgsByCourse->name;
+
+        if($student_org == "Member"){
+            $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
+            return view ('Student.org1_page_member')->with('orgsByCourse', $orgsByCourse)
+            ->with('announcement1', $announcement1);
+
+            
+
+            
+        }
+        elseif($student_org !="Member" && $student_org != "President" && $student_org != null){
+            $totalEvent = DB::table('events')->get();
+            $totalMember = DB::table('students')->get();
+            $totalOrg= DB::table('organizations')->get();
+            $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
+            $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
+            return view ('Student.org1_page_sl')
+            ->with('totalEvent', $totalEvent)
+            ->with('totalMember',$totalMember)
+            ->with('totalOrg', $totalOrg)
+            ->with('activities', $activities)
+            ->with('announcement1', $announcement1)
+            ->with('orgsByCourse', $orgsByCourse);
+
+        }
+        elseif ($student_org == "President"){
+            $totalEvent = DB::table('events')->get();
+            $totalMember = DB::table('students')->get();
+            $totalOrg= DB::table('organizations')->get();
+            $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
+            $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
+            return view ('Student.org1_page_president')
+            ->with('totalEvent', $totalEvent)
+            ->with('totalMember',$totalMember)
+            ->with('totalOrg', $totalOrg)
+            ->with('activities', $activities)
+            ->with('announcement1', $announcement1)
+            ->with('orgsByCourse', $orgsByCourse);
+
+        }
+        
+    
+    }
+
+    public function student_organization_page2(Request $request){
+        
+        $user = Auth::user();
+        $userId = $user->id;
+        // Student No
+
+        // Retrieve the student record
+        $student = DB::table('students')->where('student_id','=' ,$userId)->where('organization2', '!=', null)->first();
+        $studentId = $student->student_id;
+        
+        $student_org = DB::table('student_organizations')->where('studentId', '=', $studentId)->first(); // Use first() to get a single object
+        $student_pos = $student_org->org2_memberstatus;
+        if(isset($student_pos)){
+
+        }
 
         if($student_org == "Member"){
             $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
@@ -1083,6 +1145,8 @@ class OrganizationController extends Controller
 
 
     public function register($id, Request $request){
+
+
         $user = Auth::user();
         $userId = $user->id;
         // Student No
@@ -1099,6 +1163,53 @@ class OrganizationController extends Controller
         $org = Organization::find($id);
         $orgname = $org->name;
 
+
+        try{
+            $response = $this->gateway->purchase(array(
+                'amount' => $request->amount,
+                'currency' => env('PAYPAL_CURRENCY'),
+                'returnUrl' => url('success'),
+                'cancelUrl' => url('error')
+            ))->send();
+            if($response->isRedirect()){
+                $response->redirect();
+
+            }
+            else{
+                return $response->getMessage();
+            }
+        }
+        catch(\Throwable $th){
+            return $th->getMessage();
+        }
+
+
+        if($request->input('paymentId') && $request->input('PayerID')){
+            $transaction = $this->gateway->completePurchase(array(
+                'payer_id'=>$request->input('PayerID'),
+                'transactionReference' =>$request->input('paymentId')
+            ));
+
+            $response = $transaction->send();
+
+            if($response->isSuccessful())
+            {   $user = Auth::user();
+                $userId = $user->name;
+                $userStudno = $user->id;
+                
+                $arr = $response->getData();
+                $payment = new Payment();
+                $payment->payment_id = $arr['id'];
+                $payment->name = $userId;
+                $payment->studno = $userStudno;
+                $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
+                $payment->payer_email= $arr['payer']['payer_info']['email'];
+                $payment->amount = $arr['transactions'][0]['amount']['total'];
+                $payment->currency = env('PAYPAL_CURRENCY');
+                $payment->save();
+
+                return "Payment is Successfull. Your Transaction Id is :". $arr['id'];
+            }
         if(($student_org->org2 == null && $student_org->org2_memberstatus == null) && ($student->organization2 ==null && $student->org2_member_status==null)){
             DB::table('student_organizations')->where('studentId',$userId)->update(['org2' => $orgname, 'org2_memberstatus' => 'Applying Member']);
             DB::table('students')->where('student_id',$userId)->update(['organization2'=> $orgname, 'org2_member_status'=>'Applying Member']);
@@ -1110,7 +1221,21 @@ class OrganizationController extends Controller
          $student->org2_member_status == 'President' || $student->org2_member_status == 'SL'))){
             return redirect()->back()->with('error', 'You are already a Member please Pay');
         }
+        }
     }
+
+
+
+
+    public function __construct(){
+        
+         $this->gateway = Omnipay::create('PayPal_Rest');
+         $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
+         $this->gateway->setSecret(env( 'PAYAPAL_CLIENT_SECRET'));
+         $this->gateway->setTestMode(true);
+    }
+
+    
     
 
     

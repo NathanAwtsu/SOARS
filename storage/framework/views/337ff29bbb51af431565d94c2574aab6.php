@@ -5,7 +5,20 @@
     <div class="container-report-list">
     
         <div class="table-responsive"> <!-- Add this div to make the table responsive -->
-            <div class="col-10" style="padding: 10px;"> <!-- Use the entire row -->
+            <div class="col-10" style="padding: 10px;">
+                <?php if(session('error')): ?>
+            <div class="alert alert-danger">
+                <?php echo e(session('error')); ?>
+
+            </div>
+        <?php endif; ?>
+
+        <?php if(session('success')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('success')); ?>
+
+            </div>
+        <?php endif; ?> <!-- Use the entire row -->
                 <h2 class="text-left">PAST EVENTS</h2>
             </div>
             <table class="table table-bordered table-center"> <!-- Added table-center class -->
@@ -72,6 +85,15 @@
     <div class="row">
         <div class="col-10"> <!-- Use the entire row -->
             <h2 class="text-left">PAYPAL TRANSACTIONS</h2>
+            <form action="<?php echo e(url('/osaemp/open_registration')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <button type="submit" name="regopen" value="1" id="regopen" class="btn btn-primary mb-3">Open Registration</button>
+            </form>
+            
+            <form action="<?php echo e(url('/osaemp/close_registration')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <button type="submit" name="regclose" value="0" id="regclose" class="btn btn-primary mb-3">Close Registration</button>
+            </form>
         </div>
     </div>
     <div class="row">
@@ -81,15 +103,25 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Student No.</th>
                             <th>Name</th>
-                            <th>Organization</th>
-                            <th>Event Name</th>
-                            <th>Status</th>
-                            <th>Collected</th>
+                            <th>Payment ID</th>
+                            <th>Amount</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Your table rows here -->
+                        <?php $__currentLoopData = $paypal; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            
+                        
+                        <tr>
+                            <th><?php echo e($payment->id); ?></th>
+                            <th><?php echo e($payment->studno); ?></th>
+                            <th><?php echo e($payment->name); ?></th>
+                            <th><?php echo e($payment->payment_id); ?></th>
+                            <th><?php echo e($payment->amount); ?><?php echo e($payment->currency); ?></th>
+                        </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
@@ -101,5 +133,4 @@
 
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('navbar.navbar_osa', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\SOARS Github\SOARS\resources\views/OSA/reports.blade.php ENDPATH**/ ?>

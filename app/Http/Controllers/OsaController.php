@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
 use App\Models\Announcement;
+use App\Models\Registrations;
 
 use setasign\Fpdi\Fpdi;
 
@@ -22,6 +23,31 @@ class OsaController extends Controller
 
 
         return view('osaemp', ['users'=>$user, 'unseenCounter'=> $unseenCounter]);
+    }
+
+    public function openRegistration(Request $request){
+        if ($request->filled('regopen') && $request->regopen == '1') {
+            $openReg = new Registrations();
+            $openReg->registration = 1;
+            $openReg->save();
+    
+            return redirect()->back()->with('success', 'Registration is now Open');
+        } else {
+            return redirect()->back()->with('errror', 'Invalid Request');
+        }
+
+    }
+    public function closeRegistration(Request $request){
+        if ($request->filled('regclose') && $request->regclose == '0') {
+            $openReg = new Registrations();
+            $openReg->registration = 0;
+            $openReg->save();
+    
+            return redirect()->back()->with('success', 'Registration is now Close');
+        } else {
+            return redirect()->back()->with('error', 'Invalid Request');
+        }
+
     }
 
     public function activity_pending_retrieve(){
@@ -145,11 +171,13 @@ class OsaController extends Controller
     }
     
 
-    public function eventReport(){
+    public function eventAndpaypalreports(){
         $activity = DB::table('events')
         ->orwhere('status','=','Done')
         ->get();
-        return view('OSA.reports', ['activity'=> $activity]);
+        $paypal = DB::table('payments')->get();
+        return view('OSA.reports', ['activity'=> $activity])
+        ->with('paypal', $paypal);
     }
 
     public function totalDashboard(){

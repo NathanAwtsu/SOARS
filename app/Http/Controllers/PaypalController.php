@@ -3,100 +3,83 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Events\ChatifyEvent;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
-use App\Models\User;
-use App\Models\Event;
-use App\Models\Organization;;
+use App\Models\Payment;
+use Omnipay\Omnipay;
+
 
 class PaypalController extends Controller
 {
-    public function payment()
-    {
-    $sum = 100;
-        $apiContext = new ApiContext(
-          new OAuthTokenCredential( 'ClientID',  'ClientSecret'  ) );
-// dd($apiContext);
-      $payer = new Payer();
-      $payer->setPaymentMethod("paypal");
-      // dd($payer);
-      // Set redirect URLs
-      $redirectUrls = new RedirectUrls();
-      $redirectUrls->setReturnUrl(route('paypal.success'))
-          ->setCancelUrl(route('paypal.cancel'));
-      // dd($redirectUrls);
-      // Set payment amount
-      $amount = new Amount();
-      $amount->setCurrency("PHP")
-          ->setTotal($sum);
+    private $gateway;
 
-
-      // Set transaction object
-      $transaction = new Transaction();
-      $transaction->setAmount($amount)
-          ->setDescription(" Hello ");
-      //   dd($transaction);
-      // Create the full payment object
-      $payment = new Payment();
-      $payment->setIntent('sale')
-          ->setPayer($payer)
-          ->setRedirectUrls($redirectUrls)
-          ->setTransactions(array($transaction));
-      // dd($payment);
-      // Create payment with valid API context
-      try {
-
-          $payment->create($apiContext);
-          // dd($payment);
-          // Get PayPal redirect URL and redirect the customer
-          // $approvalUrl =
-          return redirect($payment->getApprovalLink());
-          // dd($approvalUrl);
-          // Redirect the customer to $approvalUrl
-      } catch (PayPalConnectionException $ex) {
-          echo $ex->getCode();
-          echo $ex->getData();
-          die($ex);
-      } catch (Exception $ex) {
-          die($ex);
-      }
-  }
-
-
-  
-// this is success route
-public function success(Request $request)
-{
-    $apiContext = new ApiContext(
-        new OAuthTokenCredential('ClientID', 'ClientSecret') );
-
-    // Get payment object by passing paymentId
-    $paymentId = $_GET['paymentId'];
-    $payment = Payment::get($paymentId, $apiContext);
-    $payerId = $_GET['PayerID'];
-
-    // Execute payment with payer ID
-    $execution = new PaymentExecution();
-    $execution->setPayerId($payerId);
-
-    try {
-        dd('success');
+    public function __construct(){
         
-
-    } catch (PayPalConnectionException $ex) {
-        echo $ex->getCode();
-        echo $ex->getData();
-        die($ex);
-    } catch (Exception $ex) {
-        die($ex);
+         $this->gateway = Omnipay::create('PayPal_Rest');
+         $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
+         $this->gateway->setSecret(env( 'PAYAPAL_CLIENT_SECRET'));
+         $this->gateway->setTestMode(true);
     }
-}
 
-// this is cancel route
-  public function cancel()
-{
-        dd('payment cancel');
-}
+    public function pay(Request $request){
+        try{
+            $response = $this->gateway->purchase(array(
+                'amount' => $request->amount,
+                'currency' => env('PAYPAL_CURRENCY'),
+                'returnUrl' => url('success'),
+                'cancelUrl' => url('error')
+            ))->send();
+            if($response->isRedirect()){
+                $response->redirect();
+
+            }
+            else{
+                return $response->getMessage();
+            }
+        }
+        catch(\Throwable $th){
+            return $th->getMessage();
+        }
+    }
+
+    public function success(Request $request){
+        if($request->input('paymentId') && $request->input('PayerID')){
+            $transaction = $this->gateway->completePurchase(array(
+                'payer_id'=>$request->input('PayerID'),
+                'transactionReference' =>$request->input('paymentId')
+            ));
+
+            $response = $transaction->send();
+
+            if($response->isSuccessful())
+            {   $user = Auth::user();
+                $userId = $user->name;
+                $userStudno = $user->id;
+                
+                $arr = $response->getData();
+                $payment = new Payment();
+                $payment->payment_id = $arr['id'];
+                $payment->name = $userId;
+                $payment->studno = $userStudno;
+                $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
+                $payment->payer_email= $arr['payer']['payer_info']['email'];
+                $payment->amount = $arr['transactions'][0]['amount']['total'];
+                $payment->currency = env('PAYPAL_CURRENCY');
+                $payment->save();
+
+                return "Payment is Successfull. Your Transaction Id is :". $arr['id'];
+            }
+            else{
+                return $response->getMessage();
+            }
+
+
+        }
+        else{
+            return 'Payment declined!';
+        }
+    }
+
+    public function error(){
+        return 'User declined';
+    }
 }
