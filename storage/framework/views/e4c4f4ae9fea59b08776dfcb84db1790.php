@@ -335,11 +335,13 @@
 // Function to handle form submission
 function submitForm() {
         var actionUrl = "<?php echo e(isset($student) ? url('update') : url('store')); ?>";
-        
+        var formData = new FormData($('#studentForm')[0]);
+        formData.append('org1_member_status', $('#org1_member_status').val()); // Add org1_member_status value
+
         $.ajax({
             type: 'POST',
             url: actionUrl,
-            data: new FormData($('#studentForm')[0]),
+            data: formData,
             cache: false,
             contentType: false,
             processData: false,
