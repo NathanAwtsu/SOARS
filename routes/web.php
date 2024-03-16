@@ -157,8 +157,10 @@ Route::get('/member', function(){return view('member');})->name('member')->middl
 //End of Student Leaders
 
 //Paypal Experiment
-Route::get('/test', function(){ return view('Student/paypal_experiment');});
-
+Route::get('/test', function(){return view('Student/paypal_experiment');});
+Route::post('pay', [PaypalController::class, 'pay'], function(){ return view('Student/paypal_experiment');})->name('payment');
+Route::get('success', [PaypalController::class, 'success']);
+Route::get('error', [PaypalController::class, 'error']);
 
 
 

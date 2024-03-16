@@ -9,8 +9,14 @@
     <div id="paypal-button-container"></div>
     <p id="result-message"></p>
     <!-- Replace the "test" client-id value with your client-id -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AcO9VsiEYgUDV8XFpA1q8V8L2Og9KabqfHaw8TAw5mqrHTFFW-OCfZdkt29U4GWQ3nTjEkTyeCFXe7po&components=buttons&enable-funding=paylater&disable-funding=venmo,card" data-sdk-integration-source="integrationbuilder_sc"></script>
-    <script src="app.js"></script>
+    <!--<script src="https://www.paypal.com/sdk/js?client-id=AcO9VsiEYgUDV8XFpA1q8V8L2Og9KabqfHaw8TAw5mqrHTFFW-OCfZdkt29U4GWQ3nTjEkTyeCFXe7po&components=buttons&enable-funding=paylater&disable-funding=venmo,card" data-sdk-integration-source="integrationbuilder_sc"></script>
+    <script src="app.js"></script>-->
+
+    <form action="{{route('payment')}}" method="POST">
+        @csrf
+        <input type="hidden" name="amount" value="200">
+        <button type="submit"></button>
+    </form>
     <script>
         paypal.Buttons({
           createOrder: function(data, actions) {
