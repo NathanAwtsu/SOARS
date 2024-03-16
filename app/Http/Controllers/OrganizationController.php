@@ -98,23 +98,12 @@ class OrganizationController extends Controller
         $orgsByCourse = DB::table('organizations')->where('academic_course_based','=',$courseId)->first();
         $org = $orgsByCourse->name;
 
-        if($student_org = "Member"){
-            /*$announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
-            return view ('Student.org1_page_member')->with('orgsByCourse', $orgsByCourse)
-            ->with('announcement1', $announcement1);*/
-
-            $totalEvent = DB::table('events')->get();
-            $totalMember = DB::table('students')->get();
-            $totalOrg= DB::table('organizations')->get();
-            $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
+        if($student_org == "Member"){
             $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
-            return view ('Student.org1_page_president')
-            ->with('totalEvent', $totalEvent)
-            ->with('totalMember',$totalMember)
-            ->with('totalOrg', $totalOrg)
-            ->with('activities', $activities)
-            ->with('announcement1', $announcement1)
-            ->with('orgsByCourse', $orgsByCourse);
+            return view ('Student.org1_page_member')->with('orgsByCourse', $orgsByCourse)
+            ->with('announcement1', $announcement1);
+
+            
 
             
         }
@@ -133,8 +122,20 @@ class OrganizationController extends Controller
             ->with('orgsByCourse', $orgsByCourse);
 
         }
-        elseif($student_org = "President"){
-            return view ('Student.org1_page_president')->with('orgsByCourse', $orgsByCourse);
+        elseif ($student_org == "President"){
+            $totalEvent = DB::table('events')->get();
+            $totalMember = DB::table('students')->get();
+            $totalOrg= DB::table('organizations')->get();
+            $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
+            $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
+            return view ('Student.org1_page_president')
+            ->with('totalEvent', $totalEvent)
+            ->with('totalMember',$totalMember)
+            ->with('totalOrg', $totalOrg)
+            ->with('activities', $activities)
+            ->with('announcement1', $announcement1)
+            ->with('orgsByCourse', $orgsByCourse);
+
         }
         
     

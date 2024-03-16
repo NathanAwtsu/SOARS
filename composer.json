@@ -19,7 +19,6 @@
         "pusher/pusher-php-server": "^7.2",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.6",
-        "srmklive/paypal": "~2.0",
         "yajra/laravel-datatables-oracle": "10.3.1"
     },
     "require-dev": {

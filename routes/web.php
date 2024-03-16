@@ -155,9 +155,14 @@ Route::get('/member', function(){return view('member');})->name('member')->middl
 
 
 //End of Student Leaders
-Route::get('/test', function(){ return view('Student/paypal_experiment');});
-//Routes for Students
 
+//Paypal Experiment
+Route::get('/test', function(){ return view('Student/paypal_experiment');});
+
+
+
+
+//Routes for Students
 Route::get('/student', [StudentsController::class, 'dashboard'], function(){return view('Student.dashboard');});
 //Calendar for Student Organization
 Route::get('/student/org_page/event/{id}', [EventController::class, 'getEventsOrgpage']);
@@ -171,6 +176,7 @@ Route::get('/student/dash', [StudentsController::class, 'getEvents']);
 Route::get('/student/announcements/recent', [StudentsController::class, 'announcement'], function(){return view('Student.announcements');});
 Route::get('/student/org_list/', [StudentsController::class, 'org_list']);
 Route::get('/student/org1_page/', [OrganizationController::class, 'student_organization_page'])->name('student_leader_page');
+
 //Create Annoucements
 Route::post('/student/announcement/create', [AnnouncementController::class, 'sl1_create']);
 //Propose Activities
@@ -179,18 +185,21 @@ Route::post('/student/activity_proposal', [StudentsController::class, 'store_eve
 Route::post('/student/activity_approval/done', [StudentsController::class, 'event_done']);;
 //Org1 Member List
 Route::get('/student/member_list', [StudentsController::class, 'members']);
-
 //Organization Edit
 Route::get('/student/organization_edit/{id}', [OrganizationController::class, 'student_org_edit_view']);
 Route::post('/student/organization_save/{id}', [OrganizationController::class, 'student_org_edit_save']);
 Route::get('/president/organization_edit/{id}', [OrganizationController::class, 'president_org_edit_view']);
 Route::post('/president/organization_save/{id}', [OrganizationController::class, 'president_org_edit_save']);
-
 //Register Button
 Route::post('/register/organization/{id}', [OrganizationController::class, 'register']);
-
 //Student Leader Edit Organization Page
 Route::get('/student/organization_list/organization_page/{id}', [OrganizationController::class, 'org_pending_edit_student_view']);
+
+
+
+
+
+
 
 
 //Login Timeout

@@ -169,11 +169,16 @@
                                     {{Auth::user()->name}}
                                 </a>
                             </li>
-                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url('/student')}}" style="color:white;">
+                                    <i class="fa-solid fa-house-user" style="margin-right: 20px; font-size: 25px;"></i>
+                                    Home
+                                </a>
+                            </li>
                             
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('/student/org1_page/')}}" style="color:white;">
-                                    <i class="fa-regular fa-clipboard fa-lg" style="margin-right: 20px; font-size: 25px;"></i>
+                                    <i class="fas fa-user-friends" style="margin-right: 20px; font-size: 25px;"></i>
                                     @php
                                         $org = \App\Models\StudentOrganization::where('studentId', Auth::user()->id)->first();
                                         echo $org->org1;
@@ -181,13 +186,23 @@
                                 </a>
                             </li>
 
-                            
+                            @php
+                            $org2 = \App\Models\StudentOrganization::where('studentId', Auth::user()->id)->first();
+                            @endphp
+                            @if (isset($org2->org2))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/student')}}" style="color:white;">
-                                    <i class="fa-regular fa-clipboard fa-lg" style="margin-right: 20px; font-size: 25px;"></i>
-                                    Dashboard
+                                <a class="nav-link" href="{{url('/student/org1_page/')}}" style="color:white;">
+                                    <i class="fas fa-user-friends" style="margin-right: 20px; font-size: 25px;"></i>
+                                    @php
+                                        echo $org2->org2;
+                                    @endphp
                                 </a>
                             </li>
+                            @endif
+                            
+                            
+                            
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('/chatify')}}" style="color:white;">
                                     <i class="fa-solid fa-message fa-lg"style="margin-right:20px; font-size: 25px;"></i>

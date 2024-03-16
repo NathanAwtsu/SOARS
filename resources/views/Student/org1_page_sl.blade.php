@@ -61,33 +61,32 @@
             <div class="container mt-4">
                 
                 <!-- ... other content ... -->
-                @if ($announcement1 != null)
                 <div id="announcement" class="card mt-4" style="height: auto; text-align:left;">
-                    @foreach ( $announcement1 as $announce )
                     <div class="container">
-                            <h1 style="padding-left:20px; padding-top: 5%; padding-bottom: 2.5%;">
-                                <i class="fas fa-bullhorn"></i> Announcements
-                            </h1>
-                            <div class="announcement" style="margin-bottom:5%;">
+                        <h1 style="padding-left:20px; padding-top: 5%; padding-bottom: 2.5%;">
+                            <i class="fas fa-bullhorn"></i> Announcements
+                        </h1>
+                        @if ($announcement1 != null)
+                        @foreach ( $announcement1 as $announce )
+                        <div class="announcement" style="margin-bottom:5%;">
+                            
+                                <div class="announcement-header">
+                                    <h3 class="announcement-title">
+                                        <i class="fa-regular fa-clipboard"></i> Title: {{$announce->title}}
+                                    </h3>
+                                    <p class="announcement-date">Posted on {{$announce->created_at}}</p>
+                                    <p class="author">Author: {{$announce->author}}. {{$announce->author_org}}</p>
+                                </div>
+                                <div class="announcement-body">
+                                    
+                                    {{$announce->message}}
+                                    
+                                </div>
                                 
-                                    <div class="announcement-header">
-                                        <h3 class="announcement-title">
-                                            <i class="fa-regular fa-clipboard"></i> Title: {{$announce->title}}
-                                        </h3>
-                                        <p class="announcement-date">Posted on {{$announce->created_at}}</p>
-                                        <p class="author">Author: {{$announce->author}}.</p>
-                                        <p class="org">Organization: {{$announce->author_org}}</p>
-                                    </div>
-                                    <div class="announcement-body">
-                                        <p class="announcement-content">{{$announce->message}}</p>
-                                        
-                                    </div>
-                                
-                            </div>
-                    </div>
-                    @endforeach
+                        </div>
+                        @endforeach
+                        @endif
                 </div>
-                @endif
                 <div id="missionVisionContent" class="card mt-1" style="height: 500px;">
                     <div class="card-body">
                         <div class="row">

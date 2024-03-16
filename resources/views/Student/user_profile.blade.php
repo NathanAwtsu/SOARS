@@ -63,25 +63,17 @@ object-fit: cover;
     
             </div>
             <div class="col-md-6 offset-md-3">
-                <form action="/student/update_email" method="post">
-                    @csrf
+                
+                    
                     <h2 class="text-center">User Profile Setup</h2>
                     <div class="form-group">
                         <label for="confirmPassword">Change Password:</label>
                         <a href="#" id="passwordLink">Click to enter your new password</a><br>
                         <p id="confirmPasswordMessage"></p> <!-- Paragraph to display message -->
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="{{Auth::user()->email}}">
-                    </div>
-                    <div class="text-center mt-3">
-                        <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                            
-                        </div>
-                    </div>
-                </form>
+                    
+                    
+                
             </div>
         </div>
     </div>
