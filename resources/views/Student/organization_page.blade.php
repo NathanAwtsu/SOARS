@@ -13,7 +13,7 @@
             <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
             @if ($org->type_of_organization != 'Academic')
             
-            <form action="{{url('/register/organization/'.$org->id)}}" method="POST">
+            <form action="{{url('/register/organization/'.$org->id)}}" method="POST" style="margin-left: 350px;">
                 @csrf
             <button type="submit" style="text-align:end;" class="btn btn-warning">Register</button>    
             </form>

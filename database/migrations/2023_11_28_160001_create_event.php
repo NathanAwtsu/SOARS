@@ -32,6 +32,7 @@ return new class extends Migration
             $table->integer('ticket_selling')->nullable();
             $table->integer('ticket_control_number')->nullable();
             $table->longText('other_source_of_fund')->nullable();
+            $table->longText('comments')->nullable();
             $table->timestamps();
         });
     }

@@ -175,6 +175,13 @@
             <input type="text" class="form-control" id="other_source_of_fund" name="other_source_of_fund" value="{{$event->other_source_of_fund}}">
         </div>
     </div>
+    <div class="form-group row mb-2">
+        <label for="comments" class="col-sm-4 col-form-label text-left">Comments</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="comments" name="comments" rows="3"></textarea>
+        </div>
+    </div>
+
 
     <!-- ... (other event details input fields) ... -->
     <button type="submit" name="edited" value="{{$event->id}}" class="btn btn-primary btn-block">Done</button>
