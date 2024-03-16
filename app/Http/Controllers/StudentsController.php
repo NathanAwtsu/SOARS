@@ -73,7 +73,33 @@ class StudentsController extends Controller
     }
 
     public function announcement(){
-        return view('Student.announcements');
+
+        $user = Auth::user();
+        $userId = $user->id; //Student No
+        $student = DB::table('students')->where('student_id','=' ,$userId)->first(); //Select Row from Student
+        $studentId = $student->student_id; //Student Id from Students Table
+        $student_org = DB::table('student_organizations')->where('studentid', '=', $studentId)->first(); //Select Row from student_organization if student_id match
+        $student_pos = $student_org->org1_memberstatus; //Select org Status 1
+        $student_org2 = $student_org->org2;
+        $courseId = $student_org->course; //Select student Course from Student_organization
+        $orgsByCourse = DB::table('organizations')
+        ->where('academic_course_based','=',$courseId)->first(); //Select Row from organization if academic_course match with student course
+        $org = $orgsByCourse->name;
+        // Fetch events from the database
+        $events = Event::where('organization_name','=',$org)->get();
+
+
+        
+        $announce = DB::table('announcements')
+                    ->where(function ($query) use ($org, $student_org2) {
+                        $query->where('author_org', '=', $org)
+                              ->where('recipient', '=', $org)
+                              ->orWhere('author_org', '=', $student_org2)
+                              ->orWhere('recipient', '=', $student_org2);
+                    })
+                    ->get();
+
+    return view('Student.announcements')->with('announce', $announce);
     }
 
     public function org_list(){

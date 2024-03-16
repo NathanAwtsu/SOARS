@@ -4,27 +4,20 @@
 </head>
 <body>
 <main style="overflow-x: hidden;">
-    <div class="container">
-        <h1 style="padding-left:20px; padding-top: 8%; padding-bottom: 2.5%;">
-            <i class="fas fa-bullhorn"></i> Announcements
-        </h1>
-        <div class="announcement" style="margin-bottom:5%;">
-            
-                <div class="announcement-header">
-                    <h3 class="announcement-title">
-                        <i class="fa-regular fa-clipboard"></i> Title:
-                    </h3>
-                    <p class="announcement-date">Posted on January 25, 2024</p>
-                    <p class="author">Author</p>
-                </div>
-                <div class="announcement-body">
-                    <p class="announcement-content">
-                    Message
-                    </p>
-                </div>
-            
+    @foreach($announce as $announcement)
+        <div class="announcement" style="margin: 8% 5% 5% 5%;">
+            <div class="announcement-header">
+                <h3 class="announcement-title">
+                    <i class="fa-regular fa-clipboard"></i> Title: {{ $announcement->title }}
+                </h3>
+                <p class="announcement-date">Posted on {{ $announcement->created_at }}</p>
+                <p class="author">Author: {{ $announcement->author }}. {{ $announcement->author_org }}</p>
+            </div>
+            <div class="announcement-body">
+                {{ $announcement->message }}
+            </div>
         </div>
-    </div>
+    @endforeach
 </main>
 
  

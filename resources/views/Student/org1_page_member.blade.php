@@ -13,28 +13,32 @@
         
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="container mt-4">
-                <div id="announcement" class="card mt-4" style="height: auto;">
-                    <div class="card-body" style="text-align: start;">
-                        <h1 style="padding-left:20px; padding-bottom: 2.5%;">
+                <div id="announcement" class="card mt-4" style="height: auto; text-align:left;">
+                    <div class="container">
+                        <h1 style="padding-left:20px; padding-top: 5%; padding-bottom: 2.5%;">
                             <i class="fas fa-bullhorn"></i> Announcements
                         </h1>
+                        @if ($announcement1 != null)
+                        @foreach ( $announcement1 as $announce )
                         <div class="announcement" style="margin-bottom:5%;">
                             
                                 <div class="announcement-header">
                                     <h3 class="announcement-title">
-                                        <i class="fa-regular fa-clipboard"></i> Title:
+                                        <i class="fa-regular fa-clipboard"></i> Title: {{$announce->title}}
                                     </h3>
-                                    <p class="announcement-date">Posted on January 25, 2024</p>
-                                    <p class="author">Author</p>
+                                    <p class="announcement-date">Posted on {{$announce->created_at}}</p>
+                                    <p class="author">Author: {{$announce->author}}. {{$announce->author_org}}</p>
                                 </div>
                                 <div class="announcement-body">
-                                    <p class="announcement-content">
-                                    Message
-                                    </p>
+                                    
+                                    {{$announce->message}}
+                                    
                                 </div>
-                            
+                                
                         </div>
-                    </div>
+                        @endforeach
+                        @endif
+                </div>
                 </div>
                 
                 <div id="missionVisionContent" class="card mt-1" style="height: 500px;">
