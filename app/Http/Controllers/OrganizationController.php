@@ -1196,7 +1196,6 @@ class OrganizationController extends Controller
             {   $user = Auth::user();
                 $userId = $user->name;
                 $userStudno = $user->id;
-                
                 $arr = $response->getData();
                 $payment = new Payment();
                 $payment->payment_id = $arr['id'];
@@ -1207,8 +1206,6 @@ class OrganizationController extends Controller
                 $payment->amount = $arr['transactions'][0]['amount']['total'];
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->save();
-
-                return "Payment is Successfull. Your Transaction Id is :". $arr['id'];
             }
         if(($student_org->org2 == null && $student_org->org2_memberstatus == null) && ($student->organization2 ==null && $student->org2_member_status==null)){
             DB::table('student_organizations')->where('studentId',$userId)->update(['org2' => $orgname, 'org2_memberstatus' => 'Applying Member']);

@@ -122,7 +122,7 @@
                     <td><?php echo e($event->other_source_of_fund); ?></td>
                     <td>
                         <button type="submit" name="approve" value="approve_<?php echo e($event->id); ?>" class="btn btn-success" style="padding-bottom:10px;">Approve</button>
-                        <button type="submit" name="edit" value="edit_<?php echo e($event->id); ?>" class= "btn btn-primary"style="padding-bottom:10px;">Edit</button>
+                        <button type="submit" name="edit" value="edit_<?php echo e($event->id); ?>" class= "btn btn-primary"style="padding-bottom:10px;">Comment</button>
                         <button type="submit" name="action" value="reject_<?php echo e($event->id); ?>" class="btn btn-warning" style="padding-bottom:10px;">Reject</button>
                         <button type="submit" name="delete" value="reject_<?php echo e($event->id); ?>" class="btn btn-danger" style="padding-bottom:10px;">Delete</button>
                     </td>
