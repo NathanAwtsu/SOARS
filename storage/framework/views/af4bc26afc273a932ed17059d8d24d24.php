@@ -85,6 +85,27 @@ unset($__errorArgs, $__bag); ?>
     </div>
 </center>
 
+<!--<script>
+    document.getElementById('loginButton').addEventListener('click', function (event) {
+        event.preventDefault(); 
+
+        
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        if (email.trim() === '' || password.trim() === '') {
+            alert('Please enter both email and password.'); 
+            return;
+        }
+
+        
+        redirectToTermsAndAgreement();
+    });
+
+    function redirectToTermsAndAgreement() {
+        window.location.href = "<?php echo e(route('terms_and_agreement')); ?>"; 
+    }
+</script>-->
+
 <?php $__env->stopSection(); ?>
 
 
