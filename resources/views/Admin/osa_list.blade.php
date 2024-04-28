@@ -104,14 +104,12 @@
         </div>
     </div>
 
-    <div class="col-sm-offset-2 col-sm-10"><br/>
-        <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
-    </div>
-</form>
 
 </div>
       <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+    </form>
       </div>
     </div>
   </div>
