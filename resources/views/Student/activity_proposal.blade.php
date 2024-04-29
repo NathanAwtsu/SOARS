@@ -37,6 +37,7 @@
                 <th>Event Start Date & time</th>
                 <th>Event End Date & Time</th>
                 <th>Venue</th>
+                <th>Action</th>
                 
             </tr>
             @foreach ($approved as $approve)
@@ -49,13 +50,54 @@
                 <td>{{$approve->activity_start_date}} @ {{$approve->activity_start_time}}</td>
                 <td>{{$approve->activity_end_date}} @ {{$approve->activity_end_date}}</td>
                 <td>{{$approve->venue}}</td>
-                
+                <td>
+                    <button type="button" class="btn btn-primary view-members" data-toggle="modal" data-target="#membersModal" data-organization-id="{{ $approve->id }}">View Members</button>
+                </td>
             </tr>
             @endforeach
         </table>
         </form>
             <br>
     </div>
+
+    <!-- View Members Modal -->
+<div class="modal fade" id="membersModal" tabindex="-1" role="dialog" aria-labelledby="membersModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="membersModalLabel">Members of {{$event->organization_name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($members as $member)
+                        <tr>
+                            <td>{{$member->first_name}} {{$member->last_name}}</td>
+                            
+                            <td>
+                                <a href="{{ route('generate-certificate', ['eventId' => $event->id, 'studentId' => $member->student_id]) }}" class="btn btn-primary generate-certificate">Generate Certificate</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class="container">
         <h1 style="text-align: start;">Pending Events</h1>
@@ -446,7 +488,26 @@ function showHideOthers(selectElement) {
   </script>
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
   
-
+  <script>
+    $(document).on('click', '.view-members', function() {
+        var organizationId = $(this).data('organization_id');
+        $.ajax({
+            url: '/student/' + organizationId + '/members',
+            type: 'GET',
+            success: function(response) {
+                var membersList = $('#membersList');
+                membersList.empty();
+                $.each(response, function(index, member) {
+                    membersList.append('<li>' + member.first_name + ' ' + member.last_name + '</li>');
+                });
+                $('#membersModal').modal('show');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+</script>
 
 
 

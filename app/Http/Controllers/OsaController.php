@@ -325,9 +325,21 @@ class OsaController extends Controller
         
     }
 
-    public function generate (Request $request, $eventId)
+    public function viewMembers(Request $request, $eventId)
     {
         $event = Event::findOrFail($eventId);
+        $members = Students::where('organization1', $event->organization_name)
+                        ->orWhere('organization2', $event->organization_name)
+                        ->get();
+
+        return view('members_modal', compact('event', 'members'));
+    }
+
+
+    public function generate (Request $request, $eventId, $studentId)
+    {
+        $event = Event::findOrFail($eventId);
+        $student = Students::findOrFail($studentId);
 
         $pdf = new Fpdi();
 

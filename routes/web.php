@@ -68,6 +68,7 @@ Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentsController::class, 'delete']);
 Route::get('get-organizations', [StudentsController::class, 'getOrganizations'])->name('getOrganizations');
+Route::get('fetchOrganizations', [StudentsController::class, 'fetchOrganizations'])->name('fetchOrganizations');
 
 //OsaEmployee Creation
 Route::get('osa_list', [OsaEmpController::class, 'osalist'])->name('osalist');
@@ -202,8 +203,12 @@ Route::post('/president/organization_save/{id}', [OrganizationController::class,
 Route::post('/register/organization/{id}', [OrganizationController::class, 'register']);
 //Student Leader Edit Organization Page
 Route::get('/student/organization_list/organization_page/{id}', [OrganizationController::class, 'org_pending_edit_student_view']);
+//SL Generate Certificate
+Route::get('student/{organization_name}/members', [StudentsController::class, 'getMembers']);
+Route::get('/generate-certificate/{eventId}/{studentId}', [StudentsController::class, 'generate'])->name('generate-certificate');
 
-
+//See Members' Request for President user
+Route::get('/student/members_request', [OrganizationController::class, 'showMembersRequest'])->name('members_request');
 
 
 

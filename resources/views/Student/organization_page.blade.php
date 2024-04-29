@@ -15,6 +15,7 @@
             
             <form action="{{url('/register/organization/'.$org->id)}}" method="POST" style="margin-left: 350px;">
                 @csrf
+                <input type="hidden" name="amount" value="100">
             <button type="submit" style="text-align:end;" class="btn btn-warning">Register</button>    
             </form>
             @endif

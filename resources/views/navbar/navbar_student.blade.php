@@ -191,7 +191,7 @@
                             @endphp
                             @if (isset($org2->org2))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/student/org1_page/')}}" style="color:white;">
+                                <a class="nav-link" href="{{url('/student/org2_page/')}}" style="color:white;">
                                     <i class="fas fa-user-friends" style="margin-right: 20px; font-size: 25px;"></i>
                                     @php
                                         echo $org2->org2;

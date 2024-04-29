@@ -163,7 +163,10 @@
                 <div class="form-group">
                     <label for="organization2" class="col-sm-4 control-label">Organization 2</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="organization2" name="organization2" placeholder="Enter Organization (optional)">
+                        <select class="form-control" id="organization2" name="organization2">
+                            <option value="">Select Organization</option>
+                            <!-- Organizations will be dynamically populated here -->
+                        </select>
                     </div>
                 </div>
 
@@ -191,8 +194,8 @@
                     <div class="col-sm-8">
                         <select class="form-select" id="org2_member_status" name="org2_member_status">
                             <option value="" disabled selected>Choose Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option value="Member">Member</option>
+                            <option value="President">President</option>
                         </select>
                     </div>
                 </div>
@@ -285,7 +288,7 @@
                 $('#last_name').val(res.last_name);
                 $('#middle_initial').val(res.middle_initial);
                 $('#first_name').val(res.first_name);
-                $('#course_id').val(res.course_id);
+                $('#course_id').val(res.course_id).change();
                 $('#email').val(res.email);
                 $('#organization1').val(res.organization1);
                 $('#organization2').val(res.organization2);
@@ -299,7 +302,7 @@
             },
             error: function (xhr, status, error) {
             console.log(xhr.responseText);
-            // Handle error or log the details for troubleshooting
+            
         }
         });
     }
@@ -329,6 +332,23 @@
         $('#id').val('');
     }
 
+    
+    function fetchOrganizations() {
+        $.ajax({
+            type: "GET",
+            url: "<?php echo e(route('fetchOrganizations')); ?>", 
+            success: function(data) {
+                $('#organization2').empty();
+                $('#organization2').append('<option value="">Select Organization</option>');
+                $.each(data, function(key, value) {
+                    $('#organization2').append('<option value="' + value.id + '">' + value.name + '</option>');
+                });
+            }
+        });
+    }
+
+    
+    fetchOrganizations();
 
 
 // For submitting the form for adding or updating
@@ -338,6 +358,7 @@ function submitForm() {
         var formData = new FormData($('#studentForm')[0]);
         formData.append('org1_member_status', $('#org1_member_status').val()); // Add org1_member_status value
         formData.append('student_id', $('#student_id').val());
+        formData.append('organization2', $('#organization2 option:selected').text()); 
 
         $.ajax({
             type: 'POST',
@@ -359,6 +380,10 @@ function submitForm() {
         $('#student-list').DataTable().ajax.reload(); // Reload the DataTable after modal is closed
     });
     }
+
+    $('#studentModal').on('hide.bs.modal', function (e) {
+    $('#studentForm').trigger('reset');
+    });
 
     
     $('#btn-save').on('click', function(event) {

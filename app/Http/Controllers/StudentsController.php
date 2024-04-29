@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Models\Students;
 use App\Models\StudentOrganization;
 use Datatables;
+use setasign\Fpdi\Fpdi;
 
 class StudentsController extends Controller
 {
@@ -312,6 +313,13 @@ class StudentsController extends Controller
             $orgsByCourse = DB::table('organizations')
             ->where('academic_course_based','=',$courseId)->first(); //Select Row from organization if academic_course match with student course
             $org = $orgsByCourse->name; //Select Org Name
+            $orgId = $orgsByCourse->id;
+
+            // Define or retrieve the $eventId 
+            $eventId = DB::table('events')->where('status', 'Approved')->value('id');
+            $event = Event::findOrFail($eventId);
+            $members = $this->getMembers($org);
+
 
 
             $orgs = DB::table('organizations')->get();
@@ -323,7 +331,10 @@ class StudentsController extends Controller
             ->with('approved', $approved)
             ->with('orgsByCourse',$orgsByCourse)
             ->with('orgs', $orgs)
-            ->with('activity', $activity);
+            ->with('activity', $activity)
+            ->with('event', $event)
+            ->with('members', $members)
+            ->with('organization_id', $orgId);
         }
 
         public function store_events(){
@@ -393,6 +404,50 @@ class StudentsController extends Controller
             ->with('info', $info);
         }
 
+        public function fetchOrganizations() {
+            $organizations = Organization::where('type_of_organization', '!=', 'Academic')->get();
+            return response()->json($organizations);
+        }
+
+        public function getMembers($organization_name) {
+            
+            
+            $members = Students::where('organization1', $organization_name)
+            ->orWhere('organization2', $organization_name)
+            ->get();
+
+            return $members;
+        }
+          
+
+    public function generate (Request $request, $eventId, $studentId)
+    {
+        $event = Event::findOrFail($eventId);
+        $students = Students::findOrFail($studentId);
+
+        $pdf = new Fpdi();
+
+        $pdf->AddPage('L');
+
+        $pdf->SetFont('Helvetica', 'B', 16);
+
+        $templatePath = public_path('photos/testcert.png');
+        $pdf->Image($templatePath, 0, 0, 297, 210);
+
+        $pdf->SetXY(10, 10);
+        $pdf->Cell(0, 10, $event->organization_name, 0, 1, 'L');
+        $pdf->SetXY(63, 106.5); 
+        $pdf->Cell(0, 10, $event->activity_title, 0, 1, 'C');
+        
+        $pdf->SetXY(100, 100); 
+        $pdf->Cell(0, 10, $students->first_name . ' ' . $students->last_name, 0, 1, 'C');
+
+        $pdf->SetXY(50, 117.5); 
+        $pdf->Cell(0, 10, $event->activity_start_date, 0, 1, 'C'); 
+
+        
+        $pdf->Output('certificate.pdf', 'D');
+    }
 
     
 }

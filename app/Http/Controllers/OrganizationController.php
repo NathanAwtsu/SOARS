@@ -101,7 +101,7 @@ class OrganizationController extends Controller
         $orgsByCourse = DB::table('organizations')->where('academic_course_based','=',$courseId)->first();
         $org = $orgsByCourse->name;
 
-        if($student_org == "Member"){
+        if($student_pos == "Member"){
             $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
             return view ('Student.org1_page_member')->with('orgsByCourse', $orgsByCourse)
             ->with('announcement1', $announcement1);
@@ -110,7 +110,7 @@ class OrganizationController extends Controller
 
             
         }
-        elseif($student_org !="Member" && $student_org != "President" && $student_org != null){
+        elseif($student_pos !="Member" && $student_pos != "President" && $student_pos != null){
             $totalEvent = DB::table('events')->get();
             $totalMember = DB::table('students')->get();
             $totalOrg= DB::table('organizations')->get();
@@ -125,7 +125,7 @@ class OrganizationController extends Controller
             ->with('orgsByCourse', $orgsByCourse);
 
         }
-        elseif ($student_org == "President"){
+        elseif ($student_pos == "President"){
             $totalEvent = DB::table('events')->get();
             $totalMember = DB::table('students')->get();
             $totalOrg= DB::table('organizations')->get();
@@ -156,13 +156,18 @@ class OrganizationController extends Controller
         
         $student_org = DB::table('student_organizations')->where('studentId', '=', $studentId)->first(); // Use first() to get a single object
         $student_pos = $student_org->org2_memberstatus;
+        $orgName = $student_org->org2;
+
+        $org = $orgName;
+        $organization = DB::table('organizations')->where('name', '=', $orgName)->first();
+
         if(isset($student_pos)){
 
         }
 
         if($student_org == "Member"){
             $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
-            return view ('Student.org1_page_member')->with('orgsByCourse', $orgsByCourse)
+            return view ('Student.org2_page_member')->with('organization', $organization)
             ->with('announcement1', $announcement1);
 
             
@@ -173,30 +178,36 @@ class OrganizationController extends Controller
             $totalEvent = DB::table('events')->get();
             $totalMember = DB::table('students')->get();
             $totalOrg= DB::table('organizations')->get();
-            $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
+            $activities = DB::table('events')
+            //->where('organization_name', '=', $org) 
+            ->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')
+            ->where('organization_name', $org)->get();
             $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
-            return view ('Student.org1_page_sl')
+            return view ('Student.org2_page_sl')
             ->with('totalEvent', $totalEvent)
             ->with('totalMember',$totalMember)
             ->with('totalOrg', $totalOrg)
             ->with('activities', $activities)
             ->with('announcement1', $announcement1)
-            ->with('orgsByCourse', $orgsByCourse);
+            ->with('organization', $organization);
 
         }
         elseif ($student_org == "President"){
             $totalEvent = DB::table('events')->get();
             $totalMember = DB::table('students')->get();
             $totalOrg= DB::table('organizations')->get();
-            $activities = DB::table('events')->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')->get();
+            $activities = DB::table('events')
+            //->where('organization_name', '=', $org)
+            ->select('activity_title', 'activity_start_date', 'activity_end_date', 'activity_start_time', 'activity_end_time')
+            ->where('organization_name', $org)->get();
             $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
-            return view ('Student.org1_page_president')
+            return view ('Student.org2_page_president')
             ->with('totalEvent', $totalEvent)
             ->with('totalMember',$totalMember)
             ->with('totalOrg', $totalOrg)
             ->with('activities', $activities)
             ->with('announcement1', $announcement1)
-            ->with('orgsByCourse', $orgsByCourse);
+            ->with('organization', $organization);
 
         }
         
@@ -1208,19 +1219,19 @@ class OrganizationController extends Controller
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->save();
 
-                return "Payment is Successfull. Your Transaction Id is :". $arr['id'];
+                if(($student_org->org2 == null && $student_org->org2_memberstatus == null) && ($student->organization2 ==null && $student->org2_member_status==null)){
+                    DB::table('student_organizations')->where('studentId',$userId)->update(['org2' => $orgname, 'org2_memberstatus' => 'Applying Member']);
+                    DB::table('students')->where('student_id',$userId)->update(['organization2'=> $orgname, 'org2_member_status'=>'Applying Member']);
+                    return redirect()->back()->with('success', 'You are now a Member, please pay a sum of 100 Pesos');
+                }
+                elseif(($student_org->org2 != null && ($student_org->org2_memberstatus == 'Member' || $student_org->org2_memberstatus == 'Applying Member' ||
+                $student_org->org2_memberstatus == 'President' || $student_org->org2_memberstatus == 'SL'))
+                 && ($student->organization2 != null && ($student->org2_member_status == 'Member' || $student->org2_member_status == 'Applying Member' ||
+                 $student->org2_member_status == 'President' || $student->org2_member_status == 'SL'))){
+                    return redirect()->back()->with('error', 'You are already a Member please Pay');
+                }
             }
-        if(($student_org->org2 == null && $student_org->org2_memberstatus == null) && ($student->organization2 ==null && $student->org2_member_status==null)){
-            DB::table('student_organizations')->where('studentId',$userId)->update(['org2' => $orgname, 'org2_memberstatus' => 'Applying Member']);
-            DB::table('students')->where('student_id',$userId)->update(['organization2'=> $orgname, 'org2_member_status'=>'Applying Member']);
-            return redirect()->back()->with('success', 'You are now a Member, please pay a sum of 100 Pesos');
-        }
-        elseif(($student_org->org2 != null && ($student_org->org2_memberstatus == 'Member' || $student_org->org2_memberstatus == 'Applying Member' ||
-        $student_org->org2_memberstatus == 'President' || $student_org->org2_memberstatus == 'SL'))
-         && ($student->organization2 != null && ($student->org2_member_status == 'Member' || $student->org2_member_status == 'Applying Member' ||
-         $student->org2_member_status == 'President' || $student->org2_member_status == 'SL'))){
-            return redirect()->back()->with('error', 'You are already a Member please Pay');
-        }
+        
         }
     }
 
@@ -1235,7 +1246,14 @@ class OrganizationController extends Controller
          $this->gateway->setTestMode(true);
     }
 
-    
+    public function showMembersRequest()
+{
+    // Fetch payments where the amount is 100.00
+    $payments = DB::table('payments')->where('amount', 100.00)->get();
+
+    // Pass the payments data to the view
+    return view('Student.members_request', ['payments' => $payments]);
+}
     
 
     
