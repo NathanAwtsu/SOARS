@@ -68,6 +68,9 @@ class LoginController extends Controller
             }
         }
         if(Auth::attempt($credentials, $remember = $request->has('remember'))){
+            $user = Auth::user();
+
+        if ($user->email_verified_at != null){
             session(['login_attempts' => 0]);
             
             $user_role=Auth::user()->role;
@@ -87,12 +90,20 @@ class LoginController extends Controller
                     return redirect('/soars')->with('error', 'Something went wrong. Try again.');
             }
 
-        }else{
+        }
+        if ($user->email_verified_at == null){
+            session(['login_attempts' => 0]);
+            
+            return redirect('/verifying_email');
+
+        }
+        else{
             session(['login_attempts' => $loginAttempts + 1]); // Increment login attempts
             return redirect('/error?credential=404')->with('error', 'BAWAL');
 
 
         }
+    }
     }
 
     public function create() {

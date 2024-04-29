@@ -8,19 +8,23 @@
 <div class="container mt-2">
     <div class="row">
         <div class="col-lg-12 margin-tb">
+            
             <div class="pull-left">
                 <h2>OSA PERSONNEL LIST</h2>
             </div>
+                
+
             <div class="pull-right mb-2">
                 <a href="javascript:void(0)" class="btn btn-success" onClick="add()">Add Employee</a>
             </div>
+            @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{$message}}</p>
+            </div>
+            @endif
         </div>
     </div>
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{$message}}</p>
-    </div>
-@endif
+
 <div class="card-body">
     <table class="table table-bordered" id="osa_list">
         <thead>
@@ -104,14 +108,12 @@
         </div>
     </div>
 
-    <div class="col-sm-offset-2 col-sm-10"><br/>
-        <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
-    </div>
-</form>
 
 </div>
       <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+    </form>
       </div>
     </div>
   </div>
@@ -179,7 +181,9 @@ $(document).ready(function (){
             $.ajax({
                 type: "POST",
                 url: "{{ url('deletes') }}",
-                data: { employee_id:id },
+                data: { 
+                    employee_id:id,
+                    _token: '{{ csrf_token() }}' },
                 
                 success: function(res){
                     var oTable = $("#osa_list").dataTable();

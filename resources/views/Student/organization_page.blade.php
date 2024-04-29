@@ -13,10 +13,9 @@
             <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
             @if ($org->type_of_organization != 'Academic')
             
-            <form action="{{url('/register/organization/'.$org->id)}}" method="POST" style="margin-left: 350px;">
+            <form id="registration" action="{{url('/register/organization/'.$org->id)}}" method="POST" style="margin-left: 350px;">
                 @csrf
-                <input type="hidden" name="amount" value="100">
-            <button type="submit" style="text-align:end;" class="btn btn-warning">Register</button>    
+            <button onclick="register()" type="submit" style="text-align:end;" class="btn btn-warning">Register</button>    
             </form>
             @endif
 
@@ -257,6 +256,12 @@
          document.getElementById('ContactUs').style.display = 'none';
          document.getElementById('Events').style.display = 'none';
          document.getElementById('MoreInfo').style.display = 'block';
+     }
+     function register(event){
+        event.preventDefault();
+        if (confirm("Are you sure you want to register?")){
+            window.location.href= {{ url('/register/organization/'.$org->id) }};
+        }
      }
 
  </script>

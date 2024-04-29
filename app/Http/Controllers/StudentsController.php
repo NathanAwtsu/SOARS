@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Announcement;
@@ -15,6 +17,7 @@ use App\Models\Osa;
 use App\Models\User;
 use App\Models\Students;
 use App\Models\StudentOrganization;
+use App\Mail\VerifyEmail;
 use Datatables;
 use setasign\Fpdi\Fpdi;
 
@@ -153,6 +156,16 @@ class StudentsController extends Controller
                 return response()->json(['message' => 'No organization found for the provided academic course'], 400);
             }
 
+            $validatedData = $request->validate([
+            'email' => [
+                'required',
+                'email',
+                Rule::endsWith('@adamson.edu.ph'),
+                'unique:users,email'
+            ],
+            
+            ]);
+
             $datetime = now();
             $studentId = $request->student_id;
             $studentData = [
@@ -161,6 +174,7 @@ class StudentsController extends Controller
                 'first_name' => $request->first_name,
                 'course_id' => $request->course_id,
                 'email' => $request->email,
+                'email_verified_at' => null,
                 'organization1' => $organization->name,
                 'organization2' => $request->organization2,
                 'org1_member_status' => $request->org1_member_status,
@@ -177,6 +191,23 @@ class StudentsController extends Controller
                 ['student_id' => $studentId],
                 $studentData
             );
+
+            $fname= $request->first_name;
+            $mname= $request->middle_initial;
+            $lname= $request->last_name;
+            $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_';
+            $randomString = Str::random(10);
+
+            $name = $fname.' '.$mname.' '.$lname;
+
+            $verificationToken = Str::random(60);
+
+            Verification::create([
+            'email' =>$request->email,
+            'token' => $verificationToken,
+            ]);
+
+            Mail::to($request->email)->send(new VerifyEmail($verificationToken));
 
             DB::table('student_organizations')->insert([
                 'studentId' => $studentId,
@@ -199,7 +230,7 @@ class StudentsController extends Controller
                 'role' => '3',
                 'name' => $name,
                 'email' => $request->email,
-                'email_verified_at' => $datetime,
+                'email_verified_at' => null,
                 //'phone_number' => $request->phone_number,
                 'password' => Hash::make($request->password),
                 'remember_token'=> $randomString,

@@ -1207,7 +1207,6 @@ class OrganizationController extends Controller
             {   $user = Auth::user();
                 $userId = $user->name;
                 $userStudno = $user->id;
-                
                 $arr = $response->getData();
                 $payment = new Payment();
                 $payment->payment_id = $arr['id'];
@@ -1218,20 +1217,18 @@ class OrganizationController extends Controller
                 $payment->amount = $arr['transactions'][0]['amount']['total'];
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->save();
-
-                if(($student_org->org2 == null && $student_org->org2_memberstatus == null) && ($student->organization2 ==null && $student->org2_member_status==null)){
-                    DB::table('student_organizations')->where('studentId',$userId)->update(['org2' => $orgname, 'org2_memberstatus' => 'Applying Member']);
-                    DB::table('students')->where('student_id',$userId)->update(['organization2'=> $orgname, 'org2_member_status'=>'Applying Member']);
-                    return redirect()->back()->with('success', 'You are now a Member, please pay a sum of 100 Pesos');
-                }
-                elseif(($student_org->org2 != null && ($student_org->org2_memberstatus == 'Member' || $student_org->org2_memberstatus == 'Applying Member' ||
-                $student_org->org2_memberstatus == 'President' || $student_org->org2_memberstatus == 'SL'))
-                 && ($student->organization2 != null && ($student->org2_member_status == 'Member' || $student->org2_member_status == 'Applying Member' ||
-                 $student->org2_member_status == 'President' || $student->org2_member_status == 'SL'))){
-                    return redirect()->back()->with('error', 'You are already a Member please Pay');
-                }
             }
-        
+        if(($student_org->org2 == null && $student_org->org2_memberstatus == null) && ($student->organization2 ==null && $student->org2_member_status==null)){
+            DB::table('student_organizations')->where('studentId',$userId)->update(['org2' => $orgname, 'org2_memberstatus' => 'Applying Member']);
+            DB::table('students')->where('student_id',$userId)->update(['organization2'=> $orgname, 'org2_member_status'=>'Applying Member']);
+            return redirect()->back()->with('success', 'You are now a Member, please pay a sum of 100 Pesos');
+        }
+        elseif(($student_org->org2 != null && ($student_org->org2_memberstatus == 'Member' || $student_org->org2_memberstatus == 'Applying Member' ||
+        $student_org->org2_memberstatus == 'President' || $student_org->org2_memberstatus == 'SL'))
+         && ($student->organization2 != null && ($student->org2_member_status == 'Member' || $student->org2_member_status == 'Applying Member' ||
+         $student->org2_member_status == 'President' || $student->org2_member_status == 'SL'))){
+            return redirect()->back()->with('error', 'You are already a Member please Pay');
+        }
         }
     }
 
