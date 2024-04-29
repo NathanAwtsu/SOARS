@@ -11,7 +11,7 @@
         <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
         <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
         <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
-        @if ($org->type_of_organization != 'Academic' && $org2status->org2_memberstatus == null)
+        @if ($org->type_of_organization != 'Academic' && $org2status->org2_memberstatus == null && $regstatus==1)
             
             <form method="POST" action="{{ url('/register/organization/'.$org->id) }}">
                 @csrf

@@ -7,17 +7,7 @@
     
         <div class="table-responsive"> <!-- Add this div to make the table responsive -->
             <div class="col-10" style="padding: 10px;">
-                @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif <!-- Use the entire row -->
+                 <!-- Use the entire row -->
                 <h2 class="text-left">PAST EVENTS</h2>
             </div>
             <table class="table table-bordered table-center"> <!-- Added table-center class -->
@@ -87,12 +77,12 @@
             <form action="{{ url('/osaemp/open_registration') }}" method="POST">
                 @csrf
                 <button type="submit" name="regopen" value="1" id="regopen" class="btn btn-primary mb-3">Open Registration</button>
-            </form>
-            
-            <form action="{{ url('/osaemp/close_registration') }}" method="POST">
-                @csrf
                 <button type="submit" name="regclose" value="0" id="regclose" class="btn btn-primary mb-3">Close Registration</button>
+                
             </form>
+            <div class="alert alert-success">
+                {{$regstatus}}
+            </div>
         </div>
     </div>
     <div class="row">

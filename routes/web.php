@@ -190,7 +190,6 @@ Route::post('open_registration', [OsaController::class, 'openRegistration']);
 Route::get('/osaemp/activity_approval', [OsaController::class, 'activity_pending_retrieve'],function(){return view('OSA/approval');})->name('osaactivityapproval');
 Route::get('/osaemp/reports', [OsaController::class, 'eventAndpaypalreports'], function(){ return view('OSA/reports');})->name('osareports');
 Route::post('/osaemp/open_registration', [OsaController::class, 'openRegistration']);
-Route::post('/osaemp/close_registration', [OsaController::class, 'closeRegistration']);
 Route::get('/generate-certificate/{eventId}', [OsaController::class, 'generate'])->name('generate-certificate');
 });
 
