@@ -94,6 +94,7 @@
                             <th>ID</th>
                             <th>Student No.</th>
                             <th>Name</th>
+                            <th>Organization</th>
                             <th>Payment ID</th>
                             <th>Amount</th>
                             
@@ -107,6 +108,7 @@
                             <th>{{$payment->id}}</th>
                             <th>{{$payment->studno}}</th>
                             <th>{{$payment->name}}</th>
+                            <th>{{$payment->organization}}</th>
                             <th>{{$payment->payment_id}}</th>
                             <th>{{$payment->amount}}{{$payment->currency}}</th>
                         </tr>
