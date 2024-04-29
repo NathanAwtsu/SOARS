@@ -85,13 +85,13 @@
                             
 
                             <!-- Other content with adjusted font size -->
-                            <label for="termsCheckbox" class="checkbox-label" style="margin-top: 10%;">
+                            <!--<label for="termsCheckbox" class="checkbox-label" style="margin-top: 10%;">
                                 
                                 <input type="checkbox" id="termsCheckbox" required>
                                 <label> I agree to the data privacy terms and agreement</label>
                             </label>
                
-                <button type="button" id="Next" style="margin-bottom: 10px; margin-top: 15px;">Next</button>
+                <button type="button" id="Next" style="margin-bottom: 10px; margin-top: 15px;">Next</button>-->
 
                 <img src="adulogo.png" alt="" class="custom-image">
             </div>

@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <center>
     <div class="container my-5">
         <div class="login-container">
@@ -46,7 +47,12 @@
                         <h3 style="text-align: center; color: orangered">You've been automatically Logged out.</h3>
                     @endisset
                 </div>
-
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="termsCheckbox" >
+                        I agree to the <a href="#" data-toggle="modal" data-target="#termsModal">data privacy terms & agreement</a>
+                    </label>
+                </div>
     
                 <div>
                 

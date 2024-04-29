@@ -338,22 +338,7 @@
     }
 
     
-    function fetchOrganizations() {
-        $.ajax({
-            type: "GET",
-            url: "{{ route('fetchOrganizations') }}", 
-            success: function(data) {
-                $('#organization2').empty();
-                $('#organization2').append('<option value="">Select Organization</option>');
-                $.each(data, function(key, value) {
-                    $('#organization2').append('<option value="' + value.id + '">' + value.name + '</option>');
-                });
-            }
-        });
-    }
-
     
-    fetchOrganizations();
 
 
 // For submitting the form for adding or updating
@@ -410,6 +395,23 @@ function submitForm() {
             submitForm(); 
         }
     });
+
+    function fetchOrganizations() {
+        $.ajax({
+            type: "GET",
+            url: "{{ route('fetchOrganizations') }}", 
+            success: function(data) {
+                $('#organization2').empty();
+                $('#organization2').append('<option value="">Select Organization</option>');
+                $.each(data, function(key, value) {
+                    $('#organization2').append('<option value="' + value.id + '">' + value.name + '</option>');
+                });
+            }
+        });
+    }
+
+    
+    fetchOrganizations();
 
 
 </script>
