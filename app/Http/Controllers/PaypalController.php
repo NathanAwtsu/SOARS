@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use App\Models\Organization;
 use App\Models\Students;
 use App\Models\Payment;
@@ -75,7 +76,7 @@ class PaypalController extends Controller
                 $payment->save();
 
                 $studentOrganizations = DB::table('student_organizations')->where('studentId', $userStudno)->update(['org2_memberstatus' => 'Paid']);
-                $students = DB::table('students')->where('student_id', $userStudno)->update(['org2_memberstatus'=> 'Paid']);
+                $students = DB::table('students')->where('student_id', $userStudno)->update(['org2_member_status'=> 'Paid']);
 
                 return redirect('student/org2_page/');
             }

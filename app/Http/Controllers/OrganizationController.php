@@ -1204,7 +1204,7 @@ class OrganizationController extends Controller
 
             Session::put('orgid', $orgid);
             Session::put('orgname', $orgname);
-            return redirect()->route('paypal-payment');
+            return redirect('paypal-payment');
 
         }
         
