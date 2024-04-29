@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
 use App\Models\Students;
 use App\Models\Payment;
+use App\Models\StudentOrganization;
 use Omnipay\Omnipay;
 use Datatables;
 use Auth;
@@ -161,11 +163,17 @@ class OrganizationController extends Controller
         $org = $orgName;
         $organization = DB::table('organizations')->where('name', '=', $orgName)->first();
 
-        if(isset($student_pos)){
+        if(isset($student_pos)){            
+            $org2status = DB::table('student_organizations')->where('studentId',$userId)->first();
+            if (isset($org2status))
+            {
+                $org = DB::table('organizations')->where('name', '=', $orgName)->first();
+                return view('Student.organization_page')->with('org',$org)->with('org2status', $org2status);    
+            }
 
         }
 
-        if($student_org == "Member"){
+        if($student_pos == "Member"){
             $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get();
             return view ('Student.org2_page_member')->with('organization', $organization)
             ->with('announcement1', $announcement1);
@@ -174,7 +182,7 @@ class OrganizationController extends Controller
 
             
         }
-        elseif($student_org !="Member" && $student_org != "President" && $student_org != null){
+        elseif($student_pos !="Member" && $student_pos != "President" && $student_pos != null && $student_pos != "Applying Member"){
             $totalEvent = DB::table('events')->get();
             $totalMember = DB::table('students')->get();
             $totalOrg= DB::table('organizations')->get();
@@ -192,7 +200,7 @@ class OrganizationController extends Controller
             ->with('organization', $organization);
 
         }
-        elseif ($student_org == "President"){
+        elseif ($student_pos == "President"){
             $totalEvent = DB::table('events')->get();
             $totalMember = DB::table('students')->get();
             $totalOrg= DB::table('organizations')->get();
@@ -545,9 +553,12 @@ class OrganizationController extends Controller
         
         $id = $request->route('id');
         $org = Organization::find($id);
-	    return view('Student.organization_page')->with('org',$org);
+        $user = Auth::user();
+        $org2status = DB::table('student_organizations')->where('studentId', $user->id)->first();
         
-    }
+        return view('Student.organization_page')->with('org', $org)->with('org2status', $org2status);
+}
+
 
     public function org_pending(Request $request, $id){
         
@@ -1172,64 +1183,27 @@ class OrganizationController extends Controller
         
         $id = $request->route('id');
         $org = Organization::find($id);
+        $orgid = $org->id;
         $orgname = $org->name;
 
+        
 
-        try{
-            $response = $this->gateway->purchase(array(
-                'amount' => $request->amount,
-                'currency' => env('PAYPAL_CURRENCY'),
-                'returnUrl' => url('success'),
-                'cancelUrl' => url('error')
-            ))->send();
-            if($response->isRedirect()){
-                $response->redirect();
-
-            }
-            else{
-                return $response->getMessage();
-            }
-        }
-        catch(\Throwable $th){
-            return $th->getMessage();
-        }
-
-
-        if($request->input('paymentId') && $request->input('PayerID')){
-            $transaction = $this->gateway->completePurchase(array(
-                'payer_id'=>$request->input('PayerID'),
-                'transactionReference' =>$request->input('paymentId')
-            ));
-
-            $response = $transaction->send();
-
-            if($response->isSuccessful())
-            {   $user = Auth::user();
-                $userId = $user->name;
-                $userStudno = $user->id;
-                $arr = $response->getData();
-                $payment = new Payment();
-                $payment->payment_id = $arr['id'];
-                $payment->name = $userId;
-                $payment->studno = $userStudno;
-                $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
-                $payment->payer_email= $arr['payer']['payer_info']['email'];
-                $payment->amount = $arr['transactions'][0]['amount']['total'];
-                $payment->currency = env('PAYPAL_CURRENCY');
-                $payment->save();
-            }
         if(($student_org->org2 == null && $student_org->org2_memberstatus == null) && ($student->organization2 ==null && $student->org2_member_status==null)){
             DB::table('student_organizations')->where('studentId',$userId)->update(['org2' => $orgname, 'org2_memberstatus' => 'Applying Member']);
             DB::table('students')->where('student_id',$userId)->update(['organization2'=> $orgname, 'org2_member_status'=>'Applying Member']);
-            return redirect()->back()->with('success', 'You are now a Member, please pay a sum of 100 Pesos');
+            return redirect()->back()->with('success', 'You are now a Member, please pay a sum of 200 Pesos');
         }
         elseif(($student_org->org2 != null && ($student_org->org2_memberstatus == 'Member' || $student_org->org2_memberstatus == 'Applying Member' ||
         $student_org->org2_memberstatus == 'President' || $student_org->org2_memberstatus == 'SL'))
          && ($student->organization2 != null && ($student->org2_member_status == 'Member' || $student->org2_member_status == 'Applying Member' ||
          $student->org2_member_status == 'President' || $student->org2_member_status == 'SL'))){
-            return redirect()->back()->with('error', 'You are already a Member please Pay');
+
+            Session::put('orgid', $orgid);
+            Session::put('orgname', $orgname);
+            return redirect()->route('paypal-payment');
+
         }
-        }
+        
     }
 
 

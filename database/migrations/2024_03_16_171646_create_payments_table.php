@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('studno');
             $table->string('name');
+            $table->string('organization');
             $table->string('payment_id');
             $table->string('payer_id');
             $table->string('payer_email');
             $table->float('amount', 10,2);
             $table->string('currency');
-            $table->string('student_id');
             $table->timestamps();
         });
     }

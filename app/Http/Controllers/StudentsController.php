@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -152,19 +154,13 @@ class StudentsController extends Controller
 
             $organization = Organization::where('academic_course_based', $courseId)->first();
 
+            
+
             if (!$organization) {
                 return response()->json(['message' => 'No organization found for the provided academic course'], 400);
             }
 
-            $validatedData = $request->validate([
-            'email' => [
-                'required',
-                'email',
-                Rule::endsWith('@adamson.edu.ph'),
-                'unique:users,email'
-            ],
             
-            ]);
 
             $datetime = now();
             $studentId = $request->student_id;
@@ -195,19 +191,11 @@ class StudentsController extends Controller
             $fname= $request->first_name;
             $mname= $request->middle_initial;
             $lname= $request->last_name;
-            $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_';
             $randomString = Str::random(10);
 
             $name = $fname.' '.$mname.' '.$lname;
 
             $verificationToken = Str::random(60);
-
-            Verification::create([
-            'email' =>$request->email,
-            'token' => $verificationToken,
-            ]);
-
-            Mail::to($request->email)->send(new VerifyEmail($verificationToken));
 
             DB::table('student_organizations')->insert([
                 'studentId' => $studentId,
@@ -221,7 +209,6 @@ class StudentsController extends Controller
             $fname= $request->first_name;
             $mname= $request->middle_initial;
             $lname= $request->last_name;
-            $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_';
             $randomString = Str::random(10);
 
             $name = $fname.' '.$mname.' '.$lname;
@@ -237,6 +224,10 @@ class StudentsController extends Controller
                 'created_at'=>$datetime,
                 'updated_at' =>$datetime,
             ]);
+
+            $user = User::where('id', $studentId)->first();
+
+            event(new Registered($user));
 
             return response()->json(['message' => 'Student information saved successfully']);
     }

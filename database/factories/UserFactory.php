@@ -22,7 +22,7 @@ class UserFactory extends Factory
     {
         return [
             'id' => 1,
-            'name' => fake()->name(),
+            'name' => 'admin',
             'email' => 'admin@adamson.edu.ph', //'@adamson.edu.ph',
             'email_verified_at' => now(),
             'role' => 1,

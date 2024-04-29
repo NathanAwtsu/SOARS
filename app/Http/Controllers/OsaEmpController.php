@@ -67,7 +67,6 @@ class OsaEmpController extends Controller
     $mname= $request->middle_initial;
     $lname= $request->last_name;
     $name = $fname.' '.$mname.' '.$lname;
-    
     $randomString = Str::random(10);
 
     DB::table('users')->insert([

@@ -5,26 +5,45 @@
     
     
 
-        <div class="btn-group mb-4" role="group" aria-label="Basic example" style="margin-left:35px;">
-            <button type="button" style="margin-left: 230px;" class="btn btn-primary" onclick="showMissionVision()">Mission and Vision</button>
-            <button type="button" class="btn btn-primary" onclick="showListOfOfficers()">List of Officers</button>
-            <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
-            <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
-            <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
-            @if ($org->type_of_organization != 'Academic')
+    <div class="btn-group mb-4" role="group" aria-label="Basic example" style="margin-left:35px;">
+        <button type="button" style="margin-left: 230px;" class="btn btn-primary" onclick="showMissionVision()">Mission and Vision</button>
+        <button type="button" class="btn btn-primary" onclick="showListOfOfficers()">List of Officers</button>
+        <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
+        <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
+        <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
+        @if ($org->type_of_organization != 'Academic' && $org2status->org2_memberstatus == null)
             
-            <form id="registration" action="{{url('/register/organization/'.$org->id)}}" method="POST" style="margin-left: 350px;">
+            <form method="POST" action="{{ url('/register/organization/'.$org->id) }}">
                 @csrf
-            <button onclick="register()" type="submit" style="text-align:end;" class="btn btn-warning">Register</button>    
+                <button onclick="register(event)" type="submit" style="text-align:end;" class="btn btn-warning">Register </button>
             </form>
-            @endif
-
             
+        @endif
+    
+        @if($org2status->org2_memberstatus == "Applying Member")
+                          
+            <form method="POST" action="{{ url('/register/organization/'.$org->id) }}">
+                @csrf
+                <button onclick="pay(event)" type="submit" style="text-align:end;" class="btn btn-warning">Pay 200 Pesos for Membership </button>
+            </form>
             
-        </div> <br>
+        @endif
+    </div>
+        
+    
+     <br>
         
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            @if($org2status->org2_memberstatus == 'Paid')
+            
+            <center>
+            <div class="alert alert-success">
+                <p>You are currently Paid, please wait for the validation of payment </p>
+            </div>
+            </center>
+            @endif
+            
             @if (session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
@@ -257,12 +276,42 @@
          document.getElementById('Events').style.display = 'none';
          document.getElementById('MoreInfo').style.display = 'block';
      }
-     function register(event){
-        event.preventDefault();
-        if (confirm("Are you sure you want to register?")){
-            window.location.href= {{ url('/register/organization/'.$org->id) }};
-        }
-     }
+     function register(event) {
+    event.preventDefault();
+    if (confirm("Are you sure you want to register? The Membership Fee is 200 Pesos")) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "{{ url('/register/organization/'.$org->id) }}";
+        form.style.display = 'none'; // Hide the form
+
+        var csrfToken = document.createElement('input');
+        csrfToken.type = 'hidden';
+        csrfToken.name = '_token';
+        csrfToken.value = "{{ csrf_token() }}";
+        form.appendChild(csrfToken);
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function pay(event) {
+    event.preventDefault();
+    if (confirm("You are about to pay 200 Pesos for the Membership. Are you sure you want to proceed?")) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "{{ url('/register/organization/'.$org->id) }}";
+        form.style.display = 'none'; // Hide the form
+
+        var csrfToken = document.createElement('input');
+        csrfToken.type = 'hidden';
+        csrfToken.name = '_token';
+        csrfToken.value = "{{ csrf_token() }}";
+        form.appendChild(csrfToken);
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+
+
 
  </script>
 <script>

@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use App\Models\Organization;
+use App\Models\Students;
 use App\Models\Payment;
+use App\Models\StudentOrganization;;
 use Omnipay\Omnipay;
 
 
@@ -23,7 +27,7 @@ class PaypalController extends Controller
     public function pay(Request $request){
         try{
             $response = $this->gateway->purchase(array(
-                'amount' => $request->amount,
+                'amount' => 200,
                 'currency' => env('PAYPAL_CURRENCY'),
                 'returnUrl' => url('success'),
                 'cancelUrl' => url('error')
@@ -54,19 +58,26 @@ class PaypalController extends Controller
             {   $user = Auth::user();
                 $userId = $user->name;
                 $userStudno = $user->id;
+
+                $orgid = Session::get('orgid');
+                $orgname = Session::get('orgname');
                 
                 $arr = $response->getData();
                 $payment = new Payment();
                 $payment->payment_id = $arr['id'];
                 $payment->name = $userId;
                 $payment->studno = $userStudno;
+                $payment->organization = $orgname;
                 $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
                 $payment->payer_email= $arr['payer']['payer_info']['email'];
                 $payment->amount = $arr['transactions'][0]['amount']['total'];
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->save();
 
-                return "Payment is Successfull. Your Transaction Id is :". $arr['id'];
+                $studentOrganizations = DB::table('student_organizations')->where('studentId', $userStudno)->update(['org2_memberstatus' => 'Paid']);
+                $students = DB::table('students')->where('student_id', $userStudno)->update(['org2_memberstatus'=> 'Paid']);
+
+                return redirect('student/org2_page/');
             }
             else{
                 return $response->getMessage();
