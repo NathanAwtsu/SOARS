@@ -30,25 +30,28 @@ class OsaController extends Controller
             $openReg = new Registrations();
             $openReg->registration = 1;
             $openReg->save();
-    
-            return redirect()->back()->with('success', 'Registration is now Open');
-        } else {
-            return redirect()->back()->with('errror', 'Invalid Request');
-        }
+            $regstatus = "Registration is Open";
+            return redirect()->back()
+            ->with('success', 'Registration is now Open')
+            ->with('regstatus', $regstatus);;
+        } 
 
-    }
-    public function closeRegistration(Request $request){
-        if ($request->filled('regclose') && $request->regclose == '0') {
+        elseif ($request->filled('regclose') && $request->regclose == '0') {
             $openReg = new Registrations();
             $openReg->registration = 0;
             $openReg->save();
-    
-            return redirect()->back()->with('success', 'Registration is now Close');
-        } else {
-            return redirect()->back()->with('error', 'Invalid Request');
+            $regstatus = "Registration is Close";
+            return redirect()->back()
+            ->with('error', 'Registration is now Close')
+            ->with('regstatus', $regstatus);
+        } 
+
+        else{
+            return redirect()->back()->with('error', 'Authorization Invalid');
         }
 
     }
+    
 
     public function activity_pending_retrieve(){
         $activity = DB::table('events')->whereNotIn('status', ['Approved', 'On Hold', 'Done'])->get();
@@ -173,11 +176,30 @@ class OsaController extends Controller
 
     public function eventAndpaypalreports(){
         $activity = DB::table('events')
-        ->orwhere('status','=','Done')
-        ->get();
+            ->orWhere('status','=','Done')
+            ->get();
         $paypal = DB::table('payments')->get();
-        return view('OSA.reports', ['activity'=> $activity])
-        ->with('paypal', $paypal);
+        $registration_status = DB::table('registrations')->latest()->first();
+        
+        $regstatus = "Registration status not found"; // Default status
+    
+        if ($registration_status) {
+            // Check the value of the registration column
+            if ($registration_status->registration == 1) {
+                $regstatus = "Registration is Open";
+            } elseif ($registration_status->registration == 0) {
+                $regstatus = "Registration is Close";
+            }
+        } else {
+            // If no registration status is found, set the default status
+            $regstatus = "Registration status not found";
+        }
+    
+        return view('OSA.reports', [
+            'activity' => $activity,
+            'paypal' => $paypal,
+            'regstatus' => $regstatus
+        ]);
     }
 
     public function totalDashboard(){

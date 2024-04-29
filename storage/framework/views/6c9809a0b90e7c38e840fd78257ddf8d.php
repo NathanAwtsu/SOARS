@@ -21,14 +21,24 @@
 <center>
     
     <main>
-       
-    <div class="card" style="height: auto; width: 700px;">
-        <h2>Organization Information Form</h2> <br><br>
+        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example" style=" margin-top:2%; margin-bottom:2%; ">
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showMissionVision()">Overall</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showAnnouncement()">Information</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showListOfOfficers()">Attachment Files</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showContactUs()">Adviser</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showEvents()">President</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showMoreInfo()">Officers</button>            
+        </div> <br>
         <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
+        <center>
+    <div class="card" style="height: auto; width: 700px; text-align:left;">
+        <center><h1>Organization Information</h1></center> <br><br>
+        
             <?php echo csrf_field(); ?>
-            <label for="OrgName"><h2>Organization Name :</h2></label><br>
+            <h4>All fields with (<span style="color: red;">*</span>) are required for initial submission.</h4><br>
+            <label for="OrgName"><h2><span style="color: red;">*</span>Organization Name :</h2></label><br>
             <textarea id="name" name="name" rows="2" cols="4" required></textarea><br><br>
-            <label for="OrgName"><h2>Nickame :</h2></label><br>
+            <label for="OrgName"><h2><span style="color: red;">*</span>Nickame :</h2></label><br>
             <textarea id="name" name="nickname" rows="2" cols="4" required></textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
             <textarea id="mission" name="mission" rows="4" cols="50" ></textarea><br><br>
@@ -86,7 +96,12 @@
                 <option value="BSPharma">Bachelor of Science in Pharmacy</option>
                 <option value="BSPsych">Bachelor of Science in Psychology</option>
              </select><br></br>
+            </div>
+            <div class="card" style="height: auto; width: 700px; text-align:left;">
             <!--Logo-->
+            <center>
+            <h1>Attachment Files</h1>
+            </center>
             <label for="logoFile"><h3>Logo:</h3></label>
             
             
@@ -127,22 +142,24 @@
                 <span>Upload Admin Endorsement</span>
                 <input type="file" id="admin_endorsement" name="admin_endorsement" accept=".pdf" style="display: none;">
             </label><br><br>
-            
-
+            </div>
+        <div class="card" style="height: auto; width: 700px; text-align:left;">
             <label for="advisersInfoText">
-                <h2>Enter Advisers and Officers Information:</h2>
+                <center>
+                <h1>Enter Advisers and Officers Information:</h1>
+                </center>
             </label>
             
-            <div id="listOfOfficersContent" class="card mt-4 mb-4" style="height: auto;">
+            <div id="adviser" class="card mt-4 mb-4" style="height: auto; text-align:left;">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-15">
                             <div class="officer-card">
-                                    <label for="janePosition" style="text-align:left;" ><h2>Adviser:</h2></label>
-                                    <label for="janeName" style="text-align:left;">Name:</label>
-                                    <input type="text" id="adviser_name" name="adviser_name"><br>
-                                    <label for="janeContact" style="text-align:left;">Email:</label>
-                                    <input type="text" id="adviser_name" name="adviser_email" ><br>
+                                    <label for="janePosition" style="text-align:left;" ><h2><span style="color: red;">*</span>Adviser:</h2></label>
+                                    <label for="janeName" style="text-align:left;"><span style="color: red;">*</span>Name:</label>
+                                    <input type="text" id="adviser_name" name="adviser_name" required><br>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Email:</label>
+                                    <input type="text" id="adviser_name" name="adviser_email" required><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
                                     <label for="adviser_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
                                         <span>Upload Adviser Photo</span>
@@ -151,6 +168,31 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div id="adviser" class="card mt-4 mb-4" style="height: auto; text-align:left;">
+                <div class="card-body">
+                        
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h5><span style="color: red;">*</span>President:</h5></label>
+                                    <label for="president_studno" style="text-align:left;"><span style="color: red;">*</span>Student No:</label>
+                                    <input type="number" id="president_studno" name="president_studno" maxlength="9" required><br>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;" required>*</span>Name:</label>
+                                    <input type="text" id="president_name" name="president_name" ><br>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;" required>*</span>Email:</label>
+                                    <input type="email" id="president_email" name="president_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload President Photo</span>
+                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            
+            <div id="adviser" class="card mt-4 mb-4" style="height: auto; text-align:left;">
                         <div class="col-md-15">
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>AUSG Representative:</h5></label>
@@ -167,22 +209,7 @@
                                     </label><br><br>
                             </div>
                         </div>
-                        <div class="col-md-15">
-                            <div class="officer-card">
-                                    <label for="janePosition" style="text-align:left;"><h5>President:</h5></label>
-                                    <label for="president_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="president_studno" name="president_studno" maxlength="9"><br>
-                                    <label for="janeContact" style="text-align:left;">Name:</label>
-                                    <input type="text" id="president_name" name="president_name" ><br>
-                                    <label for="janeContact" style="text-align:left;">Email:</label>
-                                    <input type="email" id="president_email" name="president_email" ><br>
-                                    <label for="janeContact" style="text-align:left;">Photo:</label>
-                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload President Photo</span>
-                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
-                                    </label><br><br>
-                            </div>
-                        </div>
+
                         <div class="col-md-15">
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>Vp Internal:</h5></label>
@@ -287,8 +314,10 @@
                         <input type="submit" value="Submit">
                         
                     </div>
+                    
                 </div>
             </div>
+        </center>
         </form>
     </main>
 </center>
@@ -336,7 +365,37 @@ function confirmSubmission() {
     }
 }
 </script>
+<script>
+                    document.getElementById('type_of_organization').addEventListener('change', function() {
+                        var selectedValue = this.value;
+                        var requiredInputs = document.querySelectorAll('input[required], textarea[required]');
 
+                        // If "Academic" option is selected, make specific fields nullable
+                        if (selectedValue === 'Academic') {
+                            // Add IDs to the fields you want to make nullable
+                            var nullableFields = ['president_studno', 
+                                                'vp_internal_studno', 
+                                                'vp_external_studno', 
+                                                'secretary_studno', 
+                                                'treasurer_studno', 
+                                                'auditor_studno', 
+                                                'pro_studno', 
+                                                'ausg_rep_studno'];
+
+                            requiredInputs.forEach(function(input) {
+                                // Check if the input's ID is in the list of nullable fields
+                                if (nullableFields.includes(input.id)) {
+                                    input.removeAttribute('required'); // Remove the required attribute
+                                }
+                            });
+                        } else {
+                            // If another option is selected, ensure all required fields are required
+                            requiredInputs.forEach(function(input) {
+                                input.setAttribute('required', 'required'); // Add the required attribute back
+                            });
+                        }
+                    });
+</script>
 
 
 

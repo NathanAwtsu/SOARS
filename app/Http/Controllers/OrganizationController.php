@@ -555,8 +555,12 @@ class OrganizationController extends Controller
         $org = Organization::find($id);
         $user = Auth::user();
         $org2status = DB::table('student_organizations')->where('studentId', $user->id)->first();
-        
-        return view('Student.organization_page')->with('org', $org)->with('org2status', $org2status);
+        $registration_status = DB::table('registrations')->latest()->first();
+        $regstatus = $registration_status->registration;
+        return view('Student.organization_page')
+        ->with('org', $org)
+        ->with('org2status', $org2status)
+        ->with('regstatus', $regstatus);
 }
 
 
@@ -1200,7 +1204,7 @@ class OrganizationController extends Controller
 
             Session::put('orgid', $orgid);
             Session::put('orgname', $orgname);
-            return redirect()->route('paypal-payment');
+            return redirect('paypal-payment');
 
         }
         
