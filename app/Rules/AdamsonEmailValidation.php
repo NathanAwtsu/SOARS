@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Rules;
+namespace App\Rules\AdamsonEmailValidation;
 
 use Closure;
-use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Contracts\Validation\Rule;
 
 class AdamsonEmailValidation implements ValidationRule
 {
@@ -19,15 +19,13 @@ class AdamsonEmailValidation implements ValidationRule
 
     public function passes($attribute, $value)
     {
-    $domainPart = explode('@', $value)[1] ?? null;
+        $domainPart = explode('@', $value)[1] ?? null;
 
-    if (!$domainPart) {
-        return false;
-    }
+        if (!$domainPart) {
+            return false;
+        }
 
-    if ($domainPart != 'adamson.edu.ph') {
-        return false;
-    }
+        return $domainPart === 'adamson.edu.ph';
     
     }
     public function message()

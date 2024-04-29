@@ -1,6 +1,10 @@
 <?php
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProfileController;
@@ -14,6 +18,7 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Middleware\VerifyEmailMiddleware;
 use App\Models\Event;
 
 
@@ -23,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Auth::routes(['verify' => true]);
+
 
 require __DIR__.'/auth.php';
 /*
@@ -51,7 +56,44 @@ Route::get('/soars/store', [LoginController::class], 'store');
 Route::get('/', function () {return view('soars');});
 //reCAPTCHA
 Route::get('/soar/session_expired', function () {return view('session_expired');});
-Auth::routes();
+
+
+Auth::routes(['verify' => true]);
+
+Route::get('/verifying_email', function(){return view('home');})->middleware('verified');
+
+//EmailVerification
+Route::get('/email/verify', function () {
+    return view('home');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    $user = Auth::user();
+ 
+    if ($user->email_verified_at != null){
+        session(['login_attempts' => 0]);
+        
+        $user_role=Auth::user()->role;
+
+        switch($user_role){
+            case 1:
+                return redirect('/admin');
+                break;
+            case 2:
+                return redirect('/osaemp');
+                break;
+            case 3:
+                return redirect('/student');
+                break;
+            default:
+                Auth::logout();
+                return redirect('/soars')->with('error', 'Something went wrong. Try again.');
+        }
+
+    }
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
 
 //Static RSO Pages
 Route::get('/terms_and_agreement', function () {return view('terms_and_agreement');})->name('terms_and_agreement');
