@@ -163,7 +163,7 @@ class OrganizationController extends Controller
         $org = $orgName;
         $organization = DB::table('organizations')->where('name', '=', $orgName)->first();
 
-        if(isset($student_pos)){            
+        if($student_pos == "Applying Member" || $student_pos == "Paid"){            
             $org2status = DB::table('student_organizations')->where('studentId',$userId)->first();
             if (isset($org2status))
             {
