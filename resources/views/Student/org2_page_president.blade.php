@@ -89,7 +89,7 @@
                         @endif
                 </div>
                 
-            </main>
+            
                 </div>
                 
                 <div id="missionVisionContent" class="card mt-1" style="height: 500px;">
