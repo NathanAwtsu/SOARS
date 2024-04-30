@@ -182,7 +182,7 @@ class OrganizationController extends Controller
 
             
         }
-        elseif($student_pos !="Member" && $student_pos != "President" && $student_pos != null && $student_pos != "Applying Member"){
+        if($student_pos !="Member" && $student_pos != "President" && $student_pos != null && $student_pos != "Applying Member"){
             $totalEvent = DB::table('events')->get();
             $totalMember = DB::table('students')->get();
             $totalOrg= DB::table('organizations')->get();
@@ -200,7 +200,7 @@ class OrganizationController extends Controller
             ->with('organization', $organization);
 
         }
-        elseif ($student_pos == "President"){
+        if ($student_pos == "President"){
             $totalEvent = DB::table('events')->get();
             $totalMember = DB::table('students')->get();
             $totalOrg= DB::table('organizations')->get();

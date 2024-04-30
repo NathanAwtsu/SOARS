@@ -94,6 +94,7 @@
                             <th>ID</th>
                             <th>Student No.</th>
                             <th>Name</th>
+                            <th>Organization</th>
                             <th>Payment ID</th>
                             <th>Amount</th>
                             
@@ -107,6 +108,7 @@
                             <th><?php echo e($payment->id); ?></th>
                             <th><?php echo e($payment->studno); ?></th>
                             <th><?php echo e($payment->name); ?></th>
+                            <th><?php echo e($payment->organization); ?></th>
                             <th><?php echo e($payment->payment_id); ?></th>
                             <th><?php echo e($payment->amount); ?><?php echo e($payment->currency); ?></th>
                         </tr>
