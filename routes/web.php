@@ -255,7 +255,10 @@ Route::get('/generate-certificate/{eventId}/{studentId}', [StudentsController::c
 Route::get('/student/members_request', [OrganizationController::class, 'showMembersRequest'])->name('members_request');
 
 
-
+//data privacy in login
+Route::get('/terms_and_agreement_modal', function () {
+    return view('modals.data_privacy_modal');
+})->name('terms_and_agreement_modal');
 
 
 
