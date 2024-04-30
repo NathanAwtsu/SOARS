@@ -11,7 +11,7 @@
                 </div>
                 <h2>Office of Student Affairs</h2><br>
                 
-                    <p>Please wait check your email for verification</p>
+                    <h1>Please don't close this window and check your email for verification</h1>
                     
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" style="color:white;">
         @csrf

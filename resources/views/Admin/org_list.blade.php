@@ -21,10 +21,19 @@
 <center>
     
     <main style="padding-top: 80px;">
-       
-    <div class="card" style="height: auto; width: 700px;">
-        <h2>Organization Information Form</h2> <br><br>
+        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example" style=" margin-top:2%; margin-bottom:2%; ">
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showOverall()">Overall</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showInformation()">Information</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showFiles()">Attachment Files</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showAdviser()">Adviser</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showPresident()">President</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showOfficers()">Officers</button>            
+        </div> <br>
         <form action="/rso_list/new_organization" method="post" enctype="multipart/form-data">
+       <center>
+    <div id="information" class="card" style="height: auto; width: 700px; text-align:left;">
+        <center><h1>Organization Information</h1></center> <br><br>
+        
             @csrf
             <h4>All fields with (<span style="color: red;">*</span>) are required for initial submission.</h4><br>
             <label for="OrgName"><h2><span style="color: red;">*</span>Organization Name :</h2></label><br>
@@ -38,7 +47,7 @@
             <textarea id="vision" name="vision" rows="4" cols="50" ></textarea><br><br>
 
             <label for="janeContact" style="text-align:left;"> Organization Email:</label>
-            <input type="org_email" id="org_email" name="org_email" ><br><br>
+            <input type="org_email" id="org_email" name="org_email" ><br>
 
             <label for="janeContact" style="text-align:left;"> Organization Facebook:</label>
             <input type="org_fb" id="org_fb" name="org_fb" ><br>
@@ -87,7 +96,12 @@
                 <option value="BSPharma">Bachelor of Science in Pharmacy</option>
                 <option value="BSPsych">Bachelor of Science in Psychology</option>
              </select><br></br>
+            </div>
+            <div id="attachmentfiles" class="card" style="height: auto; width: 700px; text-align:left;">
             <!--Logo-->
+            <center>
+            <h1>Attachment Files</h1>
+            </center>
             <label for="logoFile"><h3>Logo:</h3></label>
             
             
@@ -128,20 +142,22 @@
                 <span>Upload Admin Endorsement</span>
                 <input type="file" id="admin_endorsement" name="admin_endorsement" accept=".pdf" style="display: none;">
             </label><br><br>
-            
-
+            </div>
+        <div id="label" class="card" style="height: auto; width: 700px; text-align:left;">
             <label for="advisersInfoText">
-                <h2>Enter Advisers and Officers Information:</h2>
+                <center>
+                <h1>Enter Advisers and Officers Information:</h1>
+                </center>
             </label>
             
-            <div id="listOfOfficersContent" class="card mt-4 mb-4" style="height: auto;">
+            <div id="adviser" class="card mt-4 mb-4" style="height: auto; text-align:left;">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-15">
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;" ><h2><span style="color: red;">*</span>Adviser:</h2></label>
                                     <label for="janeName" style="text-align:left;"><span style="color: red;">*</span>Name:</label>
-                                    <input type="text" id="adviser_name" name="adviser_name"required><br>
+                                    <input type="text" id="adviser_name" name="adviser_name" required><br>
                                     <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Email:</label>
                                     <input type="text" id="adviser_name" name="adviser_email" required><br>
                                     <label for="janeContact" style="text-align:left;">Photo:</label>
@@ -151,7 +167,33 @@
                                     </label><br><br>
                             </div>
                         </div>
-                    
+                    </div>
+                </div>
+            </div>
+        
+            <div id="president" class="card mt-4 mb-4" style="height: auto; text-align:left;">
+                <div class="card-body">
+                        
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h5><span style="color: red;">*</span>President:</h5></label>
+                                    <label for="president_studno" style="text-align:left;"><span style="color: red;">*</span>Student No:</label>
+                                    <input type="number" id="president_studno" name="president_studno" maxlength="9" required><br>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;" required>*</span>Name:</label>
+                                    <input type="text" id="president_name" name="president_name" ><br>
+                                    <label for="janeContact" style="text-align:left;"><span style="color: red;" required>*</span>Email:</label>
+                                    <input type="email" id="president_email" name="president_email" ><br>
+                                    <label for="janeContact" style="text-align:left;">Photo:</label>
+                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload President Photo</span>
+                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div id="officers" class="card mt-4 mb-4" style="height: auto; text-align:left;">
                         <div class="col-md-15">
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>AUSG Representative:</h5></label>
@@ -168,22 +210,7 @@
                                     </label><br><br>
                             </div>
                         </div>
-                        <div class="col-md-15">
-                            <div class="officer-card">
-                                    <label for="janePosition" style="text-align:left;"><h5><span style="color: red;">*</span>President:</h5></label>
-                                    <label for="president_studno" style="text-align:left;">Student No:</label>
-                                    <input type="number" id="president_studno" name="president_studno" maxlength="9"><br>
-                                    <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Name:</label>
-                                    <input type="text" id="president_name" name="president_name" required><br>
-                                    <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Email:</label>
-                                    <input type="email" id="president_email" name="president_email" required><br>
-                                    <label for="janeContact" style="text-align:left;">Photo:</label>
-                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload President Photo</span>
-                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
-                                    </label><br><br>
-                            </div>
-                        </div>
+
                         <div class="col-md-15">
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>Vp Internal:</h5></label>
@@ -278,19 +305,75 @@
                                         <span>Upload Pro Photo</span>
                                         <input type="file" id="pro_photo" name="pro_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
+                                    <div id="image_preview"></div>
                             </div>
                         </div>
+
+                        
+
+
                         <input type="submit" value="Submit">
                         
                     </div>
+                    
                 </div>
             </div>
+        </center>
         </form>
-    </div>
     </main>
 </center>
-            
 
+
+
+<script>
+    function showOverall(){
+        document.getElementById('information').style.display = 'block';
+        document.getElementById('attachmentfiles').style.display = 'block';
+        document.getElementById('adviser').style.display = 'block';
+        document.getElementById('president').style.display = 'block';
+        document.getElementById('officers').style.display = 'block';
+    }
+    function showInformation(){
+        document.getElementById('information').style.display = 'block';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'none'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showFiles(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'block';
+        document.getElementById('label').style.display = 'none'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showAdviser(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'block';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showPresident(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'block';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showOfficers(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'block';
+    }
+</script>
 <script>
     var officerContainer = document.getElementById('officerContainer');
     var originalForm = officerContainer.innerHTML;

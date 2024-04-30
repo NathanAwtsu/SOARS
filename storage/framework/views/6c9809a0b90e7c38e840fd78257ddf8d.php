@@ -22,16 +22,16 @@
     
     <main>
         <div class="btn-group btn-group-lg" role="group" aria-label="Basic example" style=" margin-top:2%; margin-bottom:2%; ">
-            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showMissionVision()">Overall</button>
-            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showAnnouncement()">Information</button>
-            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showListOfOfficers()">Attachment Files</button>
-            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showContactUs()">Adviser</button>
-            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showEvents()">President</button>
-            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showMoreInfo()">Officers</button>            
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showOverall()">Overall</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showInformation()">Information</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showFiles()">Attachment Files</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showAdviser()">Adviser</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showPresident()">President</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showOfficers()">Officers</button>            
         </div> <br>
         <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
         <center>
-    <div class="card" style="height: auto; width: 700px; text-align:left;">
+    <div id="information" class="card" style="height: auto; width: 700px; text-align:left;">
         <center><h1>Organization Information</h1></center> <br><br>
         
             <?php echo csrf_field(); ?>
@@ -97,7 +97,7 @@
                 <option value="BSPsych">Bachelor of Science in Psychology</option>
              </select><br></br>
             </div>
-            <div class="card" style="height: auto; width: 700px; text-align:left;">
+            <div id="attachmentfiles" class="card" style="height: auto; width: 700px; text-align:left;">
             <!--Logo-->
             <center>
             <h1>Attachment Files</h1>
@@ -143,7 +143,7 @@
                 <input type="file" id="admin_endorsement" name="admin_endorsement" accept=".pdf" style="display: none;">
             </label><br><br>
             </div>
-        <div class="card" style="height: auto; width: 700px; text-align:left;">
+        <div id="label" class="card" style="height: auto; width: 700px; text-align:left;">
             <label for="advisersInfoText">
                 <center>
                 <h1>Enter Advisers and Officers Information:</h1>
@@ -170,7 +170,8 @@
                     </div>
                 </div>
             </div>
-            <div id="adviser" class="card mt-4 mb-4" style="height: auto; text-align:left;">
+        
+            <div id="president" class="card mt-4 mb-4" style="height: auto; text-align:left;">
                 <div class="card-body">
                         
                         <div class="col-md-15">
@@ -191,8 +192,8 @@
                         </div>
                 </div>
             </div>
-            
-            <div id="adviser" class="card mt-4 mb-4" style="height: auto; text-align:left;">
+
+            <div id="officers" class="card mt-4 mb-4" style="height: auto; text-align:left;">
                         <div class="col-md-15">
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h5>AUSG Representative:</h5></label>
@@ -323,6 +324,56 @@
 </center>
 
 
+
+<script>
+    function showOverall(){
+        document.getElementById('information').style.display = 'block';
+        document.getElementById('attachmentfiles').style.display = 'block';
+        document.getElementById('adviser').style.display = 'block';
+        document.getElementById('president').style.display = 'block';
+        document.getElementById('officers').style.display = 'block';
+    }
+    function showInformation(){
+        document.getElementById('information').style.display = 'block';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'none'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showFiles(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'block';
+        document.getElementById('label').style.display = 'none'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showAdviser(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'block';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showPresident(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'block';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showOfficers(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'block';
+    }
+</script>
 
 <script>
     var officerContainer = document.getElementById('officerContainer');
