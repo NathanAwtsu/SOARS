@@ -99,7 +99,7 @@ class LoginController extends Controller
         }
         else{
             session(['login_attempts' => $loginAttempts + 1]); // Increment login attempts
-            return redirect('/error?credential=404')->with('error', 'BAWAL');
+            return redirect('/error?credential=404')->with('error', 'Incorrect email or password.');
 
 
         }
