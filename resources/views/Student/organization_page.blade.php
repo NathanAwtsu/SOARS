@@ -292,6 +292,7 @@
         document.body.appendChild(form);
         form.submit();
     }
+    }
 
     function pay(event) {
     event.preventDefault();
