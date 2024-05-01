@@ -36,7 +36,7 @@
                         <td>{{$inf->student_id}}</td>
                         <td>{{$inf->last_name}}, {{$inf->first_name}} {{$inf->middle_initial}}</td>
                         <td>{{$inf->email}}</td>
-                        <td>{{$inf->org1_member_status}}</td>
+                        <td>{{$inf->org2_member_status}}</td>
                         <td>
                             <a href="/chatify/{{$inf->student_id}}" class="btn btn-success" style="padding-bottom:10px;">Chat</a>
                         </td>

@@ -329,7 +329,7 @@ class StudentsController extends Controller
             $student = DB::table('students')->where('student_id','=' ,$userId)->first(); //Select Row from Student
             $studentId = $student->student_id; //Student Id from Students Table
             $student_org = DB::table('student_organizations')
-            ->where('studentid', '=', $studentId)->first(); //Select Row from student_organization if student_id match
+            ->where('studentId', '=', $studentId)->first(); //Select Row from student_organization if student_id match
             $student_pos = $student_org->org1_memberstatus; //Select org Status 1
             $courseId = $student_org->course; //Select student Course from Student_organization
             $orgsByCourse = DB::table('organizations')
@@ -426,6 +426,24 @@ class StudentsController extends Controller
             ->with('info', $info);
         }
 
+        public function members2(){ 
+
+            $user = Auth::user();
+            $userId = $user->id; //Student No
+            $student = DB::table('students')->where('student_id','=' ,$userId)->first(); //Select Row from Student
+            $studentId = $student->student_id; //Student Id from Students Table
+            $student_org = DB::table('student_organizations')
+            ->where('studentId', '=', $studentId)->first(); //Select Row from student_organization if student_id match
+            $student_pos = $student_org->org2_memberstatus; //Select org Status 2
+            $orgName = $student_org->org2;
+            $org = $orgName;
+            $organization = DB::table('organizations')->where('name', '=', $orgName)->first();
+
+            $info=DB::table('students')->where('organization2','=',$orgName)->get();
+            return view('Student.org2_member_list')
+            ->with('info', $info);
+        }
+
         public function fetchOrganizations() {
             $organizations = Organization::where('type_of_organization', '!=', 'Academic')->get();
             return response()->json($organizations);
@@ -456,12 +474,12 @@ class StudentsController extends Controller
         $templatePath = public_path('photos/testcert.png');
         $pdf->Image($templatePath, 0, 0, 297, 210);
 
-        $pdf->SetXY(10, 10);
+        $pdf->SetXY(20, 20);
         $pdf->Cell(0, 10, $event->organization_name, 0, 1, 'L');
-        $pdf->SetXY(63, 106.5); 
+        $pdf->SetXY(67, 106.5); 
         $pdf->Cell(0, 10, $event->activity_title, 0, 1, 'C');
         
-        $pdf->SetXY(100, 100); 
+        $pdf->SetXY(70, 100); 
         $pdf->Cell(0, 10, $students->first_name . ' ' . $students->last_name, 0, 1, 'C');
 
         $pdf->SetXY(50, 117.5); 

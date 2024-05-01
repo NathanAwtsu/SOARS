@@ -233,11 +233,13 @@ Route::get('/student/org2_page/', [OrganizationController::class, 'student_organ
 //Create Annoucements
 Route::post('/student/announcement/create', [AnnouncementController::class, 'sl1_create']);
 //Propose Activities
-Route::get('/student/propose_activity', [StudentsController::class, 'sl_activity_proposal'], function(){return view('Student.activity_proposal');});
+Route::get('/student/propose_activity', [StudentsController::class, 'sl_activity_proposal']);
 Route::post('/student/activity_proposal', [StudentsController::class, 'store_events']);
 Route::post('/student/activity_approval/done', [StudentsController::class, 'event_done']);;
 //Org1 Member List
 Route::get('/student/member_list', [StudentsController::class, 'members']);
+//Org2 Member List
+Route::get('/student/member_list2', [StudentsController::class, 'members2']);
 //Organization Edit
 Route::get('/student/organization_edit/{id}', [OrganizationController::class, 'student_org_edit_view']);
 Route::post('/student/organization_save/{id}', [OrganizationController::class, 'student_org_edit_save']);
@@ -253,7 +255,8 @@ Route::get('/generate-certificate/{eventId}/{studentId}', [StudentsController::c
 
 //See Members' Request for President user
 Route::get('/student/members_request', [OrganizationController::class, 'showMembersRequest'])->name('members_request');
-
+// Approve payment of applying members
+Route::post('/approve-payment/{paymentId}', [OrganizationController::class,'approvePayment'])->name('approvePayment');
 
 //data privacy in login
 Route::get('/terms_and_agreement_modal', function () {

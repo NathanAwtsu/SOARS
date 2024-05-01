@@ -1223,11 +1223,42 @@ class OrganizationController extends Controller
 
     public function showMembersRequest()
 {
-    // Fetch payments where the amount is 100.00
-    $payments = DB::table('payments')->where('amount', 100.00)->get();
+    $user = Auth::user();
+    $userId = $user->id;
+
+    // Retrieve the student record to get the organization
+    $student = DB::table('students')->where('student_id', $userId)->first();
+    $orgName = $student->organization2; 
+
+    // Fetch payments for the active user's organization 
+    $payments = DB::table('payments')
+                    ->where('organization', $orgName)
+                    ->where('amount', 200.00)
+                    ->where('approved', false)
+                    ->get();
 
     // Pass the payments data to the view
     return view('Student.members_request', ['payments' => $payments]);
+}
+
+public function approvePayment($paymentId)
+{
+    DB::table('payments')->where('id', $paymentId)->update(['approved' => true]);
+    
+    $payment = DB::table('payments')->where('id', $paymentId)->first();
+
+    // Update member status in student_organizations table
+    DB::table('student_organizations')
+        ->where('studentid', $payment->studno)
+        ->update(['org2_memberstatus' => 'Member']);
+
+    // Update member status in students table
+    DB::table('students')
+        ->where('student_id', $payment->studno)
+        ->update(['org2_member_status' => 'Member']);
+
+    
+    return redirect()->back()->with('success', 'Payment approved successfully.');
 }
     
 

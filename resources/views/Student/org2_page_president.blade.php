@@ -39,7 +39,7 @@
             </div>
             
             <div class="col mb-3">
-                <a href="{{url('/student/member_list')}}" class="card" style="height: 130px; background-color: #8b00d6; text-decoration: none;">
+                <a href="{{url('/student/member_list2')}}" class="card" style="height: 130px; background-color: #8b00d6; text-decoration: none;">
                     <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members {{$totalMember->count()}}</h2>
                     
                 </a>
@@ -54,7 +54,8 @@
             <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
             <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
             <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
-            <a href="{{url('/president/organization_edit/'.$organization->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
+            <a href="{{url('/president/organization_edit/'.$organization->id)}}" class="btn btn-primary">Edit Page</a>
+            <a href="{{ route('members_request') }}" class="btn btn-primary">Applying Members</a>
         </div> <br>
         
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">

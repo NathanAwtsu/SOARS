@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                     <div style="display: flex; align-items: center;">
-                        <input type="checkbox" id="termsCheckbox" style="width:10%;">
+                        <input type="checkbox" id="termsCheckbox" style="width:10%;" required>
                         <label for="termsCheckbox" style="margin-left: 5px;">I agree to the <a href="#" id="termsLink">data privacy terms & agreement</a></label>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             <!-- Modal Body -->
             <div class="modal-body">
             <p>
-                                    By checking the box, you acknowledge and agree to the following data privacy terms:
+                                    By clicking "I agree", you acknowledge and agree to the following data privacy terms:
                                 </p>
                         
                                 <h3>1. Collection of Personal Information</h3>
