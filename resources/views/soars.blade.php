@@ -12,7 +12,7 @@
                 <img src="photos/OSA LOGO.png" alt="" class="custom-image2">
                 <h1>SOARS</h1><br>
             </div>
-            <h2>Office of Student Affairs</h2>
+            <h2>Office for Student Affairs</h2>
             <form>
                 <div class="form-group">
                     <label for="username">Email:</label>

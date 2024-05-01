@@ -85,7 +85,7 @@
                     <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <img src="/storage/logo/<?php echo e($orgCoAcad->logo); ?>" alt="<?php echo e($orgCoAcad->logo); ?>" style="max-width: 200px;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <a href="<?php echo e(url('/osaemp/organization_list/organization/'.$orgCoAcad->id)); ?>" style="text-decoration: none; display: block;">
+                            <a href="<?php echo e(url('/rso_list/rso_page/'.$orgCoAcad->id)); ?>" style="text-decoration: none; display: block;">
                                 <h1 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; text-shadow: -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
                                     <?php echo e($orgCoAcad->name); ?><br>
                                     
@@ -108,7 +108,7 @@
                     <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <img src="/storage/logo/<?php echo e($orgSocioCivic->logo); ?>" alt="<?php echo e($orgSocioCivic->logo); ?>" style="max-width: 200px;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <a href="<?php echo e(url('/osaemp/organization_list/organization/'.$orgSocioCivic->id)); ?>" style="text-decoration: none; display: block;">
+                            <a href="<?php echo e(url('/rso_list/rso_page/'.$orgSocioCivic->id)); ?>" style="text-decoration: none; display: block;">
                                 <h1 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; text-shadow: -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
                                     <?php echo e($orgSocioCivic->name); ?><br>
                                     
@@ -130,7 +130,7 @@
                     <div class="card" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <img src="/storage/logo/<?php echo e($orgRel->logo); ?>" alt="<?php echo e($orgRel->logo); ?>" style="max-width: 200px;">
                         <div class="card-body" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <a href="<?php echo e(url('/osaemp/organization_list/organization/'.$orgRel->id)); ?>" style="text-decoration: none; display: block;">
+                            <a href="<?php echo e(url('/rso_list/rso_page/'.$orgRel->id)); ?>" style="text-decoration: none; display: block;">
                                 <h1 class="card-title" style="color: white; margin: 0; padding: 10px; max-height: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; text-shadow: -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
                                     <?php echo e($orgRel->name); ?><br>
                                     

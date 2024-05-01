@@ -46,6 +46,8 @@
                 <button type="submit" name="complete" value="{{$org->id}}" style="background-color: 
                 #007bff; color: #fff; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Publish for Completion</button><br>
                 @endif
+                <button type="submit" name="complete" value="{{$org->id}}" style="background-color: 
+                    #ff0000; color: #fff; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Force Publish</button><br>
             </h2>
             
             </label>
