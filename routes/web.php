@@ -233,7 +233,7 @@ Route::get('/student/org2_page/', [OrganizationController::class, 'student_organ
 //Create Annoucements
 Route::post('/student/announcement/create', [AnnouncementController::class, 'sl1_create']);
 //Propose Activities
-Route::get('/student/propose_activity', [StudentsController::class, 'sl_activity_proposal'], function(){return view('Student.activity_proposal');});
+Route::get('/student/propose_activity', [StudentsController::class, 'sl_activity_proposal']);
 Route::post('/student/activity_proposal', [StudentsController::class, 'store_events']);
 Route::post('/student/activity_approval/done', [StudentsController::class, 'event_done']);;
 //Org1 Member List
