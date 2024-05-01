@@ -339,11 +339,13 @@ class StudentsController extends Controller
 
             // Define or retrieve the $eventId 
             $eventId = DB::table('events')->where('status', 'Approved')->value('id');
+            if($eventId != null){
             $event = Event::findOrFail($eventId);
             $members = $this->getMembers($org);
+            }
 
-
-
+            $event = "Null";
+            $members = "Null";
             $orgs = DB::table('organizations')->get();
             $approved = DB::table('events')->whereIn('status', ['Approved', 'On Hold', 'Done'])->where('organization_name', '=',$org)->get();
             $activity = DB::table('events')->where('organization_name','=', $org)->where('status','=','Stand By')->get();

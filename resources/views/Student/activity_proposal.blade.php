@@ -65,7 +65,11 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="membersModalLabel">Members of {{$event->organization_name}}</h5>
+                <h5 class="modal-title" id="membersModalLabel">Members of 
+                    @if ($event != "Null")
+                    {{$event->organization_name}}
+                    @endif
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -80,6 +84,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if($event && $members != "Null")
                         @foreach($members as $member)
                         <tr>
                             <td>{{$member->first_name}} {{$member->last_name}}</td>
@@ -89,6 +94,7 @@
                             </td>
                         </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -137,6 +143,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if($event != "Null")
                     @foreach($activity as $key => $event)
                     <tr>
                         <td>{{$event->id}}</td>
@@ -165,6 +172,7 @@
                         </td>
                     </tr>
                     @endforeach
+                    @endif
                 </tbody> 
                 </table>
             </form>
