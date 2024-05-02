@@ -56,7 +56,7 @@
           <div class="row">
             <!-- First column -->
             <div class="col-md-6">
-            <form action="javascript:void(0)" id="studentForm" name="studentForm" class="form-horizontal" method="POST" enctype="multipart/form-data" style="padding-bottom=30px;">
+            <form action="javascript:void(0)" id="studentForm" name="studentForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id" id="id">
 
                         <div class="form-group">
@@ -133,11 +133,9 @@
                         <div class="form-group">
                             <label for="email" class="col-sm-4 control-label"><span style="color: red;">*</span>Email</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Enter the email in the end @adamson.edu.ph" 
-                                
-                                       pattern=".*@adamson\.edu\.ph$" 
-                                       title="Please enter a valid email address ending with @adamson.edu.ph"
-                                       required>                                       
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter the email in the end @adamson.edu.ph" required 
+                                pattern=".*@adamson\.edu\.ph$" 
+                                title="Please enter a valid email address ending with @adamson.edu.ph">
                             </div>
                         </div>
                         
@@ -166,7 +164,7 @@
                     <label for="organization2" class="col-sm-4 control-label">Organization 2</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="organization2" name="organization2">
-                            <option value="">Select Organization</option>
+                            <option value="" disabled selected>Select Organization</option>
                             <!-- Organizations will be dynamically populated here -->
                         </select>
                     </div>
@@ -213,7 +211,6 @@
                 <div class="col-sm-offset-2 col-sm-10"><br/>
                     <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                
                 </div>
             </form>
 
@@ -336,22 +333,7 @@
     }
 
     
-    function fetchOrganizations() {
-        $.ajax({
-            type: "GET",
-            url: "<?php echo e(route('fetchOrganizations')); ?>", 
-            success: function(data) {
-                $('#organization2').empty();
-                $('#organization2').append('<option value="">Select Organization</option>');
-                $.each(data, function(key, value) {
-                    $('#organization2').append('<option value="' + value.id + '">' + value.name + '</option>');
-                });
-            }
-        });
-    }
-
     
-    fetchOrganizations();
 
 
 // For submitting the form for adding or updating
@@ -364,7 +346,13 @@ function submitForm() {
         if (email.toLowerCase().endsWith("@adamson.edu.ph")) {
         formData.append('org1_member_status', $('#org1_member_status').val()); // Add org1_member_status value
         formData.append('student_id', $('#student_id').val());
-        formData.append('organization2', $('#organization2 option:selected').text()); 
+        if ($('#organization2').val() !== "") {
+            // Add organization 2 value
+            formData.append('organization2', $('#organization2 option:selected').text()); 
+        } else {
+            // If no organization is selected for Organization 2, append null
+            formData.append('organization2', null);
+        }
 
         $.ajax({
             type: 'POST',
@@ -408,6 +396,23 @@ function submitForm() {
             submitForm(); 
         }
     });
+
+    function fetchOrganizations() {
+        $.ajax({
+            type: "GET",
+            url: "<?php echo e(route('fetchOrganizations')); ?>", 
+            success: function(data) {
+                $('#organization2').empty();
+                $('#organization2').append('<option value="">Select Organization</option>');
+                $.each(data, function(key, value) {
+                    $('#organization2').append('<option value="' + value.id + '">' + value.name + '</option>');
+                });
+            }
+        });
+    }
+
+    
+    fetchOrganizations();
 
 
 </script>
