@@ -90,7 +90,7 @@ class OsaController extends Controller
         $event->ticket_selling = request('ticket_selling');
         $event->ticket_control_number = request('ticket_control_number');
         $event->other_source_of_fund = request('other_source_of_fund');
-
+        $event->comments = request('comments');
         // Save the model instance to the database
         $event->save();
 
@@ -167,7 +167,8 @@ class OsaController extends Controller
             'sponsored_by' => $request->input('sponsored_by'),
             'ticket_selling' => $request->input('ticket_selling'),
             'ticket_control_number' => $request->input('ticket_control_number'),
-            'other_source_of_fund' => $request->input('other_source_of_fund')
+            'other_source_of_fund' => $request->input('other_source_of_fund'),
+            'comments' => $request->input('comments')
         ]);
         
         return redirect('/osaemp/activity_approval')->with('success', 'You have updated the Event: '. $request->input('activity_title'));

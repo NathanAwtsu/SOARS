@@ -338,14 +338,15 @@ class StudentsController extends Controller
             $orgId = $orgsByCourse->id;
 
             // Define or retrieve the $eventId 
-            $eventId = DB::table('events')->where('status', 'Approved')->value('id');
+            $eventId = DB::table('events')->where('status', ['Approved', 'Done'])->value('id');
             if($eventId != null){
             $event = Event::findOrFail($eventId);
             $members = $this->getMembers($org);
+            }else {
+                // If $eventId is null, set $event and $members to default values
+                $event = "Null";
+                $members = "Null";
             }
-
-            $event = "Null";
-            $members = "Null";
             $orgs = DB::table('organizations')->get();
             $approved = DB::table('events')->whereIn('status', ['Approved', 'On Hold', 'Done'])->where('organization_name', '=',$org)->get();
             $activity = DB::table('events')->where('organization_name','=', $org)->where('status','=','Stand By')->get();
@@ -361,9 +362,23 @@ class StudentsController extends Controller
             ->with('organization_id', $orgId);
         }
 
-        public function store_events(){
+        public function store_events(Request $request){
             $event = new Event();
+        
+            // Handle file upload for Letter of Approval
+            if ($request->hasFile('letter_of_approval')) {
+                $file = $request->file('letter_of_approval');
+                // Check if the file is valid
+                if ($file->isValid()) {
+                    $fileName = 'letter_of_approval_' . time() . '.' . $file->getClientOriginalExtension();
+                    $file->move(public_path('storage/letter_of_approval/'), $fileName);
 
+                    $event->letter_of_approval = $fileName;
+                } else {
+                    return redirect()->back()->withInput()->withErrors(['file_error' => 'Invalid file upload.']);
+                }
+            }
+            
             // Assign values to the properties of the model instance
             $event->status = request('status');
             $event->organization_name = request('organization_name');
@@ -476,16 +491,22 @@ class StudentsController extends Controller
         $templatePath = public_path('photos/testcert.png');
         $pdf->Image($templatePath, 0, 0, 297, 210);
 
-        $pdf->SetXY(20, 20);
-        $pdf->Cell(0, 10, $event->organization_name, 0, 1, 'L');
+        
         $pdf->SetXY(67, 106.5); 
         $pdf->Cell(0, 10, $event->activity_title, 0, 1, 'C');
         
-        $pdf->SetXY(70, 100); 
-        $pdf->Cell(0, 10, $students->first_name . ' ' . $students->last_name, 0, 1, 'C');
-
         $pdf->SetXY(50, 117.5); 
         $pdf->Cell(0, 10, $event->activity_start_date, 0, 1, 'C'); 
+        
+        $pdf->SetFont('Helvetica', '', 18);
+        $pdf->SetXY(47, 20);
+        $pdf->Cell(0, 10, $event->organization_name, 0, 1, 'L');
+
+        $pdf->SetFont('Helvetica', '', 28);
+        
+        $pdf->SetXY(28, 80); 
+        $pdf->Cell(0, 10, $students->first_name . ' ' . $students->last_name, 0, 1, 'C');
+
 
         
         $pdf->Output('certificate.pdf', 'D');

@@ -178,7 +178,7 @@
     <div class="form-group row mb-2">
         <label for="comments" class="col-sm-4 col-form-label text-left">Comments</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="comments" name="comments" rows="3"></textarea>
+            <input type="text" class="form-control" id="comments" name="comments" rows="3" value="{{$event->comments}}"></textarea>
         </div>
     </div>
 

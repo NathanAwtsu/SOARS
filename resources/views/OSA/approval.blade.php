@@ -48,7 +48,7 @@
                 <td><a>{{$approve->status}}</a></td>
                 <td><a>{{$approve->organization_name}}</a></td>
                 <td>{{$approve->activity_start_date}} @ {{$approve->activity_start_time}}</td>
-                <td>{{$approve->activity_end_date}} @ {{$approve->activity_end_date}}</td>
+                <td>{{$approve->activity_end_date}} @ {{$approve->activity_end_time}}</td>
                 <td>{{$approve->venue}}</td>
                 <td>
                     <button type="submit" name="edit" value="edit_{{$approve->id}}" class= "btn btn-warning"style="padding-bottom:10px;">Edit</button>
@@ -94,6 +94,7 @@
                     <th>Ticket Selling</th>
                     <th>Ticket No.</th>
                     <th>Other Source</th>
+                    <th>Comments</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -120,6 +121,7 @@
                     <td>{{$event->ticket_selling}}</td>
                     <td>{{$event->ticket_control_number}}</td>
                     <td>{{$event->other_source_of_fund}}</td>
+                    <td>{{$event->comments}}</td>
                     <td>
                         <button type="submit" name="approve" value="approve_{{$event->id}}" class="btn btn-success" style="padding-bottom:10px;">Approve</button>
                         <button type="submit" name="edit" value="edit_{{$event->id}}" class= "btn btn-primary"style="padding-bottom:10px;">Comment</button>
@@ -352,6 +354,12 @@
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Other Source</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="other_source_of_fund" name="other_source_of_fund">
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="eventDate" class="col-sm-4 col-form-label text-left">Comments</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="comments" name="comments">
                     </div>
                 </div>
 

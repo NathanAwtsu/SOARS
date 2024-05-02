@@ -48,7 +48,7 @@
                 <td><a>{{$approve->status}}</a></td>
                 <td><a>{{$approve->organization_name}}</a></td>
                 <td>{{$approve->activity_start_date}} @ {{$approve->activity_start_time}}</td>
-                <td>{{$approve->activity_end_date}} @ {{$approve->activity_end_date}}</td>
+                <td>{{$approve->activity_end_date}} @ {{$approve->activity_end_time}}</td>
                 <td>{{$approve->venue}}</td>
                 <td>
                     <button type="button" class="btn btn-primary view-members" data-toggle="modal" data-target="#membersModal" data-organization-id="{{ $approve->id }}">View Members</button>
@@ -239,7 +239,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form style="max-width: 400px; margin: auto;" method="post" action="/student/activity_proposal">
+            <form style="max-width: 400px; margin: auto;" method="post" action="/student/activity_proposal" enctype="multipart/form-data">
                 @csrf
                 <!-- Event details input fields -->
                 <div class="form-group row mb-2">
@@ -391,6 +391,15 @@
                     <label for="eventDate" class="col-sm-4 col-form-label text-left">Other Source</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="other_source_of_fund" name="other_source_of_fund">
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="letter_of_approval" class="col-sm-10 col-form-label text-left">Letter of Approval for Chairperson, Dean, College of Science:</label>
+                    <div class="col-sm-8">
+                        <label for="letter_of_approval" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                            <span>Upload LOA</span>
+                            <input type="file" id="letter_of_approval" name="letter_of_approval" accept=".pdf" style="display: none;">
+                        </label>
                     </div>
                 </div>
 

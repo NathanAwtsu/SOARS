@@ -27,5 +27,6 @@ class Event extends Model
     'ticket_selling',
     'ticket_control_number',
     'other_source_of_fund',
+    'letter_of_approval',
     ];
 }
