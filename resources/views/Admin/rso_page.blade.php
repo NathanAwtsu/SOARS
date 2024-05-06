@@ -11,7 +11,16 @@
             <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
             <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
             <a href="{{url('/rso_list/rso_page/org_edit/'.$org->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
-        </div> <br>
+            
+            
+        </div>
+        <br>
+        <form action="{{ route('org.delete', $org->id) }}" method="POST" >
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger" onclick="return confirmDelete()">Delete Page</button>
+        </form>        
+        <br>
 
        
 
@@ -31,6 +40,7 @@
                                    
                                 </p>
                                 <img src="/storage/logo/{{$org->logo}}" alt="{{$org->logo}}" class="img-fluid mb-3">
+                                <br>
                                 <strong>Academic Course Based:</strong><br><br>
                                     {{$org->academic_course_based}}
                                 <br>
@@ -260,6 +270,13 @@
 
  </script>
 <script>
+    function confirmDelete() {
+        if (confirm("Are you sure you want to delete this page?")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
       var org_id = {{$org->id}};

@@ -45,18 +45,17 @@
                 </a>
             </div>
         </div>
-    </div>
     
-        <div class="btn-group mb-4" role="group" aria-label="Basic example" style="margin-left:35px; margin-top:2%;">
-            <button type="button" style="margin-left: 230px;" class="btn btn-primary" onclick="showMissionVision()">Mission and Vision</button>
-            <button type="button" class="btn btn-primary" onclick="showAnnouncement()">Announcements</button>
-            <button type="button" class="btn btn-primary" onclick="showListOfOfficers()">List of Officers</button>
-            <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
-            <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
-            <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
+    
+        <div class="btn-group mb-4" role="group" aria-label="Basic example" style="margin-left:35px;">
+        <button type="button" style="margin-left: 230px;" class="btn btn-primary" onclick="showMissionVision()">Mission and Vision</button>
+        <button type="button" class="btn btn-primary" onclick="showListOfOfficers()">List of Officers</button>
+        <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
+        <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
+        <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
             <a href="{{url('/student/organization_edit/'.$orgsByCourse->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
         </div> <br>
-        
+        </div>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="container mt-4">
                 
@@ -86,6 +85,7 @@
                         </div>
                         @endforeach
                         @endif
+                    </div>
                 </div>
                 <div id="missionVisionContent" class="card mt-1" style="height: 500px;">
                     <div class="card-body">

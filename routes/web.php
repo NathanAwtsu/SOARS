@@ -112,6 +112,7 @@ Route::get('/student-list', [StudentsController::class, 'studlist'])->name('stud
 Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentsController::class, 'delete']);
+Route::post('update', [StudentsController::class, 'update']);
 Route::get('get-organizations', [StudentsController::class, 'getOrganizations'])->name('getOrganizations');
 Route::get('fetchOrganizations', [StudentsController::class, 'fetchOrganizations'])->name('fetchOrganizations');
 
@@ -121,7 +122,7 @@ Route::post('stores', [OsaEmpController::class, 'stores']);
 Route::post('edits', [OsaEmpController::class, 'edits']);
 Route::post('deletes', [OsaEmpController::class, 'deletes']);
 });
-Route::get('/audit_log', function () {return view('Admin.audit_log');})->name('auditlog');
+Route::get('/audit_log', [StudentsController::class, 'showUsers'], function () {return view('Admin.audit_log');})->name('auditlog');
 //Route::get('/rso_list', [StudentOrganizationController::class, 'showRSOlist'])->name('rso_list');
 Route::get('/rso_detail', [StudentOrganizationController::class, 'showRSODetail'])->name('rso_detail');
 Route::get('/admin_profile', function(){return view('Admin.admin_profile');})->name('admin_profile');
@@ -132,6 +133,7 @@ Route::post('/admin/update_email', [UserController::class, 'admin_update_email']
 Route::get('/rso_list', [OrganizationController::class, 'new_org'], function(){return view('rso_list');})->name('rso_list');
 Route::get('/rso_list/rso_page/{id}', [OrganizationController::class, 'rso_page']);
 Route::get('/rso_list/rso_page/org_edit/{id}', [OrganizationController::class, 'org_pending']);
+Route::delete('/rso_list/rso_page/delete/{id}', [OrganizationController::class, 'org_delete'])->name('org.delete');
 Route::get('/rso_list/new_organization', function(){return view('Admin.org_list');})->name('org_list');
 Route::get('/rso_list/pending_edit/{id}', [OrganizationController::class, 'org_pending'], function(){return view('Admin/org_pending');})->name('osaorg_pending_edit');
 Route::post('/rso_list/pending_save/{id}', [OrganizationController::class, 'org_pending_save']);

@@ -113,7 +113,7 @@ class OsaEmpController extends Controller
 
         DB::table('osa')->where('employee_id', $employeeId)->update($employeeData);
 
-        return response()->make(['message' => 'OSA Employee information updated successfully']);
+        return response()->json(['message' => 'OSA Employee information updated successfully']);
     }
 
     public function deletes(Request $request)

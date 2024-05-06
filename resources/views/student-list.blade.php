@@ -186,7 +186,9 @@
                         <select class="form-select" id="org1_member_status" name="org1_member_status" required>
                             <option value="" disabled selected>Choose Status</option>
                             <option value="Member">Member</option>
+                            <option value="Student Leader">Student Leader</option>
                             <option value="President">President</option>
+                            
                         </select>
                     </div>
                 </div>
@@ -196,8 +198,13 @@
                     <div class="col-sm-8">
                         <select class="form-select" id="org2_member_status" name="org2_member_status">
                             <option value="" disabled selected>Choose Status</option>
+                            <option value="">None</option>
+                            <option value="Applying Member">Applying Member</option>
+                            <option value="Paid">Paid</option>
                             <option value="Member">Member</option>
+                            <option value="Student Leader">Student Leader</option>
                             <option value="President">President</option>
+                            
                         </select>
                     </div>
                 </div>
@@ -265,7 +272,7 @@
                         $('#organization1').empty();
                         $('#organization1').append('<option value="">Select Organization</option>');
                         $.each(data, function(key, value) {
-                            $('#organization1').append('<option value="' + value.id + '">' + value.name + '</option>');
+                            $('#organization1').append('<option value="' + value.id + '">' + value.nickname + '</option>');
                         });
                     }
                 });

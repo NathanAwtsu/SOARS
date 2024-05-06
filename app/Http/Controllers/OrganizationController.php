@@ -514,12 +514,33 @@ class OrganizationController extends Controller
                         return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' not found.');
                     }
                     
+                    // Check if the student is a member of organization1
+                if ($student->org1_member_status === 'Member') {
                     // Update the student's role
                     $student->org1_member_status = $position;
                     $student->save();
+
+                    DB::table('student_organizations')
+                        ->where('studentId', $studentNo)
+                        ->update(['org1_memberstatus' => $position]);
+                    
+                    // If the student is a "Student Leader" and being promoted to "President", update their role
+                    if ($position === 'President' && $student->org1_member_status === 'Student Leader') {
+                        $student->org1_member_status = $position;
+                        $student->save();
+                    }
+                    
+                    // Update the student's organization role in student_organizations table
+                    DB::table('student_organizations')
+                        ->where('studentId', $studentNo)
+                        ->update(['org1_memberstatus' => $position]);
+                } else {
+                    // If not a member of organization1, skip updating roles
+                    return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' is not a member of Organization1.');
                 }
             }
         }
+    }
     
         return redirect()->back()->with('success', 'Student roles updated successfully.');
     }
@@ -569,6 +590,17 @@ class OrganizationController extends Controller
         $id = $request->route('id');
         $org = Organization::find($id);
 	    return view('Admin.org_pending')->with('org',$org);
+        
+    }
+    
+    public function org_delete(Request $request, $id){
+        $id = $request->route('id');
+        $org = Organization::find($id);
+        if ($org == null) {
+            return redirect()->back()->with('error', 'Organization not found');
+        }
+        $org->delete();
+        return view('Admin.org_list')->with('success', 'Organization page deleted successfully');
         
     }
     
@@ -808,6 +840,7 @@ class OrganizationController extends Controller
 
     public function org_pending_save(Request $request, $id)
     {
+        $this->updateStudentRoles($request);
         if ($request->has('edited')) {
             $orgId = $id;
             $org = Organization::findOrFail($orgId);
@@ -1070,6 +1103,7 @@ class OrganizationController extends Controller
     }
 
     public function president_org_edit_save(Request $request, $id){
+        $this->updateStudentRoles($request);
         if ($request->has('edited') ) {
             $orgId = $id;
             $org = Organization::findOrFail($orgId);
