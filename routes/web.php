@@ -50,12 +50,7 @@ Route::get('paypal-success',[PayPalController::class,"success"])->name('paypal.s
 Route::get('paypal-cancel',[PayPalController::class,'cancel'])->name('paypal.cancel');
 
 //
-Route::get('/', function () {return view('soars');});
-Route::get('/soars', [LoginController::class, 'store'], [LoginController::class, 'create'],function () {return view('soars');});
-Route::get('/soars/store', [LoginController::class], 'store');
-Route::get('/', function () {return view('soars');});
-//reCAPTCHA
-Route::get('/soar/session_expired', function () {return view('session_expired');});
+
 
 
 Auth::routes(['verify' => true]);
@@ -121,6 +116,7 @@ Route::get('osa_list', [OsaEmpController::class, 'osalist'])->name('osalist');
 Route::post('stores', [OsaEmpController::class, 'stores']);
 Route::post('edits', [OsaEmpController::class, 'edits']);
 Route::post('deletes', [OsaEmpController::class, 'deletes']);
+Route::get('reset_password', [OsaEmpController::class, 'reset_password']);
 });
 Route::get('/audit_log', [StudentsController::class, 'showUsers'], function () {return view('Admin.audit_log');})->name('auditlog');
 //Route::get('/rso_list', [StudentOrganizationController::class, 'showRSOlist'])->name('rso_list');
@@ -218,6 +214,7 @@ Route::get('error', [PaypalController::class, 'error']);
 
 //Routes for Students
 Route::get('/student', [StudentsController::class, 'dashboard'], function(){return view('Student.dashboard');});
+Route::get('/manage_officers', [StudentOrganizationController::class, 'view_officers']);
 //Calendar for Student Organization
 Route::get('/student/org_page/event/{id}', [EventController::class, 'getEventsOrgpage']);
 //User Setting
@@ -268,7 +265,24 @@ Route::get('/terms_and_agreement_modal', function () {
 
 
 //Login Timeout
-Route::get('/soars-timeout?timeout=true');
+Route::get('/', function () {return view('soars');});
+Route::get('/soars', [LoginController::class, 'store'], [LoginController::class, 'create'],function () {return view('soars');});
+Route::get('/soars/store', [LoginController::class], 'store');
+Route::get('/', function () {return view('soars');});
+//reCAPTCHA
+Route::get('/soar/session_expired', function () {return view('session_expired');});
+
+//Timeout
+Route::get('/soars', function (Illuminate\Http\Request $request) {
+    if ($request->query('timeout') === 'true') {
+        // Handle timeout condition
+        return view('soars', ['timeout' => 'true']);
+
+    }
+
+    return view('soars');
+});
+
 //Credential Errors
 Route::get('error', function(){return view('error');});
 //Forgot Password

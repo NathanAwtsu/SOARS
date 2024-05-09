@@ -10,7 +10,7 @@
                 <img src="photos/OSA LOGO.png" alt="" class="custom-image2">
                 <h1>SOARS</h1><br>
             </div>
-            <h2>Office of Student Affairs</h2>
+            <h2>Office for Student Affairs</h2>
             <form>
                 <div class="form-group">
                     <label for="username">Email:</label>
@@ -65,17 +65,18 @@ unset($__errorArgs, $__bag); ?>
                     
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" name="remember" id="remember" style="width:10%;" <?php echo e(old('remember') ? 'checked' : ''); ?>>
-                    <label for="remember" for="remember" style="display: inline;"><?php echo e(__('Remember Me')); ?></label>
-                </div>
-                <div class="form-group">
                     <?php if(isset($_GET['timeout'])): ?>
-                        <h3 style="text-align: center; color: orangered">You've been automatically Logged out.</h3>
+                        <h3 style="text-align: center; color: orangered">You've been Logged out.</h3>
                     <?php endif; ?>
                 </div>
                 <div class="form-group">
+                    <input type="checkbox" name="remember" id="remember" style="width:10%;" <?php echo e(old('remember') ? 'checked' : ''); ?>>
+                    <label for="remember" for="remember" style="display: inline;"><?php echo e(__('Remember Me')); ?></label>
+                </div>
+                
+                <div class="form-group">
                     <div style="display: flex; align-items: center;">
-                        <input type="checkbox" id="termsCheckbox" style="width:10%;">
+                        <input type="checkbox" id="termsCheckbox" style="width:10%;" required>
                         <label for="termsCheckbox" style="margin-left: 5px;">I agree to the <a href="#" id="termsLink">data privacy terms & agreement</a></label>
                     </div>
                 </div>
@@ -102,7 +103,7 @@ unset($__errorArgs, $__bag); ?>
             <!-- Modal Body -->
             <div class="modal-body">
             <p>
-                                    By checking the box, you acknowledge and agree to the following data privacy terms:
+                                    By clicking "I agree", you acknowledge and agree to the following data privacy terms:
                                 </p>
                         
                                 <h3>1. Collection of Personal Information</h3>

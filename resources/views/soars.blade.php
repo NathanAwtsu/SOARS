@@ -39,14 +39,15 @@
                     
                 </div>
                 <div class="form-group">
+                    @isset($_GET['timeout'])
+                        <h3 style="text-align: center; color: orangered">You've been Logged out.</h3>
+                    @endisset
+                </div>
+                <div class="form-group">
                     <input type="checkbox" name="remember" id="remember" style="width:10%;" {{ old('remember') ? 'checked' : '' }}>
                     <label for="remember" for="remember" style="display: inline;">{{__('Remember Me')}}</label>
                 </div>
-                <div class="form-group">
-                    @isset($_GET['timeout'])
-                        <h3 style="text-align: center; color: orangered">You've been automatically Logged out.</h3>
-                    @endisset
-                </div>
+                
                 <div class="form-group">
                     <div style="display: flex; align-items: center;">
                         <input type="checkbox" id="termsCheckbox" style="width:10%;" required>

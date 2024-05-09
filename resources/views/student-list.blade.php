@@ -35,8 +35,6 @@
                 <th>Email</th>
                 <th>Organization 1</th>
                 <th>Organization 2</th>
-                <th>Org 1 Membership Status</th>
-                <th>Org 2 Membership Status</th>
                 <th>Phone Number</th>
                 <th>Action</th>
             </tr>
@@ -250,8 +248,6 @@
                 {data: 'email', name: 'email'},
                 {data: 'organization1', name: 'organization1'},
                 {data: 'organization2', name: 'organization2'},
-                {data: 'org1_member_status', name: 'org1_member_status'},
-                {data: 'org2_member_status', name: 'org2_member_status'},
                 {data: 'phone_number', name: 'phone_number'},
                 {data: 'action', name: 'action', orderable: false},
             ],
@@ -347,7 +343,7 @@
 
 // For submitting the form for adding or updating
 // Function to handle form submission
-function submitForm() {
+    function submitForm() {
         var actionUrl = "{{ isset($student) ? url('update') : url('store') }}";
         var formData = new FormData($('#studentForm')[0]);
         var email = $('#email').val();
@@ -414,7 +410,7 @@ function submitForm() {
                 $('#organization2').empty();
                 $('#organization2').append('<option value="">Select Organization</option>');
                 $.each(data, function(key, value) {
-                    $('#organization2').append('<option value="' + value.id + '">' + value.name + '</option>');
+                    $('#organization2').append('<option value="' + value.id + '">' + value.nickname + '</option>');
                 });
             }
         });

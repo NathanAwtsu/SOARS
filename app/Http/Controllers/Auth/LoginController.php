@@ -43,56 +43,58 @@ class LoginController extends Controller
     }
 
     protected function login(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required'
-    ]);
-
-    // Check for reCAPTCHA if login attempts are greater than or equal to 3
-    $loginAttempts = session('login_attempts', 0);
-    if ($loginAttempts >= 3) {
-        $validator = Validator::make($request->all(), [
-            'g-recaptcha-response' => 'required|captcha'
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
 
-        if ($validator->fails()) {
-            return redirect('/error?credential=404')
-                ->withErrors(['g-recaptcha-response' => 'Incorrect reCAPTCHA response. Please try again.'])
-                ->withInput();
+        // Check for reCAPTCHA if login attempts are greater than or equal to 3
+        $loginAttempts = session('login_attempts', 0);
+        if ($loginAttempts >= 3) {
+            $validator = Validator::make($request->all(), [
+                'g-recaptcha-response' => 'required|captcha'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect('/error?credential=404')
+                    ->withErrors(['g-recaptcha-response' => 'Incorrect reCAPTCHA response. Please try again.'])
+                    ->withInput();
+            }
         }
-    }
 
-    // Attempt to authenticate user
-    if (Auth::attempt($credentials, $request->has('remember'))) {
-        $user = Auth::user();
+        // Attempt to authenticate user
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            $user = Auth::user();
 
-        // Check if the user's email is verified
-        if ($user->email_verified_at !== null) {
-            session(['login_attempts' => 0]);
+            // Check if the user's email is verified
+            if ($user->email_verified_at !== null) {
+                session(['login_attempts' => 0]);
 
-            // Redirect based on user role
-            switch ($user->role) {
-                case 1:
-                    return redirect('/admin');
-                case 2:
-                    return redirect('/osaemp');
-                case 3:
-                    return redirect('/student');
-                default:
-                    Auth::logout();
-                    return redirect('/error?credential=404')->with('error', 'Something went wrong. Try again.');
+                // Redirect based on user role
+                switch ($user->role) {
+                    case 1:
+                        return redirect('/admin');
+                    case 2:
+                        return redirect('/osaemp');
+                    case 3:
+                        return redirect('/student');
+                    default:
+                        Auth::logout();
+                        return redirect('/error?credential=404')->with('error', 'Something went wrong. Try again.');
+                }
+            } else {
+                session(['login_attempts' => 0]);
+                return redirect('/verifying_email');
             }
         } else {
-            session(['login_attempts' => 0]);
-            return redirect('/verifying_email');
+            // Increment login attempts if authentication fails
+            session(['login_attempts' => $loginAttempts + 1]);
+            return redirect('/error?credential=404')->with('error', 'Incorrect email or password.');
         }
-    } else {
-        // Increment login attempts if authentication fails
-        session(['login_attempts' => $loginAttempts + 1]);
-        return redirect('/error?credential=404')->with('error', 'Incorrect email or password.');
+
+        
     }
-}
 
 
 
