@@ -148,11 +148,6 @@
                         </div>
 
 
-
-
-                
-
-                
                 </div>
 
                 <!--Second Column-->
@@ -408,13 +403,12 @@
                 $('#organization2').empty();
                 $('#organization2').append('<option value="">Select Organization</option>');
                 $.each(data, function(key, value) {
-                    $('#organization2').append('<option value="' + value.id + '">' + value.name + '</option>');
+                    $('#organization2').append('<option value="' + value.id + '">' + value.nickname + '</option>');
                 });
             }
         });
     }
 
-    
     fetchOrganizations();
 
 
