@@ -517,6 +517,10 @@ class OrganizationController extends Controller
                     // Update the student's role
                     $student->org1_member_status = $position;
                     $student->save();
+
+                    DB::table('student_organizations')
+                    ->where('studentId', $studentNo)
+                    ->update(['org1_memberstatus' => $position]);
                 }
             }
         }
@@ -568,6 +572,7 @@ class OrganizationController extends Controller
         
         $id = $request->route('id');
         $org = Organization::find($id);
+        $this->updateStudentRoles($request);
 	    return view('Admin.org_pending')->with('org',$org);
         
     }
@@ -808,6 +813,7 @@ class OrganizationController extends Controller
 
     public function org_pending_save(Request $request, $id)
     {
+        $this->updateStudentRoles($request);
         if ($request->has('edited')) {
             $orgId = $id;
             $org = Organization::findOrFail($orgId);
@@ -1261,6 +1267,63 @@ public function approvePayment($paymentId)
     return redirect()->back()->with('success', 'Payment approved successfully.');
 }
     
+public function promoteStudent(Request $request)
+{
+    $studentId = $request->input('studentId');
 
+    // Find the student by their ID
+    $student = Students::where('student_id', $studentId)->first();
+
+    if ($student) {
+        // Promote the student to Student Leader
+        $student->org1_member_status = 'Student Leader';
+        $student->save();
+
+        return response()->json(['message' => 'Student promoted successfully.']);
+    } else {
+        return response()->json(['error' => 'Student not found.'], 404);
+    }
+}
+
+public function searchStudent(Request $request)
+{
+    $query = $request->input('query');
+    $students = Students::where('student_id', 'LIKE', "%".$query->searchInput."%")->get();
+    return response($students);
+}
+
+public function showOrgOfficers($id)
+{
+    $org = Organization::find($id);
+
+    $officers = Students::where(function ($query) use ($org) {
+        $query->where('organization1', $org->name)
+              ->where('org1_member_status', '!=', 'Member')
+              ->orWhere(function ($query) use ($org) {
+                  $query->where('organization2', $org->name)
+                        ->where('org2_member_status', '!=', 'Member');
+              });
+     })
+     ->get();
+    
+    return view('Admin.org_officers')->with('officers', $officers);
+}
+
+public function getOrgMembers($id)
+{
+    $id = $request->query('id');
+    $org = Organization::find($id);
+
+    $members = Students::where(function ($query) use ($org) {
+        $query->where('organization1', $org->name)
+              ->where('org1_member_status', '=', 'Member')
+              ->orWhere(function ($query) use ($org) {
+                  $query->where('organization2', $org->name)
+                        ->where('org2_member_status', '=', 'Member');
+              });
+    })->get();
+    
+    return response()->json($members);
+}
     
 }

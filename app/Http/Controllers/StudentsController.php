@@ -22,6 +22,7 @@ use App\Models\StudentOrganization;
 use App\Mail\VerifyEmail;
 use Datatables;
 use setasign\Fpdi\Fpdi;
+use App\Mail\CertificateEmail;
 
 class StudentsController extends Controller
 {
@@ -147,94 +148,100 @@ class StudentsController extends Controller
 
 
 
-        public function store(Request $request)
-        {
-            
-            $courseId = $request->course_id;
+    public function store(Request $request)
+    {
+        
+        $courseId = $request->course_id;
 
-            $organization = Organization::where('academic_course_based', $courseId)->first();
+        $organization = Organization::where('academic_course_based', $courseId)->first();
 
-            
+        $organization2 = ($request->organization2 == "null") ? null : $request->organization2;
 
-            if (!$organization) {
-                return response()->json(['message' => 'No organization found for the provided academic course'], 400);
-            }
+        if (!$organization) {
+            return response()->json(['message' => 'No organization found for the provided academic course'], 400);
+        }
 
-            
+        
 
-            $datetime = now();
-            $studentId = $request->student_id;
-            $studentData = [
-                'last_name' => $request->last_name,
-                'middle_initial' => $request->middle_initial,
-                'first_name' => $request->first_name,
-                'course_id' => $request->course_id,
-                'email' => $request->email,
-                'email_verified_at' => null,
-                'organization1' => $organization->name,
-                'organization2' => $request->organization2,
-                'org1_member_status' => $request->org1_member_status,
-                'org2_member_status' => $request->org2_member_status,
-                'phone_number' => $request->phone_number,
-            ];
+        $datetime = now();
+        $studentId = $request->student_id;
+        $studentData = [
+            'last_name' => $request->last_name,
+            'middle_initial' => $request->middle_initial,
+            'first_name' => $request->first_name,
+            'course_id' => $request->course_id,
+            'email' => $request->email,
+            'email_verified_at' => null,
+            'organization1' => $organization->name,
+            'organization2' => $organization2,
+            'org1_member_status' => $request->org1_member_status,
+            'org2_member_status' => $request->org2_member_status,
+            'phone_number' => $request->phone_number,
+        ];
 
-            // Check if password is provided in the request
-            if (!empty($request->password)) {
-                $studentData['password'] = Hash::make($request->password); // Hash Password
-            }
+        // Check if password is provided in the request
+        if (!empty($request->password)) {
+            $studentData['password'] = Hash::make($request->password); // Hash Password
+        }
 
-            DB::table('students')->updateOrInsert(
-                ['student_id' => $studentId],
-                $studentData
-            );
+        DB::table('students')->updateOrInsert(
+            ['student_id' => $studentId],
+            $studentData
+        );
 
-            $fname= $request->first_name;
-            $mname= $request->middle_initial;
-            $lname= $request->last_name;
-            $randomString = Str::random(10);
+        $fname= $request->first_name;
+        $mname= $request->middle_initial;
+        $lname= $request->last_name;
+        $randomString = Str::random(10);
 
-            $name = $fname.' '.$mname.' '.$lname;
+        $name = $fname.' '.$mname.' '.$lname;
 
-            $verificationToken = Str::random(60);
+        $verificationToken = Str::random(60);
+        
+        $studentData2 = [
+            'course' => $request->course_id,
+            'org1' => $organization->name,
+            'org1_memberstatus' => $request->org1_member_status,
+            'org2' => $organization2,
+            'org2_memberstatus' => $request->org2_member_status,
+        ];
 
-            DB::table('student_organizations')->insert([
-                'studentId' => $studentId,
-                'course' => $request->course_id,
-                'org1' => $organization->name,
-                'org1_memberstatus' => $request->org1_member_status,
-                'org2' => $request->organization2,
-                'org2_memberstatus' => $request->org2_member_status,
-            ]);
+        DB::table('student_organizations')->updateOrInsert([
+            'studentId' => $studentId],
+            $studentData2);
 
-            $fname= $request->first_name;
-            $mname= $request->middle_initial;
-            $lname= $request->last_name;
-            $randomString = Str::random(10);
+        $fname= $request->first_name;
+        $mname= $request->middle_initial;
+        $lname= $request->last_name;
+        $randomString = Str::random(10);
+        
+        $studentData3 = [
+            'role' => '3',
+            'name' => $name,
+            'email' => $request->email,
+            'email_verified_at' => null,
+            //'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password),
+            'remember_token'=> $randomString,
+            'created_at'=>$datetime,
+            'updated_at' =>$datetime,];
 
-            $name = $fname.' '.$mname.' '.$lname;
-            DB::table('users')->insert([
-                'id' => $studentId,
-                'role' => '3',
-                'name' => $name,
-                'email' => $request->email,
-                'email_verified_at' => null,
-                //'phone_number' => $request->phone_number,
-                'password' => Hash::make($request->password),
-                'remember_token'=> $randomString,
-                'created_at'=>$datetime,
-                'updated_at' =>$datetime,
-            ]);
+        $name = $fname.' '.$mname.' '.$lname;
+        DB::table('users')->updateOrInsert([
+            'id' => $studentId],
+            $studentData3);
 
-            $user = User::where('id', $studentId)->first();
+        $user = User::where('id', $studentId)->first();
 
-            event(new Registered($user));
+        event(new Registered($user));
 
-            return response()->json(['message' => 'Student information saved successfully']);
-    }
+        return response()->json(['message' => 'Student information saved successfully']);
+}
 
 
         public function edit(Request $request)
         {
+            $studentId = $request->student_id;
             $student = DB::table('students')->where('student_id', $request->student_id)->first();
             $studentOrg = DB::table('student_organizations')->where('studentId', $request->student_id)->first();
 
@@ -257,14 +264,16 @@ class StudentsController extends Controller
             'org2_member_status' => $request->org2_member_status,
             'phone_number' => $request->phone_number,
         ];
-
+    
         // Check if password is provided in the request
-        if (!empty($request->password)) {
-            $studentData['password'] = Hash::make($request->password); // Hash Password
+        if ($request->filled('password')) {
+            $studentData['password'] = Hash::make($request->password);
         }
-
+    
+        // Update student information in the students table
         DB::table('students')->where('student_id', $studentId)->update($studentData);
-
+    
+        // Update student organization information in the student_organizations table
         $studentOrgData = [
             'course' => $request->course_id,
             'org1' => $request->organization1,
@@ -272,9 +281,18 @@ class StudentsController extends Controller
             'org2' => $request->organization2,
             'org2_memberstatus' => $request->org2_member_status,
         ];
-        // Update student organization information
         DB::table('student_organizations')->where('studentId', $studentId)->update($studentOrgData);
-
+    
+        // Update student information in the users table
+        $userData = [
+            'name' => $request->first_name . ' ' . $request->middle_initial . ' ' . $request->last_name,
+            'email' => $request->email,
+        ];
+        if ($request->filled('password')) {
+            $userData['password'] = Hash::make($request->password);
+        }
+        DB::table('users')->where('id', $studentId)->update($userData);
+    
         return response()->json(['message' => 'Student information updated successfully']);
     }
 
@@ -337,6 +355,8 @@ class StudentsController extends Controller
             $org = $orgsByCourse->name; //Select Org Name
             $orgId = $orgsByCourse->id;
 
+            $pendingEvents = DB::table('events')->whereIn('status', ['Standby', 'Rejected'])->where('organization_name', '=', $org)->get();
+
             // Define or retrieve the $eventId 
             $eventId = DB::table('events')->where('status', ['Approved', 'Done'])->value('id');
             if($eventId != null){
@@ -353,6 +373,7 @@ class StudentsController extends Controller
             
             
             return view('Student.activity_proposal')
+            ->with('pendingEvents', $pendingEvents)
             ->with('approved', $approved)
             ->with('orgsByCourse',$orgsByCourse)
             ->with('orgs', $orgs)
@@ -507,9 +528,18 @@ class StudentsController extends Controller
         $pdf->SetXY(28, 80); 
         $pdf->Cell(0, 10, $students->first_name . ' ' . $students->last_name, 0, 1, 'C');
 
-
+        $fileName = 'certificate_' . time() . '_' . $students->student_id . '.pdf';
+        $filePath = public_path('storage/certificates/' . $fileName);
         
-        $pdf->Output('certificate.pdf', 'D');
+        $pdf->Output($filePath, 'F');
+
+        // Sending email with attachment
+        $email = new CertificateEmail($students, $event, $filePath);
+        Mail::to($students->email)->send($email);
+        // Delete the temporary PDF file
+        unlink($filePath);
+
+        return redirect()->back()->with('success', 'Certificate sent successfully!');
     }
 
     

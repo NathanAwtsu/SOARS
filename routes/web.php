@@ -137,6 +137,14 @@ Route::get('/rso_list/pending_edit/{id}', [OrganizationController::class, 'org_p
 Route::post('/rso_list/pending_save/{id}', [OrganizationController::class, 'org_pending_save']);
 //Send a New Org info to the DB
 Route::post('/rso_list/new_organization', [OrganizationController::class, 'orgNew']);
+
+//Manage Officers in organization
+Route::get('/search/student', [OrganizationController::class, 'searchStudent']);
+Route::post('/promote/student',  [OrganizationController::class, 'promoteStudent']);
+Route::get('/organization/officers/{id}', [OrganizationController::class, 'showOrgOfficers'])->name('officers.list');
+Route::get('/organization/getMembers', [OrganizationController::class, 'getOrgMembers']);
+
+
 //End of Admin
 
 //OrganizationController

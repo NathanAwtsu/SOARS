@@ -53,6 +53,7 @@
                <div id="listOfOfficersContent" class="card mt-4" style="height: auto ;">
                 <div class="card-body">
                     <h4 class="card-title">List of Officers</h4><br>
+                    <a href="{{ route('officers.list', ['id' => $org->id]) }}" class="btn btn-primary mb-3">Manage Officers</a>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="officer-card">

@@ -111,7 +111,7 @@
     <center>
         <div class="table-responsive" style="margin: 0px 110px 0px 110px;">
         <div class="container-tbl-up" style="padding: 0px 0px !important; " >
-            <form method="post" action="/osaemp/activity_approval/event_approve_or_edit" >
+            <form method="post" action="/student/propose_activity" >
                 @csrf
                 
                 <table class="table table-bordered table-center" style="padding:0px 50px 0px 50px;"> <br>
@@ -139,12 +139,12 @@
                         <th>Ticket Selling</th>
                         <th>Ticket No.</th>
                         <th>Other Source</th>
-                        <th>Actions</th>
+                        <th>Comments</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if($event != "Null")
-                    @foreach($activity as $key => $event)
+                        @if($event != "Null")
+                        @foreach($pendingEvents as $key => $event)
                     <tr>
                         <td>{{$event->id}}</td>
                         <td>{{$event->status}}</td>
@@ -166,10 +166,7 @@
                         <td>{{$event->ticket_selling}}</td>
                         <td>{{$event->ticket_control_number}}</td>
                         <td>{{$event->other_source_of_fund}}</td>
-                        <td>
-                            <button type="submit" name="edit" value="edit_{{$event->id}}" class= "btn btn-primary"style="padding-bottom:10px;">Edit</button>
-                            <button type="submit" name="delete" value="reject_{{$event->id}}" class="btn btn-danger" style="padding-bottom:10px;">Delete</button>
-                        </td>
+                        <td>{{$event->comments}}</td>
                     </tr>
                     @endforeach
                     @endif

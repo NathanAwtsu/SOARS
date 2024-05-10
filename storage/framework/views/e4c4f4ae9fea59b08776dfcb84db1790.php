@@ -88,9 +88,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="course_id" class="col-sm-4 control-label"><span style="color: red;">*</span>Course ID</label>
+                            <label for="course_id" class="col-sm-4 control-label">Course ID</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="course_id" name="course_id" required>
+                                <select class="form-control" id="course_id" name="course_id">
                                     <option value="">Select Course</option>
                                     <option value="academic_course_based">Not Academic Course Based</option>
                                     <option value="ACT">Associate in Computer Technology</option>
@@ -140,7 +140,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
+                            <label for="organization1" class="col-sm-4 control-label">Organization 1</label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="organization1" name="organization1">
                                     <option value="">Select Organization</option>
@@ -179,11 +179,12 @@
 
 
                 <div class="form-group">
-                    <label for="org1_member_status" class="col-sm control-label"><span style="color: red;">*</span>Org 1 Membership Status</label>
+                    <label for="org1_member_status" class="col-sm control-label">Org 1 Membership Status</label>
                     <div class="col-sm-8">
-                        <select class="form-select" id="org1_member_status" name="org1_member_status" required>
+                        <select class="form-select" id="org1_member_status" name="org1_member_status" >
                             <option value="" disabled selected>Choose Status</option>
                             <option value="Member">Member</option>
+                            <option value="Student Leader">Student Leader</option>
                             <option value="President">President</option>
                         </select>
                     </div>
@@ -194,7 +195,11 @@
                     <div class="col-sm-8">
                         <select class="form-select" id="org2_member_status" name="org2_member_status">
                             <option value="" disabled selected>Choose Status</option>
+                            <option value="">None</option>
+                            <option value="Applying Member">Applying Member</option>
+                            <option value="Paid">Paid</option>
                             <option value="Member">Member</option>
+                            <option value="Student Leader">Student Leader</option>
                             <option value="President">President</option>
                         </select>
                     </div>
