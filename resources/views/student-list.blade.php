@@ -150,11 +150,6 @@
                         </div>
 
 
-
-
-                
-
-                
                 </div>
 
                 <!--Second Column-->
@@ -416,7 +411,6 @@
         });
     }
 
-    
     fetchOrganizations();
 
 
