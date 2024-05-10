@@ -104,7 +104,7 @@ Route::get('/admin', [StudentsController::class, 'showDashboard'])->name('admin'
 
 //Student Creation
 Route::get('/student-list', [StudentsController::class, 'studlist'])->name('studlist');
-Route::post('store', [StudentsController::class, 'store']);
+Route::post('store', [StudentsController::class, 'store'])->name('store');
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentsController::class, 'delete']);
 Route::post('update', [StudentsController::class, 'update']);

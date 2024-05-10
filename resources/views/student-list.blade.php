@@ -18,9 +18,9 @@
             </div>
         </div>
     </div>
-@if ($message = Session::get('success'))
+@if (session('success'))
     <div class="alert alert-success">
-        <p>{{$message}}</p>
+        <p>{{session('success')}}</p>
     </div>
 @endif
 <div class="card-body">
@@ -88,9 +88,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="course_id" class="col-sm-4 control-label">Course ID</label>
+                            <label for="course_id" class="col-sm-4 control-label"><span style="color: red;">*</span>Course ID</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="course_id" name="course_id">
+                                <select class="form-control" id="course_id" name="course_id" required>
                                     <option value="">Select Course</option>
                                     <option value="academic_course_based">Not Academic Course Based</option>
                                     <option value="ACT">Associate in Computer Technology</option>
@@ -140,7 +140,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="organization1" class="col-sm-4 control-label">Organization 1</label>
+                            <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="organization1" name="organization1">
                                     <option value="">Select Organization</option>
@@ -174,9 +174,9 @@
 
 
                 <div class="form-group">
-                    <label for="org1_member_status" class="col-sm control-label">Org 1 Membership Status</label>
+                    <label for="org1_member_status" class="col-sm control-label"><span style="color: red;">*</span>Org 1 Membership Status</label>
                     <div class="col-sm-8">
-                        <select class="form-select" id="org1_member_status" name="org1_member_status" >
+                        <select class="form-select" id="org1_member_status" name="org1_member_status" required>
                             <option value="" disabled selected>Choose Status</option>
                             <option value="Member">Member</option>
                             <option value="Student Leader">Student Leader</option>
