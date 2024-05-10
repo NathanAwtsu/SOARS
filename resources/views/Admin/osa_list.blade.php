@@ -6,24 +6,32 @@
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <div class="container mt-2">
+            @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+
+            <div class="alert alert-success" id="success" style="display: none;">
+                A new user has been created
+            </div>
     <div class="row">
         <div class="col-lg-12 margin-tb">
             
             <div class="pull-left">
                 <h2>OSA PERSONNEL LIST</h2>
             </div>
-                
 
+            
+                
             <div class="pull-right mb-2">
                 <a href="javascript:void(0)" class="btn btn-success" onClick="add()">Add Employee</a>
             </div>
-            @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{$message}}</p>
-            </div>
-            @endif
+            
         </div>
     </div>
+
+    
 
 <div class="card-body">
     <table class="table table-bordered" id="osa_list">
@@ -34,7 +42,6 @@
                 <th>Middle Initial</th>
                 <th>First Name</th>
                 <th>Email</th>
-                <th>Email_verified at</th>
                 <th>Phone Number</th>
                 <th>Action</th>
             </tr>
@@ -96,9 +103,12 @@
     
 
     <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">Password</label>
+        <label for="password" id="lbl_password" class="col-sm-2 control-label">Password</label>
         <div class="col-sm-12">
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+        
+            <a href="reset_password" id="reset_pass" style="display: none; padding: 10px 0 10px 0;">Reset Password</a>
+            
         </div>
     </div>
 
@@ -138,7 +148,6 @@ $(document).ready(function (){
                 {data: 'middle_initial', name: 'middle_initial'},
                 {data: 'first_name', name: 'first_name'},
                 {data: 'email', name: 'email'},
-                {data: 'email_verified_at', name: 'email_verified_at'},
                 {data: 'phone_number', name: 'phone_number'},
                 {data: 'action', name: 'action', orderable: false},
             ],
@@ -162,9 +171,12 @@ $(document).ready(function (){
                     $('#first_name').val(res.first_name);
                     $('#email').val(res.email);
                     $('#phone_number').val(res.phone_number);
-
                     if (res.password) {
                     $('#password').val(res.password);
+                    document.getElementById('lbl_password').style.display = "none";
+                    document.getElementById('password').style.display = "none";
+                    document.getElementById('reset_pass').style.display = 'block';
+                    window.location.href = "{{ url('reset_password') }}" + "?employee_id=" + id;
                 }
                 },
                 error: function (xhr, status, error) {
@@ -172,6 +184,14 @@ $(document).ready(function (){
                 // Handle error or log the details for troubleshooting
                 }
             });
+        }
+
+    function showEventModal(content) {
+        // Set the HTML content in the modal body
+        document.getElementById('eventDescriptionModalBody').innerHTML = content;
+
+        // Show the modal
+        $('#eventDescriptionModal').modal('show');
         }
 
         //for deleting students
@@ -216,6 +236,7 @@ $('#osaForm').submit(function(event){
         success: function(response) {
             console.log(response.message);
             $('#osaModal').modal('hide');
+            document.getElementById('success').style.display = 'block';
             $('#osa_list').DataTable().ajax.reload(); 
         },
         error: function(xhr, status, error){ 

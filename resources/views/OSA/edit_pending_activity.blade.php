@@ -103,7 +103,7 @@
             </select>
         </div>
     </div>
-    
+    </div>
     <div class="form-group row mb-2">
         <label for="eventDate" class="col-sm-4 col-form-label text-left">Participants:</label>
         <div class="col-sm-8">
@@ -175,10 +175,18 @@
             <input type="text" class="form-control" id="other_source_of_fund" name="other_source_of_fund" value="{{$event->other_source_of_fund}}">
         </div>
     </div>
+    
+    <div class="form-group row mb-2">
+        <label for="eventDate" class="col-sm-4 col-form-label text-left">LOA</label>
+        <h6 style="text-align: start;">
+        <iframe src="/storage/letter_of_approval/{{$event->letter_of_approval}}" width="100%" height="600px"></iframe>
+        </h6>
+    </div>
+    
     <div class="form-group row mb-2">
         <label for="comments" class="col-sm-4 col-form-label text-left">Comments</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="comments" name="comments" rows="3" value="{{$event->comments}}"></textarea>
+            <input type="text" class="form-control" id="comments" name="comments" rows="3">{{$event->comments}}</textarea>
         </div>
     </div>
 

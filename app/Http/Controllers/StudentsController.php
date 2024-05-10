@@ -148,36 +148,39 @@ class StudentsController extends Controller
 
 
 
-    public function store(Request $request)
-    {
-        
-        $courseId = $request->course_id;
+       public function store(Request $request)
+        {
+            
+            $courseId = $request->course_id;
+            $studentId = $request->student_id;
+            /*
+            $stuentTableVerify = DB::table('student')->where('student_id', $studentId)->get();
+            $studentorgTableVerify = DB::table('student_organizations')->where('studentId', $studentId)->get();
+            $userVerify = DB::table('users')->where('id', $studentId)->get();
+            */
 
         $organization = Organization::where('academic_course_based', $courseId)->first();
 
-        $organization2 = ($request->organization2 == "null") ? null : $request->organization2;
+            $organization2 = ($request->organization2 == "null") ? null : $request->organization2;
 
-        if (!$organization) {
-            return response()->json(['message' => 'No organization found for the provided academic course'], 400);
-        }
-
-        
-
-        $datetime = now();
-        $studentId = $request->student_id;
-        $studentData = [
-            'last_name' => $request->last_name,
-            'middle_initial' => $request->middle_initial,
-            'first_name' => $request->first_name,
-            'course_id' => $request->course_id,
-            'email' => $request->email,
-            'email_verified_at' => null,
-            'organization1' => $organization->name,
-            'organization2' => $organization2,
-            'org1_member_status' => $request->org1_member_status,
-            'org2_member_status' => $request->org2_member_status,
-            'phone_number' => $request->phone_number,
-        ];
+            if (!$organization) {
+                return response()->json(['message' => 'No organization found for the provided academic course'], 400);
+            }
+            
+            $datetime = now();
+            $studentData = [
+                'last_name' => $request->last_name,
+                'middle_initial' => $request->middle_initial,
+                'first_name' => $request->first_name,
+                'course_id' => $request->course_id,
+                'email' => $request->email,
+                'email_verified_at' => null,
+                'organization1' => $organization->nickname,
+                'organization2' => $organization2,
+                'org1_member_status' => $request->org1_member_status,
+                'org2_member_status' => $request->org2_member_status,
+                'phone_number' => $request->phone_number,
+            ];
 
         // Check if password is provided in the request
         if (!empty($request->password)) {
@@ -196,47 +199,62 @@ class StudentsController extends Controller
 
         $name = $fname.' '.$mname.' '.$lname;
 
-        $verificationToken = Str::random(60);
+            $verificationToken = Str::random(60);
+            
+            $studentData2 = [
+                'course' => $request->course_id,
+                'org1' => $organization->name,
+                'org1_memberstatus' => $request->org1_member_status,
+                'org2' => $organization2,
+                'org2_memberstatus' => $request->org2_member_status,
+            ];
+
+            DB::table('student_organizations')->updateOrInsert([
+                'studentId' => $studentId],
+                $studentData2);
+
+            $fname= $request->first_name;
+            $mname= $request->middle_initial;
+            $lname= $request->last_name;
+            $randomString = Str::random(10);
+            $userExists = User::find($studentId);
+
+            if (!$userExists) {
+                $name = $request->first_name . ' ' . $request->middle_initial . ' ' . $request->last_name;
         
-        $studentData2 = [
-            'course' => $request->course_id,
-            'org1' => $organization->name,
-            'org1_memberstatus' => $request->org1_member_status,
-            'org2' => $organization2,
-            'org2_memberstatus' => $request->org2_member_status,
-        ];
-
-        DB::table('student_organizations')->updateOrInsert([
-            'studentId' => $studentId],
-            $studentData2);
-
-        $fname= $request->first_name;
-        $mname= $request->middle_initial;
-        $lname= $request->last_name;
-        $randomString = Str::random(10);
+                DB::table('users')->insert([
+                    'id' => $studentId,
+                    'role' => '3',
+                    'name' => $name,
+                    'email' => $request->email,
+                    'email_verified_at' => null, // You may adjust this based on your requirements
+                    'password' => Hash::make($request->password),
+                    'remember_token' => $randomString,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            
+                $user = User::where('id', $studentId)->first();
+                
+                event(new Registered($user));
+            }
+            
+            else
+            {
+                $name = $request->first_name . ' ' . $request->middle_initial . ' ' . $request->last_name;
+                DB::table('users')->where('id', $studentId)->update(
+                    ['name' => $name],
+                    ['email' => $request->email],
+                    ['password' => Hash::make($request->password)],
+                    ['remember_token' => $randomString],
+                    ['updated_at' => now()]
+                );
+            }
+            
         
-        $studentData3 = [
-            'role' => '3',
-            'name' => $name,
-            'email' => $request->email,
-            'email_verified_at' => null,
-            //'phone_number' => $request->phone_number,
-            'password' => Hash::make($request->password),
-            'remember_token'=> $randomString,
-            'created_at'=>$datetime,
-            'updated_at' =>$datetime,];
-
-        $name = $fname.' '.$mname.' '.$lname;
-        DB::table('users')->updateOrInsert([
-            'id' => $studentId],
-            $studentData3);
-
-        $user = User::where('id', $studentId)->first();
-
-        event(new Registered($user));
-
-        return response()->json(['message' => 'Student information saved successfully']);
-}
+            return response()->json(['message' => 'Student information saved successfully']);
+    }
+            
 
 
         public function edit(Request $request)
@@ -251,7 +269,17 @@ class StudentsController extends Controller
     public function update(Request $request)
     {
         $studentId = $request->student_id;
-
+    
+        // Retrieve the current organization information for the student
+        $currentStudentOrg = DB::table('student_organizations')->where('studentId', $studentId)->first();
+    
+        // Retrieve the student record from the database
+        $student = Student::where('student_id', $studentId)->first();
+        if (!$student) {
+            return response()->json(['message' => 'Student not found'], 404);
+        }
+    
+        // Prepare student data for updating
         $studentData = [
             'last_name' => $request->last_name,
             'middle_initial' => $request->middle_initial,
@@ -271,30 +299,34 @@ class StudentsController extends Controller
         }
     
         // Update student information in the students table
-        DB::table('students')->where('student_id', $studentId)->update($studentData);
+        $student->fill($studentData);
+        $student->save();
     
-        // Update student organization information in the student_organizations table
-        $studentOrgData = [
-            'course' => $request->course_id,
-            'org1' => $request->organization1,
-            'org1_memberstatus' => $request->org1_member_status,
-            'org2' => $request->organization2,
-            'org2_memberstatus' => $request->org2_member_status,
-        ];
-        DB::table('student_organizations')->where('studentId', $studentId)->update($studentOrgData);
-    
-        // Update student information in the users table
-        $userData = [
-            'name' => $request->first_name . ' ' . $request->middle_initial . ' ' . $request->last_name,
-            'email' => $request->email,
-        ];
-        if ($request->filled('password')) {
-            $userData['password'] = Hash::make($request->password);
+        // Update or insert student organization information
+        if ($currentStudentOrg) {
+            // If student organization record exists, update it
+            DB::table('student_organizations')->where('studentId', $studentId)->update([
+                'course' => $request->course_id,
+                'org1' => $request->organization1,
+                'org1_memberstatus' => $request->org1_member_status,
+                'org2' => $request->organization2,
+                'org2_memberstatus' => $request->org2_member_status,
+            ]);
+        } else {
+            // If student organization record doesn't exist, insert it
+            DB::table('student_organizations')->insert([
+                'studentId' => $studentId,
+                'course' => $request->course_id,
+                'org1' => $request->organization1,
+                'org1_memberstatus' => $request->org1_member_status,
+                'org2' => $request->organization2,
+                'org2_memberstatus' => $request->org2_member_status,
+            ]);
         }
-        DB::table('users')->where('id', $studentId)->update($userData);
     
         return response()->json(['message' => 'Student information updated successfully']);
     }
+
 
         public function delete(Request $request)
         {
@@ -325,6 +357,13 @@ class StudentsController extends Controller
                 'osaEmpCount' => $osaEmpCount,
                 'recentUsers' =>$recentUsers,
                 'RSOCount'    =>$RSOCount,
+            ]);
+        }
+        
+        public function showUsers(){
+            $recentUsers = $this->recentUser();
+            return view('Admin.audit_log', [
+                'recentUsers' =>$recentUsers,
             ]);
         }
 

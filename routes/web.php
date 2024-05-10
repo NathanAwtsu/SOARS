@@ -50,12 +50,7 @@ Route::get('paypal-success',[PayPalController::class,"success"])->name('paypal.s
 Route::get('paypal-cancel',[PayPalController::class,'cancel'])->name('paypal.cancel');
 
 //
-Route::get('/', function () {return view('soars');});
-Route::get('/soars', [LoginController::class, 'store'], [LoginController::class, 'create'],function () {return view('soars');});
-Route::get('/soars/store', [LoginController::class], 'store');
-Route::get('/', function () {return view('soars');});
-//reCAPTCHA
-Route::get('/soar/session_expired', function () {return view('session_expired');});
+
 
 
 Auth::routes(['verify' => true]);
@@ -112,6 +107,7 @@ Route::get('/student-list', [StudentsController::class, 'studlist'])->name('stud
 Route::post('store', [StudentsController::class, 'store']);
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentsController::class, 'delete']);
+Route::post('update', [StudentsController::class, 'update']);
 Route::get('get-organizations', [StudentsController::class, 'getOrganizations'])->name('getOrganizations');
 Route::get('fetchOrganizations', [StudentsController::class, 'fetchOrganizations'])->name('fetchOrganizations');
 
@@ -120,8 +116,9 @@ Route::get('osa_list', [OsaEmpController::class, 'osalist'])->name('osalist');
 Route::post('stores', [OsaEmpController::class, 'stores']);
 Route::post('edits', [OsaEmpController::class, 'edits']);
 Route::post('deletes', [OsaEmpController::class, 'deletes']);
+Route::get('reset_password', [OsaEmpController::class, 'reset_password']);
 });
-Route::get('/audit_log', function () {return view('Admin.audit_log');})->name('auditlog');
+Route::get('/audit_log', [StudentsController::class, 'showUsers'], function () {return view('Admin.audit_log');})->name('auditlog');
 //Route::get('/rso_list', [StudentOrganizationController::class, 'showRSOlist'])->name('rso_list');
 Route::get('/rso_detail', [StudentOrganizationController::class, 'showRSODetail'])->name('rso_detail');
 Route::get('/admin_profile', function(){return view('Admin.admin_profile');})->name('admin_profile');
@@ -132,6 +129,7 @@ Route::post('/admin/update_email', [UserController::class, 'admin_update_email']
 Route::get('/rso_list', [OrganizationController::class, 'new_org'], function(){return view('rso_list');})->name('rso_list');
 Route::get('/rso_list/rso_page/{id}', [OrganizationController::class, 'rso_page']);
 Route::get('/rso_list/rso_page/org_edit/{id}', [OrganizationController::class, 'org_pending']);
+Route::delete('/rso_list/rso_page/delete/{id}', [OrganizationController::class, 'org_delete'])->name('org.delete');
 Route::get('/rso_list/new_organization', function(){return view('Admin.org_list');})->name('org_list');
 Route::get('/rso_list/pending_edit/{id}', [OrganizationController::class, 'org_pending'], function(){return view('Admin/org_pending');})->name('osaorg_pending_edit');
 Route::post('/rso_list/pending_save/{id}', [OrganizationController::class, 'org_pending_save']);
@@ -224,6 +222,7 @@ Route::get('error', [PaypalController::class, 'error']);
 
 //Routes for Students
 Route::get('/student', [StudentsController::class, 'dashboard'], function(){return view('Student.dashboard');});
+Route::get('/manage_officers', [StudentOrganizationController::class, 'view_officers']);
 //Calendar for Student Organization
 Route::get('/student/org_page/event/{id}', [EventController::class, 'getEventsOrgpage']);
 //User Setting
@@ -274,7 +273,24 @@ Route::get('/terms_and_agreement_modal', function () {
 
 
 //Login Timeout
-Route::get('/soars-timeout?timeout=true');
+Route::get('/', function () {return view('soars');});
+Route::get('/soars', [LoginController::class, 'store'], [LoginController::class, 'create'],function () {return view('soars');});
+Route::get('/soars/store', [LoginController::class], 'store');
+Route::get('/', function () {return view('soars');});
+//reCAPTCHA
+Route::get('/soar/session_expired', function () {return view('session_expired');});
+
+//Timeout
+Route::get('/soars', function (Illuminate\Http\Request $request) {
+    if ($request->query('timeout') === 'true') {
+        // Handle timeout condition
+        return view('soars', ['timeout' => 'true']);
+
+    }
+
+    return view('soars');
+});
+
 //Credential Errors
 Route::get('error', function(){return view('error');});
 //Forgot Password

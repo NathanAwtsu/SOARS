@@ -4,95 +4,25 @@
 
 <!-- Your main content goes here -->
     <main >
-        <div class="container-audit">
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>Action</th>
-                <th>User</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <tr>
-                <td>2023-10-15 09:30 AM</td>
-                <td>Login</td>
-                <td>User123</td>
-                <td>User User123 logged in.</td>
-            </tr>
-            <!-- Add more log entries here -->
-        </table>
-    </div>
+       <div class="mt-4">
+            <h3>Recently Created User Accounts</h3>
+                <div class="list-group">
+                @forelse ($recentUsers as $user)
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">{{ $user->name }}</h5>
+                                            <small>{{ $user->created_at->format('F j, Y') }}</small>
+                                        </div>
+                                        <p class="mb-1">{{ $user->email }}</p>
+                                        <small class="text-muted">User ID: {{ $user->id }}</small>
+                                    </a>
+                                @empty
+                                    <div class="alert alert-info" role="alert">
+                                        No recently created users found.
+                                    </div>
+                                @endforelse
+                </div>
+        </div>
        
     </main>
 

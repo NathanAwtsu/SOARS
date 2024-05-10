@@ -70,6 +70,11 @@ class StudentOrganizationController extends Controller
     return view('student_orgs.rso_list', compact('categories'));
 }
 
+public function view_officers(){
+    
+    
+}
+
 public function showRSODetail(Request $request)
     {
         $content = $request->query('content');
@@ -98,5 +103,6 @@ public function showRSODetail(Request $request)
 
 
 }
+
 
 

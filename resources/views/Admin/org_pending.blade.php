@@ -22,13 +22,23 @@
 <center>
     
     <main style="padding-top: 80px;">
+        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example" style=" margin-top:2%; margin-bottom:2%; ">
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showOverall()">Overall</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showInformation()">Information</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showFiles()">Attachment Files</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showAdviser()">Adviser</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showPresident()">President</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showOfficers()">Officers</button>            
+        </div> <br>
        
     <div class="card" style="height: auto; width: 700px;">
         <center>
+            <form action="/rso_list/pending_save/{{$org->id}}" method="POST" enctype="multipart/form-data" style="text-align:start;">
+            <div id="information" class="card" style="height: auto; width: 700px; text-align:left;">
             <h1>Organization Information Form</h1> <br><br>
-        </center>
         
-        <form action="/rso_list/pending_save/{{$org->id}}" method="POST" enctype="multipart/form-data" style="text-align:start;">
+        
+        
             @csrf
             
             
@@ -113,8 +123,9 @@
                 <option value="BSPharma"{{$org->academic_course_based == 'BSPharma' ? 'selected' : ' '}}>Bachelor of Science in Pharmacy</option>
                 <option value="BSPsych"{{$org->academic_course_based == 'BSPsych' ? 'selected' : ' '}}>Bachelor of Science in Psychology</option>
              </select><br></br>
+             </div>
 
-
+            <div id="attachmentfiles" class="card" style="height: auto; width: 700px; text-align:left;">
             <!--Logo-->
             <label for="logoFile"><h3>Logo:</h3></label>
             @if (isset($org->logo))
@@ -199,12 +210,16 @@
             @endif
 
 
+            </div>
+
+            <div id="label" class="card" style="height: auto; width: 700px; text-align:left;">
             <label for="advisersInfoText">
-                <h2>Edit Advisers and Officers Information:</h2>
+                <center>
+                <h1>Enter Advisers and Officers Information:</h1>
+                </center>
             </label>
             
-            <div id="listOfOfficersContent" class="card mt-4 mb-4" style="height: auto; text-align:start;">
-                <div class="card-body">
+            <div id="adviser" class="card mt-4 mb-4" style="height: auto; text-align:left;">
                     <div class="row">
                         <div class="col-md-15">
                             <div class="officer-card">
@@ -232,7 +247,44 @@
                             </div>
                         </div>
                     </div>
-                    <br><br>
+                </div>
+            </div>
+            
+            
+                <div id="president" class="card mt-4 mb-4" style="height: auto; text-align:left;">
+                <div class="card-body">
+                    <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h3>President:</h3></label><br>
+                                    <label for="president_studno" style="text-align:left;">Student No:</label><br>
+                                    <input type="number" id="president_studno" name="president_studno" maxlength="9"placeholder="{{$org->president_studno}}" value="{{$org->president_studno}}"style="width: 100%;"><br><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label><br>
+                                    <input type="text" id="president_name" name="president_name" placeholder="{{$org->president_name}}" value="{{$org->president_name}}"style="width: 100%;"><br><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
+                                    <input type="email" id="president_email" name="president_email" placeholder="{{$org->president_email}}" value="{{$org->president_email}}"style="width: 100%;"><br>
+                                    @if (isset($org->president_photo))
+                                    <br><h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/president_photo/{{$org->president_photo}}" alt="{{$org->president_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change President Photo</span>
+                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->president_photo == null)
+                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                        </div>
+                        </div>
+                </div>
+            </div>
+            
+            
+            <div id="officers" class="card mt-4 mb-4" style="height: auto; text-align:left;">
                         <div class="col-md-15">
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h3>AUSG Representative:</h3></label><br>
@@ -258,37 +310,9 @@
                                         <input type="file" id="ausg_rep_photo" name="ausg_rep_photo" accept=".png, .jpg, .jpeg" style="display: none;">
                                     </label><br><br>
                                     @endif
-                            </div>
+                                    </div>
                         </div>
-                        <br><br>
-                        <div class="col-md-15">
-                            <div class="officer-card">
-                                    <label for="janePosition" style="text-align:left;"><h3>President:</h3></label><br>
-                                    <label for="president_studno" style="text-align:left;">Student No:</label><br>
-                                    <input type="number" id="president_studno" name="president_studno" maxlength="9"placeholder="{{$org->president_studno}}" value="{{$org->president_studno}}"style="width: 100%;"><br><br>
-                                    <label for="janeContact" style="text-align:left;">Name:</label><br>
-                                    <input type="text" id="president_name" name="president_name" placeholder="{{$org->president_name}}" value="{{$org->president_name}}"style="width: 100%;"><br><br>
-                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
-                                    <input type="email" id="president_email" name="president_email" placeholder="{{$org->president_email}}" value="{{$org->president_email}}"style="width: 100%;"><br>
-                                    @if (isset($org->president_photo))
-                                    <br><h6 style="text-align: start;">
-                                    <img src="/storage/organization_officer_photo/president_photo/{{$org->president_photo}}" alt="{{$org->president_photo}}" style="max-width: 200px; padding-bottom:10px;">
-                                    </h6>
-                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
-                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Change President Photo</span>
-                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
-                                    </label><br><br>
-                                    @endif
-                                    @if ($org->president_photo == null)
-                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                        <span>Upload Photo</span>
-                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
-                                    </label><br><br>
-                                    @endif
-                            </div>
-                        </div>
-                        <br><br>
+                            
                         <div class="col-md-15">
                             <div class="officer-card">
                                     <label for="janePosition" style="text-align:left;"><h3>Vp Internal:</h3></label><br>
@@ -468,11 +492,64 @@
                         <button type="submit" name="cancel" style="background-color: #7e7e7e; color: #fff; padding: 10px 15px; border-radius: 5px; cursor: pointer;margin-right:550px;">Cancel</button>
                         @endif
                     </div>
+                    
                 </div>
             </div>
+        </center>
         </form>
     </main>
 </center>
+
+
+<script>
+    function showOverall(){
+        document.getElementById('information').style.display = 'block';
+        document.getElementById('attachmentfiles').style.display = 'block';
+        document.getElementById('adviser').style.display = 'block';
+        document.getElementById('president').style.display = 'block';
+        document.getElementById('officers').style.display = 'block';
+    }
+    function showInformation(){
+        document.getElementById('information').style.display = 'block';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'none'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showFiles(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'block';
+        document.getElementById('label').style.display = 'none'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showAdviser(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'block';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showPresident(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'block';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showOfficers(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'block';
+    }
+</script>
             
 
 <script>

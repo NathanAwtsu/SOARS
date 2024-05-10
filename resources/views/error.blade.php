@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     @isset($_GET['credential'])
-                        <h3 style="text-align: center; color: orangered">Your email or password must be incorrect</h3>
+                        <h3 style="text-align: center; color: orangered">Your credentials is incorrect</h3>
                     @endisset
                 </div>
                 
