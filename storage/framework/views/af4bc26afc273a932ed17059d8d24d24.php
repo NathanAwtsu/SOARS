@@ -65,14 +65,15 @@ unset($__errorArgs, $__bag); ?>
                     
                 </div>
                 <div class="form-group">
+                    <?php if(isset($_GET['timeout'])): ?>
+                        <h3 style="text-align: center; color: orangered">You've been Logged out.</h3>
+                    <?php endif; ?>
+                </div>
+                <div class="form-group">
                     <input type="checkbox" name="remember" id="remember" style="width:10%;" <?php echo e(old('remember') ? 'checked' : ''); ?>>
                     <label for="remember" for="remember" style="display: inline;"><?php echo e(__('Remember Me')); ?></label>
                 </div>
-                <div class="form-group">
-                    <?php if(isset($_GET['timeout'])): ?>
-                        <h3 style="text-align: center; color: orangered">You've been automatically Logged out.</h3>
-                    <?php endif; ?>
-                </div>
+                
                 <div class="form-group">
                     <div style="display: flex; align-items: center;">
                         <input type="checkbox" id="termsCheckbox" style="width:10%;" required>

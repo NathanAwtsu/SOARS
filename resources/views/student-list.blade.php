@@ -342,17 +342,22 @@
         var actionUrl = "{{ isset($student) ? url('update') : url('store') }}";
         var formData = new FormData($('#studentForm')[0]);
         var email = $('#email').val();
+        var organization2 = $('#organization2').val() || null;
+
 
         if (email.toLowerCase().endsWith("@adamson.edu.ph")) {
-        formData.append('org1_member_status', $('#org1_member_status').val()); // Add org1_member_status value
+
         formData.append('student_id', $('#student_id').val());
-        if ($('#organization2').val() !== "") {
-            // Add organization 2 value
-            formData.append('organization2', $('#organization2 option:selected').text()); 
-        } else {
-            // If no organization is selected for Organization 2, append null
-            formData.append('organization2', null);
+        formData.append('organization2', organization2);
+        var org1MemberStatus = $('#org1_member_status').val();
+
+        // If the value is 'Choose Status', set it to null
+        if (org1MemberStatus === 'Choose Status') {
+            org1MemberStatus = null;
         }
+
+        // Append org1_member_status to formData
+        formData.append('org1_member_status', org1MemberStatus);
 
         $.ajax({
             type: 'POST',

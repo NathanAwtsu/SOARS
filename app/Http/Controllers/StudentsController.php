@@ -150,21 +150,41 @@ class StudentsController extends Controller
 
        public function store(Request $request)
         {
+            $courseId = $request->course_id;
             $studentId = $request->student_id;
+            /*
+            $stuentTableVerify = DB::table('student')->where('student_id', $studentId)->get();
+            $studentorgTableVerify = DB::table('student_organizations')->where('studentId', $studentId)->get();
+            $userVerify = DB::table('users')->where('id', $studentId)->get();
+            */
 
+            if ($courseId) {
+                // Fetch organization only if Course ID is provided
+                $organization = Organization::where('academic_course_based', $courseId)->first();
+        
+                // Check if organization exists for the provided Course ID
+                if (!$organization) {
+                    return response()->json(['message' => 'No organization found for the provided academic course'], 400);
+                }
+            } else {
+                // Set organization to null if Course ID is not provided
+                $organization = null;
+            }
+            $organization2 = ($request->organization2 === "Select Organization") ? null : $request->organization2;
+            $org1MemberStatus = $request->org1_member_status === 'null' ? null : $request->org1_member_status;
             
             $datetime = now();
             $studentData = [
                 'last_name' => $request->last_name,
                 'middle_initial' => $request->middle_initial,
                 'first_name' => $request->first_name,
-                'course_id' => null,
+                'course_id' => $request->course_id,
                 'email' => $request->email,
                 'email_verified_at' => null,
-                'organization1' => null,
-                'organization2' => null,
-                'org1_member_status' => null,
-                'org2_member_status' => null,
+                'organization1' => $organization ? $organization->nickname : null,
+                'organization2' => $organization2,
+                'org1_member_status' => $org1MemberStatus,
+                'org2_member_status' => $request->org2_member_status,
                 'phone_number' => $request->phone_number,
             ];
 
@@ -189,10 +209,10 @@ class StudentsController extends Controller
             
             $studentData2 = [
                 'course' => $request->course_id,
-                'org1' => null,
-                'org1_memberstatus' => null,
-                'org2' => null,
-                'org2_memberstatus' => null,
+                'org1' =>$organization ? $organization->name : null,
+                'org1_memberstatus' => $org1MemberStatus,
+                'org2' => $organization2,
+                'org2_memberstatus' => $request->org2_member_status,
             ];
 
             DB::table('student_organizations')->updateOrInsert([
