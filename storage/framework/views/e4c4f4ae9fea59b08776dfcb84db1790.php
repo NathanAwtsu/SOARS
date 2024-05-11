@@ -33,8 +33,6 @@
                 <th>Email</th>
                 <th>Organization 1</th>
                 <th>Organization 2</th>
-                <th>Org 1 Membership Status</th>
-                <th>Org 2 Membership Status</th>
                 <th>Phone Number</th>
                 <th>Action</th>
             </tr>
@@ -150,11 +148,6 @@
                         </div>
 
 
-
-
-                
-
-                
                 </div>
 
                 <!--Second Column-->
@@ -186,6 +179,7 @@
                             <option value="Member">Member</option>
                             <option value="Student Leader">Student Leader</option>
                             <option value="President">President</option>
+                            
                         </select>
                     </div>
                 </div>
@@ -201,6 +195,7 @@
                             <option value="Member">Member</option>
                             <option value="Student Leader">Student Leader</option>
                             <option value="President">President</option>
+                            
                         </select>
                     </div>
                 </div>
@@ -246,8 +241,6 @@
                 {data: 'email', name: 'email'},
                 {data: 'organization1', name: 'organization1'},
                 {data: 'organization2', name: 'organization2'},
-                {data: 'org1_member_status', name: 'org1_member_status'},
-                {data: 'org2_member_status', name: 'org2_member_status'},
                 {data: 'phone_number', name: 'phone_number'},
                 {data: 'action', name: 'action', orderable: false},
             ],
@@ -268,7 +261,7 @@
                         $('#organization1').empty();
                         $('#organization1').append('<option value="">Select Organization</option>');
                         $.each(data, function(key, value) {
-                            $('#organization1').append('<option value="' + value.id + '">' + value.name + '</option>');
+                            $('#organization1').append('<option value="' + value.id + '">' + value.nickname + '</option>');
                         });
                     }
                 });
@@ -343,21 +336,26 @@
 
 // For submitting the form for adding or updating
 // Function to handle form submission
-function submitForm() {
+    function submitForm() {
         var actionUrl = "<?php echo e(isset($student) ? url('update') : url('store')); ?>";
         var formData = new FormData($('#studentForm')[0]);
         var email = $('#email').val();
+        var organization2 = $('#organization2').val() || null;
+
 
         if (email.toLowerCase().endsWith("@adamson.edu.ph")) {
-        formData.append('org1_member_status', $('#org1_member_status').val()); // Add org1_member_status value
+
         formData.append('student_id', $('#student_id').val());
-        if ($('#organization2').val() !== "") {
-            // Add organization 2 value
-            formData.append('organization2', $('#organization2 option:selected').text()); 
-        } else {
-            // If no organization is selected for Organization 2, append null
-            formData.append('organization2', null);
+        formData.append('organization2', organization2);
+        var org1MemberStatus = $('#org1_member_status').val();
+
+        // If the value is 'Choose Status', set it to null
+        if (org1MemberStatus === 'Choose Status') {
+            org1MemberStatus = null;
         }
+
+        // Append org1_member_status to formData
+        formData.append('org1_member_status', org1MemberStatus);
 
         $.ajax({
             type: 'POST',
@@ -410,13 +408,12 @@ function submitForm() {
                 $('#organization2').empty();
                 $('#organization2').append('<option value="">Select Organization</option>');
                 $.each(data, function(key, value) {
-                    $('#organization2').append('<option value="' + value.id + '">' + value.name + '</option>');
+                    $('#organization2').append('<option value="' + value.id + '">' + value.nickname + '</option>');
                 });
             }
         });
     }
 
-    
     fetchOrganizations();
 
 
