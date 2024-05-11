@@ -86,7 +86,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="course_id" class="col-sm-4 control-label">Course ID</label>
+                            <label for="course_id" class="col-sm-4 control-label"><span style="color: red;">*</span>Course ID</label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="course_id" name="course_id">
                                     <option value="">Select Course</option>
@@ -138,7 +138,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="organization1" class="col-sm-4 control-label">Organization 1</label>
+                            <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="organization1" name="organization1">
                                     <option value="">Select Organization</option>
@@ -172,9 +172,9 @@
 
 
                 <div class="form-group">
-                    <label for="org1_member_status" class="col-sm control-label">Org 1 Membership Status</label>
+                    <label for="org1_member_status" class="col-sm control-label"><span style="color: red;">*</span>Org 1 Membership Status</label>
                     <div class="col-sm-8">
-                        <select class="form-select" id="org1_member_status" name="org1_member_status" >
+                        <select class="form-select" id="org1_member_status" name="org1_member_status">
                             <option value="" disabled selected>Choose Status</option>
                             <option value="Member">Member</option>
                             <option value="Student Leader">Student Leader</option>
@@ -250,25 +250,7 @@
     });
 
      // Function to populate Organization 1 dropdown based on the selected course ID
-        $('#course_id').change(function() {
-            var courseId = $(this).val();
-            if (courseId) {
-                $.ajax({
-                    type: "GET",
-                    url: "<?php echo e(route('getOrganizations')); ?>",
-                    data: {course_id: courseId},
-                    success: function(data) {
-                        $('#organization1').empty();
-                        $('#organization1').append('<option value="">Select Organization</option>');
-                        $.each(data, function(key, value) {
-                            $('#organization1').append('<option value="' + value.id + '">' + value.nickname + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#organization1').empty();
-            }
-        });
+       
 
 
     //for updating students info
@@ -336,71 +318,28 @@
 
 // For submitting the form for adding or updating
 // Function to handle form submission
-    function submitForm() {
-        var actionUrl = "<?php echo e(route('store')); ?>";
-        var formData = new FormData($('#studentForm')[0]);
-        var email = $('#email').val();
+    $('#studentForm').submit(function(event){
+    event.preventDefault();
+    var actionUrl = "<?php echo e(url('store')); ?>"; // Determine action based on the presence of $student
 
-        if (email.toLowerCase().endsWith("@adamson.edu.ph")) {
-        formData.append('student_id', $('#student_id').val());
-        $.ajax({
-            type: 'POST',
-            url: actionUrl,
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                console.log(response.message);
-                $('#studentModal').modal('hide'); // Close the modal
-                $('#student-list').DataTable().ajax.reload(); // Reload the DataTable
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-                // Handle error or log the details for troubleshooting
-            }
-        }).done(function() {
-            $('#student-list').DataTable().ajax.reload(); // Reload the DataTable after modal is closed
-        });
-    } else {
-        // Alert user that only Adamson University email addresses are allowed
-        alert("Please enter a valid Adamson University email address ending with '@adamson.edu.ph'");
-    }
-    }
-
-    $('#studentModal').on('hide.bs.modal', function (e) {
-    $('#studentForm').trigger('reset');
-    });
-
-    
-    $('#btn-save').on('click', function(event) {
-        event.preventDefault();
-        submitForm(); 
-    });
-
-    
-    $('#studentForm').on('keypress', function(event) {
-        if (event.which === 13) { // Check if Enter key is pressed
-            event.preventDefault();
-            submitForm(); 
+    $.ajax({
+        type:'POST',
+        url: actionUrl,
+        data: new FormData(this),
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            console.log(response.message);
+            $('#studentModal').modal('hide');
+            $('#student-list').DataTable().ajax.reload(); // Reload the DataTable
+        },
+        error: function(xhr, status, error){ 
+            console.log(xhr.responseText);
+            // Handle error or log the details for troubleshooting
         }
     });
-
-    function fetchOrganizations() {
-        $.ajax({
-            type: "GET",
-            url: "<?php echo e(route('fetchOrganizations')); ?>", 
-            success: function(data) {
-                $('#organization2').empty();
-                $('#organization2').append('<option value="">Select Organization</option>');
-                $.each(data, function(key, value) {
-                    $('#organization2').append('<option value="' + value.id + '">' + value.nickname + '</option>');
-                });
-            }
-        });
-    }
-
-    fetchOrganizations();
+});
 
 
 </script>

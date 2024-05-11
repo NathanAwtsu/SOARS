@@ -11,23 +11,62 @@
         <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
         <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
         
+        <!--Registration Button-->
         @if ($org->type_of_organization != 'Academic' && $org2status->org2_memberstatus == null && $regstatus==1)
             
             <form method="POST" action="{{ url('/register/organization/'.$org->id) }}">
                 @csrf
-                <button onclick="register(event)" type="submit" style="text-align:end;" class="btn btn-warning">Register </button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Register 
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog-centered">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Register to {{$org->name}}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <p>You're about to register to {{$org->name}}<p>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Continue</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
             </form>
             
         @endif
-    
+        
+        <!--Payment Button-->
         @if($org2status->org2_memberstatus == "Applying Member")
                           
             <form method="POST" action="{{ url('/register/organization/'.$org->id) }}">
                 @csrf
+                //Payment Button
                 <button onclick="pay(event)" type="submit" style="text-align:end;" class="btn btn-warning">Pay 200 Pesos for Membership </button>
             </form>
             
         @endif
+
+
+
+        <!--Show Receipt of the Payment-->
+        @if ($org2status->paid->org2_memberstatus == "Paid")
+        <!--Insert Receipt here-->
+        <!--Must have a refund!!!-->
+
+        @endif
+
+
+        <!--Create Refund Process for Paid and Member-->
     </div>
         
     
@@ -276,23 +315,8 @@
          document.getElementById('Events').style.display = 'none';
          document.getElementById('MoreInfo').style.display = 'block';
      }
-     function register(event) {
-    event.preventDefault();
-    if (confirm("Are you sure you want to register? The Membership Fee is 200 Pesos")) {
-        var form = document.createElement('form');
-        form.method = 'POST';
-        form.action = "{{ url('/register/organization/'.$org->id) }}";
-        form.style.display = 'none'; // Hide the form
 
-        var csrfToken = document.createElement('input');
-        csrfToken.type = 'hidden';
-        csrfToken.name = '_token';
-        csrfToken.value = "{{ csrf_token() }}";
-        form.appendChild(csrfToken);
-        document.body.appendChild(form);
-        form.submit();
-    }
-    }
+
 
     function pay(event) {
     event.preventDefault();
