@@ -11,6 +11,35 @@
             <div class="pull-left">
                 <h2>STUDENT LIST</h2>
             </div>
+            <form action="<?php echo e(route('import.students')); ?>" method="POST" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom:10px;">
+                    Import Students
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Import Students Via CSV</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="file" name="csv_file">
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import Students</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+            </form>
+            
             <div class="pull-right mb-2">
                 <a href="javascript:void(0)" class="btn btn-success" onClick="add()">New Student <i class="fa-solid fa-user-plus"></i></a>
             </div>
@@ -88,7 +117,7 @@
                         <div class="form-group">
                             <label for="course_id" class="col-sm-4 control-label"><span style="color: red;">*</span>Course ID</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="course_id" name="course_id">
+                                <select class="form-control" id="course_id" name="course_id" >
                                     <option value="">Select Course</option>
                                     <option value="academic_course_based">Not Academic Course Based</option>
                                     <option value="ACT">Associate in Computer Technology</option>
@@ -174,7 +203,7 @@
                 <div class="form-group">
                     <label for="org1_member_status" class="col-sm control-label"><span style="color: red;">*</span>Org 1 Membership Status</label>
                     <div class="col-sm-8">
-                        <select class="form-select" id="org1_member_status" name="org1_member_status">
+                        <select class="form-select" id="org1_member_status" name="org1_member_status" required>
                             <option value="" disabled selected>Choose Status</option>
                             <option value="Member">Member</option>
                             <option value="Student Leader">Student Leader</option>
@@ -250,7 +279,25 @@
     });
 
      // Function to populate Organization 1 dropdown based on the selected course ID
-       
+        $('#course_id').change(function() {
+            var courseId = $(this).val();
+            if (courseId) {
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo e(route('getOrganizations')); ?>",
+                    data: {course_id: courseId},
+                    success: function(data) {
+                        $('#organization1').empty();
+                        $('#organization1').append('<option value="">Select Organization</option>');
+                        $.each(data, function(key, value) {
+                            $('#organization1').append('<option value="' + value.id + '">' + value.nickname + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#organization1').empty();
+            }
+        });
 
 
     //for updating students info
@@ -318,28 +365,85 @@
 
 // For submitting the form for adding or updating
 // Function to handle form submission
-    $('#studentForm').submit(function(event){
-    event.preventDefault();
-    var actionUrl = "<?php echo e(url('store')); ?>"; // Determine action based on the presence of $student
+    function submitForm() {
+        var actionUrl = "<?php echo e(isset($student) ? url('update') : url('store')); ?>";
+        var formData = new FormData($('#studentForm')[0]);
+        var email = $('#email').val();
+        var organization2 = $('#organization2').val();
 
-    $.ajax({
-        type:'POST',
-        url: actionUrl,
-        data: new FormData(this),
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            console.log(response.message);
-            $('#studentModal').modal('hide');
-            $('#student-list').DataTable().ajax.reload(); // Reload the DataTable
-        },
-        error: function(xhr, status, error){ 
-            console.log(xhr.responseText);
-            // Handle error or log the details for troubleshooting
+
+        if (email.toLowerCase().endsWith("@adamson.edu.ph")) {
+
+        formData.append('student_id', $('#student_id').val());
+        formData.append('organization2', organization2);
+        var org1MemberStatus = $('#org1_member_status').val();
+
+        // If the value is 'Choose Status', set it to null
+        if (org1MemberStatus === 'Choose Status') {
+            org1MemberStatus = null;
+        }
+
+        // Append org1_member_status to formData
+        formData.append('org1_member_status', org1MemberStatus);
+
+        $.ajax({
+            type: 'POST',
+            url: actionUrl,
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                console.log(response.message);
+                $('#studentModal').modal('hide'); // Close the modal
+                $('#student-list').DataTable().ajax.reload(); // Reload the DataTable
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                // Handle error or log the details for troubleshooting
+            }
+        }).done(function() {
+            $('#student-list').DataTable().ajax.reload(); // Reload the DataTable after modal is closed
+        });
+    } else {
+        // Alert user that only Adamson University email addresses are allowed
+        alert("Please enter a valid Adamson University email address ending with '@adamson.edu.ph'");
+    }
+    }
+
+    $('#studentModal').on('hide.bs.modal', function (e) {
+    $('#studentForm').trigger('reset');
+    });
+
+    
+    $('#btn-save').on('click', function(event) {
+        event.preventDefault();
+        submitForm(); 
+    });
+
+    
+    $('#studentForm').on('keypress', function(event) {
+        if (event.which === 13) { // Check if Enter key is pressed
+            event.preventDefault();
+            submitForm(); 
         }
     });
-});
+
+    function fetchOrganizations() {
+        $.ajax({
+            type: "GET",
+            url: "<?php echo e(route('fetchOrganizations')); ?>", 
+            success: function(data) {
+                $('#organization2').empty();
+                $('#organization2').append('<option value="">Select Organization</option>');
+                $.each(data, function(key, value) {
+                    $('#organization2').append('<option value="' + value.id + '">' + value.nickname + '</option>');
+                });
+            }
+        });
+    }
+
+    fetchOrganizations();
 
 
 </script>

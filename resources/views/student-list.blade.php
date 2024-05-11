@@ -13,6 +13,35 @@
             <div class="pull-left">
                 <h2>STUDENT LIST</h2>
             </div>
+            <form action="{{ route('import.students') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom:10px;">
+                    Import Students
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Import Students Via CSV</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="file" name="csv_file">
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import Students</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+            </form>
+            
             <div class="pull-right mb-2">
                 <a href="javascript:void(0)" class="btn btn-success" onClick="add()">New Student <i class="fa-solid fa-user-plus"></i></a>
             </div>
@@ -90,7 +119,7 @@
                         <div class="form-group">
                             <label for="course_id" class="col-sm-4 control-label"><span style="color: red;">*</span>Course ID</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="course_id" name="course_id" required>
+                                <select class="form-control" id="course_id" name="course_id" >
                                     <option value="">Select Course</option>
                                     <option value="academic_course_based">Not Academic Course Based</option>
                                     <option value="ACT">Associate in Computer Technology</option>
@@ -342,7 +371,7 @@
         var actionUrl = "{{ isset($student) ? url('update') : url('store') }}";
         var formData = new FormData($('#studentForm')[0]);
         var email = $('#email').val();
-        var organization2 = $('#organization2').val() || null;
+        var organization2 = $('#organization2').val();
 
 
         if (email.toLowerCase().endsWith("@adamson.edu.ph")) {

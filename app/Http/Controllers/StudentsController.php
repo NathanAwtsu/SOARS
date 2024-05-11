@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 use App\Models\Announcement;
 use App\Events\ChatifyEvent;
 use App\Models\Event;
@@ -31,19 +32,85 @@ class StudentsController extends Controller
         $user = Auth::user();
         $userId = $user->id; //Student No
         $student = DB::table('students')->where('student_id','=' ,$userId)->first(); //Select Row from Student
-        $studentId = $student->student_id; //Student Id from Students Table
-        $student_org = DB::table('student_organizations')
-        ->where('studentId', '=', $studentId)->first(); //Select Row from student_organization if student_id match
-        $student_pos = $student_org->org1_memberstatus; //Select org Status 1
-        $courseId = $student_org->course; //Select student Course from Student_organization
-        $orgsByCourse = DB::table('organizations')
-        ->where('academic_course_based','=',$courseId)->first(); //Select Row from organization if academic_course match with student course
-        $org = $orgsByCourse->name; //Select Org Name
 
-        $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get(); //Select Row of Data from announcements where recipient is from the org
+        if($student->course_id != null)
+        {
+            $studentId = $student->student_id; //Student Id from Students Table
+            $student_org = DB::table('student_organizations')
+            ->where('studentId', '=', $studentId)->first(); //Select Row from student_organization if student_id match
+            $student_pos = $student_org->org1_memberstatus; //Select org Status 1
+            $courseId = $student_org->course; //Select student Course from Student_organization
 
-        return view('Student.dashboard')
-        ->with('announcement1', $announcement1);
+            $orgsByCourse = DB::table('organizations')
+            ->where('academic_course_based','=',$courseId)->first(); //Select Row from organization if academic_course match with student course
+            $org = $orgsByCourse->name; //Select Org Name
+
+            $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get(); //Select Row of Data from announcements where recipient is from the org
+            $petition = false;
+            return view('Student.dashboard')
+            ->with('announcement1', $announcement1)
+            ->with('petition', $petition);
+        }
+
+        elseif($student->course_id == null){
+
+            $announcement1 = null;
+            $studID = $student->student_id;
+            $course = null;
+            $petition = false;
+            Session::put('student_id', $studID);
+            return view('Student.dashboard')->with('announcement1', $announcement1)
+            ->with('petition', $petition)
+            ->with('course', $course);
+        }
+
+    }
+
+    public function stud_course(Request $request){
+        $studentID = Session::get('student_id');
+        
+        $course_id = $request->course;
+        DB::table('students')->where('student_id', $studentID)
+        ->update([
+            'course_id' => $course_id
+        ]);
+
+        DB::table('student_organizations')->where('studentId', $studentID)
+        ->update([
+            'course' => $course_id
+        ]);
+
+        $org = DB::table('organizations')
+        ->where('academic_course_based', $course_id)
+        ->where('type_of_organization', 'Academic')->first();
+
+        if(isset($org)){
+            
+            $student_org = DB::table('student_organizations')
+            ->where('studentId', '=', $studentID)->first(); //Select Row from student_organization if student_id match
+            $student_pos = $student_org->org1_memberstatus; //Select org Status 1
+            $courseId = $student_org->course; //Select student Course from Student_organization
+
+            $orgsByCourse = DB::table('organizations')
+            ->where('academic_course_based','=',$courseId)->first(); //Select Row from organization if academic_course match with student course
+            $org = $orgsByCourse->name; //Select Org Name
+
+            $announcement1 = DB::table('announcements')->where('recipient','=', $org)->get(); //Select Row of Data from announcements where recipient is from the org
+            $petition = false;
+            return view('Student.dashboard')
+            ->with('announcement1', $announcement1)
+            ->with('petition', $petition);
+        }
+
+        elseif($org == null){
+            $petition = true;
+            $announcement1 = null;
+            $course = $course_id;
+            return view('Student.dashboard')->with('petition', $petition)
+            ->with('announcement1', $announcement1)
+            ->with('course', $course);
+        }
+
     }
 
     public function getEvents(){
@@ -146,12 +213,66 @@ class StudentsController extends Controller
         return response()->json($organizations);
     }
 
+    public function importStudents(Request $request)
+    {
+        // Validate the uploaded file
+        $request->validate([
+            'csv_file' => 'required|mimes:csv,txt',
+        ]);
+
+        // Get the uploaded file
+        $file = $request->file('csv_file');
+
+        // Parse the CSV file
+        $data = array_map('str_getcsv', file($file));
+
+        // Iterate over each row and insert into database
+        foreach ($data as $row) {
+            $hashedPassword = Hash::make($row[0]); 
+            Students::create([
+                'student_id' => $row[0], // Adjust according to your CSV format
+                'last_name' => $row[1],
+                'middle_initial' => $row[2],
+                'first_name' => $row[3],
+                'email' => $row[4],
+                'password' => $hashedPassword // Assuming student_id is the password for simplicity
+                // Add more fields as needed
+            ]);
+        
+            StudentOrganization::create([
+                'studentId' => $row[0], // Adjust according to your CSV format
+                // Add more fields as needed
+            ]);
+        
+            // Extracting and concatenating the name
+            $name = $row[3] . ' ' . $row[2] . ' ' . $row[1];
+        
+            User::insert([
+                'id' => $row[0],
+                'role' => 3,
+                'name' => $name,
+                'email' => $row[4],
+                'password' => $hashedPassword
+                // Add more fields as needed
+            ]);
+
+            $user = User::where('id', $row[0])->first();
+                
+            event(new Registered($user));
+        }
+        
+
+        // Provide feedback to the user
+        return back()->with('success', 'Students imported successfully.');
+    }
+
 
 
        public function store(Request $request)
         {
             $courseId = $request->course_id;
             $studentId = $request->student_id;
+            
             /*
             $stuentTableVerify = DB::table('student')->where('student_id', $studentId)->get();
             $studentorgTableVerify = DB::table('student_organizations')->where('studentId', $studentId)->get();
@@ -170,8 +291,14 @@ class StudentsController extends Controller
                 // Set organization to null if Course ID is not provided
                 $organization = null;
             }
-            $organization2 = ($request->organization2 === "Select Organization") ? null : $request->organization2;
-            $org1MemberStatus = $request->org1_member_status === 'null' ? null : $request->org1_member_status;
+
+            if($request->organization2 == "null")
+            {
+                $organization2 = null;
+            }
+            $organization2 = $request->organization2;
+            $org1MemberStatus = ($request->org1_member_status === 'null') ? null : $request->org1_member_status;
+
             
             $datetime = now();
             $studentData = [

@@ -105,6 +105,7 @@ Route::get('/admin', [StudentsController::class, 'showDashboard'])->name('admin'
 //Student Creation
 Route::get('/student-list', [StudentsController::class, 'studlist'])->name('studlist');
 Route::post('store', [StudentsController::class, 'store'])->name('store');
+Route::post('/import/students', [StudentsController::class, 'importStudents'])->name('import.students');
 Route::post('edit', [StudentsController::class, 'edit']);
 Route::post('delete', [StudentsController::class, 'delete']);
 Route::post('update', [StudentsController::class, 'update']);
@@ -201,7 +202,7 @@ Route::get('/generate-certificate/{eventId}', [OsaController::class, 'generate']
 
 
 //Routes for Student Leader
-Route::get('/studentleader', [StudentOrganizationController::class, 'totalDashboard'], function(){return view('SL.dashboard');})->name('studentleader')->middleware('studentleader');
+Route::get('/studentleader', [StudentsController::class, 'dashboard'], function(){return view('Student.dashboard');});
 //Propose Event
 //Create Announcement
 //
@@ -222,6 +223,7 @@ Route::get('error', [PaypalController::class, 'error']);
 
 //Routes for Students
 Route::get('/student', [StudentsController::class, 'dashboard'], function(){return view('Student.dashboard');});
+Route::post('/student_course', [StudentsController::class, 'stud_course']);
 Route::get('/manage_officers', [StudentOrganizationController::class, 'view_officers']);
 //Calendar for Student Organization
 Route::get('/student/org_page/event/{id}', [EventController::class, 'getEventsOrgpage']);
