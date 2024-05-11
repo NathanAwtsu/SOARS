@@ -16,9 +16,9 @@
             </div>
         </div>
     </div>
-<?php if($message = Session::get('success')): ?>
+<?php if(session('success')): ?>
     <div class="alert alert-success">
-        <p><?php echo e($message); ?></p>
+        <p><?php echo e(session('success')); ?></p>
     </div>
 <?php endif; ?>
 <div class="card-body">
@@ -86,9 +86,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="course_id" class="col-sm-4 control-label"><span style="color: red;">*</span>Course ID</label>
+                            <label for="course_id" class="col-sm-4 control-label">Course ID</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="course_id" name="course_id" required>
+                                <select class="form-control" id="course_id" name="course_id">
                                     <option value="">Select Course</option>
                                     <option value="academic_course_based">Not Academic Course Based</option>
                                     <option value="ACT">Associate in Computer Technology</option>
@@ -138,7 +138,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="organization1" class="col-sm-4 control-label"><span style="color: red;">*</span>Organization 1</label>
+                            <label for="organization1" class="col-sm-4 control-label">Organization 1</label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="organization1" name="organization1">
                                     <option value="">Select Organization</option>
@@ -172,9 +172,9 @@
 
 
                 <div class="form-group">
-                    <label for="org1_member_status" class="col-sm control-label"><span style="color: red;">*</span>Org 1 Membership Status</label>
+                    <label for="org1_member_status" class="col-sm control-label">Org 1 Membership Status</label>
                     <div class="col-sm-8">
-                        <select class="form-select" id="org1_member_status" name="org1_member_status" required>
+                        <select class="form-select" id="org1_member_status" name="org1_member_status" >
                             <option value="" disabled selected>Choose Status</option>
                             <option value="Member">Member</option>
                             <option value="Student Leader">Student Leader</option>
@@ -337,21 +337,12 @@
 // For submitting the form for adding or updating
 // Function to handle form submission
     function submitForm() {
-        var actionUrl = "<?php echo e(isset($student) ? url('update') : url('store')); ?>";
+        var actionUrl = "<?php echo e(route('store')); ?>";
         var formData = new FormData($('#studentForm')[0]);
         var email = $('#email').val();
 
         if (email.toLowerCase().endsWith("@adamson.edu.ph")) {
-        formData.append('org1_member_status', $('#org1_member_status').val()); // Add org1_member_status value
         formData.append('student_id', $('#student_id').val());
-        if ($('#organization2').val() !== "") {
-            // Add organization 2 value
-            formData.append('organization2', $('#organization2 option:selected').text()); 
-        } else {
-            // If no organization is selected for Organization 2, append null
-            formData.append('organization2', null);
-        }
-
         $.ajax({
             type: 'POST',
             url: actionUrl,

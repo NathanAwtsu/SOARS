@@ -150,8 +150,6 @@ class StudentsController extends Controller
 
        public function store(Request $request)
         {
-            
-            $courseId = $request->course_id;
             $studentId = $request->student_id;
             /*
             $stuentTableVerify = DB::table('student')->where('student_id', $studentId)->get();
@@ -179,7 +177,7 @@ class StudentsController extends Controller
                 'last_name' => $request->last_name,
                 'middle_initial' => $request->middle_initial,
                 'first_name' => $request->first_name,
-                'course_id' => $request->course_id,
+                'course_id' => null,
                 'email' => $request->email,
                 'email_verified_at' => null,
                 'organization1' => $organization ? $organization->nickname : null,

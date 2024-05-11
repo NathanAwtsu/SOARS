@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('student_organizations', function (Blueprint $table) {
             $table->id('studentId');
-            $table->string('course');
-            $table->string('org1');
-            $table->string('org1_memberstatus');
+            $table->string('course')->nullable();
+            $table->string('org1')->nullable();
+            $table->string('org1_memberstatus')->nullable();
             $table->string('org2')->nullable();
             $table->string('org2_memberstatus')->nullable();
             $table->timestamps();
