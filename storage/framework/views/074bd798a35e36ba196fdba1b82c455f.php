@@ -3,7 +3,7 @@
 <div class="container-tbl-up" style="padding: 0px 100px;">
             
             
-    <table class="table"> <br>
+    
         
         <?php if(session('success')): ?>
             <div class="alert alert-success">
@@ -14,8 +14,34 @@
 
         <center>
             <div class="btn-group">
-                <a class="btn btn-create" type="button" id="createUserButton" style="margin-left: 10px;" href="<?php echo e(url('/osaemp/organization_list/new_organization')); ?>">Create New Organization</a>
+                <a class="btn btn-create" type="button" id="createUserButton" style="margin-left: 10px; margin-top: 20px;" href="<?php echo e(url('/osaemp/organization_list/new_organization')); ?>">Create New Organization</a>
+                
             </div>
+            
+            <!--Petitions-->
+            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> 
+                <H1>STUDENT PETITION</H1><br> 
+            </div>
+            <div class="table-responsive" style="overflow-x: auto;"> <!-- Add this div to make the table responsive -->
+                <table class="table table-bordered table-center"> <!-- Added table-center class -->
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Organization Name</th>
+                            <th>Organization Type</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Status</th>
+                            <th>Organization Name</th>
+                            <th>Organization Type</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <?php if($pendings != null): ?>
                 <div class="card-table-title" style="padding: 30px 0px 0px 0px;">
                     <h1>PENDING</h1><br>
@@ -73,11 +99,12 @@
                     <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-
+            
                 
             
             <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> 
-                <H1>CO-ACADEMIC</H1><br> </div>
+                <H1>CO-ACADEMIC</H1><br> 
+            </div>
             <div class="card-table" style="margin: 0 0 0 0;">
                 <?php $__currentLoopData = $organizationCoAcademic; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $orgCoAcad): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if($orgCoAcad != Null): ?>
@@ -100,7 +127,8 @@
             </div>
 
             <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> 
-                <H1>SOCIO-CIVIC</H1><br> </div>
+                <H1>SOCIO-CIVIC</H1><br> 
+            </div>
                 <div class="card-table" style="margin: 0 0 0 0;">
                 <?php $__currentLoopData = $organizationSocioCivic; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $orgSocioCivic): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if($orgSocioCivic != Null): ?>
@@ -120,9 +148,10 @@
                 </div>
                 <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </div>
+                </div>
             
-            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> <H1>RELIGIOUS</H1><br> </div>
+            <div class="card-table-title" style="padding: 30px 0px 0px 0px;"> <H1>RELIGIOUS</H1><br> 
+            </div>
             <div class="card-table" style="margin: 0 0 0 0;">
                 <?php $__currentLoopData = $organizationReligious; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $orgRel): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if($orgRel != Null): ?>
@@ -143,11 +172,10 @@
                 <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
-        </Center>
+        </center>
         
-    </table>
     
-     </div>
+    
      
 
 </div>
