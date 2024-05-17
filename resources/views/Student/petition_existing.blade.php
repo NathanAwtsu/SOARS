@@ -1,4 +1,4 @@
-@extends('navbar.navbar_osa')
+@extends('navbar.navbar_student')
 @section('content')
 <style>
     form {
@@ -22,14 +22,14 @@
 <center>
     
     <main>
-        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example" style=" margin-top:2%; margin-bottom:2%; ">
-            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showOverall()">Overall</button>
+        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example" style=" margin-top:8%; margin-bottom:2%; ">
             <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showInformation()">Information</button>
             <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showFiles()">Attachment Files</button>
             <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showAdviser()">Adviser</button>
         </div> <br>
-        <form action="/osaemp/organization_list/new_organization" method="post" enctype="multipart/form-data">
+        <form action="/petition_old" method="post" enctype="multipart/form-data">
         <center>
+
     <div id="information" class="card" style="height: auto; width: 700px; text-align:left;">
         <center><h1>Organization Information</h1></center> <br><br>
         
@@ -40,16 +40,16 @@
             <label for="OrgName"><h2><span style="color: red;">*</span>Nickame :</h2></label><br>
             <textarea id="name" name="nickname" rows="2" cols="4" required></textarea><br><br>
             <label for="Mission"><h2>Insert Mission :</h2></label><br>
-            <textarea id="mission" name="mission" rows="4" cols="50" ></textarea><br><br>
+            <textarea id="mission" name="mission" rows="4" cols="50" required></textarea><br><br>
 
             <label for="Vision"><h2>Insert Vision:</h2> </label><br>
             <textarea id="vision" name="vision" rows="4" cols="50" ></textarea><br><br>
 
             <label for="janeContact" style="text-align:left;"> Organization Email:</label>
-            <input type="org_email" id="org_email" name="org_email" ><br>
+            <input type="org_email" id="org_email" name="org_email" required><br>
 
             <label for="janeContact" style="text-align:left;"> Organization Facebook:</label>
-            <input type="org_fb" id="org_fb" name="org_fb" ><br>
+            <input type="org_fb" id="org_fb" name="org_fb" required><br>
 
             <label for="OrganizationType"><h2>First Select Organization Type</h2></label><br>
              <select id="type_of_organization" name="type_of_organization" onchange="showHideOthers(this);" required>
@@ -102,11 +102,9 @@
             <h1>Attachment Files</h1>
             </center>
             <label for="logoFile"><h3>Logo:</h3></label>
-            
-            
             <label for="logo" style="background-color: #007bff; color: #fff; margin-right:550px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
                 <span>Upload logo</span>
-                <input type="file" id="logo" name="logo" accept=".png, .jpg, .jpeg" style="display: none;">
+                <input type="file" id="logo" name="logo" accept=".png, .jpg, .jpeg" style="display: none;" required>
             </label><br><br>
             
 
@@ -117,7 +115,7 @@
             
             <label for="consti_and_byLaws" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
                 <span>Upload Constitution-Bylaws</span>
-                <input type="file" id="consti_and_byLaws" name="consti_and_byLaws" accept=".pdf" style="display: none;"><br><br>
+                <input type="file" id="consti_and_byLaws" name="consti_and_byLaws" accept=".pdf" style="display: none;" required><br><br>
             </label>
             <br><br>
             
@@ -130,7 +128,7 @@
             
             <label for="letter_of_intent" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
                 <span>Upload Letter of Intent</span>
-                <input type="file" id="letter_of_intent" name="letter_of_intent" accept=".pdf" style="display: none;">
+                <input type="file" id="letter_of_intent" name="letter_of_intent" accept=".pdf" style="display: none;" required>
             </label><br><br>
             
 
@@ -139,7 +137,7 @@
             <label for="admin_endorsement"><h2>Admin Endorsement</h2></label>
             <label for="admin_endorsement" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
                 <span>Upload Admin Endorsement</span>
-                <input type="file" id="admin_endorsement" name="admin_endorsement" accept=".pdf" style="display: none;">
+                <input type="file" id="admin_endorsement" name="admin_endorsement" accept=".pdf" style="display: none;" required>
             </label><br><br>
             </div>
         <div id="label" class="card" style="height: auto; width: 700px; text-align:left;">
@@ -158,24 +156,17 @@
                                     <label for="janeName" style="text-align:left;"><span style="color: red;">*</span>Name:</label>
                                     <input type="text" id="adviser_name" name="adviser_name" required><br>
                                     <label for="janeContact" style="text-align:left;"><span style="color: red;">*</span>Email:</label>
-                                    <input type="text" id="adviser_name" name="adviser_email" required><br><br><br>
+                                    <input type="text" id="adviser_name" name="adviser_email" required><br>
+                                    <br><br>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
-            
-                
-            
+            <input type="submit" value="Next" class="btn btn-primary"></input>
         </form>
-            
-        </center>
-        
     </main>
 </center>
-
-
 
 <script>
     function showOverall(){
@@ -226,82 +217,5 @@
         document.getElementById('officers').style.display = 'block';
     }
 </script>
-
-<script>
-    var officerContainer = document.getElementById('officerContainer');
-    var originalForm = officerContainer.innerHTML;
-
-    function addOfficerForm() {
-        var newForm = document.createElement('form');
-        newForm.innerHTML = originalForm; // Copy the original form's structure
-
-        officerContainer.parentNode.insertBefore(newForm, officerContainer.nextSibling);
-
-        // Show the Undo button
-        document.getElementById('undoButton').style.display = 'inline';
-    }
-</script>
-
-<script>
-    function undoAddOfficerForm() {
-        // Remove the last added form
-        var forms = document.getElementsByTagName('form');
-        if (forms.length > 1) {
-            forms[forms.length - 1].remove();
-        } else {
-            // If there's only one form, reset its content to the original
-            officerContainer.innerHTML = originalForm;
-
-            // Hide the Undo button
-            document.getElementById('undoButton').style.display = 'none';
-        }
-    }
-</script>
-<script>
-function confirmSubmission() {
-    // Show a confirmation dialog
-    var isConfirmed = window.confirm("Are you sure you want to proceed with the submission?");
-
-    // If the user clicks "OK" in the confirmation dialog, submit the form
-    if (isConfirmed) {
-        document.forms[0].submit(); // Assuming the form is the first form in your document
-    }
-}
-</script>
-<script>
-                    document.getElementById('type_of_organization').addEventListener('change', function() {
-                        var selectedValue = this.value;
-                        var requiredInputs = document.querySelectorAll('input[required], textarea[required]');
-
-                        // If "Academic" option is selected, make specific fields nullable
-                        if (selectedValue === 'Academic') {
-                            // Add IDs to the fields you want to make nullable
-                            var nullableFields = ['president_studno', 
-                                                'vp_internal_studno', 
-                                                'vp_external_studno', 
-                                                'secretary_studno', 
-                                                'treasurer_studno', 
-                                                'auditor_studno', 
-                                                'pro_studno', 
-                                                'ausg_rep_studno'];
-
-                            requiredInputs.forEach(function(input) {
-                                // Check if the input's ID is in the list of nullable fields
-                                if (nullableFields.includes(input.id)) {
-                                    input.removeAttribute('required'); // Remove the required attribute
-                                }
-                            });
-                        } else {
-                            // If another option is selected, ensure all required fields are required
-                            requiredInputs.forEach(function(input) {
-                                input.setAttribute('required', 'required'); // Add the required attribute back
-                            });
-                        }
-                    });
-</script>
-
-
-
-
 
 @endsection

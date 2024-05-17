@@ -14,7 +14,7 @@
         <!--Registration Button-->
         @if ($org->type_of_organization != 'Academic' && $org2status->org2_memberstatus == null && $regstatus==1)
             
-            <form method="POST" action="{{ url('/register/organization/'.$org->id) }}">
+            <form method="POST" style="margin-left:10px;" action="{{ url('/register/organization/'.$org->id) }}">
                 @csrf
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Continue</button>
+                        <button type="submit" onclick="" class="btn btn-primary">Continue</button>
                         </div>
                     </div>
                     </div>
@@ -48,20 +48,65 @@
         <!--Payment Button-->
         @if($org2status->org2_memberstatus == "Applying Member")
                           
+                
+                <button  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Pay 200 Pesos for Membership </button>
+                <!-- Button trigger modal -->
+
+                
+                <!-- Modal -->
+                
             <form method="POST" action="{{ url('/register/organization/'.$org->id) }}">
                 @csrf
-                //Payment Button
-                <button onclick="pay(event)" type="submit" style="text-align:end;" class="btn btn-warning">Pay 200 Pesos for Membership </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">You're about to pay 200 Pesos</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        You are abot to pay 200 pesos as a membership fee for the Organization, you will be now redirected to the Payment Page
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" onclick="pay(event)" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </form>
-            
+            <form method="POST" style="margin-left:10px;" action="{{url('/cancel_register/organization/'.$org->id)}}">
+                <button onclick="cancel(event)" type="submit" style="text-align:end;" class="btn btn-danger">Cancel Registration</a>
+            </form>
         @endif
 
 
 
         <!--Show Receipt of the Payment-->
-        @if ($org2status->paid->org2_memberstatus == "Paid")
-        <!--Insert Receipt here-->
-        <!--Must have a refund!!!-->
+        @if ($org2status->org2_memberstatus == "Paid")
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            View Receipt
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                ...
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            </div>
+        </div>
 
         @endif
 
@@ -131,10 +176,11 @@
                <div id="listOfOfficersContent" class="card mt-4" style="height: auto ;">
                 <div class="card-body">
                     <h4 class="card-title">List of Officers</h4><br>
+                    
                     <div class="row">
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/adviser_photo/{{$org->adviser_photo}}" alt="{{$org->adviser_photo}}" class="img-fluid" width="100"><br>
+                                
                                 <p class="officer-name">{{$org->adviser_name}}</p>
                                 <a href="mailto: {{$org->adviser_email}}" class="officer-email">{{$org->adviser_email}}</a>
                                 <p class="officer-position">Adviser</p>
@@ -145,7 +191,7 @@
             
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/ausg_rep_photo/{{$org->ausg_rep_photo}}" alt="{{$org->ausg_rep_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->ausg_rep_studno}}">{{$org->ausg_rep_name}}</a><br>
                                 <a href="mailto: {{$org->ausg_rep_email}}" class="officer-email">{{$org->ausg_rep_email}}</a>
@@ -156,7 +202,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/president_photo/{{$org->president_photo}}" alt="{{$org->president_name}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->president_studno}}">{{$org->president_name}}</a>
                                 <a href="mailto: {{$org->president_email}}" class="officer-email">{{$org->president_email}}</a><br>
@@ -167,7 +213,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/vp_internal_photo/{{$org->vp_internal_photo}}" alt="{{$org->vp_internal_name}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->vp_internal_studno}}">{{$org->vp_internal_name}}</a>
                                 <a href="mailto: {{$org->vp_internal_email}}" class="officer-email">{{$org->vp_internal_email}}</a><br>
@@ -178,7 +224,7 @@
             
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/vp_external_photo/{{$org->vp_external_photo}}" alt="{{$org->vp_external_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->vp_external_studno}}">{{$org->vp_external_name}}</a>
                                 <a href="mailto: {{$org->vp_external_email}}" class="officer-email">{{$org->vp_external_email}}</a><br>
@@ -189,7 +235,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/secretary_photo/{{$org->secretary_photo}}" alt="{{$org->secretary_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->secretary_studno}}">{{$org->secretary_name}}</a>
                                 <a href="mailto: {{$org->secretary_email}}" class="officer-email">{{$org->secretary_email}}</a><br>
@@ -200,7 +246,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/treasurer_photo/{{$org->treasurer_photo}}" alt="{{$org->treasurer_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->treasurer_studno}}">{{$org->treasurer_name}}</a>
                                 <a href="mailto: {{$org->treasurer_email}}" class="officer-email">{{$org->treasurer_email}}</a><br>
@@ -211,7 +257,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/auditor_photo/{{$org->auditor_photo}}" alt="{{$org->auditor_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->auditor_studno}}">{{$org->auditor_name}}</a>
                                 <a href="mailto: {{$org->auditor_email}}" class="officer-email">{{$org->auditor_email}}</a><br>
@@ -222,7 +268,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/pro_photo/{{$org->pro_photo}}" alt="{{$org->pro_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->pro_studno}}">{{$org->pro_name}}</a>
                                 <a href="mailto: {{$org->pro_email}}" class="officer-email">{{$org->pro_email}}</a><br>
@@ -320,7 +366,7 @@
 
     function pay(event) {
     event.preventDefault();
-    if (confirm("You are about to pay 200 Pesos for the Membership. Are you sure you want to proceed?")) {
+    
         var form = document.createElement('form');
         form.method = 'POST';
         form.action = "{{ url('/register/organization/'.$org->id) }}";
@@ -334,7 +380,24 @@
         document.body.appendChild(form);
         form.submit();
     }
-}
+
+    function cancel(event) {
+    event.preventDefault();
+    
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "{{ url('/cancel_register/organization/'.$org->id) }}";
+        form.style.display = 'none'; // Hide the form
+
+        var csrfToken = document.createElement('input');
+        csrfToken.type = 'hidden';
+        csrfToken.name = '_token';
+        csrfToken.value = "{{ csrf_token() }}";
+        form.appendChild(csrfToken);
+        document.body.appendChild(form);
+        form.submit();
+    }
+
 
 
 

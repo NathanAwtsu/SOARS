@@ -1,458 +1,626 @@
 @extends('navbar.navbar_student')
 @section('content')
-@if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
+<style>
+    form {
+        text-align: left; /* Align text in the form to the left */
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    form textarea,
+    form input {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 0px;
+    }
+    
+</style>
+
+<center>
+    
+    <main style="padding-top: 80px;">
+        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example" style=" margin-top:2%; margin-bottom:2%; ">
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showOverall()">Overall</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showInformation()">Information</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showFiles()">Attachment Files</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showAdviser()">Adviser</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showPresident()">President</button>
+            <button type="button" class="btn btn-outline-primary" style="font-weight:bold;" onclick="showOfficers()">Officers</button>            
+        </div> <br>
+       
+        <div class="card" style="height: auto; width: 740px;">
+        <center>
+            <form action="/president/organization_save/{{$org->id}}" method="POST" enctype="multipart/form-data" style="text-align:start;">
+            <div id="information" class="card" style="height: auto; width: 700px; text-align:left;">
+            <h1>Organization Information Form</h1> <br><br>
+        
+        
+        
+            @csrf
+            
+            
+            <label><h2>Requirement Status: <?php
+            if($org->requirement_status == "complete"){
+                echo "Complete";
+            }
+            
+            if($org->requirement_status != "complete" || $org->requirement_status <= '100'){
+                echo round($org->requirement_status) . '%';
+            }
+            ?>
+            
+                
+            </h2>
+            
+            </label>
+            <br>
+            <label for="OrgId"><h2>Org ID: {{$org->id}}</h2></label><br>
+            <label for="OrgName"><h2>Organization Name:</h2></label><br>
+            <textarea id="name" name="name" rows="2" cols="80" required>{{$org->name}}</textarea><br><br>
+            <label for="OrgName"><h2>Nickame :</h2></label><br>
+            <textarea id="nameickname" name="nickname" rows="2" cols="80" required>{{$org->nickname}}</textarea><br><br>
+            <label for="Mission"><h2>Insert Mission :</h2></label><br>
+            <textarea id="mission" name="mission" rows="4" cols="80" >{{$org->mission}}</textarea><br><br>
+
+            <label for="Vision"><h2>Insert Vision:</h2> </label><br>
+            <textarea id="vision" name="vision" rows="4" cols="80" >{{$org->vision}}</textarea><br><br>
+
+            <label for="Vision"><h2> Organization Email:</h2></label> <br>
+            <input type="org_email" id="org_email" name="org_email"  placeholder="{{$org->org_email}}" value="{{$org->org_email}}"><br><br>
+
+            <label for="Vision"><h2>Organization Facebook:</h2> </label><br>
+            <input type="org_fb" id="org_fb" name="org_fb"  placeholder="{{$org->org_fb}}" value="{{$org->org_fb}}"><br><br>
+
+            <label for="OrganizationType"><h2>First Select Organization Type</h2></label>
+             <select id="type_of_organization" name="type_of_organization" onchange="showHideOthers(this);" required>
+                <option value="Academic"{{$org->type_of_organization == 'Academic' ? 'selected' : ' '}}>Academic</option>
+                <option value="Co-Academic" {{$org->type_of_organization == 'Co-Academic' ? 'selected' : ' '}}>Co-Academic</option>
+                <option value="Socio Civic" {{$org->type_of_organization == 'Socio Civic' ? 'selected' : ' '}}>Socio Civic</option>
+                <option value="Religious" {{$org->type_of_organization == 'Religious' ? 'selected' : ' '}}>Religious</option>
+             </select><br></br>
+
+             <label for="AcademicCourseBased"><h2>Select, if Org is based on Academic Course</h2></label><br>
+             <select id="academic_course_based" name="academic_course_based" onchange="showHideOthers(this);" required>
+                <option value="Not Academic Couse Based" {{$org->academic_course_based == 'Not Academic Couse Based' ? 'selected' : ' '}}>None</option>
+                <option value="ACT"{{$org->academic_course_based == 'ACT' ? 'selected' : ' '}}>Associate in Computer Technology</option>
+                <option value="BAComm"{{$org->academic_course_based == 'BAComm' ? 'selected' : ' '}}>Bachelor of Arts in Communication</option>
+                <option value="BAPhilo"{{$org->academic_course_based == 'BAPhilo' ? 'selected' : ' '}}>Bachelor of Arts in Philosophy</option>
+                <option value="BAPolSci"{{$org->academic_course_based == 'BAPolSci' ? 'selected' : ' '}}>Bachelor of Arts in Political Science</option>
+                <option value="BEEd"{{$org->academic_course_based == 'BEEd' ? 'selected' : ' '}}>Bachelor of Elementary Education</option>
+                <option value="BPEd"{{$org->academic_course_based == 'BPEd' ? 'selected' : ' '}}>Bachelor of Physical Education</option>
+                <option value="BPE-SWM"{{$org->academic_course_based == 'BPE-SWM' ? 'selected' : ' '}}>Bachelor of Physical Education Major in Sports and Wellness Management</option>
+                <option value="BSA"{{$org->academic_course_based == 'BSA' ? 'selected' : ' '}}>Bachelor of Science in Accountancy</option>
+                <option value="BSArchi"{{$org->academic_course_based == 'BSArchi' ? 'selected' : ' '}}>Bachelor of Science in Architecture</option>
+                <option value="BSBio"{{$org->academic_course_based == 'BSBio' ? 'selected' : ' '}}>Bachelor of Science in Biology</option>
+                <option value="BSBAFM"{{$org->academic_course_based == 'BSBAFM' ? 'selected' : ' '}}>Bachelor of Science in Business Administration Major in Financial Management</option>
+                <option value="BSBAMM"{{$org->academic_course_based == 'BSBAMM' ? 'selected' : ' '}}>Bachelor of Science in Business Administration Major in Marketing Management</option>
+                <option value="BSBAOM"{{$org->academic_course_based == 'BSBAOM' ? 'selected' : ' '}}>Bachelor of Science in Business Administration Major in Operations Management</option>
+                <option value="BSChE"{{$org->academic_course_based == 'BSChE' ? 'selected' : ' '}}>Bachelor of Science in Chemical Engineering</option>
+                <option value="BSCPT"{{$org->academic_course_based == 'BSCPT' ? 'selected' : ' '}}>Bachelor of Science in Chemical Process Technology</option>
+                <option value="BSChem"{{$org->academic_course_based == 'BSChem' ? 'selected' : ' '}}>Bachelor of Science in Chemistry</option>
+                <option value="BSCE"{{$org->academic_course_based == 'BSCE' ? 'selected' : ' '}}>Bachelor of Science in Civil Engineering</option>
+                <option value="BSCooE"{{$org->academic_course_based == 'BSCooE' ? 'selected' : ' '}}>Bachelor of Science in Computer Engineering</option>
+                <option value="BSCS"{{$org->academic_course_based == 'BSCS' ? 'selected' : ' '}}>Bachelor of Science in Computer Science</option>
+                <option value="BSCA"{{$org->academic_course_based == 'BSCA' ? 'selected' : ' '}}>Bachelor of Science in Customs Administration</option>
+                <option value="BSEE"{{$org->academic_course_based == 'BSEE' ? 'selected' : ' '}}>Bachelor of Science in Electrical Engineering</option>
+                <option value="BSGeo"{{$org->academic_course_based == 'BSGeo' ? 'selected' : ' '}}>Bachelor of Science in Geology</option>
+                <option value="BSHM"{{$org->academic_course_based == 'BSHM' ? 'selected' : ' '}}>Bachelor of Science in Hospitality Management</option>
+                <option value="BSIE"{{$org->academic_course_based == 'BSIE' ? 'selected' : ' '}}>Bachelor of Science in Industrial Engineering</option>
+                <option value="BSIS"{{$org->academic_course_based == 'BSIS' ? 'selected' : ' '}}>Bachelor of Science in Information System</option>
+                <option value="BSIT"{{$org->academic_course_based == 'BSIT' ? 'selected' : ' '}}>Bachelor of Science in Information Technology</option>
+                <option value="BSME"{{$org->academic_course_based == 'BSME' ? 'selected' : ' '}}>Bachelor of Science in Mechanical Engineering</option>
+                <option value="BSMining"{{$org->academic_course_based == 'BSMining' ? 'selected' : ' '}}>Bachelor of Science in Mining Engineering</option>
+                <option value="BSNursing"{{$org->academic_course_based == 'BSNursing' ? 'selected' : ' '}}>Bachelor of Science in Nursing</option>
+                <option value="BSPE"{{$org->academic_course_based == 'BSPE' ? 'selected' : ' '}}>Bachelor of Science in Petroleum Engineering</option>
+                <option value="BSPharma"{{$org->academic_course_based == 'BSPharma' ? 'selected' : ' '}}>Bachelor of Science in Pharmacy</option>
+                <option value="BSPsych"{{$org->academic_course_based == 'BSPsych' ? 'selected' : ' '}}>Bachelor of Science in Psychology</option>
+             </select><br></br>
+             </div>
+
+            <div id="attachmentfiles" class="card" style="height: auto; width: 700px; text-align:left;">
+            <!--Logo-->
+            <label for="logoFile"><h3>Logo:</h3></label>
+            @if (isset($org->logo))
+            <h6>File already uploaded:
+            <img src="/storage/logo/{{$org->logo}}" alt="{{$org->logo}}" style="max-width: 200px; padding-bottom:10px;">
+            </h6>
+            <label for="logo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                <span>Change Logo</span>
+                <input type="file" id="logo" name="logo" accept=".png, .jpg, .jpeg" style="display: none;">
+            </label><br><br>
+            @endif
+            @if ($org->logo == null)
+            <label for="logo" style="background-color: #007bff; color: #fff; margin-right:550px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                <span>Upload logo</span>
+                <input type="file" id="logo" name="logo" accept=".png, .jpg, .jpeg" style="display: none;">
+            </label><br><br>
+            @endif
+
+
+            <!--Constitution and By Laws-->
+            <label for="Constitutions"><h2>Upload Constitutions & ByLaws:</h2></label>
+            @if (isset($org->consti_and_byLaws))
+            <h6>File already uploaded:
+                <iframe src="/storage/consti_and_bylaws/{{$org->consti_and_byLaws}}" width="100%" height="600px"></iframe>
+                </h6>
+
+                <label for="consti_and_byLaws" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                    <span>Change Constitution and By Laws</span>
+                    <input type="file" id="consti_and_byLaws" name="consti_and_byLaws" accept=".pdf" style="display: none;">
+                </label><br><br>
+                
+            @endif
+            @if ($org->consti_and_byLaws == null)
+            <label for="consti_and_byLaws" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                <span>Upload Constitution-Bylaws</span>
+                <input type="file" id="consti_and_byLaws" name="consti_and_byLaws" accept=".pdf" style="display: none;"><br><br>
+            </label>
+            <br><br>
+            @endif
+            
+            
+            
+            <!--Letter of Intent--->
+            <label for="letterOfIntentFile"><h2>Letter of Intent:</h2></label>
+            @if (isset($org->letter_of_intent))
+            <h6>File already uploaded:
+                <iframe name="letter_of_intent" src="/storage/letter_of_intent/{{$org->letter_of_intent}}" width="100%" height="600px"></iframe>
+                </h6>
+
+                <label for="letter_of_intent" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                    <span>Change Letter of Intent</span>
+                    <input type="file" id="letter_of_intent" name="letter_of_intent" accept=".pdf" style="display: none;">
+                </label><br><br>
+            @endif
+            @if ($org->letter_of_intent == null)
+            <label for="letter_of_intent" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                <span>Upload Letter of Intent</span>
+                <input type="file" id="letter_of_intent" name="letter_of_intent" accept=".pdf" style="display: none;">
+            </label><br><br>
+            @endif
+
+
+            <!---Admin Endorsement--->
+            <label for="admin_endorsement"><h2>Admin Endorsement</h2></label>
+            @if (isset($org->admin_endorsement))
+            <h6>File already uploaded:
+                <iframe src="/storage/admin_endorsement/{{$org->admin_endorsement}}" width="100%" height="600px"></iframe>
+                </h6>
+
+                <label for="admin_endorsement" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                    <span>Change Admin Endorsement</span>
+                    <input type="file" id="admin_endorsement" name="admin_endorsement" accept=".pdf" style="display: none;">
+                </label><br><br>
+                
+            @endif
+            
+            @if ($org->admin_endorsement == null)
+            <label for="admin_endorsement" style="background-color: #007bff; color: #fff; margin-right:400px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                <span>Upload Admin Endorsement</span>
+                <input type="file" id="admin_endorsement" name="admin_endorsement" accept=".pdf" style="display: none;">
+            </label><br><br>
+            @endif
+
+
             </div>
-        @endif
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-<main class="container mt-4" style="margin-right: 740px !important;">
-
-    <div class="success">
-
-    </div>
-    <div class="container" style="margin-left:7%; margin-top:8%;">
-        <div class="row">
-            <div class="col mb-3">
-                <a href="#" class="card" style="height: 130px; background-color: #E7700D; text-decoration: none;" onclick="openCreatePostModal()">
-                    <h2 style="color: white;"><i class="fa-solid fa-bullhorn"></i> Create an Announcement </h2>
-                </a>
-            </div>
-
-            <div class="col mb-3">
-                <a href="{{url('/chatify')}}" class="card" style="height: 130px; background-color: #e57373; text-decoration: none;">
-                    <h2 style="color: white;"><i class="fa-regular fa-message"></i> Messages </h2>
-                    
-                </a>
-            </div>
-            <div class="col mb-3">
-                <a href="{{url('/student/propose_activity')}}" class="card" style="height: 130px; background-color: #81c784; text-decoration: none;">
-                    <h2 style="color: white;"><i class="fa-solid fa-chart-line"></i> Activities {{$totalEvent->count()}}</h2>
-                    
-                </a>
+            <div id="label" class="card" style="height: auto; width: 700px; text-align:left;">
+            <label for="advisersInfoText">
+                <center>
+                <h1>Enter Advisers and Officers Information:</h1>
+                </center>
+            </label>
+            
+            <div id="adviser" class="card mt-4 mb-4" style="height: auto; text-align:left;">
+                    <div class="row">
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;" ><h3>Adviser:</h3></label><br>
+                                    <label for="janeName" style="text-align:left;">Name:</label><br>
+                                    <input type="text" id="adviser_name" name="adviser_name"  placeholder="{{$org->adviser_name}}" value="{{$org->adviser_name}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
+                                    <input type="email" id="adviser_name" name="adviser_email" placeholder="{{$org->adviser_email}}" value="{{$org->adviser_email}}" style="width: 100%;"><br>
+                                    @if (isset($org->adviser_photo))
+                                    <br><h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/adviser_photo/{{$org->adviser_photo}}" alt="{{$org->adviser_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="adviser_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Adviser Photo</span>
+                                        <input type="file" id="adviser_photo" name="adviser_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->adviser_photo == null)
+                                    <label for="adviser_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="adviser_photo" name="adviser_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="col mb-3">
-                <a href="{{url('/student/member_list')}}" class="card" style="height: 130px; background-color: #8b00d6; text-decoration: none;">
-                    <h2 style="color: white;"><i class="fa-solid fa-users fa-lg"></i> Members {{$totalMember->count()}}</h2>
-                    
-                </a>
-            </div>
-        </div>
-    
-    
-        <div class="btn-group mb-4" role="group" aria-label="Basic example" style="margin-left:35px;">
-        <button type="button" style="margin-left: 230px;" class="btn btn-primary" onclick="showMissionVision()">Mission and Vision</button>
-        <button type="button" class="btn btn-primary" onclick="showListOfOfficers()">List of Officers</button>
-        <button type="button" class="btn btn-primary" onclick="showContactUs()">Contact Us</button>
-        <button type="button" class="btn btn-primary" onclick="showEvents()">Events</button>
-        <button type="button" class="btn btn-primary" onclick="showMoreInfo()">More Info</button>            
-            <a href="{{url('/student/organization_edit/'.$orgsByCourse->id)}}" style="text-align:end;" class="btn btn-primary">Edit Page</a>
-        </div> <br>
-        </div>
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="container mt-4">
-                
-                <!-- ... other content ... -->
-                <div id="announcement" class="card mt-4" style="height: auto; text-align:left;">
-                    <div class="container">
-                        <h1 style="padding-left:20px; padding-top: 5%; padding-bottom: 2.5%;">
-                            <i class="fas fa-bullhorn"></i> Announcements
-                        </h1>
-                        @if ($announcement1 != null)
-                        @foreach ( $announcement1 as $announce )
-                        <div class="announcement" style="margin-bottom:5%;">
-                            
-                                <div class="announcement-header">
-                                    <h3 class="announcement-title">
-                                        <i class="fa-regular fa-clipboard"></i> Title: {{$announce->title}}
-                                    </h3>
-                                    <p class="announcement-date">Posted on {{$announce->created_at}}</p>
-                                    <p class="author">Author: {{$announce->author}}. {{$announce->author_org}}</p>
-                                </div>
-                                <div class="announcement-body">
-                                    
-                                    {{$announce->message}}
-                                    
-                                </div>
-                                
+            
+                <div id="president" class="card mt-4 mb-4" style="height: auto; text-align:left;">
+                <div class="card-body">
+                    <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h3>President:</h3></label><br>
+                                    <label for="president_studno" style="text-align:left;">Student No:</label><br>
+                                    <input type="number" id="president_studno" name="president_studno" maxlength="9"placeholder="{{$org->president_studno}}" value="{{$org->president_studno}}"style="width: 100%;"><br><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label><br>
+                                    <input type="text" id="president_name" name="president_name" placeholder="{{$org->president_name}}" value="{{$org->president_name}}"style="width: 100%;"><br><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
+                                    <input type="email" id="president_email" name="president_email" placeholder="{{$org->president_email}}" value="{{$org->president_email}}"style="width: 100%;"><br>
+                                    @if (isset($org->president_photo))
+                                    <br><h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/president_photo/{{$org->president_photo}}" alt="{{$org->president_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change President Photo</span>
+                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->president_photo == null)
+                                    <label for="president_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="president_photo" name="president_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
                         </div>
-                        @endforeach
+                        </div>
+                </div>
+            </div>
+            
+            
+            <div id="officers" class="card mt-4 mb-4" style="height: auto; text-align:left;">
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h3>AUSG Representative:</h3></label><br>
+                                    <label for="ausg_rep_studno" style="text-align:left;">Student No:</label><br>
+                                    <input type="text" id="ausg_rep_studno" name="ausg_rep_studno" maxlength="9"placeholder="{{$org->ausg_rep_studno}}" value="{{$org->ausg_rep_studno}}"style="width: 100%;"><br><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label><br>
+                                    <input type="text" id="ausg_rep_name" name="ausg_rep_name" placeholder="{{$org->ausg_rep_name}}" value="{{$org->ausg_rep_name}}"style="width: 100%;"><br><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
+                                    <input type="email" id="ausg_rep_email" name="ausg_rep_email" placeholder="{{$org->ausg_rep_email}}" value="{{$org->ausg_rep_email}}"style="width: 100%;"><br>
+                                    @if (isset($org->ausg_rep_photo))
+                                    <br><h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/ausg_rep_photo/{{$org->ausg_rep_photo}}" alt="{{$org->ausg_rep_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="ausg_rep_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change AUSG Representative Photo</span>
+                                        <input type="file" id="ausg_rep_photo" name="ausg_rep_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->ausg_rep_photo == null)
+                                    <label for="ausg_rep_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="ausg_rep_photo" name="ausg_rep_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    </div>
+                        </div>
+                            
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h3>Vp Internal:</h3></label><br>
+                                    <label for="vp_internal_studno" style="text-align:left;">Student No:</label><br>
+                                    <input type="number" id="vp_internal_studno" name="vp_internal_studno" maxlength="9" placeholder="{{$org->vp_internal_studno}}" value="{{$org->vp_internal_studno}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label><br>
+                                    <input type="text" id="vp_internal_name" name="vp_internal_name" placeholder="{{$org->vp_internal_name}}" value="{{$org->vp_internal_name}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
+                                    <input type="email" id="vp_internal_email" name="vp_internal_email" placeholder="{{$org->vp_internal_email}}" value="{{$org->vp_internal_email}}"style="width: 100%;"><br>
+                                    @if (isset($org->vp_internal_photo))
+                                    <br><h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/vp_internal_photo/{{$org->vp_internal_photo}}" alt="{{$org->vp_internal_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="vp_internal_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Vice President Internal Photo</span>
+                                        <input type="file" id="vp_internal_photo" name="vp_internal_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->vp_internal_photo == null)
+                                    <label for="vp_internal_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="vp_internal_photo" name="vp_internal_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h3>Vp External:</h3></label><br>
+                                    <label for="vp_external_studno" style="text-align:left;">Student No:</label><br>
+                                    <input type="number" id="vp_external_studno" name="vp_external_studno" maxlength="9" placeholder="{{$org->vp_external_studno}}" value="{{$org->vp_external_studno}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label><br>
+                                    <input type="text" id="vp_external_name" name="vp_external_name" placeholder="{{$org->vp_external_name}}" value="{{$org->vp_external_name}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
+                                    <input type="email" id="vp_external_email" name="vp_external_email" placeholder="{{$org->vp_external_email}}" value="{{$org->vp_external_email}}"style="width: 100%;"><br>
+                                    @if (isset($org->vp_external_photo))
+                                    <br><h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/vp_external_photo/{{$org->vp_external_photo}}" alt="{{$org->vp_external_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="vp_external_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Vice President External Photo</span>
+                                        <input type="file" id="vp_external_photo" name="vp_external_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->vp_external_photo == null)
+                                    <label for="vp_external_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="vp_external_photo" name="vp_external_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h3>Secretary:</h3></label><br>
+                                    <label for="secretary_studno" style="text-align:left;">Student No:</label><br>
+                                    <input type="number" id="secretary_studno" name="secretary_studno" maxlength="9" placeholder="{{$org->secretary_studno}}" value="{{$org->secretary_studno}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label><br>
+                                    <input type="text" id="secretary_name" name="secretary_name" placeholder="{{$org->secretary_name}}" value="{{$org->secretary_name}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
+                                    <input type="email" id="secretary_email" name="secretary_email" placeholder="{{$org->secretary_email}}" value="{{$org->secretary_email}}"style="width: 100%;"><br>
+                                    @if (isset($org->secretary_photo))
+                                    <br><h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/secretary_photo/{{$org->secretary_photo}}" alt="{{$org->secretary_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="secretary_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Secretary Photo</span>
+                                        <input type="file" id="secretary_photo" name="secretary_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->secretary_photo == null)
+                                    <label for="secretary_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="secretary_photo" name="secretary_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                            </div>
+                        </div>
+                        <br><br>
+
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h3>Treasurer:</h3></label><br>
+                                    <label for="treasurer_studno" style="text-align:left;">Student No:</label><br>
+                                    <input type="number" id="treasurer_studno" name="treasurer_studno" maxlength="9" placeholder="{{$org->treasurer_studno}}" value="{{$org->treasurer_studno}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label><br>
+                                    <input type="text" id="treasurer_name" name="treasurer_name" placeholder="{{$org->treasurer_name}}" value="{{$org->treasurer_name}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
+                                    <input type="email" id="treasurer_email" name="treasurer_email" placeholder="{{$org->treasurer_email}}" value="{{$org->treasurer_email}}"style="width: 100%;"><br>
+                                    @if (isset($org->treasurer_photo))
+                                    <br><h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/treasurer_photo/{{$org->treasurer_photo}}" alt="{{$org->treasurer_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="treasurer_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Treasurer Photo</span>
+                                        <input type="file" id="treasurer_photo" name="treasurer_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->treasurer_photo == null)
+                                    <label for="treasurer_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="treasurer_photo" name="treasurer_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                            </div>
+                        </div>
+                        <br><br>
+
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h3>Auditor:</h3></label><br>
+                                    <label for="auditor_studno" style="text-align:left;">Student No:</label><br>
+                                    <input type="number" id="auditor_studno" name="auditor_studno" maxlength="9" placeholder="{{$org->auditor_studno}}" value="{{$org->auditor_studno}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label><br>
+                                    <input type="text" id="auditor_name" name="auditor_name" placeholder="{{$org->auditor_name}}" value="{{$org->auditor_name}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
+                                    <input type="email" id="auditor_email" name="auditor_email" placeholder="{{$org->auditor_email}}" value="{{$org->auditor_email}}" style="width: 100%;"><br>
+                                    @if (isset($org->auditor_photo))
+                                    <br><h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/auditor_photo/{{$org->auditor_photo}}" alt="{{$org->auditor_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="auditor_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Auditor Photo</span>
+                                        <input type="file" id="auditor_photo" name="auditor_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->auditor_photo == null)
+                                    <label for="auditor_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="auditor_photo" name="auditor_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                            </div>
+                        </div>
+                        <br><br>
+
+                        <div class="col-md-15">
+                            <div class="officer-card">
+                                    <label for="janePosition" style="text-align:left;"><h3>PRO:</h3></label><br>
+                                    <label for="pro_studno" style="text-align:left;">Student No:</label><br>
+                                    <input type="number" id="pro_studno" name="pro_studno" maxlength="9" placeholder="{{$org->pro_studno}}" value="{{$org->pro_studno}}"style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Name:</label><br>
+                                    <input type="text" id="pro_name" name="pro_name" placeholder="{{$org->pro_name}}" value="{{$org->pro_name}}" style="width: 100%;"><br>
+                                    <label for="janeContact" style="text-align:left;">Email:</label><br>
+                                    <input type="email" id="pro_email" name="pro_email" placeholder="{{$org->pro_email}}" value="{{$org->pro_email}}" style="width: 100%;"><br>
+                                    @if (isset($org->pro_photo))
+                                    <br><h6 style="text-align: start;">
+                                    <img src="/storage/organization_officer_photo/pro_photo/{{$org->pro_photo}}" alt="{{$org->pro_photo}}" style="max-width: 200px; padding-bottom:10px;">
+                                    </h6>
+                                    <h5 style="text-align: start;"> File already uploaded:</h5><br>
+                                    <label for="pro_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Change Pro Photo</span>
+                                        <input type="file" id="pro_photo" name="pro_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                                    @if ($org->pro_photo == null)
+                                    <label for="pro_photo" style="background-color: #007bff; color: #fff; margin-right:450px; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                                        <span>Upload Photo</span>
+                                        <input type="file" id="pro_photo" name="pro_photo" accept=".png, .jpg, .jpeg" style="display: none;">
+                                    </label><br><br>
+                                    @endif
+                            </div>
+                        </div>
+                        <br><br>
+                        <button type="submit" name="edited" value="{{$org->id}}" style="background-color: #007bff; color: #fff; margin-right:550px; margin-bottom: 10px;padding: 10px 15px; border-radius: 5px; cursor: pointer;">Save</button><br>
+                        @if ($org->requirement_status == 'complete')
+                        <button type="submit" name="org_page" style="background-color: #7e7e7e; color: #fff; padding: 10px 15px; border-radius: 5px; cursor: pointer;margin-right:450px;">Go Back</button>
+                        @endif
+                        @if ($org->requirement_status != 'complete')
+                        <button type="submit" name="cancel" style="background-color: #7e7e7e; color: #fff; padding: 10px 15px; border-radius: 5px; cursor: pointer;margin-right:550px;">Cancel</button>
                         @endif
                     </div>
-                </div>
-                <div id="missionVisionContent" class="card mt-1" style="height: 500px;">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p class="card-text">
-                                    <strong>{{$orgsByCourse->name}}({{$orgsByCourse->nickname}})</strong>
-                                </p>
-                                <img src="/storage/logo/{{$orgsByCourse->logo}}" alt="{{$orgsByCourse->logo}}" class="img-fluid mb-3">
-                                <strong>Academic Course Based: {{$orgsByCourse->academic_course_based}}</strong><br><br>
-                                    
-                                <br>
-                            </div>
-                            <div class="col-md-8">
-                                <h4 class="card-title">Vision and Mission</h4>
-                                <p class="card-text">
-                                    <strong>Vision</strong><br><br>
-                                    {{$orgsByCourse->vision}}
-                                    <br><br>
-                                    <strong>Mission</strong><br><br>
-                                    {{$orgsByCourse->mission}}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-               <!-- ... rest of the content ... -->
-               <div id="listOfOfficersContent" class="card mt-4" style="height: auto ;">
-                <div class="card-body">
-                    <h4 class="card-title">List of Officers</h4><br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/adviser_photo/{{$orgsByCourse->adviser_photo}}" alt="{{$orgsByCourse->adviser_photo}}" class="img-fluid" width="100"><br>
-                                <p class="officer-name">{{$orgsByCourse->adviser_name}}</p>
-                                <a href="mailto: {{$orgsByCourse->adviser_email}}" class="officer-email">{{$orgsByCourse->adviser_email}}</a>
-                                <p class="officer-position">Adviser</p>
-                                
-                                
-                            </div>
-                        </div>
-            
-                        <div class="col-md-4">
-                            <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/ausg_rep_photo/{{$orgsByCourse->ausg_rep_photo}}" alt="{{$orgsByCourse->ausg_rep_photo}}" class="img-fluid" width="100">
-                                <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->ausg_rep_studno}}">{{$orgsByCourse->ausg_rep_name}}</a><br>
-                                <a href="mailto: {{$orgsByCourse->ausg_rep_email}}" class="officer-email">{{$orgsByCourse->ausg_rep_email}}</a><br>
-                                <p class="officer-position">AUSG Representative </p>
-                                
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/president_photo/{{$orgsByCourse->president_photo}}" alt="{{$orgsByCourse->president_name}}" class="img-fluid" width="100">
-                                <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->president_studno}}">{{$orgsByCourse->president_name}}</a><br>
-                                <a href="mailto: {{$orgsByCourse->president_email}}" class="officer-email">{{$orgsByCourse->president_email}}</a><br>
-                                <p class="officer-position">President </p>
-                                
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/vp_internal_photo/{{$orgsByCourse->vp_internal_photo}}" alt="{{$orgsByCourse->vp_internal_name}}" class="img-fluid" width="100">
-                                <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->vp_internal_studno}}">{{$orgsByCourse->vp_internal_name}}</a><br>
-                                <a href="mailto: {{$orgsByCourse->vp_internal_email}}" class="officer-email">{{$orgsByCourse->vp_internal_email}}</a><br>
-                                <p class="officer-position">Vice President for Internal Affairs </p>
-                                
-                            </div>
-                        </div>
-            
-                        <div class="col-md-4">
-                            <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/vp_external_photo/{{$orgsByCourse->vp_external_photo}}" alt="{{$orgsByCourse->vp_external_photo}}" class="img-fluid" width="100">
-                                <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->vp_external_studno}}">{{$orgsByCourse->vp_external_name}}</a><br>
-                                <a href="mailto: {{$orgsByCourse->vp_external_email}}" class="officer-email">{{$orgsByCourse->vp_external_email}}</a><br>
-                                <p class="officer-position">Vice President for External Affairs</p>
-                                
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/secretary_photo/{{$orgsByCourse->secretary_photo}}" alt="{{$orgsByCourse->secretary_photo}}" class="img-fluid" width="100">
-                                <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->secretary_studno}}">{{$orgsByCourse->secretary_name}}</a><br>
-                                <a href="mailto: {{$orgsByCourse->secretary_email}}" class="officer-email">{{$orgsByCourse->secretary_email}}</a><br>
-                                <p class="officer-position">Secretary </p>
-                                
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/treasurer_photo/{{$orgsByCourse->treasurer_photo}}" alt="{{$orgsByCourse->treasurer_photo}}" class="img-fluid" width="100">
-                                <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->treasurer_studno}}">{{$orgsByCourse->treasurer_name}}</a><br>
-                                <a href="mailto: {{$orgsByCourse->treasurer_email}}" class="officer-email">{{$orgsByCourse->treasurer_email}}</a><br>
-                                <p class="officer-position">Treasurer</p>
-                                
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/auditor_photo/{{$orgsByCourse->auditor_photo}}" alt="{{$orgsByCourse->auditor_photo}}" class="img-fluid" width="100">
-                                <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->auditor_studno}}">{{$orgsByCourse->auditor_name}}</a><br>
-                                <a href="mailto: {{$orgsByCourse->auditor_email}}" class="officer-email">{{$orgsByCourse->auditor_email}}</a><br>
-                                <p class="officer-position">Auditor</p>
-                                
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/pro_photo/{{$orgsByCourse->pro_photo}}" alt="{{$orgsByCourse->pro_photo}}" class="img-fluid" width="100">
-                                <br>
-                                <a class="officer-name" href="/chatify/{{$orgsByCourse->pro_studno}}">{{$orgsByCourse->pro_name}}</a><br>
-                                <a href="mailto: {{$orgsByCourse->pro_email}}" class="officer-email">{{$orgsByCourse->pro_email}}</a><br>
-                                <p class="officer-position">PRO</p>
-                                
-                            </div>
-                        </div>
-                        <!-- Add more columns as needed -->
-                    </div>
-                </div>
-            </div>
-
-            <div id="ContactUs" class="card mt-4" style="height: auto;">
-                <div class="card-body" style="text-align: start;">
-                    <h4 class="card-title">Contact Us</h4>
-                    For inquiries and further information, please feel free to contact us:<br>
-                    Email: <a href=" mailto: {{$orgsByCourse->org_email}}">{{$orgsByCourse->org_email}}</a><br>
-                    FB: <a href="{{$orgsByCourse->org_fb}}" target="_blank">{{$orgsByCourse->org_fb}}</a><br>
-
-                    <H2 style="text-align: start;">Facebook Page:</H2><br>
-                    <div id="fb-root">
-
-                    </div>
-                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="z2ywPdxc"></script>
-                    <div class="row mt-3">
-                        <div class="fb-page" data-href="{{$orgsByCourse->org_fb}}" data-tabs="timeline" 
-                        data-width="500" data-height="" data-small-header="true" data-adapt-container-width="false" 
-                        data-hide-cover="true" data-show-facepile="true"><blockquote cite="{{$orgsByCourse->org_fb}}" 
-                        class="fb-xfbml-parse-ignore"><a href="{{$orgsByCourse->org_fb}}">{{$orgsByCourse->name}}</a></blockquote></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="Events" class="card mt-4" style="height: auto;">
-                <div class="card-body">
                     
-                    <div class="container">
-                        <h1>Calendar of Events</h1>
-                        <div id='calendar' style="background-color: rgb(255, 255, 255); padding: 10px 10px 20px 10px; margin-bottom: 30px;"></div>
-                    </div>
                 </div>
             </div>
-            
-            
-            <div id="MoreInfo" class="card mt-1" style="height: auto;">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="container">
-                            <center>
-                            <!-- Details for Constitutional Bylaws -->
-                            <h2 class="mb-3">Constitutional Bylaws</h2>
-                            <iframe src="/storage/consti_and_bylaws/{{$orgsByCourse->consti_and_byLaws}}" width="100%" height="600px"></iframe>
-            
-                            <!-- Details for Letter of Intent -->
-                            <h2 class="mt-4 mb-3">Letter of Intent</h2>
-                            <iframe name="letter_of_intent" src="/storage/letter_of_intent/{{$orgsByCourse->letter_of_intent}}" width="100%" height="600px"></iframe>
-            
-                            <!-- Details for Adviser Endorsement -->
-                            <h2 class="mt-4 mb-3">Adviser Endorsement</h2>
-                            <iframe src="/storage/admin_endorsement/{{$orgsByCourse->admin_endorsement}}" width="100%" height="600px"></iframe>
-                            </center>
-                        </div>
-                        
-                </div>
-            </div>
-        </main>
-        </div>
-    </div>            
-</main>
-
-
-<div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h5 class="modal-title" id="createPostModalLabel">Create an Announcement</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        
-        <!-- Modal Body -->
-        <form action="/student/announcement/create" method="post">
-            @csrf
-            <div class="modal-body">
-            <!-- Form to create post -->
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <textarea id="title" name="title" class="form-control"  rows="1"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Post Content</label>
-                        <textarea id="message" name="message" class="form-control" rows="3"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="userType">Send to</label>
-                        <select class="form-control" id="recipient" name="recipient">
-                            <option value="{{$orgsByCourse->name}}">{{$orgsByCourse->name}}</option>
-                        </select>
-                    </div>
-                
-            
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-            <!-- Close button -->
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <!-- Post button -->
-            <input type="submit" class="btn btn-primary" id="postButton"></input>
-            </div>
+        </center>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Bootstrap JavaScript -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Bootstrap CSS -->
+    </main>
+</center>
 
 
-<!-- JavaScript to handle modal buttons -->
 <script>
-    $(document).ready(function() {
-        // Function to handle post button click
-        $("#postButton").click(function() {
-            // Your logic to handle post button click goes here
-            // For example, you can fetch the post content and send it to the server
-            // You can also close the modal after posting if needed
-            $('#createPostModal').modal('hide'); // Close the modal
-        });
+    function showOverall(){
+        document.getElementById('information').style.display = 'block';
+        document.getElementById('attachmentfiles').style.display = 'block';
+        document.getElementById('adviser').style.display = 'block';
+        document.getElementById('president').style.display = 'block';
+        document.getElementById('officers').style.display = 'block';
+    }
+    function showInformation(){
+        document.getElementById('information').style.display = 'block';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'none'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showFiles(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'block';
+        document.getElementById('label').style.display = 'none'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showAdviser(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'block';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showPresident(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'block';
+        document.getElementById('officers').style.display = 'none';
+    }
+    function showOfficers(){
+        document.getElementById('information').style.display = 'none';
+        document.getElementById('attachmentfiles').style.display = 'none';
+        document.getElementById('label').style.display = 'block'
+        document.getElementById('adviser').style.display = 'none';
+        document.getElementById('president').style.display = 'none';
+        document.getElementById('officers').style.display = 'block';
+    }
+</script>
+            
 
-        // Function to handle close button click
-        $(".close, [data-dismiss='modal']").click(function() {
-            // Close the modal when the close button is clicked
-            $('#createPostModal').modal('hide');
-        });
-    });
+<script>
+    var officerContainer = document.getElementById('officerContainer');
+    var originalForm = officerContainer.innerHTML;
+
+    function addOfficerForm() {
+        var newForm = document.createElement('form');
+        newForm.innerHTML = originalForm; // Copy the original form's structure
+
+        officerContainer.parentNode.insertBefore(newForm, officerContainer.nextSibling);
+
+        // Show the Undo button
+        document.getElementById('undoButton').style.display = 'inline';
+    }
+</script>
+
+<script>
+    function undoAddOfficerForm() {
+        // Remove the last added form
+        var forms = document.getElementsByTagName('form');
+        if (forms.length > 1) {
+            forms[forms.length - 1].remove();
+        } else {
+            // If there's only one form, reset its content to the original
+            officerContainer.innerHTML = originalForm;
+
+            // Hide the Undo button
+            document.getElementById('undoButton').style.display = 'none';
+        }
+    }
 </script>
 <script>
-    function openCreatePostModal() {
-        $('#createPostModal').modal('show');
+function confirmSubmission() {
+    // Show a confirmation dialog
+    var isConfirmed = window.confirm("Are you sure you want to proceed with the submission?");
+
+    // If the user clicks "OK" in the confirmation dialog, submit the form
+    if (isConfirmed) {
+        document.forms[0].submit(); // Assuming the form is the first form in your document
     }
-</script>  
-
-
-
- <!-- Bootstrap JS and Popper.js -->
- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
- <script>
-     function showMissionVision() {
-         document.getElementById('missionVisionContent').style.display = 'block';
-         document.getElementById('announcement').style.display = 'none';
-         document.getElementById('listOfOfficersContent').style.display = 'none';
-         document.getElementById('ContactUs').style.display = 'none';
-         document.getElementById('Events').style.display = 'none';
-         document.getElementById('MoreInfo').style.display = 'none';
-     }
-
-     function showAnnouncement() {
-        
-        document.getElementById('missionVisionContent').style.display = 'none';
-        document.getElementById('announcement').style.display = 'block';
-        document.getElementById('listOfOfficersContent').style.display = 'none';
-        document.getElementById('ContactUs').style.display = 'none';
-        document.getElementById('Events').style.display = 'none';
-        document.getElementById('MoreInfo').style.display = 'none';
-     }
-
-     function showListOfOfficers() {
-         document.getElementById('missionVisionContent').style.display = 'none';
-         document.getElementById('announcement').style.display = 'none';
-         document.getElementById('listOfOfficersContent').style.display = 'block';
-         document.getElementById('ContactUs').style.display = 'none';
-         document.getElementById('Events').style.display = 'none';
-         document.getElementById('MoreInfo').style.display = 'none';
-     }
-     function showContactUs() {
-         document.getElementById('missionVisionContent').style.display = 'none';
-         document.getElementById('announcement').style.display = 'none';
-         document.getElementById('listOfOfficersContent').style.display = 'none';
-         document.getElementById('ContactUs').style.display = 'block';
-         document.getElementById('Events').style.display = 'none';
-         document.getElementById('MoreInfo').style.display = 'none';
-     }
-     function showEvents() {
-         document.getElementById('missionVisionContent').style.display = 'none';
-         document.getElementById('announcement').style.display = 'none';
-         document.getElementById('listOfOfficersContent').style.display = 'none';
-         document.getElementById('ContactUs').style.display = 'none';
-         document.getElementById('Events').style.display = 'block';
-         document.getElementById('MoreInfo').style.display = 'none';
-     }
-     function showMoreInfo() {
-         document.getElementById('missionVisionContent').style.display = 'none';
-         document.getElementById('announcement').style.display = 'none';
-         document.getElementById('listOfOfficersContent').style.display = 'none';
-         document.getElementById('ContactUs').style.display = 'none';
-         document.getElementById('Events').style.display = 'none';
-         document.getElementById('MoreInfo').style.display = 'block';
-     }
-
- </script>
+}
+</script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        
-        initialView: 'dayGridMonth',
-        headerToolbar: {
-          left: 'dayGridMonth,timeGridWeek,timeGridDay',
-          center: 'title',
-          right: 'prev,next today',
-        },
-        events: {
-          url: '/student/dash', // Specify the URL to fetch events data from
-          method: 'GET'
-        }
-        
-      });
-      calendar.render();
-    });
-  </script>
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-  
+                    document.getElementById('type_of_organization').addEventListener('change', function() {
+                        var selectedValue = this.value;
+                        var requiredInputs = document.querySelectorAll('input[required], textarea[required]');
+
+                        // If "Academic" option is selected, make specific fields nullable
+                        if (selectedValue === 'Academic') {
+                            // Add IDs to the fields you want to make nullable
+                            var nullableFields = ['president_studno', 
+                                                'vp_internal_studno', 
+                                                'vp_external_studno', 
+                                                'secretary_studno', 
+                                                'treasurer_studno', 
+                                                'auditor_studno', 
+                                                'pro_studno', 
+                                                'ausg_rep_studno'];
+
+                            requiredInputs.forEach(function(input) {
+                                // Check if the input's ID is in the list of nullable fields
+                                if (nullableFields.includes(input.id)) {
+                                    input.removeAttribute('required'); // Remove the required attribute
+                                }
+                            });
+                        } else {
+                            // If another option is selected, ensure all required fields are required
+                            requiredInputs.forEach(function(input) {
+                                input.setAttribute('required', 'required'); // Add the required attribute back
+                            });
+                        }
+                    });
+</script>
 
 
-          
-
-     
-     
- 
- 
- 
- <!-- Add Bootstrap JavaScript (optional) -->
- <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
 
 
 

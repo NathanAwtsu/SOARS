@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('petition', function (Blueprint $table) {
+        Schema::create('petitions', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('requirement_status')->nullable();
             $table->string('name')->nullable();
             $table->string('nickname')->nullable();
             $table->string('type_of_organization')->nullable();
             $table->string('academic_course_based')->nullable();
-            $table->string('mission')->nullable();
-            $table->string('vision')->nullable();
             $table->mediumText('consti_and_byLaws')->nullable();
             $table->mediumText('letter_of_intent')->nullable();
             $table->string('admin_endorsement')->nullable();
@@ -32,7 +30,7 @@ return new class extends Migration
             $table->string('president_studno')->nullable();
             $table->string('president_name')->nullable();
             $table->string('president_email')->nullable();
-            
+            $table->mediumText('comments')->nullable();
             //About Us
             $table->timestamps();
         });

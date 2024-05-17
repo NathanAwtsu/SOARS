@@ -13,7 +13,7 @@
         @endif
 
         <center>
-            <div class="btn-group">
+            <div class="btn-group" >
                 <a class="btn btn-create" type="button" id="createUserButton" style="margin-left: 10px; margin-top: 20px;" href="{{url('/osaemp/organization_list/new_organization')}}">Create New Organization</a>
                 
             </div>
@@ -28,15 +28,26 @@
                         <tr>
                             <th>Student</th>
                             <th>Organization Name</th>
-                            <th>Organization Type</th>
-                            
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th>Status</th>
-                            <th>Organization Name</th>
-                            <th>Organization Type</th>
+                            @if ($petition = null)
+                                <th>No Petition</th>
+                            @endif
+
+                            @if (isset($petition))
+                                @foreach($petition as $pet)
+                                <th>{{$pet->president_name}}</th>
+                                <th>{{$pet->name}}</th>
+                                <th>
+                                     <a href="/osaemp/petition_view/{{$petition->id}}" class="btn btn-success">View Petition</a>
+                                </th>
+                                @endforeach    
+                            @endif
+
+                            
                         </tr>
                     </tbody>
                 </table>

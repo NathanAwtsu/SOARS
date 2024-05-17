@@ -23,7 +23,7 @@
     
     <main>
        
-    <div class="card" style="height: auto; width: 700px;">
+        <div class="card" style="height: auto; width: 740px;">
         <center>
             <h1>Organization Information Form</h1> <br><br>
         </center>

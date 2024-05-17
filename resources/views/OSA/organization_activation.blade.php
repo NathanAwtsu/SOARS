@@ -39,7 +39,7 @@
                 <tbody>
                     @foreach ($org_activation as $org)
                         
-                    
+                    @if($org->requirement_status != "complete")
                     <tr>
                         <td>
                             @if ($org->requirement_status != 'Approved' && $org->requirement_status != 'complete')
@@ -77,7 +77,7 @@
                             @endif
                         </td>
                     </tr>
-                   
+                    @endif
                     @endforeach
                     
                 </tbody>

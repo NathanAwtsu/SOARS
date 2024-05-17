@@ -29,48 +29,40 @@ return new class extends Migration
             
             //Adviser
             $table->string('adviser_name')->nullable();
-            $table->string('adviser_photo')->nullable();
             $table->string('adviser_email')->nullable();
             //AUSG
             $table->string('ausg_rep_studno')->nullable();
-            $table->string('ausg_rep_photo')->nullable();
             $table->string('ausg_rep_name')->nullable();
             $table->string('ausg_rep_email')->nullable();
             //President
             $table->string('president_studno')->nullable();
-            $table->string('president_photo')->nullable();
             $table->string('president_name')->nullable();
             $table->string('president_email')->nullable();
             //VP Internal
             $table->string('vp_internal_studno')->nullable();
-            $table->string('vp_internal_photo')->nullable();
             $table->string('vp_internal_name')->nullable();
             $table->string('vp_internal_email')->nullable();
             //VP external
             $table->string('vp_external_studno')->nullable();
-            $table->string('vp_external_photo')->nullable();
             $table->string('vp_external_name')->nullable();
             $table->string('vp_external_email')->nullable();
             //Secretary
             $table->string('secretary_studno')->nullable();
-            $table->string('secretary_photo')->nullable();
             $table->string('secretary_name')->nullable();
             $table->string('secretary_email')->nullable();
             //Treasurer
             $table->string('treasurer_studno')->nullable();
-            $table->string('treasurer_photo')->nullable();
             $table->string('treasurer_name')->nullable();
             $table->string('treasurer_email')->nullable();
             //Auditor
             $table->string('auditor_studno')->nullable();
-            $table->string('auditor_photo')->nullable();
             $table->string('auditor_name')->nullable();
             $table->string('auditor_email')->nullable();
             //PRO
             $table->string('pro_studno')->nullable();
-            $table->string('pro_photo')->nullable();
             $table->string('pro_name')->nullable();
             $table->string('pro_email')->nullable();
+            $table->string('filedBy')->nullable();
             //About Us
             $table->timestamps();
         });

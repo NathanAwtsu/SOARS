@@ -63,11 +63,11 @@
                <div id="listOfOfficersContent" class="card mt-4" style="height: auto ;">
                 <div class="card-body">
                     <h4 class="card-title">List of Officers</h4><br>
-                    <a href="{{ route('officers.list', ['id' => $org->id]) }}" class="btn btn-primary mb-3">Manage Officers</a>
+                    <a class="btn btn-primary" href="/edit_officers/admin/{{$org->id}}">Manage Officers</a>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/adviser_photo/{{$org->adviser_photo}}" alt="{{$org->adviser_photo}}" class="img-fluid" width="100"><br>
+                                
                                 <p class="officer-name">{{$org->adviser_name}}</p>
                                 <a href="mailto: {{$org->adviser_email}}" class="officer-email">{{$org->adviser_email}}</a>
                                 <p class="officer-position">Adviser</p>
@@ -78,7 +78,7 @@
             
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/ausg_rep_photo/{{$org->ausg_rep_photo}}" alt="{{$org->ausg_rep_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->ausg_rep_studno}}">{{$org->ausg_rep_name}}</a><br>
                                 <a href="mailto: {{$org->ausg_rep_email}}" class="officer-email">{{$org->ausg_rep_email}}</a>
@@ -89,7 +89,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/president_photo/{{$org->president_photo}}" alt="{{$org->president_name}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->president_studno}}">{{$org->president_name}}</a>
                                 <a href="mailto: {{$org->president_email}}" class="officer-email">{{$org->president_email}}</a><br>
@@ -100,7 +100,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/vp_internal_photo/{{$org->vp_internal_photo}}" alt="{{$org->vp_internal_name}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->vp_internal_studno}}">{{$org->vp_internal_name}}</a>
                                 <a href="mailto: {{$org->vp_internal_email}}" class="officer-email">{{$org->vp_internal_email}}</a><br>
@@ -111,7 +111,7 @@
             
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/vp_external_photo/{{$org->vp_external_photo}}" alt="{{$org->vp_external_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->vp_external_studno}}">{{$org->vp_external_name}}</a>
                                 <a href="mailto: {{$org->vp_external_email}}" class="officer-email">{{$org->vp_external_email}}</a><br>
@@ -122,7 +122,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/secretary_photo/{{$org->secretary_photo}}" alt="{{$org->secretary_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->secretary_studno}}">{{$org->secretary_name}}</a>
                                 <a href="mailto: {{$org->secretary_email}}" class="officer-email">{{$org->secretary_email}}</a><br>
@@ -133,7 +133,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/treasurer_photo/{{$org->treasurer_photo}}" alt="{{$org->treasurer_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->treasurer_studno}}">{{$org->treasurer_name}}</a>
                                 <a href="mailto: {{$org->treasurer_email}}" class="officer-email">{{$org->treasurer_email}}</a><br>
@@ -144,7 +144,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/auditor_photo/{{$org->auditor_photo}}" alt="{{$org->auditor_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->auditor_studno}}">{{$org->auditor_name}}</a>
                                 <a href="mailto: {{$org->auditor_email}}" class="officer-email">{{$org->auditor_email}}</a><br>
@@ -155,7 +155,7 @@
 
                         <div class="col-md-4">
                             <div class="officer-card">
-                                <img src="/storage/organization_officer_photo/pro_photo/{{$org->pro_photo}}" alt="{{$org->pro_photo}}" class="img-fluid" width="100">
+                                
                                 <br>
                                 <a class="officer-name" href="/chatify/{{$org->pro_studno}}">{{$org->pro_name}}</a>
                                 <a href="mailto: {{$org->pro_email}}" class="officer-email">{{$org->pro_email}}</a><br>

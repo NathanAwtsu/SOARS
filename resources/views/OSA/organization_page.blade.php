@@ -50,6 +50,7 @@
                <div id="listOfOfficersContent" class="card mt-4" style="height: auto ;">
                 <div class="card-body">
                     <h4 class="card-title">List of Officers</h4><br>
+                    <a class="btn btn-primary" href="/edit_officers/{{$org->id}}">Manage Officers</a>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="officer-card">

@@ -1,4 +1,4 @@
-@extends('navbar.navbar_osa')
+@extends('navbar.navbar_student')
 @section('content')
 </head>
 <body>
@@ -7,19 +7,38 @@
     <div class="card" style=" text-align:start;">
         <h5 class="card-header">Organization Petition Information </h5>
         <div class="card-body">
+          @if($petition->comments == null)
+          <img src="/storage/logo/{{$petition->logo}}"></img>
+          @endif
           <h5 class="card-title">Name: {{$petition->name}} ({{$petition->nickname}}) </h5>
           <p class="card-text"><strong>Type:</strong> {{$petition->type_of_organization}}</p>
           <p class="card-text"><strong>Course Based:</strong> {{$petition->academic_course_based}}</p>
           <p class="card-text"><strong>Adviser:</strong> {{$petition->adviser_name}}</p>
-          <p class="card-text"><strong>Adviser Email:</strong> {{$petition->adviser_email}}</p>
           <p class="card-text"><strong>President:</strong> {{$petition->president_name}}</p>
+          @if($petition->comments == null)
+          <p class="card-text"><strong>AUSG:</strong> {{$petition->ausg_rep_name}}</p>
+          <p class="card-text"><strong>VP Internal:</strong> {{$petition->vp_internal_name}}</p>
+          <p class="card-text"><strong>VP External:</strong> {{$petition->vp_external_name}}</p>
+          <p class="card-text"><strong>Secretary:</strong> {{$petition->secretary_name}}</p>
+          <p class="card-text"><strong>Treasurer:</strong> {{$petition->treasurer_name}}</p>
+          <p class="card-text"><strong>Auditor:</strong> {{$petition->auditor_name}}</p>
+          <p class="card-text"><strong>Pro:</strong> {{$petition->pro_name}}</p>
+          <p class="card-text"><strong>Organization FB:</strong> {{$petition->org_fb}}</p>
+          <p class="card-text"><strong>Organization Email:</strong> {{$petition->org_email}}</p>
+          <p class="card-text"><strong>Requirement Status:</strong> {{$petition->requirement_status}}</p>
           
+          @endif
 
+          @if($petition->comments != null)
+          <p class="card-text"><strong>Comment from OSA: </strong> {{$petition->comments}}</p>
+          @endif
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-outline-primary" onclick="showConsti()">Constitution and By Laws</button>
             <button type="button" class="btn btn-outline-primary" onclick="showLOI()">Letter of Intent</button>
             <button type="button" class="btn btn-outline-primary" onclick="showAE()">Admin Endorsement</button>
+            @if($petition->signees != null)
             <button type="button" class="btn btn-outline-primary" onclick="showSignees()">Signees</button>
+            @endif
           </div>
           <div id="consti" style="display:none;">
             @if ($petition->consti_and_byLaws)

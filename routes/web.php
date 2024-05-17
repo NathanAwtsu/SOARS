@@ -18,6 +18,7 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\PetitionController;
 use App\Http\Middleware\VerifyEmailMiddleware;
 use App\Models\Event;
 
@@ -256,6 +257,7 @@ Route::get('/president/organization_edit/{id}', [OrganizationController::class, 
 Route::post('/president/organization_save/{id}', [OrganizationController::class, 'president_org_edit_save']);
 //Register Button
 Route::post('/register/organization/{id}', [OrganizationController::class, 'register']);
+Route::post('/cancel_register/organization/{id}', [OrganizationController::class, 'cancel_register']);
 //Student Leader Edit Organization Page
 Route::get('/student/organization_list/organization_page/{id}', [OrganizationController::class, 'org_pending_edit_student_view']);
 //SL Generate Certificate
@@ -271,6 +273,41 @@ Route::post('/approve-payment/{paymentId}', [OrganizationController::class,'appr
 Route::get('/terms_and_agreement_modal', function () {
     return view('modals.data_privacy_modal');
 })->name('terms_and_agreement_modal');
+
+Route::get('/osaemp/petition_page/{id}', [PetitionController::class, 'getPetition']);
+
+Route::get('/petition/existing/{id}', [PetitionController::class, 'existing']);
+Route::get('/petition_organization', [PetitionController::class, 'org_info']);
+Route::get('/petition/officers', [PetitionController::class, 'oldOfficers']);
+Route::get('/petition/officers/2', [PetitionController::class, 'oldOfficers2']);
+Route::get('/petition/new', [PetitionController::class, 'new']);
+Route::post('/petition_new', [PetitionController::class, 'petition_new']);
+Route::post('/petition_old', [PetitionController::class, 'old']);
+Route::get('/petition_view/{id}', [PetitionController::class, 'getPetitionDetails']); //Students View
+
+Route::get('petition', function(){return view('Student.file_petition');});
+
+Route::get('/osaemp/petition_view/{id}', [PetitionController::class, 'getPetitionOsa']);
+
+Route::post('/student/check', [StudentsController::class, 'checkStudent'])->name('student.check');
+
+//Admin Manage Officers
+Route::get('/edit_officers/admin/{id}', [StudentsController::class, 'admin_edit_officers']);
+Route::post('/checkOfficers/admin', [StudentsController::class, 'admin_checkOfficer'])->name('officer.check');
+Route::get('/save_officers/admin/{id}', [StudentsController::class, 'admin_save_officers']);
+
+//OSA Manage Officers
+Route::get('/edit_officers/{id}', [OsaController::class, 'edit_officers']);
+Route::post('/checkOfficers', [OsaController::class, 'checkOfficer'])->name('officer.check');
+Route::get('/save_officers/{id}', [OsaController::class, 'save_officers']);
+//President Manage Officers
+Route::get('/edit_officers/president/{id}', [StudentsController::class, 'edit_officers']);
+Route::post('/checkOfficers/president', [StudentsController::class, 'checkOfficer']);
+Route::get('/save_officers/president/{id}', [StudentsController::class, 'save_officers']);
+
+
+
+
 
 
 

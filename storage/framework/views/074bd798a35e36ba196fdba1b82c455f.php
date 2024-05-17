@@ -13,7 +13,7 @@
         <?php endif; ?>
 
         <center>
-            <div class="btn-group">
+            <div class="btn-group" >
                 <a class="btn btn-create" type="button" id="createUserButton" style="margin-left: 10px; margin-top: 20px;" href="<?php echo e(url('/osaemp/organization_list/new_organization')); ?>">Create New Organization</a>
                 
             </div>
@@ -28,15 +28,26 @@
                         <tr>
                             <th>Student</th>
                             <th>Organization Name</th>
-                            <th>Organization Type</th>
-                            
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th>Status</th>
-                            <th>Organization Name</th>
-                            <th>Organization Type</th>
+                            <?php if($petition = null): ?>
+                                <th>No Petition</th>
+                            <?php endif; ?>
+
+                            <?php if(isset($petition)): ?>
+                                <?php $__currentLoopData = $petition; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pet): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <th><?php echo e($pet->president_name); ?></th>
+                                <th><?php echo e($pet->name); ?></th>
+                                <th>
+                                     <a href="/osaemp/petition_view/<?php echo e($petition->id); ?>" class="btn btn-success">View Petition</a>
+                                </th>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
+                            <?php endif; ?>
+
+                            
                         </tr>
                     </tbody>
                 </table>

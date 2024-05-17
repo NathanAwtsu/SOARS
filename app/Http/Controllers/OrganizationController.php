@@ -27,6 +27,7 @@ class OrganizationController extends Controller
         $organizationCoAcademic = DB::table('organizations')->where('type_of_organization','=','Co-Academic')->where('requirement_status','=','complete')->get();
         $organizationSocioCivic = DB::table('organizations')->where('type_of_organization','=','Socio Civic')->where('requirement_status','=','complete')->get();
         $organizationReligious = DB::table('organizations')->where('type_of_organization','=','Religious')->where('requirement_status','=','complete')->get();
+        $petitions = DB::table('petitions')->get();
         $pendings = DB::table('organizations')->where('requirement_status','!=','Complete')->get();
         
         return view('OSA.organization_list')
@@ -34,6 +35,7 @@ class OrganizationController extends Controller
         ->with('organizationCoAcademic', $organizationCoAcademic)
         ->with('organizationSocioCivic', $organizationSocioCivic)
         ->with('organizationReligious', $organizationReligious)
+        ->with('petitions', $petitions)
         ->with('pendings', $pendings);
         
 
@@ -236,30 +238,7 @@ class OrganizationController extends Controller
             'org_fb',
             'adviser_name',
             'adviser_email',
-            'ausg_rep_studno',
-            'ausg_rep_name',
-            'ausg_rep_email',
-            'president_studno',
-            'president_name',
-            'president_email',
-            'vp_internal_studno',
-            'vp_internal_name',
-            'vp_internal_email',
-            'vp_external_studno',
-            'vp_external_name',
-            'vp_external_email',
-            'secretary_studno',
-            'secretary_name',
-            'secretary_email',
-            'treasurer_studno',
-            'treasurer_name',
-            'treasurer_email',
-            'auditor_studno',
-            'auditor_name',
-            'auditor_email',
-            'pro_studno',
-            'pro_name',
-            'pro_email'
+            
         ];
     
         $nullCount = 41;
@@ -295,15 +274,7 @@ class OrganizationController extends Controller
         $constiPath = $this->handleFileUpload($request, 'consti_and_byLaws', 'storage/consti_and_byLaws/');
         $letterPath = $this->handleFileUpload($request, 'letter_of_intent', 'storage/letter_of_intent/');
         $adminEndorsementPath = $this->handleFileUpload($request, 'admin_endorsement', 'storage/admin_endorsement/');
-        $adviserPath = $this->handleFileUpload($request, 'adviser_photo', 'storage/organization_officer_photo/adviser_photo/');
-        $ausgRepPath = $this->handleFileUpload($request, 'ausg_rep_photo', 'storage/organization_officer_photo/ausg_rep_photo/');
-        $presidentPath = $this->handleFileUpload($request, 'president_photo', 'storage/organization_officer_photo/president_photo/');
-        $vpIntPath = $this->handleFileUpload($request, 'vp_internal_photo', 'storage/organization_officer_photo/vp_internal_photo/');
-        $vpExtPath = $this->handleFileUpload($request, 'vp_external_photo', 'storage/organization_officer_photo/vp_external_photo/');
-        $secretaryPath = $this->handleFileUpload($request, 'secretary_photo', 'storage/organization_officer_photo/secretary_photo/');
-        $treasurerPath = $this->handleFileUpload($request, 'treasurer_photo', 'storage/organization_officer_photo/treasurer_photo/');
-        $auditorPath = $this->handleFileUpload($request, 'auditor_photo', 'storage/organization_officer_photo/auditor_photo/');
-        $proPath = $this->handleFileUpload($request, 'pro_photo', 'storage/organization_officer_photo/pro_photo/');
+        
     
         $organizationData = [
             'requirement_status' => $total,
@@ -320,40 +291,7 @@ class OrganizationController extends Controller
             'letter_of_intent' => $letterPath,
             'admin_endorsement' => $adminEndorsementPath,
             'adviser_name' => request('adviser_name'),
-            'adviser_photo' => $adviserPath,
             'adviser_email' => request('adviser_email'),
-            'ausg_rep_studno' => request('ausg_rep_studno'),
-            'ausg_rep_photo' => $ausgRepPath,
-            'ausg_rep_name' => request('ausg_rep_name'),
-            'ausg_rep_email' => request('ausg_rep_email'),
-            'president_studno' => request('president_studno'),
-            'president_photo' => $presidentPath,
-            'president_name' => request('president_name'),
-            'president_email' => request('president_email'),
-            'vp_internal_studno' => request('vp_internal_studno'),
-            'vp_internal_photo' => $vpIntPath,
-            'vp_internal_name' => request('vp_internal_name'),
-            'vp_internal_email' => request('vp_internal_email'),
-            'vp_external_studno' => request('vp_external_studno'),
-            'vp_external_photo' => $vpExtPath,
-            'vp_external_name' => request('vp_external_name'),
-            'vp_external_email' => request('vp_external_email'),
-            'secretary_studno' => request('secretary_studno'),
-            'secretary_photo' => $secretaryPath,
-            'secretary_name' => request('secretary_name'),
-            'secretary_email' => request('secretary_email'),
-            'treasurer_studno' => request('treasurer_studno'),
-            'treasurer_photo' => $treasurerPath,
-            'treasurer_name' => request('treasurer_name'),
-            'treasurer_email' => request('treasurer_email'),
-            'auditor_studno' => request('auditor_studno'),
-            'auditor_photo' => $auditorPath,
-            'auditor_name' => request('auditor_name'),
-            'auditor_email' => request('auditor_email'),
-            'pro_studno' => request('pro_studno'),
-            'pro_photo' => $proPath,
-            'pro_name' => request('pro_name'),
-            'pro_email' => request('pro_email'),
         ];
     
         Organization::create($organizationData);
@@ -415,15 +353,7 @@ class OrganizationController extends Controller
         $constiPath = $this->handleFileUpload($request, 'consti_and_byLaws', 'storage/consti_and_byLaws/');
         $letterPath = $this->handleFileUpload($request, 'letter_of_intent', 'storage/letter_of_intent/');
         $adminEndorsementPath = $this->handleFileUpload($request, 'admin_endorsement', 'storage/admin_endorsement/');
-        $adviserPath = $this->handleFileUpload($request, 'adviser_photo', 'storage/organization_officer_photo/adviser_photo/');
-        $ausgRepPath = $this->handleFileUpload($request, 'ausg_rep_photo', 'storage/organization_officer_photo/ausg_rep_photo/');
-        $presidentPath = $this->handleFileUpload($request, 'president_photo', 'storage/organization_officer_photo/president_photo/');
-        $vpIntPath = $this->handleFileUpload($request, 'vp_internal_photo', 'storage/organization_officer_photo/vp_internal_photo/');
-        $vpExtPath = $this->handleFileUpload($request, 'vp_external_photo', 'storage/organization_officer_photo/vp_external_photo/');
-        $secretaryPath = $this->handleFileUpload($request, 'secretary_photo', 'storage/organization_officer_photo/secretary_photo/');
-        $treasurerPath = $this->handleFileUpload($request, 'treasurer_photo', 'storage/organization_officer_photo/treasurer_photo/');
-        $auditorPath = $this->handleFileUpload($request, 'auditor_photo', 'storage/organization_officer_photo/auditor_photo/');
-        $proPath = $this->handleFileUpload($request, 'pro_photo', 'storage/organization_officer_photo/pro_photo/');
+        
     
         $organizationData = [
             'requirement_status' => $total,
@@ -440,38 +370,37 @@ class OrganizationController extends Controller
             'letter_of_intent' => $letterPath,
             'admin_endorsement' => $adminEndorsementPath,
             'adviser_name' => request('adviser_name'),
-            'adviser_photo' => $adviserPath,
             'adviser_email' => request('adviser_email'),
             'ausg_rep_studno' => request('ausg_rep_studno'),
-            'ausg_rep_photo' => $ausgRepPath,
+
             'ausg_rep_name' => request('ausg_rep_name'),
             'ausg_rep_email' => request('ausg_rep_email'),
             'president_studno' => request('president_studno'),
-            'president_photo' => $presidentPath,
+
             'president_name' => request('president_name'),
             'president_email' => request('president_email'),
             'vp_internal_studno' => request('vp_internal_studno'),
-            'vp_internal_photo' => $vpIntPath,
+
             'vp_internal_name' => request('vp_internal_name'),
             'vp_internal_email' => request('vp_internal_email'),
             'vp_external_studno' => request('vp_external_studno'),
-            'vp_external_photo' => $vpExtPath,
+            
             'vp_external_name' => request('vp_external_name'),
             'vp_external_email' => request('vp_external_email'),
             'secretary_studno' => request('secretary_studno'),
-            'secretary_photo' => $secretaryPath,
+            
             'secretary_name' => request('secretary_name'),
             'secretary_email' => request('secretary_email'),
             'treasurer_studno' => request('treasurer_studno'),
-            'treasurer_photo' => $treasurerPath,
+            
             'treasurer_name' => request('treasurer_name'),
             'treasurer_email' => request('treasurer_email'),
             'auditor_studno' => request('auditor_studno'),
-            'auditor_photo' => $auditorPath,
+            
             'auditor_name' => request('auditor_name'),
             'auditor_email' => request('auditor_email'),
             'pro_studno' => request('pro_studno'),
-            'pro_photo' => $proPath,
+            
             'pro_name' => request('pro_name'),
             'pro_email' => request('pro_email'),
         ];
@@ -485,63 +414,162 @@ class OrganizationController extends Controller
     // Method to update org1_member_status for a specific position
     private function updateStudentRoles(Request $request)
     {
-        
+        $orgId = Session::get('orgId');
+        $org = Organization::where('id',$orgId)->first();
         $officerPositions = [
             'President' => 'president_studno',
-            'Student Leader' => ['ausg_rep_studno', 'vp_internal_studno', 'vp_external_studno', 'secretary_studno', 'treasurer_studno', 'auditor_studno', 'pro_studno'],
+            'AUSG_Rep' => 'ausg_rep_studno', 
+            'VP-I' => 'vp_internal_studno', 
+            'VP-E' => 'vp_external_studno', 
+            'Secretary' =>'secretary_studno', 
+            'Treasurer'=> 'treasurer_studno', 
+            'Auditor'=> 'auditor_studno', 
+            'Pro'=>'pro_studno',
         ];
-    
-        // Loop through each officer position and update the student role
-        foreach ($officerPositions as $position => $fields) {
-            // Check if the field is an array (for Student Leader) or a string (for President)
-            $field = is_array($fields) ? $fields : [$fields];
-            
-            foreach ($field as $inputField) {
-                $studentNo = $request->input($inputField);
-                
-                if ($studentNo) {
-                    // Validate student number format
-                    if (!preg_match('/^\d{9}$/', $studentNo)) {
-                        // Invalid student number format
-                        return redirect()->back()->with('error', 'Invalid student number format.');
-                    }
-                    
-                    // Find the student by their student number
-                    $student = Students::where('student_id', $studentNo)->first();
-                    
-                    if (!$student) {
-                        // Student not found
-                        return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' not found.');
-                    }
-                    
-                    // Check if the student is a member of organization1
-                if ($student->org1_member_status === 'Member') {
-                    // Update the student's role
-                    $student->org1_member_status = $position;
-                    $student->save();
 
-                    DB::table('student_organizations')
-                        ->where('studentId', $studentNo)
-                        ->update(['org1_memberstatus' => $position]);
-                    
-                    // If the student is a "Student Leader" and being promoted to "President", update their role
-                    if ($position === 'President' && $student->org1_member_status === 'Student Leader') {
-                        $student->org1_member_status = $position;
-                        $student->save();
+        
+
+        if($org->type_of_organization == "Academic"){
+        // Loop through each officer position and update the student role
+            foreach ($officerPositions as $position => $fields) {
+                // Check if the field is an array (for Student Leader) or a string (for President)
+                $field = is_array($fields) ? $fields : [$fields];
+                
+                foreach ($field as $inputField) {
+                    $studentNo = $request->input($inputField);
+                    if ($studentNo) {
+                        // Validate student number format
+                        if (!preg_match('/^\d{9}$/', $studentNo)) {
+                            // Invalid student number format
+                            return redirect()->back()->with('error', 'Invalid student number format.');
+                        }
+                        
+                        // Find the student by their student number
+                        $student = Students::where('student_id', $studentNo)->first();
+                        
+                        if (!$student) {
+                            // Student not found
+                            return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' not found.');
+                        }
+                        
+                        // Check if the student is a member of organization1
+                        if ($student->org1_member_status === 'Member') {
+                            // Update the student's role
+                            $student->organization1 = $org->nickname;
+                            $student->org1_member_status = $position;
+                            $student->save();
+
+                            DB::table('student_organizations')
+                                ->where('studentId', $studentNo)
+                                ->update([
+                                    'org1' => $org->nickname,
+                                    'org1_memberstatus' => $position]);
+                            
+                                // If the student is a "Student Leader" and being promoted to "President", update their role
+                                if ($position === 'President' && $student->org1_member_status === 'AUSG_Rep') {
+                                    $student->organization1 = $org->nickname;
+                                    $student->org1_member_status = $position;
+                                    $student->save();
+                                }
+                                
+                                // Update the student's organization role in student_organizations table
+                                DB::table('student_organizations')
+                                    ->where('studentId', $studentNo)
+                                    ->update([
+                                        'org1' => $org->nickname,
+                                        'org1_memberstatus' => $position]);
+                        } 
+                        elseif($student->org1_member_status == null && $student->org1 == null ) {
+                            $student->organization1 = $org->nickname;
+                            $student->org1_member_status = $position;
+                            $student->save();
+
+                            DB::table('student_organizations')
+                                ->where('studentId', $studentNo)
+                                ->update([
+                                    'org1' => $org->nickname,
+                                    'org1_memberstatus' => $position]);
+                            
+
+                            // If not a member of organization1, skip updating roles
+                            return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' is not a member of Organization1.');
+                        }
                     }
-                    
-                    // Update the student's organization role in student_organizations table
-                    DB::table('student_organizations')
-                        ->where('studentId', $studentNo)
-                        ->update(['org1_memberstatus' => $position]);
-                } else {
-                    // If not a member of organization1, skip updating roles
-                    return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' is not a member of Organization1.');
                 }
             }
         }
-    }
-    
+        else{
+            // Loop through each officer position and update the student role
+            foreach ($officerPositions as $position => $fields) {
+                // Check if the field is an array (for Student Leader) or a string (for President)
+                $field = is_array($fields) ? $fields : [$fields];
+                
+                foreach ($field as $inputField) {
+                    $studentNo = $request->input($inputField);
+                    
+                    if ($studentNo) {
+                        // Validate student number format
+                        if (!preg_match('/^\d{9}$/', $studentNo)) {
+                            // Invalid student number format
+                            return redirect()->back()->with('error', 'Invalid student number format.');
+                        }
+                        
+                        // Find the student by their student number
+                        $student = Students::where('student_id', $studentNo)->first();
+                        
+                        if (!$student) {
+                            // Student not found
+                            return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' not found.');
+                        }
+                        
+                        // Check if the student is a member of organization1
+                        if ($student->org2_member_status === 'Member') {
+                            // Update the student's role
+                            $student->organization2 = $org->nickname;
+                            $student->org2_member_status = $position;
+                            $student->save();
+
+                            DB::table('student_organizations')
+                                ->where('studentId', $studentNo)
+                                ->update([
+                                    'org2' => $org->nickname,
+                                    'org2_memberstatus' => $position]);
+                            
+                                // If the student is a "Student Leader" and being promoted to "President", update their role
+                                if ($position === 'President' && $student->org2_member_status === 'AUSG_Rep') {
+                                    $student->organization2 = $org->nickname;
+                                    $student->org2_member_status = $position;
+                                    $student->save();
+                                }
+                                
+                                // Update the student's organization role in student_organizations table
+                                DB::table('student_organizations')
+                                    ->where('studentId', $studentNo)
+                                    ->update([
+                                        'org2' => $org->nickname,
+                                        'org2_memberstatus' => $position]);
+                        } 
+                        elseif($student->org2_member_status == null && $student->org2 == null ) {
+                            $student->organization2 = $org->nickname;
+                            $student->org2_member_status = $position;
+                            $student->save();
+
+                            DB::table('student_organizations')
+                                ->where('studentId', $studentNo)
+                                ->update([
+                                    'org2' => $org->nickname,
+                                    'org2_memberstatus' => $position]);
+                            
+
+                            // If not a member of organization1, skip updating roles
+                            return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' is not a member of Organization1.');
+                        }
+                    }
+                }
+            }
+
+        }
+        
         return redirect()->back()->with('success', 'Student roles updated successfully.');
     }
 
@@ -565,7 +593,7 @@ class OrganizationController extends Controller
         
         $id = $request->route('id');
         $org = Organization::find($id);
-        $this->updateStudentRoles($request);
+        
 	    return view('OSA.organization_pending_edit')->with('org',$org);
         
     }
@@ -589,6 +617,7 @@ class OrganizationController extends Controller
         
         $id = $request->route('id');
         $org = Organization::find($id);
+        Session::put('orgId', $id);
         $this->updateStudentRoles($request);
 	    return view('Admin.org_pending')->with('org',$org);
         
@@ -607,6 +636,7 @@ class OrganizationController extends Controller
     
     public function org_pending_edit_save(Request $request, $id)
     {
+        Session::put('orgId', $id);
         $this->updateStudentRoles($request);
         if ($request->has('edited') ) {
             $orgId = $id;
@@ -650,15 +680,7 @@ class OrganizationController extends Controller
                     'consti_and_byLaws' => 'storage/consti_and_byLaws/',
                     'letter_of_intent' => 'storage/letter_of_intent/',
                     'admin_endorsement' => 'storage/admin_endorsement/',
-                    'adviser_photo' => 'storage/organization_officer_photo/adviser_photo/',
-                    'ausg_rep_photo' => 'storage/organization_officer_photo/ausg_rep_photo/',
-                    'president_photo' => 'storage/organization_officer_photo/president_photo/',
-                    'vp_internal_photo' => 'storage/organization_officer_photo/vp_internal_photo/',
-                    'vp_external_photo' => 'storage/organization_officer_photo/vp_external_photo/',
-                    'secretary_photo' => 'storage/organization_officer_photo/secretary_photo/',
-                    'treasurer_photo' => 'storage/organization_officer_photo/treasurer_photo/',
-                    'auditor_photo' => 'storage/organization_officer_photo/auditor_photo/',
-                    'pro_photo' => 'storage/organization_officer_photo/pro_photo/',
+                    
                 ];
 
                 foreach ($imageFields as $field => $directory) {
@@ -721,6 +743,7 @@ class OrganizationController extends Controller
                 $org->pro_studno = $request->input('pro_studno');
                 $org->pro_name = $request->input('pro_name');
                 $org->pro_email = $request->input('pro_email');
+                $org->filedBy = null;
                 // Save the changes to the organization
                 $org->save();
 
@@ -736,15 +759,7 @@ class OrganizationController extends Controller
                     'consti_and_byLaws' => 'storage/consti_and_byLaws/',
                     'letter_of_intent' => 'storage/letter_of_intent/',
                     'admin_endorsement' => 'storage/admin_endorsement/',
-                    'adviser_photo' => 'storage/organization_officer_photo/adviser_photo/',
-                    'ausg_rep_photo' => 'storage/organization_officer_photo/ausg_rep_photo/',
-                    'president_photo' => 'storage/organization_officer_photo/president_photo/',
-                    'vp_internal_photo' => 'storage/organization_officer_photo/vp_internal_photo/',
-                    'vp_external_photo' => 'storage/organization_officer_photo/vp_external_photo/',
-                    'secretary_photo' => 'storage/organization_officer_photo/secretary_photo/',
-                    'treasurer_photo' => 'storage/organization_officer_photo/treasurer_photo/',
-                    'auditor_photo' => 'storage/organization_officer_photo/auditor_photo/',
-                    'pro_photo' => 'storage/organization_officer_photo/pro_photo/',
+                    
                 ];
 
                 foreach ($imageFields as $field => $directory) {
@@ -807,6 +822,7 @@ class OrganizationController extends Controller
                 $org->pro_studno = $request->input('pro_studno');
                 $org->pro_name = $request->input('pro_name');
                 $org->pro_email = $request->input('pro_email');
+                $org->filedBy = null;
                 // Save the changes to the organization
                 $org->save();
 
@@ -841,6 +857,7 @@ class OrganizationController extends Controller
 
     public function org_pending_save(Request $request, $id)
     {
+        Session::put('orgId', $id);
         $this->updateStudentRoles($request);
         if ($request->has('edited')) {
             $orgId = $id;
@@ -884,15 +901,7 @@ class OrganizationController extends Controller
                 'consti_and_byLaws' => 'storage/consti_and_byLaws/',
                 'letter_of_intent' => 'storage/letter_of_intent/',
                 'admin_endorsement' => 'storage/admin_endorsement/',
-                'adviser_photo' => 'storage/organization_officer_photo/adviser_photo/',
-                'ausg_rep_photo' => 'storage/organization_officer_photo/ausg_rep_photo/',
-                'president_photo' => 'storage/organization_officer_photo/president_photo/',
-                'vp_internal_photo' => 'storage/organization_officer_photo/vp_internal_photo/',
-                'vp_external_photo' => 'storage/organization_officer_photo/vp_external_photo/',
-                'secretary_photo' => 'storage/organization_officer_photo/secretary_photo/',
-                'treasurer_photo' => 'storage/organization_officer_photo/treasurer_photo/',
-                'auditor_photo' => 'storage/organization_officer_photo/auditor_photo/',
-                'pro_photo' => 'storage/organization_officer_photo/pro_photo/',
+                
             ];
 
             foreach ($imageFields as $field => $directory) {
@@ -1067,7 +1076,7 @@ class OrganizationController extends Controller
                         $org->$field = $fileName;
                     } elseif (is_null($org->$field)) {
                         $org->$field = null;
-                        $percentage -= 1;
+                        
                     }
                 }
 
@@ -1104,10 +1113,10 @@ class OrganizationController extends Controller
     }
 
     public function president_org_edit_save(Request $request, $id){
+        Session::put('orgId', $id);
+        $org = Organization::find($id);
         $this->updateStudentRoles($request);
         if ($request->has('edited') ) {
-            $orgId = $id;
-            $org = Organization::findOrFail($orgId);
             if($org->requirement_status == 'complete'){
 
                 // Handle file uploads
@@ -1116,15 +1125,7 @@ class OrganizationController extends Controller
                     'consti_and_byLaws' => 'storage/consti_and_byLaws/',
                     'letter_of_intent' => 'storage/letter_of_intent/',
                     'admin_endorsement' => 'storage/admin_endorsement/',
-                    'adviser_photo' => 'storage/organization_officer_photo/adviser_photo/',
-                    'ausg_rep_photo' => 'storage/organization_officer_photo/ausg_rep_photo/',
-                    'president_photo' => 'storage/organization_officer_photo/president_photo/',
-                    'vp_internal_photo' => 'storage/organization_officer_photo/vp_internal_photo/',
-                    'vp_external_photo' => 'storage/organization_officer_photo/vp_external_photo/',
-                    'secretary_photo' => 'storage/organization_officer_photo/secretary_photo/',
-                    'treasurer_photo' => 'storage/organization_officer_photo/treasurer_photo/',
-                    'auditor_photo' => 'storage/organization_officer_photo/auditor_photo/',
-                    'pro_photo' => 'storage/organization_officer_photo/pro_photo/',
+                    
                 ];
 
                 foreach ($imageFields as $field => $directory) {
@@ -1141,7 +1142,7 @@ class OrganizationController extends Controller
                         $org->$field = $fileName;
                     } elseif (is_null($org->$field)) {
                         $org->$field = null;
-                        $percentage -= 1;
+                        
                     }
                 }
 
@@ -1190,8 +1191,13 @@ class OrganizationController extends Controller
                 // Save the changes to the organization
                 $org->save();
                 
-
+                if($request->input('type_of_organization') == "Academic"){
                 return Redirect('/student/org1_page')->with('success', 'You have updated ' . $org->name);
+                }
+                else{
+                    return Redirect('/student/org2_page')->with('success', 'You have updated ' . $org->name);
+
+                }
 
             }
         }
@@ -1241,6 +1247,36 @@ class OrganizationController extends Controller
             Session::put('orgname', $orgname);
             return redirect('paypal-payment');
 
+        }
+        
+    }
+
+    public function cancel_register($id, Request $request){
+
+
+        $user = Auth::user();
+        $userId = $user->id;
+        // Student No
+
+        // Retrieve the student record
+        $student = DB::table('students')->where('student_id','=' ,$userId)->first();
+        $studentId = $student->student_id;
+        
+        $student_org = DB::table('student_organizations')->where('studentid', '=', $studentId)->first(); // Use first() to get a single object
+        $student_pos = $student_org->org1_memberstatus;
+        $courseId = $student_org->course;
+        
+        $id = $request->route('id');
+        $org = Organization::find($id);
+        $orgid = $org->id;
+        $orgname = $org->name;
+
+        
+
+        if(($student_org->org2 != null && $student_org->org2_memberstatus != null) && ($student->organization2 != null && $student->org2_member_status!=null)){
+            DB::table('student_organizations')->where('studentId',$userId)->update(['org2' => null, 'org2_memberstatus' => null]);
+            DB::table('students')->where('student_id',$userId)->update(['organization2'=> null, 'org2_member_status'=> null]);
+            return redirect()->back()->with('success', "You had canceled your membership");
         }
         
     }

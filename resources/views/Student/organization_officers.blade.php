@@ -1,7 +1,6 @@
-@extends('navbar.admin_nav')
-
+@extends('navbar.navbar_student')
 @section('content')
-<form action="/checkOfficers/admin" method="POST" style="margin-top: 7%;">
+<form action="/checkOfficers/president" method="POST" style="margin-top: 7%;">
     @csrf
     <input type="hidden" id="clickedButton" name="clickedButton" value="">
     <center>
@@ -152,7 +151,7 @@
                     </div><br><br>
                 </div>
             </form>
-            <form action="/save_officers/admin/{{$org->id}}">
+            <form action="/save_officers/president/{{$org->id}}">
                 <input type="text" placeholder="{{$org->president_studno}}" value="{{$org->president_studno}}" class="form-control" id="president_studno" name="president_studno" maxlength="9" hidden>
                 <input type="text" placeholder="{{$org->ausg_rep_studno}}" value="{{$org->ausg_rep_studno}}" class="form-control" id="ausg_rep_studno" name="ausg_rep_studno" maxlength="9" hidden>
                 <input type="text" placeholder="{{$org->vp_internal_studno}}" value="{{$org->vp_internal_studno}}"  class="form-control" id="vp_internal_studno" name="vp_internal_studno" maxlength="9" hidden>

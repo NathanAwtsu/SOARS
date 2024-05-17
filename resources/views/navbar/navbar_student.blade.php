@@ -176,6 +176,10 @@
                                 </a>
                             </li>
                             
+                            @php
+                            $org = \App\Models\StudentOrganization::where('studentId', Auth::user()->id)->first();
+                            @endphp
+                            @if(isset($org->org1))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('/student/org1_page/')}}" style="color:white;">
                                     <i class="fas fa-user-friends" style="margin-right: 20px; font-size: 25px;"></i>
@@ -185,6 +189,7 @@
                                     @endphp
                                 </a>
                             </li>
+                            @endif
 
                             @php
                             $org2 = \App\Models\StudentOrganization::where('studentId', Auth::user()->id)->first();
@@ -222,6 +227,15 @@
                                     <div class="d-flex align-items-center" style="margin-left: -4px;">
                                         <i class="fa-solid fa-users fa-lg" style="margin-right: 18px; font-size: 25px;"></i>
                                         Organization List
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/petition" style="color:white;  padding-left: 15px; ">
+                                    <div class="d-flex align-items-center" style="margin-left: -4px;">
+                                        <i class="fa-solid fa-users fa-lg" style="margin-right: 18px; font-size: 25px;"></i>
+                                        Petition for New Organization
                                     </div>
                                 </a>
                             </li>

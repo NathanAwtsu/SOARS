@@ -7,10 +7,13 @@ use App\Events\ChatifyEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Organization;
+use App\Models\Students;
+use App\Models\StudentOrganization;
 use App\Models\Announcement;
 use App\Models\Registrations;
 
@@ -380,5 +383,411 @@ class OsaController extends Controller
 
         
         $pdf->Output('certificate.pdf', 'D');
+    }
+
+    public function edit_officers($id){
+        $org = Organization::where('id', $id)->first();
+        $orgID = $org->id;
+        $sesh = Session::put('orgID',$orgID);
+        return view('OSA.organization_officers')
+        ->with('org', $org);
+    }
+
+    public function checkOfficer(Request $request){// Get User ID
+            $activeUser = Session::get('orgID');
+            $field = $request->input('clickedButton');
+            $studentNumber = $request->input($field);
+            // Retrieve the user data from the User table
+            $student = User::where('id', $studentNumber)->where('email_verified_at', '!=', null)->first();
+            $verify1 = Students::where('student_id',$studentNumber)->first();
+            $verify2 = StudentOrganization::where('studentId', $studentNumber)->first();
+            $orgCheck = Organization::where('id', $activeUser)->first();
+            
+            //Check Student Table
+            if($verify1->organization1 == $orgCheck->nickname){
+
+                $orgUpdated = Organization::where('id', $activeUser)->update([$field => $studentNumber]);
+
+                // Check if the update was successful
+                if ($orgUpdated !== false) {
+                    // Retrieve the updated organization record
+                    $updatedOrg = Organization::where('id', $activeUser)->first();
+                    // Get the next two columns to update
+                    $nextField1 = $this->getNextField($field);
+                    $nextField2 = $this->getNextField($nextField1);
+                    // Update the organization record with user data in the next two columns
+                    $orgData = [
+                        $nextField1 => $student->name,
+                        $nextField2 => $student->email,
+                    ];
+
+                    // Update the organization record with user data
+                    $org = Organization::where('id', $activeUser)->update($orgData);
+
+                    if ($org !== false) {
+                        $organization = Organization::where('id', $activeUser)->get();
+                        
+                        
+                        return redirect('/edit_officers/'.$activeUser)->with(['success' => 'Student number exists and email is verified.', 'field' => $field]);
+                    } 
+                    else {
+                        return redirect()->back()->with('error', 'Failed to update organization record with user data.');
+                    }
+
+                } 
+
+                else {
+                    return redirect()->back()->with('error', 'Failed to update organization record.');
+                }
+
+            }
+            elseif($verify1->organization2 == $orgCheck->nickname){
+
+                $orgUpdated = Organization::where('id', $activeUser)->update([$field => $studentNumber]);
+
+                // Check if the update was successful
+                if ($orgUpdated !== false) {
+                    // Retrieve the updated organization record
+                    $updatedOrg = Organization::where('id', $activeUser)->first();
+                    // Get the next two columns to update
+                    $nextField1 = $this->getNextField($field);
+                    $nextField2 = $this->getNextField($nextField1);
+                    // Update the organization record with user data in the next two columns
+                    $orgData = [
+                        $nextField1 => $student->name,
+                        $nextField2 => $student->email,
+                    ];
+
+                    // Update the organization record with user data
+                    $org = Organization::where('id', $activeUser)->update($orgData);
+
+                    if ($org !== false) {
+                        $organization = Organization::where('id', $activeUser)->get();
+                        
+
+                        return redirect()->back()->with(['success' => 'Student number exists and email is verified.', 'field' => $field]);
+                    } 
+                    else {
+                        return redirect()->back()->with('error', 'Failed to update organization record with user data.');
+                    }
+
+                } 
+
+                else {
+                    return redirect()->back()->with('error', 'Failed to update organization record.');
+                }
+
+            }
+
+            $checkStudentTable = Students::where('student_id', $studentNumber)
+            ->where(function ($query) {
+                $query->where('org1_member_status', 'President')
+                    ->orWhere('org1_member_status', 'AUSG_Rep')
+                    ->orWhere('org1_member_status', 'VP-I')
+                    ->orWhere('org1_member_status', 'VP-E')
+                    ->orWhere('org1_member_status', 'Secretary')
+                    ->orWhere('org1_member_status', 'Treasurer')
+                    ->orWhere('org1_member_status', 'Auditor')
+                    ->orWhere('org1_member_status', 'Pro');
+            })
+            ->orWhere(function ($query) {
+                $query->where('org2_member_status', 'President')
+                    ->orWhere('org2_member_status', 'AUSG_Rep')
+                    ->orWhere('org2_member_status', 'VP-I')
+                    ->orWhere('org2_member_status', 'VP-E')
+                    ->orWhere('org2_member_status', 'Secretary')
+                    ->orWhere('org2_member_status', 'Treasurer')
+                    ->orWhere('org2_member_status', 'Auditor')
+                    ->orWhere('org2_member_status', 'Pro');
+            })->first();
+            
+
+            
+            $checkStudent_OrgTable = StudentOrganization::where('studentId', $studentNumber)
+            ->where(function ($query) {
+                $query->where('org1_memberstatus', 'President')
+                    ->orWhere('org1_memberstatus', 'AUSG_Rep')
+                    ->orWhere('org1_memberstatus', 'VP-I')
+                    ->orWhere('org1_memberstatus', 'VP-E')
+                    ->orWhere('org1_memberstatus', 'Secretary')
+                    ->orWhere('org1_memberstatus', 'Treasurer')
+                    ->orWhere('org1_memberstatus', 'Auditor')
+                    ->orWhere('org1_memberstatus', 'Pro');
+            })
+            ->orWhere(function ($query) {
+                $query->where('org2_memberstatus', 'President')
+                    ->orWhere('org2_memberstatus', 'AUSG_Rep')
+                    ->orWhere('org2_memberstatus', 'VP-I')
+                    ->orWhere('org2_memberstatus', 'VP-E')
+                    ->orWhere('org2_memberstatus', 'Secretary')
+                    ->orWhere('org2_memberstatus', 'Treasurer')
+                    ->orWhere('org2_memberstatus', 'Auditor')
+                    ->orWhere('org2_memberstatus', 'Pro');
+            })->first();
+            
+
+            if(isset($checkStudent) || isset($checkStudent_OrgTable)){
+                return redirect()->back()->with(['error' => 'Student is already a Student Leader in another Organization', 'field' => $field]);
+            }
+
+            
+        
+
+            if ($student != null && $checkStudentTable == null && $checkStudent_OrgTable == null && ($verify1 != null && $verify2 != null)) {
+                // Update the organization record with the student number
+                $orgUpdated = Organization::where('id', $activeUser)->update([$field => $studentNumber]);
+
+                // Check if the update was successful
+                if ($orgUpdated !== false) {
+                    // Retrieve the updated organization record
+                    $updatedOrg = Organization::where('id', $activeUser)->first();
+                    // Get the next two columns to update
+                    $nextField1 = $this->getNextField($field);
+                    $nextField2 = $this->getNextField($nextField1);
+                    // Update the organization record with user data in the next two columns
+                    $orgData = [
+                        $nextField1 => $student->name,
+                        $nextField2 => $student->email,
+                    ];
+
+                    // Update the organization record with user data
+                    $org = Organization::where('id', $activeUser)->update($orgData);
+
+                    if ($org !== false) {
+                        $organization = Organization::where('id', $activeUser)->get();
+                        
+
+                        return redirect()->back()->with(['success' => 'Student number exists and email is verified.', 'field' => $field]);
+                    } 
+                    else {
+                        return redirect()->back()->with('error', 'Failed to update organization record with user data.');
+                    }
+
+                } 
+
+                else {
+                    return redirect()->back()->with('error', 'Failed to update organization record.');
+                }
+
+
+            } else {
+                return redirect()->back()->with(['error' => 'Student number does not exist or email is not verified.', 'field' => $field]);
+            }
+        }
+        
+        // Helper function to get the next field name
+    private function getNextField($currentField)
+    {
+        // Extract the position (e.g., "vp_internal_studno" becomes "vp_internal")
+        
+        // Determine the next column name based on the current position
+        switch ($currentField) {
+            case 'president_studno':
+                return 'president_name';
+            case 'president_name':
+                return 'president_email';
+
+            case 'ausg_rep_studno':
+                return 'ausg_rep_name';
+            case 'ausg_rep_name':
+                return 'ausg_rep_email';
+
+            case 'vp_internal_studno':
+                return 'vp_internal_name';
+            case 'vp_internal_name':
+                return 'vp_internal_email';
+
+            case 'vp_external_studno':
+                return 'vp_external_name';
+            case 'vp_external_name':
+                return 'vp_external_email';
+
+            case 'secretary_studno':
+                return 'secretary_name';
+            case 'secretary_name':
+                return 'secretary_email';
+
+            case 'treasurer_studno':
+                return 'treasurer_name';
+            case 'treasurer_name':
+                return 'treasurer_email';
+
+            case 'auditor_studno':
+                return 'auditor_name';
+            case 'auditor_name':
+                return 'auditor_email';
+
+            case 'pro_studno':
+                return 'pro_name';
+            case 'pro_name':
+                return 'pro_email';
+
+            default:
+                return ''; // Handle other cases if necessary
+        }
+    }
+
+    
+
+    public function save_officers(Request $request, $id){
+        Session::put('orgId', $id);
+        $org = Organization::find($id);
+        $this->updateStudentRoles($request);
+        return redirect('/osaemp/organization_list/organization_page/'.$id);
+
+    }
+
+    private function updateStudentRoles(Request $request)
+    {
+        $orgId = Session::get('orgID');
+        $org = Organization::where('id',$orgId)->first();
+        $officerPositions = [
+            'President' => 'president_studno',
+            'AUSG_Rep' => 'ausg_rep_studno', 
+            'VP-I' => 'vp_internal_studno', 
+            'VP-E' => 'vp_external_studno', 
+            'Secretary' =>'secretary_studno', 
+            'Treasurer'=> 'treasurer_studno', 
+            'Auditor'=> 'auditor_studno', 
+            'Pro'=>'pro_studno',
+        ];
+
+        
+
+        if($org->type_of_organization == "Academic"){
+        // Loop through each officer position and update the student role
+            foreach ($officerPositions as $position => $fields) {
+                // Check if the field is an array (for Student Leader) or a string (for President)
+                $field = is_array($fields) ? $fields : [$fields];
+                foreach ($field as $inputField) {
+                    $studentNo = $request->input($inputField);
+                    
+                    if ($studentNo) {
+                        
+                        
+                        // Find the student by their student number
+                        
+                        $student = Students::where('student_id', $studentNo)->first();
+                        
+                        
+                        // Check if the student is a member of organization1
+                        
+                            // Update the student's role
+                            $student->organization1 = $org->nickname;
+                            $student->org1_member_status = $position;
+                            $student->save();
+
+                            DB::table('student_organizations')
+                                ->where('studentId', $studentNo)
+                                ->update([
+                                    'org1' => $org->nickname,
+                                    'org1_memberstatus' => $position]);
+                            
+                                // If the student is a "Student Leader" and being promoted to "President", update their role
+                                if ($position === 'President' && $student->org1_member_status === 'AUSG_Rep') {
+                                    $student->organization1 = $org->nickname;
+                                    $student->org1_member_status = $position;
+                                    $student->save();
+                                }
+                                
+                                // Update the student's organization role in student_organizations table
+                                DB::table('student_organizations')
+                                    ->where('studentId', $studentNo)
+                                    ->update([
+                                        'org1' => $org->nickname,
+                                        'org1_memberstatus' => $position]);
+                        if($student->org1_member_status == null && $student->org1 == null ) {
+                            $student->organization1 = $org->nickname;
+                            $student->org1_member_status = $position;
+                            $student->save();
+
+                            DB::table('student_organizations')
+                                ->where('studentId', $studentNo)
+                                ->update([
+                                    'org1' => $org->nickname,
+                                    'org1_memberstatus' => $position]);
+                            
+
+                            // If not a member of organization1, skip updating roles
+                            return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' is not a member of Organization1.');
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            // Loop through each officer position and update the student role
+            foreach ($officerPositions as $position => $fields) {
+                // Check if the field is an array (for Student Leader) or a string (for President)
+                $field = is_array($fields) ? $fields : [$fields];
+                
+                foreach ($field as $inputField) {
+                    $studentNo = $request->input($inputField);
+                    
+                    if ($studentNo) {
+                        // Validate student number format
+                        if (!preg_match('/^\d{9}$/', $studentNo)) {
+                            // Invalid student number format
+                            return redirect()->back()->with('error', 'Invalid student number format.');
+                        }
+                        
+                        // Find the student by their student number
+                        $student = Students::where('student_id', $studentNo)->first();
+                        
+                        if (!$student) {
+                            // Student not found
+                            
+                            return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' not found.');
+                        }
+                        
+                        // Check if the student is a member of organization1
+                        if ($student->org2_member_status === 'Member') {
+                            // Update the student's role
+                            $student->organization2 = $org->nickname;
+                            $student->org2_member_status = $position;
+                            $student->save();
+
+                            DB::table('student_organizations')
+                                ->where('studentId', $studentNo)
+                                ->update([
+                                    'org2' => $org->nickname,
+                                    'org2_memberstatus' => $position]);
+                            
+                                // If the student is a "Student Leader" and being promoted to "President", update their role
+                                if ($position === 'President' && $student->org2_member_status === 'AUSG_Rep') {
+                                    $student->organization2 = $org->nickname;
+                                    $student->org2_member_status = $position;
+                                    $student->save();
+                                }
+                                
+                                // Update the student's organization role in student_organizations table
+                                DB::table('student_organizations')
+                                    ->where('studentId', $studentNo)
+                                    ->update([
+                                        'org2' => $org->nickname,
+                                        'org2_memberstatus' => $position]);
+                        } 
+                        elseif($student->org2_member_status == null && $student->org2 == null ) {
+                            $student->organization2 = $org->nickname;
+                            $student->org2_member_status = $position;
+                            $student->save();
+
+                            DB::table('student_organizations')
+                                ->where('studentId', $studentNo)
+                                ->update([
+                                    'org2' => $org->nickname,
+                                    'org2_memberstatus' => $position]);
+                            
+
+                            // If not a member of organization1, skip updating roles
+                            return redirect()->back()->with('error', 'Student with student number ' . $studentNo . ' is not a member of Organization1.');
+                        }
+                    }
+                }
+            }
+
+        }
+        
+        return redirect()->back()->with('success', 'Student roles updated successfully.');
     }
 }
